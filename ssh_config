@@ -1,0 +1,6 @@
+Host bitbucket.org
+  AddKeysToAgent yes
+  IdentityFile ~/.ssh/bitbucket-ssh
+Host github.com
+  AddKeysToAgent yes
+  IdentityFile ~/.ssh/github-ssh
