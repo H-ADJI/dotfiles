@@ -103,10 +103,20 @@ source $ZSH/oh-my-zsh.sh
 PATH="$HOME/.local/bin:$PATH"
 PATH="$HOME/nvim/bin:$PATH"
 PATH=$PATH:/usr/local/go/bin
+GOPATH="$HOME/go"
+PATH=$PATH:$GOPATH/bin
+PATH=$PATH:$HOME/Goland/bin
+# Colors for ssh
+TERM="xterm-256color"
+alias goland="goland.sh &"
 alias py="python3.9"
 alias nv="nvim"
 alias venv_create="py -m venv venv"
 alias venv_activate="source ./venv/bin/activate"
 alias notebook="jupyter notebook"
 alias shub_deploy="shub image upload $SHUB_DEVZONE --build-arg PYPI_SECRET=$PYPI_SECRET"
-alias see_yaa="sudo rtcwake -m off -t $(date -d 'tomorrow 07:00:00' +%s)"
+alias see_yaa="sudo rtcwake -m off -t $(date -d 'tomorrow 07:30:00' +%s)"
+alias hssh="ssh hunter@192.168.1.172"
+alias rssh="ssh hunter@centreize.ddns.net -p 16384"
+alias hx="helix"
+
