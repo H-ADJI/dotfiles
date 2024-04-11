@@ -110,3 +110,7 @@ alias venv_activate="source ./venv/bin/activate"
 alias notebook="jupyter notebook"
 alias shub_deploy="shub image upload $SHUB_DEVZONE --build-arg PYPI_SECRET=$PYPI_SECRET"
 alias see_yaa="sudo rtcwake -m off -t $(date -d 'tomorrow 07:00:00' +%s)"
+alias connect_speaker="echo 'connect 10:94:97:36:C7:15' | bluetoothctl"
+alias disconnect_bluetooth="echo 'disconnect' | bluetoothctl"
+
+
