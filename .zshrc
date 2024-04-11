@@ -119,4 +119,8 @@ alias see_yaa="sudo rtcwake -m off -t $(date -d 'tomorrow 07:30:00' +%s)"
 alias hssh="ssh hunter@192.168.1.172"
 alias rssh="ssh hunter@centreize.ddns.net -p 16384"
 alias hx="helix"
+alias see_yaa="sudo rtcwake -m off -t $(date -d 'tomorrow 07:00:00' +%s)"
+alias connect_speaker="echo 'connect 10:94:97:36:C7:15' | bluetoothctl"
+alias disconnect_bluetooth="echo 'disconnect' | bluetoothctl"
+
 
