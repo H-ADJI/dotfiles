@@ -71,7 +71,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git direnv)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -103,24 +103,25 @@ source $ZSH/oh-my-zsh.sh
 PATH="$HOME/.local/bin:$PATH"
 PATH="$HOME/nvim/bin:$PATH"
 PATH=$PATH:/usr/local/go/bin
-GOPATH="$HOME/go"
-PATH=$PATH:$GOPATH/bin
-PATH=$PATH:$HOME/Goland/bin
-# Colors for ssh
-TERM="xterm-256color"
-alias goland="goland.sh &"
 alias py="python3.9"
 alias nv="nvim"
 alias venv_create="py -m venv venv"
 alias venv_activate="source ./venv/bin/activate"
 alias notebook="jupyter notebook"
 alias shub_deploy="shub image upload $SHUB_DEVZONE --build-arg PYPI_SECRET=$PYPI_SECRET"
-alias see_yaa="sudo rtcwake -m off -t $(date -d 'tomorrow 07:30:00' +%s)"
-alias hssh="ssh hunter@192.168.1.172"
-alias rssh="ssh hunter@centreize.ddns.net -p 16384"
-alias hx="helix"
 alias see_yaa="sudo rtcwake -m off -t $(date -d 'tomorrow 07:00:00' +%s)"
 alias connect_speaker="echo 'connect 10:94:97:36:C7:15' | bluetoothctl"
 alias disconnect_bluetooth="echo 'disconnect' | bluetoothctl"
+alias cpc="xclip -sel c"
+alias list_devices="ls /home/khalil/.android/avd"
+alias launch_device='/home/khalil/Android/Sdk/emulator/emulator -avd Pixel_XL_API_31 -writable-system '
+alias androidStudio="/home/khalil/android-studio/bin/studio.sh"
 
-
+function cd() {
+    builtin cd "$@"  # Call the built-in cd command
+    if [ -f "./venv/bin/activate" ]; then
+        source ./venv/bin/activate
+        echo "Activated venv in $(pwd)"
+    fi
+}
+export DIRENV_LOG_FORMAT=""
