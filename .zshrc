@@ -172,3 +172,31 @@ alias ls="eza --color=always --git --no-filesize --icons=always --no-time --no-u
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# for scrapy fuzzy search
+scrapy_fzf_insert() {
+    # Run FZF with a custom appearance
+    local spider=$(scrapy list 2>/dev/null | fzf \
+        --height 40% \
+        --layout=reverse \
+        --border \
+        # --color=border:brightblack,gutter:-1,prompt:brightcyan,spinner:green,hl:yellow,fg:default,fg+:white,bg+:24,hl+:yellow \
+        --prompt="Select Spider: " \
+        --pointer="▶ " \
+        --marker="✔ " \
+        --preview="echo 'Spider: {}'" \
+        --preview-window=down:1:wrap)
+
+    # Insert the selected spider name into the command line
+    if [ -n "$spider" ]; then
+        LBUFFER="${LBUFFER}${spider} "
+    fi
+    zle redisplay
+}
+
+# Define the widget and bind it to Ctrl+g
+zle -N scrapy_fzf_insert
+bindkey '^g' scrapy_fzf_insert
