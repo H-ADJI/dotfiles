@@ -1,0 +1,39 @@
+layout {
+    cwd "~/braxes-desktop/"
+    tab_template name="generic-tab" {
+        pane size=1 borderless=true {
+            plugin location="tab-bar"
+        }
+        children
+        pane size=1 borderless=true {
+            plugin location="status-bar"
+        }
+    }
+    generic-tab {
+        pane edit="."
+    }
+    generic-tab cwd="~/braxes-backend/" {
+        pane edit="~/braxes-backend/main.go"
+    }
+    generic-tab {
+        pane split_direction="vertical" {
+            pane {
+                command "npm"
+                args "run" "dev-js"
+            }
+            pane {
+                command "npm"
+                args "run" "dev-js"
+            }
+        }
+        pane split_direction="vertical" {
+            pane {
+                command "npm"
+                args "run" "dev-start"
+            }
+            pane cwd="~/braxes-backend/" {
+                command "air"
+            }
+        }
+    }
+}

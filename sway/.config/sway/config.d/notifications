@@ -1,0 +1,17 @@
+# notification mode
+set {
+  $notification "Notifications : dismiss [A]ll or [L]ast"
+
+  $notif-cmd fnottctl dismiss
+}
+# bindsym --to-code $mod+n mode $notification
+mode $notification {
+  bindsym --to-code {
+    l exec $notif-cmd , mode "notification"
+    a mode "default", exec $notif-cmd all
+
+    Return mode "default"
+    Escape mode "default"
+    $mod+x mode "default"
+  }
+}

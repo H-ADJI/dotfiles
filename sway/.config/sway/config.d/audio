@@ -1,0 +1,25 @@
+set $mod Mod4
+# Audio controls
+bindsym {
+    # Volume
+    XF86AudioRaiseVolume exec amixer -q -D pipewire sset Master 5%+ 
+    XF86AudioLowerVolume exec amixer -q -D pipewire sset Master 5%-
+    XF86AudioMute exec amixer -q -D pipewire sset Master toggle 
+
+    # Microphone
+    $mod+XF86AudioRaiseVolume exec amixer -q -D pipewire sset Capture 5%+ 
+    $mod+XF86AudioLowerVolume exec amixer -q -D pipewire sset Capture 5%-
+    $mod+m exec amixer -q -D pipewire sset Capture toggle 
+    
+    # Player
+    XF86AudioPlay exec playerctl play-pause
+    XF86AudioNext exec playerctl next
+    XF86AudioPrev exec playerctl previous
+    Shift+XF86AudioRaiseVolume exec playerctl next
+    Shift+XF86AudioLowerVolume exec playerctl previous
+    XF86AudioStop exec playerctl stop
+
+    # Backlight
+    XF86MonBrightnessUp exec brightnessctl -c backlight set +5%
+    XF86MonBrightnessDown exec brightnessctl -c backlight set 5%-
+}

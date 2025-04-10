@@ -1,0 +1,45 @@
+set $mod Mod4
+# Set default terminal emulator
+set $term alacritty
+# Launch the terminal
+bindsym $mod+Return exec $term
+
+# Set default browser
+set $browser brave
+# Launch the browser
+bindsym $mod+o exec $browser
+
+# Application launcher
+set $launcher fuzzel
+# Start your launcher
+bindsym $mod+d exec $launcher
+
+# Application menu
+set $menu nwg-drawer
+# Menu
+bindsym $mod+Shift+d exec $menu
+
+# Power Menu
+set $powermenu ~/.config/sway/scripts/power_menu.sh
+# Open the power menu
+bindsym $mod+Shift+e exec $powermenu
+
+# Lock screen
+bindsym $mod+f1 exec gtklock
+
+# Activities
+bindsym $mod+p exec ~/.config/sway/scripts/window_switcher.sh
+
+# Launch the file explorer
+bindsym $mod+n exec thunar
+
+# Launch the clipboard manager
+bindsym $mod+Ctrl+v exec cliphist list | fuzzel -d -w 90 -l 30 -p "Select an entry to copy it to your clipboard buffer:"| cliphist decode | wl-copy
+# Delete an entry from the clipboard manager
+bindsym $mod+Ctrl+x exec cliphist list | fuzzel -d -w 90 -l 30 -t cc9393ff -S cc9393ff -p "Select an entry to delete it from cliphist:"| cliphist delete
+# Note: you can clear all cliphist entries by running `cliphist wipe`
+
+# Focus timer 
+bindsym $mod+t exec ~/.config/sway/scripts/focus_timer.sh
+# Android emulator
+bindsym $mod+Shift+a exec ~/.config/sway/scripts/emulator.sh
