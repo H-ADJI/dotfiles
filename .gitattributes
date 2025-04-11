@@ -1,5 +1,6 @@
 #pattern  filter=crypt diff=crypt merge=crypt
 #
 secrets/*  filter=crypt diff=crypt merge=crypt
+bin/.local/bin/work_setup  filter=crypt diff=crypt merge=crypt
 ssh/.ssh/*  filter=crypt diff=crypt merge=crypt
 leetcode/.leetcode/leetcode.toml filter=crypt diff=crypt merge=crypt
