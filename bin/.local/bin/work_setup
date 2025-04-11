@@ -1,0 +1,6 @@
+#!/bin/bash
+
+sudo mkdir /opt/T1000
+sudo chmod -R 777 /opt/T1000
+sudo mkdir -p /opt/T1000/fonts/
+sudo chmod -R 777 /opt/T1000/fonts
