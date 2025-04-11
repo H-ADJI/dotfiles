@@ -4,3 +4,5 @@ sudo mkdir /opt/T1000
 sudo chmod -R 777 /opt/T1000
 sudo mkdir -p /opt/T1000/fonts/
 sudo chmod -R 777 /opt/T1000/fonts
+cd ~/dataimpact-scraping/ || exit 1
+BEZIER_NO_EXTENSION=true uv pip install --upgrade bezier --no-binary=bezier numpy==1.26.4
