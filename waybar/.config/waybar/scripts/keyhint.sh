@@ -4,7 +4,7 @@
 font="JetBrainsMono"
 
 cheat=(
-    --title="EndeavourOS Sway keybindings:"
+    --title="Sway keybindings:"
     --no-buttons
     --geometry=1200x680
     --list
@@ -21,7 +21,7 @@ cheat=(
     ""
     ""
     "<span font='$font 16' foreground='#808080'>LAUNCHERS AND MENUS</span>"
-    ""    
+    ""
     "<span font='$font 14'>Mod key (Super/Meta//󰘳)</span>"
     "<span font='$font 18'></span>"
     ""
