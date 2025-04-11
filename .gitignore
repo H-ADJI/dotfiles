@@ -1,0 +1,7 @@
+venv
+.env
+.direnv/
+cmus/.config/cmus/*
+!cmus/.config/cmus/catpuccin.theme
+!cmus/.config/cmus/rc
+ssh/.ssh/known*
