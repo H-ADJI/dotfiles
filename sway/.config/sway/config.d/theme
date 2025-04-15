@@ -3,7 +3,7 @@ exec_always ~/.config/sway/scripts/import-gsettings.sh
 
 font pango:JetBrainsMono Nerd Font Mono 12
 # Hide titlebar on windows:
-default_border pixel 6
+default_border pixel 4
 # Set inner/outer gaps
 gaps inner 30
 
@@ -14,7 +14,7 @@ smart_borders on
 
 # Set wallpaper:
 # Wallpaper
-output * bg ~/.config/assets/evening-sky.png fill
+output * bg ~/.config/assets/background.png fill
 # exec ~/.config/sway/scripts/swaybg.sh
 
 # Title format for windows
