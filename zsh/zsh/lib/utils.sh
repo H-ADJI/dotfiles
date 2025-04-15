@@ -60,3 +60,6 @@ create_bootable_usb() {
 
     echo "Bootable USB created successfully!"
 }
+sddm_theme_picker() {
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/keyitdev/sddm-astronaut-theme/master/setup.sh)"
+}
