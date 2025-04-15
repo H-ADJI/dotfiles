@@ -3,7 +3,7 @@
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
 }
 window {
-  background-image: url("/home/khalil/.config/assets/cat_leaves.png");
+  background-image: url("cat_leaves.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
