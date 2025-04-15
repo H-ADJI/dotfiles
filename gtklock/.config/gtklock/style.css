@@ -1,9 +1,9 @@
 * {
   border: none;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8)
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
 }
 window {
-  background-image: url("/home/khalil/Pictures/assets/cat_leaves.png");
+  background-image: url("/home/khalil/.config/assets/cat_leaves.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -11,7 +11,7 @@ window {
 }
 #clock-label {
   font-family: JetBrainsMono;
-  font-size: 64.0px;
+  font-size: 64px;
 }
 #unlock-button {
   background: none;
