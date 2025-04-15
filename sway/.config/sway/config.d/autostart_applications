@@ -25,8 +25,6 @@ exec mako
 # Start foot server
 # exec_always --no-startup-id foot --server
 
-# Autotiling
-exec autotiling
 
 # cliphist
 exec wl-paste --type text --watch cliphist store
