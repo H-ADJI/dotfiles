@@ -1,5 +1,6 @@
 # starship prompt customization (should be first)
 # shellcheck disable=all
+fastfetch
 source ~/zsh/lib/starship.sh
 source ~/zsh/zinit/zinit.sh
 source ~/zsh/lib/aliases.sh
