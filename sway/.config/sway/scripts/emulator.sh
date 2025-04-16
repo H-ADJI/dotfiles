@@ -18,3 +18,5 @@ selected_device=$(echo "$devices" | fuzzel --dmenu --prompt="Select Device ❯ "
 if [ -n "$selected_device" ]; then
     /opt/genymotion/player --vm-name "$selected_device" &
 fi
+sleep 10
+adb shell setprop persist.sys.root_access 3 && adb root
