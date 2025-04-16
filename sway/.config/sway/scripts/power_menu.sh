@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SELECTION="$(printf "󰌾 Lock\n󰤄 Suspend\n󰍃 Log out\n Reboot\n Reboot to UEFI\n󰐥 Shutdown" | fuzzel --dmenu -a top-right -l 6 -w 18 -p "Select an option: ")"
+SELECTION="$(printf "󰌾 Lock\n󰤄 Suspend\n󰍃 Log out\n Reboot\n Reboot to UEFI\n󰐥 Shutdown" | fuzzel --dmenu -a top-right -l 6 -w 18 -p "Options ❯ ")"
 
 confirm_action() {
     local action="$1"
@@ -10,25 +10,31 @@ confirm_action() {
 
 case $SELECTION in
     *"󰌾 Lock"*)
-        gtklock;;
+        gtklock
+        ;;
     *"󰤄 Suspend"*)
         if confirm_action "Suspend"; then
             systemctl suspend
-        fi;;
+        fi
+        ;;
     *"󰍃 Log out"*)
         if confirm_action "Log out"; then
             swaymsg exit
-        fi;;
+        fi
+        ;;
     *" Reboot"*)
         if confirm_action "Reboot"; then
             systemctl reboot
-        fi;;
+        fi
+        ;;
     *" Reboot to UEFI"*)
         if confirm_action "Reboot to UEFI"; then
             systemctl reboot --firmware-setup
-        fi;;
+        fi
+        ;;
     *"󰐥 Shutdown"*)
         if confirm_action "Shutdown"; then
             systemctl poweroff
-        fi;;
+        fi
+        ;;
 esac
