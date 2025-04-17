@@ -31,4 +31,3 @@ source ~/zsh/lib/zoxide.sh
 source ~/zsh/lib/zsh.sh
 
 zinit cdreplay -q
-fastfetch
