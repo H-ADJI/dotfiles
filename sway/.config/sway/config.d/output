@@ -19,3 +19,7 @@ output DP-2 {
    resolution 2560x1440@59.951Hz 
    position 2560,0
 }
+
+set $laptop eDP-1
+bindswitch --reload --locked lid:on output $laptop disable
+bindswitch --reload --locked lid:off output $laptop enable
