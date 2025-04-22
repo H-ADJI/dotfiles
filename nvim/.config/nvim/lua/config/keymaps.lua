@@ -12,3 +12,11 @@ vim.api.nvim_set_keymap(
   ':let @+ = expand("%:p")<CR>:echo expand("%:p")<CR>',
   { noremap = true, silent = true, desc = "Copy Buffer Full Path" }
 )
+
+vim.keymap.set("n", "<leader>sp", function()
+  local file_path = vim.fn.expand("%:p") -- Full path
+  if file_path == "" then
+    file_path = "[No file opened]"
+  end
+  print(file_path)
+end, { desc = "Show current file path" })
