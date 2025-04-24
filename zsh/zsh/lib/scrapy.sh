@@ -35,7 +35,7 @@ zle -N fzf_spiders
 bindkey '^x^f' fzf_spiders
 
 shub_deploy() {
-    docker image build --build-arg PYPI_SECRET="$PYPI_SECRET" .
+    shub image upload "$SHUB_DEVZONE" --build-arg PYPI_SECRET="$PYPI_SECRET"
     shub image upload "$SHUB_DEVZONE" --build-arg PYPI_SECRET="$PYPI_SECRET"
 }
 shub_deploy_shortcut() {
