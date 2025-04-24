@@ -5,6 +5,9 @@ return {
       -- python stuff
       "pyright",
       "ruff",
+      "debugpy",
+      "delve",
+      "go-debug-adapter",
       -- "black",
       -- golang stuff
       "gopls",
