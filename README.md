@@ -3,7 +3,7 @@
 ## Content
 
 - My dotfiles for ricing my workstations running Arch / Ubuntu
-  - Sway VM
+  - Sway WM
   - Neovim
   - Alacritty
   - Tmux
