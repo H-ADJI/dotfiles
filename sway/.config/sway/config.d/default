@@ -6,6 +6,9 @@ set $down j
 set $up k
 set $right l
 # Basics:
+#  Move to prev wordspace
+bindsym $mod+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
 # Kill focused window
 bindsym $mod+q kill
 # Reload the configuration file
