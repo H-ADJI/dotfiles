@@ -33,6 +33,9 @@ exec wl-paste --type image --watch cliphist store
 # Network Applet
 exec nm-applet --indicator
 
+# apps autostart
+exec ~/.config/sway/scripts/autostart.sh
+
 # Firewall Applet
 # exec sleep 2 && firewall-applet
 
