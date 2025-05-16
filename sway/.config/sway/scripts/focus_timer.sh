@@ -3,8 +3,8 @@
 DURATION=5400
 timeout=8000
 APP_NAME="Timer"
-STEPS=30
-BREAK=60
+STEPS=1
+BREAK=180
 
 hours=$((DURATION / 3600))
 minutes=$(((DURATION % 3600) / 60)) # Get remaining minutes
