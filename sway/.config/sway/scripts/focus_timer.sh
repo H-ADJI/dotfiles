@@ -5,6 +5,7 @@ timeout=8000
 APP_NAME="Timer"
 STEPS=1
 BREAK=180
+LOG_FILE="$HOME/.timer.log"
 
 hours=$((DURATION / 3600))
 minutes=$(((DURATION % 3600) / 60)) # Get remaining minutes
@@ -18,6 +19,7 @@ notify() {
     paplay /usr/share/sounds/freedesktop/stereo/complete.oga
 }
 notify "Timer Activated" "Your ${hours}h$minutes of focused work has started !"
+date +%s >"$LOG_FILE"
 
 while [ $DURATION -ge 0 ]; do
     if [ "$DURATION" -eq $((DURATION / 3)) ] || [ "$DURATION" -eq $((2 * DURATION / 3)) ]; then
@@ -29,4 +31,5 @@ while [ $DURATION -ge 0 ]; do
     DURATION=$((DURATION - STEPS))
 done
 
+rm -f "$LOG_FILE"
 notify "Time is up" "Time to rest your eyes and take a walk!"
