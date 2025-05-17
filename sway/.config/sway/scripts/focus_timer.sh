@@ -21,6 +21,7 @@ notify "Timer Activated" "Your ${hours}h$minutes of focused work has started !"
 date +%s >"$LOG_FILE"
 
 while [ $DURATION -ge 0 ]; do
+    sleep $STEPS
     DURATION=$((DURATION - STEPS))
 done
 
