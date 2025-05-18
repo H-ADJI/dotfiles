@@ -1,7 +1,7 @@
 # Function to check remaining time of the timer
 check_timer() {
     LOG_FILE="$HOME/.timer.log"
-    DURATION=2700 # Must match the DURATION in timer.sh
+    DURATION=3600 # Must match the DURATION in timer.sh
 
     if [ ! -f "$LOG_FILE" ]; then
         echo "No active timer found."
