@@ -1,8 +1,12 @@
 venv
 .env
 .direnv/
+bin/.local/bin/*
+!bin/.local/bin/block.sh
+!bin/.local/bin/unblock.sh
+!bin/.local/bin/vim_edit
+!bin/.local/bin/work_setup
 cmus/.config/cmus/*
 !cmus/.config/cmus/catpuccin.theme
 !cmus/.config/cmus/rc
 ssh/.ssh/known*
-bin/.local/bin/di-cli
