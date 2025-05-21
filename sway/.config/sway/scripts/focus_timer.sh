@@ -1,5 +1,5 @@
 #!/bin/sh
-DURATION=3600
+DURATION=5400
 notification_timeout=8000
 APP_NAME="Timer"
 STEPS=30
@@ -9,7 +9,7 @@ notify() {
     notify-send "$1" "$2" -t "$notification_timeout" -a "$APP_NAME"
     paplay /usr/share/sounds/freedesktop/stereo/complete.oga
 }
-notify "Timer Activated" "1 Hour of focus started !"
+notify "Timer Activated" "90 minutes of focused work started !"
 date +%s >"$LOG_FILE"
 
 while [ $DURATION -ge 0 ]; do
