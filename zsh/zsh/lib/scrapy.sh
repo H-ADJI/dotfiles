@@ -4,7 +4,19 @@ cache_file="$SPIDERS_CACHE_DIR/spiders.cache"
 alias show_spiders_list="bat ~/.local/share/scrapy/spiders.cache 2>/dev/null"
 alias delete_spiders_list="rm ~/.local/share/scrapy/spiders.cache"
 alias bezier_python_bininstall="uv pip uninstall bezier && BEZIER_NO_EXTENSION=true uv pip install --upgrade bezier --no-binary=bezier numpy==1.26.4"
+jsonk_path() {
+    local file="$1"
+    local key="$2"
+    # Run jq to find paths to the key
+    jq -c "path(.. | select(.$key?))" "$file"
 
+}
+jsonv_path() {
+    local file="$1"
+    local value="$2"
+    # Run jq to find paths to the value
+    jq -c "path(.. | select(. == \"$value\"))" "$file"
+}
 load_spiders_list() {
     touch "$cache_file"
     if command -v scrapy &>/dev/null; then
