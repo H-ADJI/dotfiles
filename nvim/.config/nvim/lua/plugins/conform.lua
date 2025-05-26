@@ -21,6 +21,7 @@ return {
       sh = { "shfmt", "beautysh" },
       zsh = { "beautysh" },
       bash = { "beautysh" },
+      xml = { "xmlformatter" },
     },
     formatters = {
       kdlfmt = {
