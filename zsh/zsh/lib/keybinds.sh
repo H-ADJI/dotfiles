@@ -1,5 +1,5 @@
-# # emacs keybinds
-bindkey -v
+# no vim bindings
+bindkey -e
 
 # accept zsh-autosuggestions
 bindkey '^o' autosuggest-accept
