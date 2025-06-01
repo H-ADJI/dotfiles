@@ -24,6 +24,7 @@ return {
       "htmx-lsp",
       "taplo",
       "css-lsp",
+      "html-lsp",
       -- "sqlfluff",
       "sql-formatter",
       "dockerfile-language-server",
