@@ -6,8 +6,10 @@ return {
       { "<leader>fR", LazyVim.pick("oldfiles", { cwd = LazyVim.root() }), desc = "Recent Root Dir" },
       {
         "<leader>fu",
-        "<cmd> Telescope find_files find_command=rg,--ignore,--hidden,--files,-u<cr>",
-        desc = "unrestricted find",
+        function()
+          vim.cmd("Telescope find_files find_command=rg,--ignore,--hidden,--files,-u")
+        end,
+        desc = "Unrestricted Find",
       },
       { "<leader>gS", "<cmd>Telescope git_branches<cr>", desc = "git switch branch" },
       {

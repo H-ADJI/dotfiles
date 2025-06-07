@@ -23,5 +23,6 @@ return {
         },
       },
     },
+    scroll = { enabled = false },
   },
 }
