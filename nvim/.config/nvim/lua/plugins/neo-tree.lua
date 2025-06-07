@@ -29,7 +29,5 @@ return {
       end,
       desc = "Buffer Explorer",
     },
-    -- { "<leader>e", ":Neotree focus filesystem float toggle<CR>", desc = "Neotree file explorer" },
-    -- { "<leader>ge", ":Neotree float git_status toggle<CR>", desc = "Neotree git status explorer" },
   },
 }
