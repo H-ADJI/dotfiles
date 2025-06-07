@@ -1,1 +1,1 @@
-return { "LazyVim/LazyVim", version = "13" }
+return { "LazyVim/LazyVim", version = false }
