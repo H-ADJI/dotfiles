@@ -1,0 +1,4 @@
+default_dim_inactive 0.1
+corner_radius 30
+shadows enable
+blur enable
