@@ -22,10 +22,6 @@ exec ~/.config/sway/scripts/sunset.sh
 # Desktop notifications
 exec mako
 
-# Start foot server
-# exec_always --no-startup-id foot --server
-
-
 # cliphist
 exec wl-paste --type text --watch cliphist store
 exec wl-paste --type image --watch cliphist store
@@ -36,14 +32,3 @@ exec nm-applet --indicator
 # apps autostart
 exec ~/.config/sway/scripts/autostart.sh
 
-# Firewall Applet
-# exec sleep 2 && firewall-applet
-
-# Welcome App
-# exec eos-welcome --startdelay=3
-
-# Sway Fader
-# exec python3 ~/.config/sway/scripts/swayfader.py
-
-# nwg-drawer
-exec_always nwg-drawer -r -c 7 -is 90 -mb 10 -ml 50 -mr 50 -mt 10

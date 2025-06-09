@@ -14,11 +14,6 @@ set $launcher fuzzel
 # Start your launcher
 bindsym $mod+d exec $launcher
 
-# Application menu
-# set $menu nwg-drawer
-# Menu
-# bindsym $mod+Shift+d exec $menu
-
 # Power Menu
 set $powermenu ~/.config/sway/scripts/power_menu.sh
 # Open the power menu
