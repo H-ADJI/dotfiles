@@ -4,6 +4,8 @@ exec_always ~/.config/sway/scripts/import-gsettings.sh
 font pango:JetBrainsMono Nerd Font Mono 12
 # Hide titlebar on windows:
 default_border pixel 4
+titlebar_padding 32 4
+# titlebar_border_thickness 1
 # Set inner/outer gaps
 gaps inner 30
 
