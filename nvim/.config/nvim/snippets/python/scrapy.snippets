@@ -57,16 +57,13 @@ snippet plr playwright request snippet
                         dont_filter=$4,
                     )
 
-snippet types
-  from typing import List $1
-
 snippet prx proxies list
   proxy = playwright_proxy = ["AWS_EU", "IPROYAL_RESIDENTIAL", "OXYLABS_DC", "OXYLABS_RESIDENTIAL"]
   oxylabs_dc_country = oxylabs_residential_country = iproyal_residential_country = "$1"
   oxylabs_residential_continent = "$2"
   tls = browser = ["chrome/133", "firefox/133"]
 
-snippet bansermobile
+snippet bansermobile banner search mobile template
   from scrapy.http import Request, TextResponse
 
   from core.config import BannerTypes
@@ -140,7 +137,7 @@ snippet bansermobile
           banner["products"] = None or products
           yield banner
 
-snippet bancatmobile
+snippet bancatmobile banner search mobile template
   from urllib.parse import urljoin
 
   from scrapy.http import Request, TextResponse
