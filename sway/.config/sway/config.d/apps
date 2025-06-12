@@ -34,7 +34,8 @@ bindsym $mod+Ctrl+v exec cliphist list | fuzzel -d -w 90 -l 30 -p "Select an ent
 # Delete an entry from the clipboard manager
 bindsym $mod+Ctrl+x exec cliphist list | fuzzel -d -w 90 -l 30 -t cc9393ff -S cc9393ff -p "Select an entry to delete it from cliphist:"| cliphist delete
 # Note: you can clear all cliphist entries by running `cliphist wipe`
-
+# zoom
+bindsym $mod+z exec  ~/.config/sway/scripts/zoom.sh
 # Focus timer 
 bindsym $mod+t exec ~/.config/sway/scripts/focus_timer.sh
 # Android emulator
