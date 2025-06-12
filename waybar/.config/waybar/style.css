@@ -13,6 +13,10 @@
 @define-color highlight #685878;
 @define-color base1 #1e1e2e;
 @define-color yellow #f9e2af;
+
+window#waybar {
+  all: unset;
+}
 @keyframes blink-warning {
   70% {
     color: white;
@@ -48,6 +52,23 @@
   padding: 0;
 }
 
+.modules-left {
+  border-radius: 10px;
+  background-color: @base1;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.6);
+}
+.modules-center {
+  background-color: @base1;
+  border-radius: 10px;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.6);
+  padding: 0 10px; /* Adds 10px padding on left and right */
+}
+.modules-right {
+  border-radius: 10px;
+  padding-left: 30px;
+  background-color: @base1;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.6);
+}
 /* The whole bar */
 #waybar {
   background: transparent;
@@ -117,6 +138,7 @@
 }
 
 #window {
+  padding-right: 30px;
   font-weight: bold;
 }
 
