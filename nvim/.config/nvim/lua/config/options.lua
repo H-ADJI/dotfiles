@@ -3,4 +3,5 @@
 -- Add any additional options here
 vim.g.autoformat = false
 vim.opt.scrolloff = 20
+vim.o.winborder = "rounded"
 -- vim.opt.clipboard = "unnamedplus"
