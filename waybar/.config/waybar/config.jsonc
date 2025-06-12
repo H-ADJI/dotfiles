@@ -3,6 +3,7 @@
 	"position": "top", // Waybar position (top|bottom|left|right)
 	// "height": 30, // Auto-height is used when commented
 	// "width": 1280, // Full screen width when commented
+  "margin": 10,
 	"spacing": 20, // Gaps between modules (in px)
 	// See `man waybar` for more configuration options
 	"modules-left": ["sway/workspaces", "sway/window"],

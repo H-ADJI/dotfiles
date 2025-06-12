@@ -10,7 +10,6 @@ titlebar_padding 32 4
 gaps inner 30
 
 
-
 # Thin borders:
 smart_borders on
 
