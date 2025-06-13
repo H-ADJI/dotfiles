@@ -37,4 +37,4 @@ vim.o.scrolloff = 10
 -- raise a dialog asking if you wish to save the current file(s)
 vim.o.confirm = true
 -- floating windows border
-vim.o.winborder = "rounded"
+-- vim.o.winborder = "rounded"
