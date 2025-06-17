@@ -3,9 +3,17 @@ return {
   keys = {
     { "<leader>lf", ":ConformInfo<CR>", desc = "conform formatters information" },
     -- { "<leader>cf", require("conform").format, mode = { "n", "x", "o", "v" }, desc = "format buffer " },
+    {
+      "<leader>gg",
+      function()
+        require("conform").format({ formatters = { "injected" }, timeout_ms = 3000 })
+      end,
+      mode = { "n", "v" },
+      desc = "Format Injected Langs",
+    },
   },
   opts = {
-    log_level = vim.log.levels.DEBUG,
+    log_level = vim.log.levels.ERROR,
     formatters_by_ft = {
       python = { "ruff_format", "ruff_organize_imports", "ruff_fix" },
       go = { "gofmt", "golines", "goimports" },
