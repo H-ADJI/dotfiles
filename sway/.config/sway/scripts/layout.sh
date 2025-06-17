@@ -1,2 +1,2 @@
 #!/bin/bash
-feh ~/.config/assets/layout* &
+feh ~/.config/assets/layer* &
