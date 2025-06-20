@@ -3,6 +3,7 @@ set $mod Mod4
 set $term alacritty
 # Launch the terminal
 bindsym $mod+Return exec $term
+bindsym $mod+t exec $term
 
 # Set default browser
 set $browser brave
@@ -37,7 +38,7 @@ bindsym $mod+Ctrl+x exec cliphist list | fuzzel -d -w 90 -l 30 -t cc9393ff -S cc
 # zoom
 bindsym $mod+z exec  ~/.config/sway/scripts/zoom.sh
 # Focus timer 
-bindsym $mod+t exec ~/.config/sway/scripts/focus_timer.sh
+# bindsym $mod+t exec ~/.config/sway/scripts/focus_timer.sh
 # Android emulator
 bindsym $mod+Shift+a exec ~/.config/sway/scripts/emulator.sh
 # keyboard layout

@@ -106,7 +106,7 @@ bindcode {
     bindsym $mod+space focus mode_toggle
 
     # Move focus to the parent container
-    bindsym $mod+a focus parent
+    # bindsym $mod+a focus parent
 
 #
 # Scratchpad:
