@@ -15,7 +15,8 @@ note() {
     local note_file="$NOTES_DIR/week-$week.md"
     cd "$NOTES_DIR" || return 1
     if [ ! -f "$note_file" ]; then
-        echo "# $year Week $week" >"$note_file"
+        echo "# $year Week $week " >"$note_file"
+        echo "- " >>"$note_file"
     fi
     nvim "$note_file"
 }
