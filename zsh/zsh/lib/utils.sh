@@ -5,9 +5,19 @@
 #     source ./venv/bin/activate
 #   fi
 # }
-add_note() {
-    echo "- $1" >>~/secondBrain/ideas.md
-    bat ~/secondBrain/ideas.md
+note() {
+    # Get current year and ISO week number
+    local year week
+    year=$(date +%Y)
+    local NOTES_DIR="$HOME/secondBrain/notes/$year"
+    mkdir -p "$NOTES_DIR"
+    week=$(date +%V)
+    local note_file="$NOTES_DIR/week-$week.md"
+    cd "$NOTES_DIR" || return 1
+    if [ ! -f "$note_file" ]; then
+        echo "# $year Week $week" >"$note_file"
+    fi
+    nvim "$note_file"
 }
 
 create_bootable_usb() {
