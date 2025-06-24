@@ -13,7 +13,7 @@ case $1 in
         tee "$FILENAME"
         ;;
     region)
-        grim -g "$(slurp)" - | tee "$FILENAME" | wl-copy
+        grim -g "$(slurp -w 2)" - | tee "$FILENAME" | wl-copy
         ;;
     display)
         # grim - | tee "$FILENAME" | wl-copy
