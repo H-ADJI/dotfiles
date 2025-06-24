@@ -24,7 +24,6 @@
 	},
 	"sway/window": {
 		"format": "{}",
-		//"all-outputs": true, // Active window shows only on active display when commented
 		"max-length": 40
 	},
 
@@ -94,9 +93,9 @@
 	},
 	"network": {
 		"format-disabled": " Disabled",
-		"format-wifi": " {bandwidthDownBits:>} 󰶡 {bandwidthUpBits:>} 󰶣",
+		"format-wifi": "  {bandwidthDownBits:>} 󰶡 {bandwidthUpBits:>} 󰶣",
 		"tooltip-format-wifi": "{essid}",
-		"format-ethernet": "{bandwidthDownBits:>} 󰶡 {bandwidthUpBits:>} 󰶣",
+		"format-ethernet": " {bandwidthDownBits:>} 󰶡 {bandwidthUpBits:>} 󰶣",
 		"tooltip-format-ethernet": "{ifname}: {ipaddr}/{cidr}",
 		"format-disconnected": " Disconnected",
 		"on-click": "",

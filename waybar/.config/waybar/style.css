@@ -1,15 +1,3 @@
-/* =============================================================================
- *
- * Waybar configuration
- *
- * Configuration reference: https://github.com/Alexays/Waybar/wiki/Configuration
- *
- * =========================================================================== */
-
-/* -----------------------------------------------------------------------------
- * Keyframes
- * -------------------------------------------------------------------------- */
-
 @define-color highlight #685878;
 @define-color base1 #1e1e2e;
 @define-color yellow #f9e2af;
@@ -174,10 +162,6 @@ window#waybar {
 }
 
 #pulseaudio {
-}
-
-#pulseaudio.muted {
-  color: @highlight;
 }
 
 #battery {
