@@ -11,7 +11,8 @@ return {
         "debugpy",
         "delve",
         "go-debug-adapter",
-        -- "black",
+        -- rust stuff
+        "rust-analyzer",
         -- golang stuff
         "gopls",
         "iferr",
