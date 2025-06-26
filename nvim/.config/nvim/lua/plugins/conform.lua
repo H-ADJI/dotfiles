@@ -30,8 +30,13 @@ return {
       zsh = { "beautysh" },
       bash = { "beautysh" },
       xml = { "xmlformatter" },
+      rust = { "rustfmt" },
     },
     formatters = {
+      rustfmt = {
+        command = "rustfmt",
+        stdin = true,
+      },
       kdlfmt = {
         command = "kdlfmt",
         args = { "format", "$FILENAME" }, -- Adjust path to your SQL formatter config if needed
