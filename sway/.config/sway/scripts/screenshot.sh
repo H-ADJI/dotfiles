@@ -10,7 +10,7 @@ APP_NAME="Sway Screenshot"
 case $1 in
     window)
         grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp)" - |
-        tee "$FILENAME"
+        tee "$FILENAME" | wl-copy
         ;;
     region)
         grim -g "$(slurp -w 2)" - | tee "$FILENAME" | wl-copy
