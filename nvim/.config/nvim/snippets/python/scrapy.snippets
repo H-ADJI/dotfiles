@@ -24,9 +24,12 @@ snippet bancatmsreq banner category multispider start_requests
                 meta={
                     "playwright": {
                         "wait_time": self.wait_time,
+                        "action": self.load_categories,
                     },
                 },
             )
+    async def load_categories(self, page: Page, _, playwright_request: PlaywrightRequest):
+        pass
 
     def parse_categories(self, response: HtmlResponse):
         yield RequestShelf(
@@ -296,9 +299,13 @@ snippet bancat banner_category template
                   meta={
                       "playwright": {
                           "wait_time": self.wait_time,
+                          "action": self.load_categories,
                       },
                   },
               )
+
+      async def load_categories(self, page: Page, _, playwright_request: PlaywrightRequest):
+        pass
 
       def parse_categories(self, response: HtmlResponse):
           yield PlaywrightRequest(
@@ -554,9 +561,13 @@ snippet bancatms
                   meta={
                       "playwright": {
                           "wait_time": self.wait_time,
+                          "action": self.load_categories,
                       },
                   },
               )
+
+      async def load_categories(self, page: Page, _, playwright_request: PlaywrightRequest):
+        pass
 
       def parse_categories(self, response: HtmlResponse):
           yield RequestShelf(
