@@ -440,7 +440,7 @@ snippet bancat banner_category template
                   yield item
 
       def parse_banners(self, response: HtmlResponse, is_home: bool = False):
-          path = [cat.strip() for cat in response.xpath("").getall() if cat]
+          path = [c for cat in response.xpath("").getall() if (c := cat.strip())]
           if is_home:
               path = ["Home"]
           banners = response.meta.get("sponsored", [])
@@ -692,7 +692,7 @@ snippet bancatms
                   yield item
 
       def parse_banners(self, response: HtmlResponse, is_home: bool = False):
-          path = [cat.strip() for cat in response.xpath("").getall() if cat]
+          path = [c for cat in response.xpath("").getall() if (c := cat.strip())]
           if is_home:
               path = ["Home"]
           banners = response.meta.get("sponsored", [])
