@@ -283,6 +283,7 @@ snippet bancat banner_category template
           },
       }
       classic_selector = []
+      iframe_selector = []
       sponsored_selector = []
       showcase_selector = []
       slider_selector = []
@@ -378,10 +379,10 @@ snippet bancat banner_category template
       async def get_banners(self, page: Page, _, playwright_request: PlaywrightRequest):
           await self.accept_popups(page)
           await self.load_content(page)
-          playwright_request.meta["classic"] = await self.scrape_banners(page, self.classic_selector, screen=True)
+          playwright_request.meta["classic"] = await self.scrape_banners(page, self.classic_selector, screen=True) + await self.scrape_banners(page, self.iframe_selector, screen=True, iframe=True)
           playwright_request.meta["sponsored"] = await self.scrape_banners(page, self.sponsored_selector, screen=True)
           playwright_request.meta["showcase"] = await self.scrape_banners(page, self.showcase_selector, screen=True)
-          playwright_request.meta["slider"] = await self.scrape_banners(page, self.slider_selector)
+          playwright_request.meta["slider"] = await self.scrape_banners(page, self.slider_selector, screen=True)
 
       def banner_builder(
           self,
@@ -530,6 +531,7 @@ snippet bancatms
           },
       }
       classic_selector = []
+      iframe_selector = []
       sponsored_selector = []
       showcase_selector = []
       slider_selector = []
@@ -629,10 +631,10 @@ snippet bancatms
       async def get_banners(self, page: Page, _, playwright_request: PlaywrightRequest):
           await self.accept_popups(page)
           await self.load_content(page)
-          playwright_request.meta["classic"] = await self.scrape_banners(page, self.classic_selector, screen=True)
+          playwright_request.meta["classic"] = await self.scrape_banners(page, self.classic_selector, screen=True) + await self.scrape_banners(page, self.iframe_selector, screen=True, iframe=True)
           playwright_request.meta["sponsored"] = await self.scrape_banners(page, self.sponsored_selector, screen=True)
           playwright_request.meta["showcase"] = await self.scrape_banners(page, self.showcase_selector, screen=True)
-          playwright_request.meta["slider"] = await self.scrape_banners(page, self.slider_selector)
+          playwright_request.meta["slider"] = await self.scrape_banners(page, self.slider_selector, screen=True)
 
       def banner_builder(
           self,
@@ -782,6 +784,7 @@ snippet banser
           },
       }
       classic_selector = []
+      iframe_selector = []
       sponsored_selector = []
       showcase_selector = []
       slider_selector = []
@@ -860,10 +863,10 @@ snippet banser
       async def get_banners(self, page: Page, _, playwright_request: PlaywrightRequest):
           await self.accept_popups(page)
           await self.load_content(page)
-          playwright_request.meta["classic"] = await self.scrape_banners(page, self.classic_selector, screen=True)
+          playwright_request.meta["classic"] = await self.scrape_banners(page, self.classic_selector, screen=True) + await self.scrape_banners(page, self.iframe_selector, screen=True, iframe=True)
           playwright_request.meta["sponsored"] = await self.scrape_banners(page, self.sponsored_selector, screen=True)
           playwright_request.meta["showcase"] = await self.scrape_banners(page, self.showcase_selector, screen=True)
-          playwright_request.meta["slider"] = await self.scrape_banners(page, self.slider_selector)
+          playwright_request.meta["slider"] = await self.scrape_banners(page, self.slider_selector, screen=True)
 
       def banner_builder(
           self, banners: list[tuple[BucketImage, Selector, str]], banner_type: BannerTypes, current_url: str, keyword: str
