@@ -6,7 +6,7 @@ session_root "~/secondBrain/"
 # argument is given, session name will be based on layout file name.
 if initialize_session "Second Brain"; then
   new_window "notes"
-  run_cmd "nv notes.md"
+  run_cmd "nv objectives.md"
   new_window "shell"
   select_window 1
 fi
