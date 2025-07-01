@@ -1,4 +1,4 @@
-PATH_add $(dirname $(uv python find --system 3.10))
+PATH_add "$(dirname "$(uv python find --system 3.10)")"
 export VIRTUAL_ENV=.venv
 layout python python3.10
 dotenv

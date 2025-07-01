@@ -3,7 +3,7 @@ eval "$(leetcode completions)"
 fzf_leetcode_problems() {
     local problem
     problem=$(
-        lc list -c algorithms -q DL | head --lines=-4 | fzf --height 60% --layout=reverse --border --prompt="Select Problem: " --pointer="▶ " --marker="✔ " --preview-window=down:1:wrap
+        lc list -c algorithms -q L | head --lines=-4 | fzf --height 60% --layout=reverse --border --prompt="Select Problem: " --pointer="▶ " --marker="✔ " --preview-window=down:1:wrap
     )
     local parsed
     parsed=$(echo "$problem" | grep -oP "\s*\d+\s*(?=\])")
