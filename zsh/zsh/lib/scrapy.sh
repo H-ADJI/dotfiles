@@ -48,7 +48,6 @@ bindkey '^x^f' fzf_spiders
 
 shub_deploy() {
     shub image upload "$SHUB_DEVZONE" --build-arg PYPI_SECRET="$PYPI_SECRET"
-    shub image upload "$SHUB_DEVZONE" --build-arg PYPI_SECRET="$PYPI_SECRET"
 }
 shub_deploy_shortcut() {
     shub_deploy
