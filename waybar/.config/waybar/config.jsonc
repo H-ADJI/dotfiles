@@ -93,7 +93,7 @@
 	},
 	"network": {
 		"format-disabled": " Disabled",
-		"format-wifi": "  {bandwidthDownBits:>} 󰶡 {bandwidthUpBits:>} 󰶣",
+		"format-wifi": "    {bandwidthDownBits:>} 󰶡 {bandwidthUpBits:>} 󰶣",
 		"tooltip-format-wifi": "{essid}",
 		"format-ethernet": " {bandwidthDownBits:>} 󰶡 {bandwidthUpBits:>} 󰶣",
 		"tooltip-format-ethernet": "{ifname}: {ipaddr}/{cidr}",
