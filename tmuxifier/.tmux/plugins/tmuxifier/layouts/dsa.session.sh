@@ -6,6 +6,8 @@ session_root "~/neurogenesis/"
 # argument is given, session name will be based on layout file name.
 if initialize_session "dsa"; then
   new_window 
+  run_cmd "e"
+  new_window 
 fi
 
 # Finalize session creation and switch/attach to it.
