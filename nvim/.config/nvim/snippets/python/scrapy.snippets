@@ -494,7 +494,7 @@ snippet bancatv2 banner category enhanced template
           yield banner
 snippet bancat banner_category template
   import random
-  from urllib.parse import urljoin
+  from urllib.parse import urljoin, urlparse
 
   from core.config import BannerTypes
   from core.requests_di import PlaywrightRequest
