@@ -3,7 +3,7 @@ snippet cache_setting debug response in browser
 snippet oibrowser debug response in browser
     from scrapy.utils.response import open_in_browser
     open_in_browser(response)
-snippet bancatmsreq banner category multispider start_requests
+snippet bancatmsreqplr banner category multispider start_requests
     def start_requests(self):
         if self.paths_urls:
             for _, url, _ in self.paths_urls:
@@ -47,6 +47,25 @@ snippet bancatmsreq banner category multispider start_requests
                 meta={"path": []},
             )
 
+snippet sln selenium request snippet
+  yield SeleniumRequest(
+            $1,
+            callback=self.$2,
+            meta={
+                "selenium": {
+                    "pre_processing_fun": self.$3,
+                    "optional_wait_time": self.wait_time,
+                    "optional_wait_until": ec.presence_of_element_located(
+                        (
+                            By.XPATH,
+                            "$4",
+                        )
+                    ),
+                },
+            },
+            cb_kwargs=dict($5),
+            dont_filter=True,
+        )
 snippet plr playwright request snippet
   yield PlaywrightRequest(
                         $1,
@@ -54,15 +73,16 @@ snippet plr playwright request snippet
                         meta={
                             "cache_this": True,
                             "playwright": {
+                                "action": self.$3,
                                 "wait_time": self.wait_time,
                             },
                         },
-                        cb_kwargs=dict($3),
-                        dont_filter=$4,
+                        cb_kwargs=dict($4),
+                        dont_filter=True,
                     )
 
 snippet prx proxies list
-  proxy = playwright_proxy = ["AWS_EU", "IPROYAL_RESIDENTIAL", "OXYLABS_DC", "OXYLABS_RESIDENTIAL"]
+  proxy = playwright_proxy = ["AWS_US","AWS_EU", "IPROYAL_RESIDENTIAL", "OXYLABS_DC", "OXYLABS_RESIDENTIAL"]
   oxylabs_dc_country = oxylabs_residential_country = iproyal_residential_country = "$1"
   oxylabs_residential_continent = "$1"
   tls = browser = ["chrome/133", "firefox/133"]
@@ -644,6 +664,7 @@ snippet bancat banner_category template
               item["other"] = selector
               img_url = src.xpath(".//img/@src").get() or src.xpath(".//source/@srcset").get()
               if not img_url:
+                  self.logger.warning(f"image not found for {selector} in {current_url}")
                   continue
               item["html_image"] = item["image_url"] = urljoin(self.domain, img_url)
               item["title"] = src.xpath(".//img/@alt").get()
@@ -902,6 +923,7 @@ snippet bancatms
               item["other"] = selector
               img_url = src.xpath(".//img/@src").get() or src.xpath(".//source/@srcset").get()
               if not img_url:
+                  self.logger.warning(f"image not found for {selector} in {current_url}")
                   continue
               item["html_image"] = item["image_url"] = urljoin(self.domain, img_url)
               item["title"] = src.xpath(".//img/@alt").get()
@@ -1130,6 +1152,7 @@ snippet banser
               item["other"] = selector
               img_url = src.xpath(".//img/@src").get() or src.xpath(".//source/@srcset").get()
               if not img_url:
+                  self.logger.warning(f"image not found for {selector} in {current_url}")
                   continue
               item["html_image"] = item["image_url"] = urljoin(self.domain, img_url)
               item["title"] = src.xpath(".//img/@alt").get()
@@ -1213,25 +1236,43 @@ snippet banser
         banner["products"] = products or None
         yield banner
 
-snippet bancatsel banner category selenium
+snippet bancatsln banner category selenium
+  import random
+  from time import sleep
+  from urllib.parse import urljoin, urlparse
+
+  from parsel import Selector
+  from scrapy.http import HtmlResponse
+  from scrapy.spiders import Spider
+  from selenium.common.exceptions import (
+      ElementClickInterceptedException,
+      ElementNotInteractableException,
+      NoSuchElementException,
+  )
+  from selenium.webdriver.common.by import By
+  from selenium.webdriver.common.keys import Keys
+  from selenium.webdriver.remote.webdriver import WebDriver, WebElement
+  from selenium.webdriver.support import expected_conditions as ec
+
+  from core.config import BannerTypes
+  from core.requests_di import SeleniumRequest
+  from core.spiders_fwk.selenium_spider import T1000Spider
+  from core.spiders_fwk.v4_spider import V4Spider
+  from items.banner_category import ItemBannerCategory, ItemBannerProduct
+  from settings.settings import USER_AGENT_LIST
+  from tools.banner_utils import BucketImage, extract_image_scroll_element
+  from spiders.$1.base import $2
+
   class BannerCategory(T1000Spider, V4Spider):
-      retailer_id = CarrefourSpider.retailer_id
-      domain = CarrefourSpider.domain
-      proxy = playwright_proxy = ["AWS_EU", "IPROYAL_RESIDENTIAL", "OXYLABS_DC", "OXYLABS_RESIDENTIAL"]
-      oxylabs_dc_country = oxylabs_residential_country = iproyal_residential_country = "FR"
+      domain = $2.domain
+      retailer_id = $2.retailer_id
+      proxy = ["AWS_US", "AWS_EU", "IPROYAL_RESIDENTIAL", "OXYLABS_DC", "OXYLABS_RESIDENTIAL"]
+      oxylabs_dc_country = oxylabs_residential_country = iproyal_residential_country = "$3"
       tls = browser = ["chrome/133", "firefox/133"]
       PREFERENCES_OPTIONS = {
           "profile.managed_default_content_settings.images": 1,
-          "profile.default_content_setting_values.notifications": 1,
-          "profile.managed_default_content_settings.stylesheets": 1,
-          "profile.managed_default_content_settings.cookies": 1,
-          "profile.managed_default_content_settings.javascript": 1,
-          "profile.managed_default_content_settings.plugins": 1,
-          "profile.managed_default_content_settings.popups": 1,
-          "profile.managed_default_content_settings.geolocation": 1,
-          "profile.managed_default_content_settings.media_stream": 1,
-          "intl.accept_languages": "us-US",
       }
+
       custom_settings = {
           "SPIDER_MIDDLEWARES": {
               "middlewares.pagination_position_middleware.PositionDefaultMiddleware": None,
@@ -1239,22 +1280,16 @@ snippet bancatsel banner category selenium
           },
           "DOWNLOADER_MIDDLEWARES": {
               "middlewares.custom_cache_middleware.SelectiveCacheMiddleware": 44,
-              get_class_path(CaptchaDetectionMiddleware): 999,
           },
-          "SELENIUM_VISIBLE": 1,
+          # "SELENIUM_VISIBLE": 1,
           "SELENIUM_DRIVER_ARGUMENTS": [
               "--disable-dev-shm-usage ",
               "--no-sandbox",
-              "--lang=fr-FR",
               "--start-maximized",
               "--window-size=1920,1080",
               "--disable-blink-features=AutomationControlled",
-              "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) ",
-              " Chrome/86.0.4240.75 Safari/537.36",
-              "--window-size=1920,1080",
           ],
           "SELENIUM_PROXY_ENABLED": 1,
-          "ENABLE_PERFORMANCE": 1,
           "SELENIUM_DRIVER_EXPERIMENTAL_OPTION": [
               ["prefs", PREFERENCES_OPTIONS],
               ["excludeSwitches", ["enable-automation"]],
@@ -1262,20 +1297,15 @@ snippet bancatsel banner category selenium
           ],
       }
 
-      classic_selector = [
-          "//div[@class='pre-home-card pre-home-onboarding__card']",
-          "//div[@class='highlight-hub__item-wrapper']",
-          "//div[@class='prehome-banner']",
-          "//section[@id='data-push-186823']",
-      ]
+      classic_selector = []
       iframe_selector = []
       sponsored_selector = []
-      showcase_selector = ["//div[@id='data-product-banner-la-selection-du-moment']"]
+      showcase_selector = []
       slider_selector = []
-      popups_selectors = ["//button[@id='onetrust-accept-btn-handler']"]
+      popups_selectors = []
       categories_selectors = []
       sub_categories_selectors = []
-      path_selectors = ["//nav[@id='menu-rayon-shelves']//a"]
+      path_selectors = []
       driver: WebDriver
 
       @property
@@ -1290,12 +1320,12 @@ snippet bancatsel banner category selenium
                   "selenium": {
                       "pre_processing_fun": self.load_categories,
                       "wait_time": self.wait_time,
-                      # "wait_until": ec.presence_of_element_located(
-                      #     (
-                      #         By.XPATH,
-                      #         "//div[@class='blocks']",
-                      #     )
-                      # ),
+                      "wait_until": ec.presence_of_element_located(
+                          (
+                               By.XPATH,
+                               "",
+                           )
+                       ),
                   },
               },
           )
@@ -1312,7 +1342,6 @@ snippet bancatsel banner category selenium
               self.logger.debug("Button click was intercepted.")
 
       def load_categories(self, _: SeleniumRequest):
-          self.click(selector="//div[@id='data-rayons']")
           self.accept_popups()
 
       def parse_categories(self, response: HtmlResponse):
@@ -1323,12 +1352,12 @@ snippet bancatsel banner category selenium
                   "selenium": {
                       "pre_processing_fun": self.get_banners,
                       "wait_time": self.wait_time,
-                      # "optional_wait_until": ec.presence_of_element_located(
-                      #     (
-                      #         By.XPATH,
-                      #         "//div[@class='blocks']",
-                      #     )
-                      # ),
+                      "optional_wait_until": ec.presence_of_element_located(
+                           (
+                               By.XPATH,
+                               "",
+                           )
+                       ),
                   }
               },
               dont_filter=True,
@@ -1337,22 +1366,16 @@ snippet bancatsel banner category selenium
           for sel in self.categories_selectors:
               for category in response.xpath(sel):
                   url = category.xpath(".//@href").get("")
-                  yield PlaywrightRequest(
+                  yield SeleniumRequest(
                       urljoin(self.domain, url),
                       callback=self.parse_banners,
                       meta={
                           "selenium": {
                               "pre_processing_fun": self.get_banners,
-                              "optional_wait_time": self.wait_time,
-                              "optional_wait_until": ec.presence_of_element_located(
-                                  (
-                                      By.XPATH,
-                                      "",
-                                  )
-                              ),
+                              "wait_time": self.wait_time,
                           },
                       },
-                  )
+                )
 
       def accept_popups(self):
           for selector in self.popups_selectors:
@@ -1383,8 +1406,8 @@ snippet bancatsel banner category selenium
                       self.driver.switch_to.frame(banner)
                       html = self.driver.page_source
                       self.driver.switch_to.default_content()
-                  # elif shadow:
-                  #     html = await banner.evaluate("element => element.shadow.innerHTML")
+                  elif shadow:
+                      html = self.driver.execute_script("return arguments[0].shadowRoot.innerHTML", banner)
                   else:
                       html = banner.get_attribute("outerHTML")
                   source = Selector(html)
@@ -1400,6 +1423,7 @@ snippet bancatsel banner category selenium
           selenium_request.meta["sponsored"] = self.scrape_banners(self.sponsored_selector, screen=True)
           selenium_request.meta["showcase"] = self.scrape_banners(self.showcase_selector, screen=True)
           selenium_request.meta["slider"] = self.scrape_banners(self.slider_selector, screen=True)
+          selenium_request.meta["butterfly"] = self.scrape_banners(self.butterfly_selector, screen=True)
 
       def banner_builder(
           self,
@@ -1423,7 +1447,6 @@ snippet bancatsel banner category selenium
                   item["screenshot_image"] = item["image_url"] = screenshot
               item["category"] = path
               item["products"] = []
-              # add banners products
               redirect_url = (
                   src.xpath(".//a[not(contains(@href,'adssettings'))]/@href").get()
                   or src.xpath(".//a//@href").get()
@@ -1431,29 +1454,29 @@ snippet bancatsel banner category selenium
               )
               if banner_type in (BannerTypes.SPONSORED_PRODUCT, BannerTypes.SHOWCASE, BannerTypes.BUTTERFLY):
                   products = []
-                  for el in src.xpath(".//article"):
+                  for el in src.xpath(""):
                       product = ItemBannerProduct()
-                      product["id"] = el.xpath(".//@href").get("").split("-")[-1]
+                      product["id"] = el.xpath("").get("")
                       product["detail_link"] = urljoin(self.domain, el.xpath(".//@href").get())
                       product["image_link"] = el.xpath(".//img/@src").get()
                       products.append(product)
                   item["products"] = products or None
                   item["redirect_url"] = urljoin(self.domain, redirect_url)
                   yield item
-              # elif redirect_url:
-              #     item["redirect_url"] = urljoin(self.domain, redirect_url)
-              #     yield SeleniumRequest(
-              #         item["redirect_url"],
-              #         callback=self.add_products,
-              #         meta={
-              #             "cache_this": True,
-              #             "playwright": {
-              #                 "wait_time": self.wait_time,
-              #             },
-              #         },
-              #         cb_kwargs=dict(banner=item),
-              #         dont_filter=True,
-              #     )
+              elif redirect_url:
+                  item["redirect_url"] = urljoin(self.domain, redirect_url)
+                  yield SeleniumRequest(
+                      item["redirect_url"],
+                      callback=self.add_products,
+                      meta={
+                          "cache_this": True,
+                          "selenium": {
+                              "wait_time": self.wait_time,
+                          },
+                      },
+                      cb_kwargs=dict(banner=item),
+                      dont_filter=True,
+                  )
               else:
                   yield item
 
@@ -1489,6 +1512,14 @@ snippet bancatsel banner category selenium
               path=path,
           )
 
+          banners = response.meta.get("butterfly", [])
+          yield from self.banner_builder(
+              banners=banners,
+              banner_type=BannerTypes.BUTTERFLY,
+              current_url=response.url,
+              path=path,
+          )
+
           banners = response.meta.get("showcase", [])
           yield from self.banner_builder(
               banners=banners,
@@ -1499,13 +1530,13 @@ snippet bancatsel banner category selenium
           for sel in self.sub_categories_selectors:
               for category in response.xpath(sel):
                   url = category.xpath(".//@href").get("")
-                  yield PlaywrightRequest(
+                  yield SeleniumRequest(
                       urljoin(self.domain, url),
                       callback=self.parse_banners,
                       meta={
-                          "playwright": {
+                          "selenium": {
+                              "pre_processing_fun": self.get_banners,
                               "wait_time": self.wait_time,
-                              "action": self.get_banners,
                           },
                       },
                   )
@@ -1520,3 +1551,16 @@ snippet bancatsel banner category selenium
               products.append(product)
           banner["products"] = products or None
           yield banner
+
+snippet downmiddleware download middleware template
+    from core.utils import get_class_path
+    class $1:
+        def __init__(self, crawler):
+            self.crawler = crawler
+
+        @classmethod
+        def from_crawler(cls, crawler):
+            return cls(crawler)
+
+        def process_response(self, request, response: HtmlResponse, spider: Spider):
+            return response
