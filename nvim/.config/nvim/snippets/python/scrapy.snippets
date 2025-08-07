@@ -651,7 +651,7 @@ snippet bancat banner_category template
           playwright_request.meta["sponsored"] = await self.scrape_banners(page, self.sponsored_selector, screen=True)
           playwright_request.meta["showcase"] = await self.scrape_banners(page, self.showcase_selector, screen=True)
           playwright_request.meta["slider"] = await self.scrape_banners(page, self.slider_selector, screen=True)
-          selenium_request.meta["butterfly"] = self.scrape_banners(self.butterfly_selector, screen=True)
+          playwright_request.meta["butterfly"] = await self.scrape_banners(page, self.butterfly_selector, screen=True)
 
       def banner_builder(
           self,
@@ -920,7 +920,7 @@ snippet bancatms
           playwright_request.meta["sponsored"] = await self.scrape_banners(page, self.sponsored_selector, screen=True)
           playwright_request.meta["showcase"] = await self.scrape_banners(page, self.showcase_selector, screen=True)
           playwright_request.meta["slider"] = await self.scrape_banners(page, self.slider_selector, screen=True)
-          selenium_request.meta["butterfly"] = self.scrape_banners(self.butterfly_selector, screen=True)
+          playwright_request.meta["butterfly"] = await self.scrape_banners(page, self.butterfly_selector, screen=True)
 
       def banner_builder(
           self,
@@ -1163,7 +1163,7 @@ snippet banser
           playwright_request.meta["sponsored"] = await self.scrape_banners(page, self.sponsored_selector, screen=True)
           playwright_request.meta["showcase"] = await self.scrape_banners(page, self.showcase_selector, screen=True)
           playwright_request.meta["slider"] = await self.scrape_banners(page, self.slider_selector, screen=True)
-          selenium_request.meta["butterfly"] = self.scrape_banners(self.butterfly_selector, screen=True)
+          playwright_request.meta["butterfly"] = await self.scrape_banners(page, self.butterfly_selector, screen=True)
 
       def banner_builder(
           self, banners: list[tuple[BucketImage, Selector, str]], banner_type: BannerTypes, current_url: str, keyword: str
