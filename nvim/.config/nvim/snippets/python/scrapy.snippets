@@ -29,8 +29,6 @@ snippet bancatmsreqplr banner category multispider start_requests
                     },
                 },
             )
-    async def load_categories(self, page: Page, _, playwright_request: PlaywrightRequest):
-        await self.accept_popups(page)
 
     def parse_categories(self, response: HtmlResponse):
         yield RequestShelf(
@@ -39,13 +37,14 @@ snippet bancatmsreqplr banner category multispider start_requests
             meta={"path": []},
             dont_filter=True,
         )
-        for category in response.xpath(""):
-            url = category.xpath(".//@href").get("")
-            yield RequestShelf(
-                urljoin(self.domain, url),
-                callback=self.parse_banners,
-                meta={"path": []},
-            )
+        for sel in self.categories_selectors:
+            for category in response.xpath(sel):
+                url = category.xpath(".//@href").get("")
+                yield RequestShelf(
+                    urljoin(self.domain, url),
+                    callback=self.parse_banners,
+                    meta={"path": []},
+                )
 
 snippet sln selenium request snippet
   yield SeleniumRequest(
