@@ -820,7 +820,9 @@ snippet bancatms
       slider_selector = []
       butterfly_selector = []
       popups_selectors = []
-      paths_urls: list[tuple]
+      categories_selectors = []
+      sub_categories_selectors = []
+      path_selectors = []
 
       @property
       def wait_time(self) -> int:
@@ -842,7 +844,7 @@ snippet bancatms
                   )
           else:
               yield PlaywrightRequest(
-                  f"{self.domain}/cat/all",
+                  f"{self.domain}",
                   callback=self.parse_categories,
                   meta={
                       "playwright": {
@@ -862,7 +864,8 @@ snippet bancatms
               meta={"path": []},
               dont_filter=True,
           )
-          for category in response.xpath(""):
+        for sel in self.categories_selectors:
+            for category in response.xpath(sel):
               url = category.xpath(".//@href").get("")
               yield RequestShelf(
                   urljoin(self.domain, url),
@@ -978,7 +981,12 @@ snippet bancatms
                   yield item
 
       def parse_banners(self, response: HtmlResponse, is_home: bool = False):
-          path = [c for cat in response.xpath("").getall() if (c := cat.strip())]
+          path = []
+          for sel in self.path_selectors:
+              path = path or [c for cat in response.xpath(sel).getall() if (c := cat.strip())]
+          if not path:
+              parsed_url = urlparse(response.url)
+              path = [parsed_url.path.split("/")[-1]]
           if is_home:
               path = ["Home"]
           banners = response.meta.get("sponsored", [])
@@ -1019,18 +1027,19 @@ snippet bancatms
               current_url=response.url,
               path=path,
           )
-          for category in response.xpath(""):
-              url = category.xpath(".//@href").get("")
-              yield PlaywrightRequest(
-                  urljoin(self.domain, url),
-                  callback=self.parse_banners,
-                  meta={
-                      "playwright": {
-                          "wait_time": self.wait_time,
-                          "action": self.get_banners,
-                      },
-                  },
-              )
+          for sel in self.sub_categories_selectors:
+            for category in response.xpath(sel):
+                url = category.xpath(".//@href").get("")
+                yield PlaywrightRequest(
+                    urljoin(self.domain, url),
+                    callback=self.parse_banners,
+                    meta={
+                        "playwright": {
+                            "wait_time": self.wait_time,
+                            "action": self.get_banners,
+                        },
+                    },
+                )
 
       def add_products(self, response: HtmlResponse, banner: ItemBannerCategory):
         products = []
