@@ -1250,11 +1250,11 @@ snippet banser
 
         banners = response.meta.get("butterfly", [])
         yield from self.banner_builder(
-              banners=banners,
-              banner_type=BannerTypes.BUTTERFLY,
-              current_url=response.url,
-              path=path,
-          )
+            banners=banners,
+            banner_type=BannerTypes.BUTTERFLY,
+            current_url=response.url,
+            keyword=keyword,
+        )
 
         banners = response.meta.get("slider", [])
         yield from self.banner_builder(
