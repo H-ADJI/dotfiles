@@ -74,3 +74,6 @@ create_bootable_usb() {
 sddm_theme_picker() {
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/keyitdev/sddm-astronaut-theme/master/setup.sh)"
 }
+speaker_connect() {
+    echo 'connect 10:94:97:36:C7:15' | bluetoothctl
+}
