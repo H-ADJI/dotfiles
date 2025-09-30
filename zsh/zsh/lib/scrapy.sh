@@ -26,10 +26,8 @@ load_spiders_list() {
         return 1
     fi
 }
-fzf_spiders() {
+_fzf_spiders() {
     # Run FZF with a custom appearance
-    print -P "\n%F{yellow}Using cached spider list (Last update: $(date -r "$cache_file" '+%m-%d-%Y %H:%M:%S' 2>/dev/null))%f"
-    # zle redisplay
     local spider
     spider=$(
         fzf --height 40% --layout=reverse \
@@ -37,14 +35,49 @@ fzf_spiders() {
             --preview="echo 'Spider: {}'" --preview-window=down:1:wrap <"$cache_file"
     )
     # Insert the selected spider name into the command line
+    echo "$spider"
+}
+choose_spider() {
+    # Run FZF with a custom appearance
+    print -P "\n%F{yellow}Using cached spider list (Last update: $(date -r "$cache_file" '+%m-%d-%Y %H:%M:%S' 2>/dev/null))%f"
+    local spider
+    spider=$(_fzf_spiders)
     if [ -n "$spider" ]; then
         LBUFFER="${LBUFFER}${spider} "
     fi
     zle redisplay
 }
 # Define the widget and bind it to Ctrl+f
-zle -N fzf_spiders
-bindkey '^x^f' fzf_spiders
+zle -N choose_spider
+bindkey '^x^f' choose_spider
+
+spider_launch_cmd() {
+    # Run FZF with a custom appearance
+    print -P "\n%F{yellow}Using cached spider list (Last update: $(date -r "$cache_file" '+%m-%d-%Y %H:%M:%S' 2>/dev/null))%f"
+    local spider
+    spider=$(_fzf_spiders)
+    if [ -n "$spider" ]; then
+        LBUFFER="${LBUFFER} scrapy crawl ${spider} "
+    fi
+    zle redisplay
+}
+
+zle -N spider_launch_cmd
+bindkey '^x^r' spider_launch_cmd
+
+open_spider_project() {
+    # Run FZF with a custom appearance
+    print -P "\n%F{yellow}Using cached spider list (Last update: $(date -r "$cache_file" '+%m-%d-%Y %H:%M:%S' 2>/dev/null))%f"
+    local spider
+    spider=$(_fzf_spiders)
+    if [ -n "$spider" ]; then
+        LBUFFER="${LBUFFER} di-cli zone open ${spider} "
+    fi
+    zle redisplay
+}
+
+zle -N open_spider_project
+bindkey '^x^o' open_spider_project
 
 shub_deploy() {
     shub image upload "$SHUB_DEVZONE" --build-arg PYPI_SECRET="$PYPI_SECRET"
