@@ -23,6 +23,7 @@ source ~/zsh/lib/nvim.sh
 source ~/zsh/lib/path.sh
 source ~/zsh/lib/python.sh
 source ~/zsh/lib/scrapy.sh
+source ~/zsh/lib/sound.sh
 source ~/zsh/lib/timer.sh
 source ~/zsh/lib/tmux.sh
 source ~/zsh/lib/tmuxifier.sh
