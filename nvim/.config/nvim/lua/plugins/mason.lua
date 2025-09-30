@@ -39,6 +39,7 @@ return {
         "stylua",
         "bash-language-server",
         "beautysh",
+        "just-lsp"
       },
     },
   },

@@ -6,7 +6,7 @@ bindsym $mod+Return exec $term
 bindsym $mod+t exec $term
 
 # Set default browser
-set $browser brave
+set $browser "brave --ozone-platform=wayland --enable-features=UseOzonePlatform"
 # Launch the browser
 bindsym $mod+o exec $browser
 

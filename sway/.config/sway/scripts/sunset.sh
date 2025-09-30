@@ -12,4 +12,4 @@ else
     LON=$DEFAULT_LON
 fi
 
-wlsunset -l "$LAT" -L "$LON"
+wlsunset -l "$LAT" -L "$LON" -t 3000
