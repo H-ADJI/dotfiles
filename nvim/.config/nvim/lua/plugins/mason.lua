@@ -39,7 +39,9 @@ return {
         "stylua",
         "bash-language-server",
         "beautysh",
-        "just-lsp"
+        "just-lsp",
+        "jinja-lsp",
+        "djlint",
       },
     },
   },
