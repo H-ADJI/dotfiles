@@ -6,7 +6,7 @@ bindsym $mod+Return exec $term
 bindsym $mod+t exec $term
 
 # Set default browser
-set $browser "brave --ozone-platform=wayland --enable-features=UseOzonePlatform"
+set $browser firefox
 # Launch the browser
 bindsym $mod+o exec $browser
 
@@ -43,3 +43,6 @@ bindsym $mod+Shift+t exec ~/.config/sway/scripts/focus_timer.sh
 bindsym $mod+Shift+a exec ~/.config/sway/scripts/emulator.sh
 # keyboard layout
 bindsym $mod+x exec ~/.config/sway/scripts/layout.sh
+
+bindsym Ctrl+Shift+p exec "zenity --warning --text='error'"
+bindsym Ctrl+Shift+n exec "zenity --warning --text='error'"
