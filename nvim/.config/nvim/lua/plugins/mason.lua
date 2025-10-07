@@ -40,7 +40,6 @@ return {
         "bash-language-server",
         "beautysh",
         "just-lsp",
-        "jinja-lsp",
         "djlint",
       },
     },

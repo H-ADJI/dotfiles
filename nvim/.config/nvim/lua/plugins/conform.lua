@@ -31,6 +31,7 @@ return {
       bash = { "beautysh" },
       xml = { "xmlformatter" },
       rust = { "rustfmt" },
+      jinja = { "djlint" },
     },
     formatters = {
       rustfmt = {

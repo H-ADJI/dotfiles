@@ -5,8 +5,8 @@ vim.g.autoformat = false
 vim.opt.scrolloff = 20
 vim.o.winborder = "rounded"
 -- vim.opt.clipboard = "unnamedplus"
-vim.filetype.add({
-  extension = {
-    ["jinja"] = "jinja_markdown", -- treat .md.jinja as markdown
-  },
-})
+-- vim.filetype.add({
+--   extension = {
+--     ["jinja"] = "jinja_markdown", -- treat .md.jinja as markdown
+--   },
+-- })
