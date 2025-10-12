@@ -30,9 +30,9 @@ _fzf_spiders() {
     # Run FZF with a custom appearance
     local spider
     spider=$(
-        fzf --height 40% --layout=reverse \
+        pls spider list | fzf --height 40% --layout=reverse \
             --border --prompt="Select Spider: " --pointer="▶ " --marker="✔ " \
-            --preview="echo 'Spider: {}'" --preview-window=down:1:wrap <"$cache_file"
+            --preview="echo 'Spider: {}'" --preview-window=down:1:wrap
     )
     # Insert the selected spider name into the command line
     echo "$spider"
