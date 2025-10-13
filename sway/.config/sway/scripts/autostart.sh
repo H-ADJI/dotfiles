@@ -2,7 +2,7 @@
 alacritty &
 sleep 2
 swaymsg 'workspace 2'
-firefox &
+brave --ozone-platform=wayland --ozone-platform-hint=wayland &
 sleep 2
 swaymsg 'workspace 3'
 slack &
