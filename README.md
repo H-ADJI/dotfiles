@@ -13,3 +13,10 @@
 ## Setup
 
 Complete setup scripts available [here](https://github.com/H-ADJI/cyborg)
+
+## Roadmap
+
+- [ ] change app launcher
+- [ ] change utilities launcher
+- [ ] keybinds list
+- [ ] E2E automatic setup
