@@ -62,7 +62,7 @@
 
 	"modules-right": [
 		"custom/keyboard-layout",
-		"idle_inhibitor",
+		// "idle_inhibitor",
 		"network",
 		"cpu",
 		"memory",

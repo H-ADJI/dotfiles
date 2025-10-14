@@ -15,11 +15,8 @@ exec hash dbus-update-activation-environment 2>/dev/null && \
      dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_CURRENT_DESKTOP=sway
 exec swayidle idlehint 1
 exec_always swayidle -w \
-    # timeout 1800  'gtklock -d' \
     timeout 3600 'systemctl suspend' \
-    # timeout 30  'systemctl hibernate' \
-    # timeout 14400  'systemctl poweroff' \
-    # before-sleep   'gtklock -d'
+    before-sleep   'gtklock -d'
 
 # night light 
 exec ~/.config/sway/scripts/sunset.sh
