@@ -15,7 +15,7 @@ vim.keymap.set("n", "<leader>pp", function()
   if file_path == "" then
     file_path = "[No file opened]"
   end
-  print(file_path)
+  vim.notify(file_path)
   vim.fn.setreg("+", file_path)
 end, { desc = "Show and copy current file path" })
 
