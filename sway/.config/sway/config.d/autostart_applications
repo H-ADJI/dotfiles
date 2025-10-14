@@ -19,8 +19,8 @@ exec_always swayidle -w \
     before-sleep   'gtklock -d'
 
 # night light 
-exec ~/.config/sway/scripts/sunset.sh
-
+exec_always ~/.config/sway/scripts/sunset.sh
+exec_always "echo 'connect 10:94:97:36:C7:15' | bluetoothctl"
 # Desktop notifications
 exec mako
 
@@ -32,5 +32,5 @@ exec wl-paste --type image --watch cliphist store
 exec nm-applet --indicator
 
 # apps autostart
-exec_always ~/.config/sway/scripts/autostart.sh
+# exec_always ~/.config/sway/scripts/autostart.sh
 
