@@ -16,6 +16,7 @@ Complete setup scripts available [here](https://github.com/H-ADJI/cyborg)
 
 ## Roadmap
 
+- [ ] output / input picker widget
 - [ ] change app launcher
 - [ ] power saving options
 - [ ] change utilities launcher
