@@ -32,5 +32,5 @@ exec wl-paste --type image --watch cliphist store
 exec nm-applet --indicator
 
 # apps autostart
-# exec_always ~/.config/sway/scripts/autostart.sh
+exec_always ~/.config/sway/scripts/autostart.sh
 
