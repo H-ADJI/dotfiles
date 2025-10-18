@@ -25,7 +25,8 @@ Complete setup scripts available [here](https://github.com/H-ADJI/cyborg)
 - [ ] wallpaper picker
 - [ ] change app launcher
 - [ ] power saving options
+- [ ] screen recording
 - [ ] change utilities launcher
 - [ ] keybinds list
-- [ ] E2E automatic setup using gum cli
+- [x] E2E automatic setup using gum cli
 - [ ] nvim custom config
