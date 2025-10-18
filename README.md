@@ -25,5 +25,5 @@ Complete setup scripts available [here](https://github.com/H-ADJI/cyborg)
 - [ ] power saving options
 - [ ] change utilities launcher
 - [ ] keybinds list
-- [ ] nvim custom config
 - [ ] E2E automatic setup
+- [ ] nvim custom config

@@ -1,26 +1,26 @@
-# Auth with polkit-gnome:
+# Start Polkit agent to allow GUI apps to request admin privileges
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
-# Import environment variables for user systemd service manager
-exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
-
-# Update dbus environments with display variables
-exec hash dbus-update-activation-environment 2>/dev/null && \
-     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP 
-# enable  dbus for IPC (screensharing ...)
-# exec dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus
-
+# Import environment variables for systemd user services
 exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+
+# Update D-Bus session environment so apps see correct Wayland/XDG variables (needed for screen sharing)
 exec hash dbus-update-activation-environment 2>/dev/null && \
-     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_CURRENT_DESKTOP=sway
+     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+
+# Inform swayidle/systemd that the system is idle (starts idle timers)
 exec swayidle idlehint 1
+
 exec_always swayidle -w \
     timeout 3600 'systemctl suspend' \
     before-sleep   'gtklock -d'
 
 # night light 
 exec_always ~/.config/sway/scripts/sunset.sh
+
+# bluetooth auto-connect speaker
 exec_always "echo 'connect 10:94:97:36:C7:15' | bluetoothctl"
+
 # Desktop notifications
 exec mako
 
@@ -33,4 +33,3 @@ exec nm-applet --indicator
 
 # apps autostart
 exec_always ~/.config/sway/scripts/autostart.sh
-
