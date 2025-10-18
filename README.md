@@ -18,7 +18,7 @@ Complete setup scripts available [here](https://github.com/H-ADJI/cyborg)
 
 - [ ] default apps
 - [ ] power menu
-- [ ] PWAs
+- [ ] PWAs using omarchy webapp install/launch scripts
 - [ ] output / input picker widget
 - [ ] pkill widget
 - [ ] widget list
@@ -27,5 +27,5 @@ Complete setup scripts available [here](https://github.com/H-ADJI/cyborg)
 - [ ] power saving options
 - [ ] change utilities launcher
 - [ ] keybinds list
-- [ ] E2E automatic setup
+- [ ] E2E automatic setup using gum cli
 - [ ] nvim custom config
