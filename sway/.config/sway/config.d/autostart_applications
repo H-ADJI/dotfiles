@@ -12,7 +12,7 @@ exec hash dbus-update-activation-environment 2>/dev/null && \
 exec swayidle idlehint 1
 
 exec_always swayidle -w \
-    timeout 3600 'systemctl poweroff' \
+    timeout 7200 'systemctl poweroff' \
     before-sleep   'gtklock -d'
 
 # night light 
