@@ -162,7 +162,7 @@
 	},
 	"custom/power": {
 		"format": "⏻",
-		"on-click": "exec ~/.config/sway/scripts/power_menu.sh",
+		"on-click": "wlogout -b 4 -T 400 -B 400",
 		"tooltip": false
 	}
 }
