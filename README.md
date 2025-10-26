@@ -17,7 +17,6 @@ Complete setup scripts available [here](https://github.com/H-ADJI/cyborg)
 ## Roadmap
 
 - [ ] default apps
-- [ ] power menu
 - [ ] PWAs using omarchy webapp install/launch scripts
 - [ ] notifications using mako instead of fnott
 - [ ] plymouth to hide systemd boot logs
