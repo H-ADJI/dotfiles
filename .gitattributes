@@ -1,6 +1,7 @@
 #pattern  filter=crypt diff=crypt merge=crypt
 #
 secrets/*  filter=crypt diff=crypt merge=crypt
+lock.secure  filter=crypt diff=crypt merge=crypt
 zsh/.zsh_history  filter=crypt diff=crypt merge=crypt
 bin/.local/bin/work_setup  filter=crypt diff=crypt merge=crypt
 ssh/.ssh/*  filter=crypt diff=crypt merge=crypt
