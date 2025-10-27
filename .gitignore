@@ -6,6 +6,7 @@ bin/.local/bin/*
 !bin/.local/bin/unblock.sh
 !bin/.local/bin/vim_edit
 !bin/.local/bin/work_setup
+!bin/.local/bin/post_install
 cmus/.config/cmus/*
 !cmus/.config/cmus/catpuccin.theme
 !cmus/.config/cmus/rc
