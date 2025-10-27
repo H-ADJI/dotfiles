@@ -5,3 +5,16 @@ while read package; do
     yay -Sq --noconfirm --noprogressbar --needed --disable-download-timeout "$package"
     gum log -l info "[DONE] Installing $package"
 done <~/dotfiles/packages/arch/packages-post.txt
+
+gum log -l info "[START] Spotify file permissions"
+sudo chmod a+wr /opt/spotify
+sudo chmod a+wr /opt/spotify/Apps -R
+gum log -l info "[DONE] Spotify file permissions"
+
+gum log -l info "[START] Spicetify apply"
+spicetify update
+spicetify apply
+gum log -l info "[DONE] Spicetify apply"
+gum log -l info "[START] Change shell to use ZSH"
+chsh -s "$(which zsh)"
+gum log "[DONE] Change shell to use ZSH"
