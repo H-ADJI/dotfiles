@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=Sway (UWSM)
+Comment=Launch Sway using UWSM session manager
+Exec=uwsm start sway
+Type=Application
