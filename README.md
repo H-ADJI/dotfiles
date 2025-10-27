@@ -16,6 +16,7 @@ Complete setup scripts available [here](https://github.com/H-ADJI/cyborg)
 
 ## Roadmap
 
+- [ ] use single repo instead of 2
 - [ ] change app launcher : walker
 - [ ] keybinds list
 - [ ] PWAs using omarchy webapp install/launch scripts

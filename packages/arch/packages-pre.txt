@@ -1,6 +1,5 @@
 alacritty
 alsa-tools
-plymouth
 alsa-utils
 argon2
 awesome-terminal-fonts
