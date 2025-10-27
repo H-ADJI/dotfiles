@@ -1,9 +1,7 @@
 #!/bin/bash
 
-installpackages() {
-    while read package; do
-        gum log -l info "[START] Installing $package"
-        yay -Sq --noconfirm --noprogressbar --needed --disable-download-timeout "$package"
-        gum log -l info "[DONE] Installing $package"
-    done <~/dotfiles/packages/arch/packages-post.txt
-}
+while read package; do
+    gum log -l info "[START] Installing $package"
+    yay -Sq --noconfirm --noprogressbar --needed --disable-download-timeout "$package"
+    gum log -l info "[DONE] Installing $package"
+done <~/dotfiles/packages/arch/packages-post.txt
