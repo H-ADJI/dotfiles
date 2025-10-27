@@ -12,9 +12,13 @@ sudo chmod a+wr /opt/spotify/Apps -R
 gum log -l info "[DONE] Spotify file permissions"
 
 gum log -l info "[START] Spicetify apply"
+curl -fsSL https://raw.githubusercontent.com/spicetify/cli/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/spicetify/marketplace/main/resources/install.sh | sh
+spicetify backup apply
 spicetify update
 spicetify apply
 gum log -l info "[DONE] Spicetify apply"
+
 gum log -l info "[START] Change shell to use ZSH"
 chsh -s "$(which zsh)"
 gum log "[DONE] Change shell to use ZSH"
