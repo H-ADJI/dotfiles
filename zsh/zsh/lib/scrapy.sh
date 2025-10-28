@@ -1,45 +1,28 @@
 SPIDERS_CACHE_DIR="$HOME/.local/share/scrapy"
 [ ! -d "$SPIDERS_CACHE_DIR" ] && mkdir -p "$SPIDERS_CACHE_DIR"
-cache_file="$SPIDERS_CACHE_DIR/spiders.cache"
 alias show_spiders_list="bat ~/.local/share/scrapy/spiders.cache 2>/dev/null"
 alias delete_spiders_list="rm ~/.local/share/scrapy/spiders.cache"
 alias bezier_python_bininstall="uv pip uninstall bezier && BEZIER_NO_EXTENSION=true uv pip install --upgrade bezier --no-binary=bezier numpy==1.26.4"
 jsonk_path() {
     local file="$1"
     local key="$2"
-    # Run jq to find paths to the key
     jq -c "path(.. | select(.$key?))" "$file"
-
 }
 jsonv_path() {
     local file="$1"
     local value="$2"
-    # Run jq to find paths to the value
     jq -c "path(.. | select(. == \"$value\"))" "$file"
 }
-load_spiders_list() {
-    touch "$cache_file"
-    if command -v scrapy &>/dev/null; then
-        scrapy list 2>/dev/null 1>"$cache_file"
-    else
-        print -P "\n%F{yellow} Couldn't generate spiders cache, $(pwd) is not a scrapy project%f"
-        return 1
-    fi
-}
 _fzf_spiders() {
-    # Run FZF with a custom appearance
     local spider
     spider=$(
         pls spider list | fzf --height 40% --layout=reverse \
             --border --prompt="Select Spider: " --pointer="▶ " --marker="✔ " \
             --preview="echo 'Spider: {}'" --preview-window=down:1:wrap
     )
-    # Insert the selected spider name into the command line
     echo "$spider"
 }
 choose_spider() {
-    # Run FZF with a custom appearance
-    print -P "\n%F{yellow}Using cached spider list (Last update: $(date -r "$cache_file" '+%m-%d-%Y %H:%M:%S' 2>/dev/null))%f"
     local spider
     spider=$(_fzf_spiders)
     if [ -n "$spider" ]; then
@@ -47,13 +30,10 @@ choose_spider() {
     fi
     zle redisplay
 }
-# Define the widget and bind it to Ctrl+f
 zle -N choose_spider
 bindkey '^x^f' choose_spider
 
 spider_launch_cmd() {
-    # Run FZF with a custom appearance
-    print -P "\n%F{yellow}Using cached spider list (Last update: $(date -r "$cache_file" '+%m-%d-%Y %H:%M:%S' 2>/dev/null))%f"
     local spider
     spider=$(_fzf_spiders)
     if [ -n "$spider" ]; then
@@ -61,17 +41,14 @@ spider_launch_cmd() {
     fi
     zle redisplay
 }
-
 zle -N spider_launch_cmd
 bindkey '^x^r' spider_launch_cmd
 
 open_spider_project() {
-    # Run FZF with a custom appearance
-    print -P "\n%F{yellow}Using cached spider list (Last update: $(date -r "$cache_file" '+%m-%d-%Y %H:%M:%S' 2>/dev/null))%f"
     local spider
     spider=$(_fzf_spiders)
     if [ -n "$spider" ]; then
-        LBUFFER="${LBUFFER} di-cli zone open ${spider} "
+        LBUFFER="${LBUFFER} pls zone open ${spider} "
     fi
     zle redisplay
 }
