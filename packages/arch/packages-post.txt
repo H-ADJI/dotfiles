@@ -82,6 +82,8 @@ slack-desktop-wayland
 slurp
 solaar
 spotify
+ttf-freefont ttf-ms-fonts ttf-linux-libertine ttf-dejavu ttf-inconsolata ttf-ubuntu-font-family
+noto-fonts-cjk noto-fonts-emoji noto-fonts
 starship
 stow
 swappy
