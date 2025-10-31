@@ -1,7 +1,3 @@
-SPIDERS_CACHE_DIR="$HOME/.local/share/scrapy"
-[ ! -d "$SPIDERS_CACHE_DIR" ] && mkdir -p "$SPIDERS_CACHE_DIR"
-alias show_spiders_list="bat ~/.local/share/scrapy/spiders.cache 2>/dev/null"
-alias delete_spiders_list="rm ~/.local/share/scrapy/spiders.cache"
 alias bezier_python_bininstall="uv pip uninstall bezier && BEZIER_NO_EXTENSION=true uv pip install --upgrade bezier --no-binary=bezier numpy==1.26.4"
 jsonk_path() {
     local file="$1"
@@ -37,7 +33,7 @@ spider_launch_cmd() {
     local spider
     spider=$(_fzf_spiders)
     if [ -n "$spider" ]; then
-        LBUFFER="${LBUFFER} scrapy crawl ${spider} "
+        LBUFFER="${LBUFFER}scrapy crawl ${spider} "
     fi
     zle redisplay
 }
@@ -48,7 +44,7 @@ open_spider_project() {
     local spider
     spider=$(_fzf_spiders)
     if [ -n "$spider" ]; then
-        LBUFFER="${LBUFFER} pls zone open ${spider} "
+        LBUFFER="${LBUFFER}pls zone open ${spider} "
     fi
     zle redisplay
 }
