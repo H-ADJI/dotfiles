@@ -23,3 +23,20 @@ bindsym {
     XF86MonBrightnessUp exec brightnessctl -c backlight set +5%
     XF86MonBrightnessDown exec brightnessctl -c backlight set 5%-
 }
+set {
+  $audio-switcher "Select Audio : [I]nput or [O]utput"
+  $audio-switch-cmd ~/.config/sway/scripts/audio_picker.sh
+}
+
+mode $audio-switcher {
+  bindsym --to-code {
+    i exec $audio-switch-cmd source , mode "default"
+    o exec $audio-switch-cmd sink , mode "default"
+
+    Return mode "default"
+    Escape mode "default"
+    $mod+x mode "default"
+
+  }
+}
+bindsym --to-code $mod+Shift+o mode $audio-switcher
