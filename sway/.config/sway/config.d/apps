@@ -43,7 +43,7 @@ bindsym $mod+z exec  ~/.config/sway/scripts/zoom.sh
 # Focus timer 
 bindsym $mod+Shift+t exec ~/.config/sway/scripts/focus_timer.sh
 # pkill
-bindsym $mod+Shift+p exec ~/.config/sway/scripts/pkill.sh
+bindsym $mod+Shift+d exec ~/.config/sway/scripts/pkill.sh
 # Android emulator
 bindsym $mod+Shift+a exec ~/.config/sway/scripts/emulator.sh
 # keyboard layout
