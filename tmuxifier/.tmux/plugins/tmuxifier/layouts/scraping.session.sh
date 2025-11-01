@@ -5,11 +5,7 @@ session_root "$HOME/dataimpact-scraping/"
 # Create session with specified name if it does not already exist. If no
 # argument is given, session name will be based on layout file name.
 if initialize_session "DI Scraping"; then
-    new_window "spiders src"
-    run_cmd "nv"
-    new_window "shell"
-    window_root "$HOME/scraping-cli/"
-    new_window "cli src"
+    new_window "src"
     run_cmd "nv"
     new_window "shell"
     select_window 1
