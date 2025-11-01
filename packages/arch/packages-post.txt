@@ -4,6 +4,7 @@ alsa-tools
 alsa-utils
 android-tools 
 ardour
+arp-scan
 awesome-terminal-fonts
 bat
 bluetui
@@ -32,6 +33,7 @@ fzf
 gcc
 genymotion
 git-delta
+github-cli
 google-chrome
 greetd-tuigreet
 grep
@@ -61,6 +63,7 @@ mupdf
 netcat
 network-manager-applet
 noto-fonts
+noto-fonts-cjk noto-fonts-emoji noto-fonts
 noto-fonts-emoji
 npm
 nvim
@@ -82,8 +85,6 @@ slack-desktop-wayland
 slurp
 solaar
 spotify
-ttf-freefont ttf-ms-fonts ttf-linux-libertine ttf-dejavu ttf-inconsolata ttf-ubuntu-font-family
-noto-fonts-cjk noto-fonts-emoji noto-fonts
 starship
 stow
 swappy
@@ -98,6 +99,7 @@ tmux
 transcrypt
 tree
 ttf-dejavu 
+ttf-freefont ttf-ms-fonts ttf-linux-libertine ttf-dejavu ttf-inconsolata ttf-ubuntu-font-family
 ttf-jetbrains-mono 
 ttf-jetbrains-mono-nerd
 ttf-nerd-fonts-symbols
