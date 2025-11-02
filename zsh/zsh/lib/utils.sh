@@ -1,10 +1,3 @@
-# safe gards to not break gloabal python installation
-# function cd() {
-#   builtin cd "$@" # Call the built-in cd command
-#   if [ -f "./venv/bin/activate" ]; then
-#     source ./venv/bin/activate
-#   fi
-# }
 note() {
     # Get current year and ISO week number
     local year week
@@ -20,7 +13,6 @@ note() {
     fi
     nvim "$note_file"
 }
-
 create_bootable_usb() {
     # Check if exactly two arguments are provided
     if [ "$#" -ne 2 ]; then
