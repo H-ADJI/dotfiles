@@ -19,12 +19,6 @@ zinit snippet OMZP::gh
 # hooks direnv to terminal https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/direnv
 zinit snippet OMZP::direnv
 
-# kitty aliases and functions https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/kitty
-zinit snippet OMZP::kitty
-
-# jira CLI https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/jira
-zinit snippet OMZP::jira
-
 # rust completions for rustup cargo and rustc https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/rust
 zinit snippet OMZP::rust
 
@@ -34,11 +28,18 @@ zinit snippet OMZP::npm
 # node docs https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/node
 zinit snippet "OMZP::node"
 
-# suggest package to be installed if command not found
+# ATNS https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/colored-man-pages
+zinit snippet OMZP::colored-man-pages
+
+# suggest package to be installed if command not found https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/command-not-found
 zinit snippet OMZP::command-not-found
 
 # uv aliases and completions https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/uv
 zinit snippet OMZP::uv
+
+# ssh host completions and utility functions https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/ssh
+zinit snippet OMZP::ssh
+
 # docker aliases and completions https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/docker
 zinit snippet OMZP::docker
 zinit snippet OMZP::docker-compose
