@@ -18,3 +18,4 @@ alias e='$EDITOR'
 if [ "$TERM" = "alacritty" ]; then
     export TERM=xterm-256color
 fi
+export MANPAGER="nvim +Man!"
