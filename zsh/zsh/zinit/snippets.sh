@@ -34,9 +34,6 @@ zinit snippet OMZP::npm
 # node docs https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/node
 zinit snippet OMZP::node
 
-# ATNS https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/colored-man-pages
-zinit snippet OMZP::colored-man-pages
-
 # suggest package to be installed if command not found https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/command-not-found
 zinit snippet OMZP::command-not-found
 

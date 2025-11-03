@@ -3,10 +3,12 @@ alacritty
 alsa-tools
 alsa-utils
 android-tools 
+arch-wiki-docs
 ardour
 arp-scan
 awesome-terminal-fonts
 bat
+bat-extras
 bluetui
 bluez
 bluez-utils
@@ -94,6 +96,7 @@ swayidle
 swaylock-effects
 task
 taskwarrior-tui
+tealdeer
 thunar
 tmux
 transcrypt
@@ -113,6 +116,7 @@ virtualbox
 virtualbox-host-modules-arch
 waybar
 wget
+wikiman
 wl-clipboard
 wlogout
 wlsunset
