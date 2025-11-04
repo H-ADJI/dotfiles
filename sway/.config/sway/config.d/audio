@@ -15,6 +15,8 @@ bindsym {
     XF86AudioPlay exec playerctl play-pause
     XF86AudioNext exec playerctl next
     XF86AudioPrev exec playerctl previous
+    Ctrl+XF86AudioNext exec playerctl position 5+
+    Ctrl+XF86AudioPrev exec playerctl position 5-
     Shift+XF86AudioRaiseVolume exec playerctl next
     Shift+XF86AudioLowerVolume exec playerctl previous
     XF86AudioStop exec playerctl stop
