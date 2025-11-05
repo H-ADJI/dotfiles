@@ -56,10 +56,12 @@ jnv
 jq
 leetcode-cli
 libreoffice-still
+linux-firmware 
 localsend-bin
 ly
 mako
 man-db
+mesa 
 mpv
 mupdf
 netcat
@@ -102,10 +104,14 @@ tmux
 transcrypt
 tree
 ttf-dejavu 
-ttf-freefont ttf-ms-fonts ttf-linux-libertine ttf-dejavu ttf-inconsolata ttf-ubuntu-font-family
+ttf-freefont 
+ttf-inconsolata 
 ttf-jetbrains-mono 
 ttf-jetbrains-mono-nerd
+ttf-linux-libertine 
+ttf-ms-fonts 
 ttf-nerd-fonts-symbols
+ttf-ubuntu-font-family
 ueberzugpp
 unp
 unzip
@@ -114,6 +120,8 @@ uwsm
 vial
 virtualbox
 virtualbox-host-modules-arch
+vulkan-mesa-layers
+vulkan-radeon 
 waybar
 wget
 wikiman
