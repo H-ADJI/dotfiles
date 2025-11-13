@@ -67,7 +67,7 @@ mupdf
 netcat
 network-manager-applet
 noto-fonts
-noto-fonts-cjk noto-fonts-emoji noto-fonts
+noto-fonts-cjk
 noto-fonts-emoji
 npm
 nvim
