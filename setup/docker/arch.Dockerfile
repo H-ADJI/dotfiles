@@ -19,5 +19,4 @@ USER ${USER}
 
 # Set the working directory
 WORKDIR /home/${USER}
-RUN echo "alias dotinstall='curl -SL https://raw.githubusercontent.com/H-ADJI/dotfiles/refs/heads/master/setup/init.sh | bash'" >> .bashrc
-CMD ["/bin/bash"]
+CMD ["/bin/bash","-c","curl -SL https://raw.githubusercontent.com/H-ADJI/dotfiles/refs/heads/master/setup/init.sh | bash"]
