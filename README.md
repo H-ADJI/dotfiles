@@ -1,5 +1,11 @@
 # Dotfiles
 
+## Setup
+
+```bash
+curl -SL https://raw.githubusercontent.com/H-ADJI/dotfiles/refs/heads/master/setup/init.sh | bash
+```
+
 ## Content
 
 - My dotfiles for ricing my workstations running Arch / Ubuntu
@@ -10,24 +16,23 @@
   - ZSH
   - Starship
 
-## Setup
-
-Complete setup scripts available [here](https://github.com/H-ADJI/cyborg)
-
 ## Roadmap
 
-- [ ] use single repo instead of 2
-- [ ] migrate to hyprland
-- [ ] change app launcher : walker
-- [ ] keybinds list
-- [ ] PWAs using omarchy webapp install/launch scripts
-- [ ] notifications using mako instead of fnott
-- [ ] output / input picker widget
-- [ ] pkill widget
-- [ ] xcompose for emojies
-- [ ] widget list
-- [ ] wallpaper picker
-- [ ] screen recording
-- [ ] change utilities launcher
-- [ ] default apps
-- [ ] nvim custom config
+- fix scripts path
+- keybinds fix
+- pkill widget
+- output / input picker widget
+- windows rules
+- default apps
+- PWAs using omarchy webapp install/launch scripts
+- keybinds list
+- add mybattlestation link
+- yt-x
+- xcompose for emojies
+- widget list
+- wallpaper picker
+- theme picker
+- screen recording
+- connect tmux / nvim over ssh
+- arch packages info , search , installed , installer picker
+- fix amd stuff
