@@ -27,7 +27,7 @@ installpackages() {
         gum log -l info "[START] Installing $package"
         yay -Sq --noconfirm --noprogressbar --needed --disable-download-timeout "$package" >>~/yay.log 2>&1
         gum log -l info "[DONE] Installing $package"
-    done <~/cyborgV2/setup/arch/packages.txt
+    done <~/dotfiles/setup/arch/packages.txt
 }
 post_install() {
     gum log -l info "[START] Chosing stable rust toolchain release"
@@ -110,7 +110,7 @@ post_install() {
     gum log "[DONE] Change shell to use ZSH"
 }
 decrypt_secrets() {
-    cd ~/cyborgV2/ || return 1
+    cd ~/dotfiles/ || return 1
     VERIFY=1
     STORED_HASH=$(cat setup/lock.secure)
     while true; do
@@ -132,16 +132,15 @@ decrypt_secrets() {
     cd || return 1
 }
 link_dotfiles() {
-    cd ~/cyborgV2/ || return 1
+    cd ~/dotfiles/ || return 1
     dotfiles=(
         "alacritty"
-        "bin"
         "swappy"
         "direnv"
         "fastfetch"
         "fuzzel"
         "git"
-        "hypr"
+        "sway"
         "leetcode"
         "mako"
         "nvim"
@@ -156,7 +155,7 @@ link_dotfiles() {
         "scripts"
         "zsh"
     )
-    stow --override --dotfiles "${dotfiles[@]}"
+    stow --dotfiles "${dotfiles[@]}"
     cd || return 1
 }
 docker_post_install() {
@@ -181,9 +180,9 @@ personal_repos() {
     for PROJECT in "${projects[@]}"; do
         [ ! -d "$PROJECT" ] && git clone "git@github.com:H-ADJI/$PROJECT.git"
     done
-    cd ~/cyborgV2/ || return 1
+    cd ~/dotfiles/ || return 1
     git remote remove origin
-    git remote add origin git@github.com:H-ADJI/cyborgV2.git
+    git remote add origin git@github.com:H-ADJI/dotfiles.git
     cd || exit 1
 }
 
