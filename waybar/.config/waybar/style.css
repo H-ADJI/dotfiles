@@ -101,25 +101,27 @@ window#waybar {
 #workspaces button {
   border-radius: 5px;
   color: #eceff4;
-  padding: 1px 6px;
+  padding: 4px;
   margin-right: 2px;
   margin-left: 2px;
 }
 
 #workspaces button.focused {
-  border: 1px solid #d8dee9;
+  border: 3px solid #d8dee9;
+  font-weight: bold;
 }
 
 #workspaces button.urgent {
-  border-color: #c9545d;
+  border: 3px solid #c9545d;
   color: #c9545d;
 }
 
 #mode {
-  background: #9399b2;
+  background: orange;
   border-bottom: 3px transparent;
-  color: white;
+  color: black;
   margin-left: 5px;
+  padding: 10px; /* Adds 10px padding on left and right */
   font-weight: bold;
 }
 

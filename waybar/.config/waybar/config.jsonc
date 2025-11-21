@@ -3,30 +3,25 @@
 	"position": "top", // Waybar position (top|bottom|left|right)
 	// "height": 30, // Auto-height is used when commented
 	// "width": 1280, // Full screen width when commented
+	"spacing": 10, // Gaps between modules (in px)
 	"margin": 10,
-	"spacing": 20, // Gaps between modules (in px)
 	// See `man waybar` for more configuration options
-	"modules-left": ["sway/workspaces", "sway/window"],
+	"modules-left": ["sway/workspaces", "sway/scratchpad", "sway/window"],
 	"sway/workspaces": {
 		"disable-scroll": true,
 		"all-outputs": true,
 		"format": "{icon}",
-		"format-icons": {
-			"3": "3",
-			"4": "4",
-			"5": "5",
-			"6": "6",
-			"7": "7",
-			"8": "8",
-			"9": "9",
-			"10": "10"
-		}
+		"format-icons": {}
 	},
 	"sway/window": {
 		"format": "{}",
 		"max-length": 40
 	},
-
+	"sway/scratchpad": {
+		"format": "{icon} {count}",
+		"show-empty": false,
+		"format-icons": ["", ""],
+	},
 	"modules-center": ["custom/music", "sway/mode", "clock"],
 	"custom/music": {
 		"format": " 🎶  {}",
@@ -61,7 +56,6 @@
 	},
 
 	"modules-right": [
-		"custom/keyboard-layout",
 		// "idle_inhibitor",
 		"network",
 		"cpu",
@@ -73,15 +67,6 @@
 		"tray",
 		"custom/power"
 	],
-	"custom/keyboard-layout": {
-		"exec": "i=$(swaymsg -t get_inputs); echo \"\"; echo \"$i\" | grep -m1 'xkb_active_layout_name' | cut -d '\"' -f4",
-		"format": "",
-		// Interval set only as a fallback; use signal to update the module more immediately
-		"interval": 30,
-		// See example config for sending signal to Waybar in ~/.config/sway/config.d/input
-		"signal": 1,
-		"on-click": "~/.config/waybar/scripts/keyhint.sh"
-	},
 	"idle_inhibitor": {
 		"format": "{icon}",
 		"format-icons": {
