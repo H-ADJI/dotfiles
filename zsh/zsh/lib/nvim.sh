@@ -15,7 +15,4 @@ export SUDO_EDITOR="nvim"
 export VISUAL="nvim"
 export FCEDIT="nvim"
 alias e='$EDITOR'
-if [ "$TERM" = "alacritty" ]; then
-    export TERM=xterm-256color
-fi
 export MANPAGER="nvim +Man!"
