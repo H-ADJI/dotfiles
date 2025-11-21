@@ -100,11 +100,6 @@ post_install() {
     nvim --headless -c 'Lazy install' -c 'qa'
     gum log -l info "[DONE] nvim headless install"
 
-    gum log -l info "[START] Spotify file permissions"
-    sudo chmod a+wr /opt/spotify
-    sudo chmod a+wr /opt/spotify/Apps -R
-    gum log -l info "[DONE] Spotify file permissions"
-
     gum log -l info "[START] Change shell to use ZSH"
     chsh -s "$(grep -E 'zsh$' /etc/shells | head -n1)"
     gum log "[DONE] Change shell to use ZSH"
