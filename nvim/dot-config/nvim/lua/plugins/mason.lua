@@ -1,46 +1,74 @@
 return {
-  { "mason-org/mason-lspconfig.nvim", version = "^1.0.0" },
   {
     "mason-org/mason.nvim",
-    version = "^1.0.0",
+    keys = {
+      {
+        "<leader>mi",
+        function()
+          vim.cmd("Mason")
+        end,
+        mode = { "n", "v" },
+        desc = "[M]ason [I]nfo",
+      },
+    },
+    opts = {},
+  },
+  {
+    "mason-org/mason-lspconfig.nvim",
     opts = {
-      ensure_installed = {
-        -- python stuff
+      automatic_enable = {
+        "lua_ls",
         "pyright",
         "ruff",
-        "debugpy",
-        "delve",
-        "go-debug-adapter",
-        -- rust stuff
-        "rust-analyzer",
-        -- golang stuff
-        "gopls",
-        "iferr",
-        "goimports",
-        "golines",
-        "templ",
-        -- javascript
-        "typescript-language-server",
-        "biome",
-        "eslint-lsp",
-        -- other stuff
-        "clangd",
-        "htmx-lsp",
+        "bashls",
+        "hyprls",
         "taplo",
-        "css-lsp",
-        "html-lsp",
-        -- "sqlfluff",
-        "sql-formatter",
-        "dockerfile-language-server",
-        "docker-compose-language-service",
+      },
+    },
+    dependencies = {
+      { "mason-org/mason.nvim", opts = {} },
+      "neovim/nvim-lspconfig",
+    },
+  },
+
+  {
+    -- TODO: maybe replace with helper function from lazyvim.org
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    opts = {
+      ensure_installed = {
+        "lua_ls",
+        "ty",
+        "hyprls",
+        "ruff",
+        "flake8",
+        "mypy",
+        "pyrefly",
+        "bash-language-server",
+        "marksman",
+        "markdownlint",
+        "biome",
+        "pyright",
+        -- toml
+        "taplo",
+        -- python stuff
+        -- golang stuff
+        -- "gopls",
+        -- "iferr",
+        -- "goimports",
+        -- "golines",
+        -- javascript
+        -- "typescript-language-server",
+        -- "eslint-lsp",
+        -- "css-lsp",
+        -- "html-lsp",
+        -- "sql-formatter",
+        -- "dockerfile-language-server",
+        -- "docker-compose-language-service",
         "prettierd",
         "shellcheck",
         "shfmt",
         "stylua",
-        "bash-language-server",
         "beautysh",
-        "just-lsp",
-        "djlint",
       },
     },
   },

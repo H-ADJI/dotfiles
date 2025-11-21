@@ -1,9 +1,19 @@
 return {
-  { "catppuccin/nvim", opts = { transparent_background = true }, name = "catppuccin", priority = 1000 },
   {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "catppuccin-mocha",
-    },
+    "folke/tokyonight.nvim",
+    lazy = false,
+    enabled = false,
+    priority = 1000,
+    config = function()
+      vim.cmd([[colorscheme tokyonight]])
+    end,
+  },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    config = function()
+      vim.cmd([[colorscheme catppuccin]])
+    end,
   },
 }
