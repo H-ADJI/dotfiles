@@ -151,6 +151,7 @@ link_dotfiles() {
         "zsh"
     )
     stow --adopt --dotfiles "${dotfiles[@]}"
+    cp -r assets ~/.config/
     cd || return 1
 }
 docker_post_install() {
