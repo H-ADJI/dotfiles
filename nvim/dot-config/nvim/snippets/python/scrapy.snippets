@@ -1,0 +1,1919 @@
+snippet cache_setting debug response in browser
+    "HTTPCACHE_ENABLED": True,
+snippet oibrowser debug response in browser
+    from scrapy.utils.response import open_in_browser
+    open_in_browser(response)
+snippet bancatmsreqplr banner category multispider start_requests
+    def start_requests(self):
+        if self.paths_urls:
+            for _, url, _ in self.paths_urls:
+                yield PlaywrightRequest(
+                    url,
+                    callback=self.parse_banners,
+                    meta={
+                        "playwright": {
+                            "wait_time": self.wait_time,
+                            "action": self.get_banners,
+                        },
+                    },
+                    cb_kwargs=dict(is_home=url == self.domain),
+                )
+        else:
+            yield PlaywrightRequest(
+                f"{self.domain}",
+                callback=self.parse_categories,
+                meta={
+                    "playwright": {
+                        "wait_time": self.wait_time,
+                        "action": self.load_categories,
+                    },
+                },
+            )
+
+    def parse_categories(self, response: HtmlResponse):
+        yield RequestShelf(
+            self.domain,
+            callback=self.parse_banners,
+            meta={"path": []},
+            dont_filter=True,
+        )
+        for sel in self.categories_selectors:
+            for category in response.xpath(sel):
+                url = category.xpath(".//@href").get("")
+                yield RequestShelf(
+                    urljoin(self.domain, url),
+                    callback=self.parse_banners,
+                    meta={"path": []},
+                )
+
+snippet sln selenium request snippet
+  yield SeleniumRequest(
+            $1,
+            callback=self.$2,
+            meta={
+                "selenium": {
+                    "pre_processing_fun": self.$3,
+                    "optional_wait_time": self.wait_time,
+                    "optional_wait_until": ec.presence_of_element_located(
+                        (
+                            By.XPATH,
+                            "$4",
+                        )
+                    ),
+                },
+            },
+            cb_kwargs=dict($5),
+            dont_filter=True,
+        )
+snippet plr playwright request snippet
+  yield PlaywrightRequest(
+                        $1,
+                        callback=self.$2,
+                        meta={
+                            "cache_this": True,
+                            "playwright": {
+                                "action": self.$3,
+                                "wait_time": self.wait_time,
+                            },
+                        },
+                        cb_kwargs=dict($4),
+                        dont_filter=True,
+                    )
+
+snippet prx proxies list
+  proxy = playwright_proxy = ["AWS_US","AWS_EU", "IPROYAL_RESIDENTIAL", "OXYLABS_DC", "OXYLABS_RESIDENTIAL"]
+  oxylabs_dc_country = oxylabs_residential_country = iproyal_residential_country = "$1"
+  oxylabs_residential_continent = "$1"
+  tls = browser = ["chrome/133", "firefox/133"]
+
+snippet bansermobile banner search mobile template
+  from scrapy.http import Request, TextResponse
+
+  from core.config import BannerTypes
+  from core.requests_di import JsonRequestDI
+  from core.spiders_fwk.json_spider import JsonSpider
+  from core.spiders_fwk.v4_spider import V4Spider
+  from items.banner_category import ItemBannerProduct
+  from items.banner_search import ItemBannerSearch
+  from spiders.$1.base import $2
+  class BannerSearch(JsonSpider, V4Spider):
+      domain = $2.domain
+      retailer_id = $2.retailer_id
+      proxy = playwright_proxy = ["AWS_US", "AWS_EU", "IPROYAL_RESIDENTIAL", "OXYLABS_DC", "OXYLABS_RESIDENTIAL"]
+      oxylabs_dc_country = oxylabs_residential_country = iproyal_residential_country = "$3"
+      tls = browser = ["chrome/133", "firefox/133"]
+      custom_settings = {
+        "HTTPCACHE_ENABLED": 1,
+        "SPIDER_MIDDLEWARES": {
+            "middlewares.pagination_position_middleware.PositionDefaultMiddleware": None,
+            "middlewares.image_downloading_middleware.ImageDownloadingDefaultMiddleware": 999,
+        },
+    }
+      keywords: list[tuple[str, str]]
+      custom_headers = {}
+
+      def start_requests(self):
+          for keyword, lower_keyword in self.keywords:
+              yield JsonRequestDI(
+                  url="",
+                  callback=self.parse_banners_search,
+                  method="POST",
+                  data={},
+                  headers=self.custom_headers,
+                  meta={"force_headers": self.custom_headers.keys()},
+                  cb_kwargs=dict(path=[""]),
+              )
+
+              yield Request(
+                  url="",
+                  callback=self.parse_banners_search,
+                  headers=self.custom_headers,
+                  meta={"force_headers": self.custom_headers.keys()},
+                  cb_kwargs=dict(keyword=keyword),
+              )
+
+      def parse_banners_search(self, response: TextResponse, keyword: list):
+          items = response.json[""]  # pyright: ignore
+          self.logger.info(f"got {len(items)} banners")
+          for banner in items:
+              item = ItemBannerSearch()
+              item["current_url"] = response.url
+              item["title"] = banner[""]
+              item["banner_type"] = BannerTypes.SPONSORED_PRODUCT
+              item["category"] = keyword
+              item["products"] = None
+              item["redirect_url"] = None
+              item["html_image"] = item["image_url"] = banner[""]
+              product = ItemBannerProduct()
+              product["id"] = product
+              product["image_link"] = ""
+              item["products"] = [product]
+              yield item
+               
+      def add_products(self, response: TextResponse, banner: ItemBannerSearch):
+          products = []
+          for product in response.json[""]:  # pyright: ignore
+              item = ItemBannerProduct()
+              item["id"] = product
+              item["image_link"] = ""
+              products.append(item)
+          banner["products"] = None or products
+          yield banner
+
+snippet bancatmobile banner search mobile template
+  from urllib.parse import urljoin
+
+  from scrapy.http import Request, TextResponse
+
+  from core.config import BannerTypes
+  from core.requests_di import JsonRequestDI
+  from core.spiders_fwk.json_spider import JsonSpider
+  from core.spiders_fwk.v4_spider import V4Spider
+  from items.banner_category import ItemBannerCategory, ItemBannerProduct
+  from spiders.$1.base import $2
+  class BannerCategory(JsonSpider, V4Spider):
+      domain = $2.domain
+      retailer_id = $2.retailer_id
+      proxy = playwright_proxy = ["AWS_US", "AWS_EU", "IPROYAL_RESIDENTIAL", "OXYLABS_DC", "OXYLABS_RESIDENTIAL"]
+      oxylabs_dc_country = oxylabs_residential_country = iproyal_residential_country = "$3"
+      tls = browser = ["chrome/133", "firefox/133"]
+      custom_settings = {
+        "HTTPCACHE_ENABLED": 1,
+        "SPIDER_MIDDLEWARES": {
+            "middlewares.pagination_position_middleware.PositionDefaultMiddleware": None,
+            "middlewares.image_downloading_middleware.ImageDownloadingDefaultMiddleware": 999,
+        },
+    }
+      custom_headers = {}
+
+      def start_requests(self):
+          yield JsonRequestDI(
+              url="",
+              callback=self.parse_home_banners,
+              method="POST",
+              data={},
+              headers=self.custom_headers,
+              meta={"force_headers": self.custom_headers.keys()},
+              cb_kwargs=dict(path=[""]),
+          )
+
+          yield Request(
+              url="",
+              callback=self.parse_banners_category,
+              headers=self.custom_headers,
+              meta={"force_headers": self.custom_headers.keys()},
+              cb_kwargs=dict(path=[""]),
+          )
+
+      def parse_home_banners(self, response: TextResponse):
+          items = response.json[""]  # pyright: ignore
+          self.logger.info(f"got {len(items)} banners")
+          for banner in items:
+              item = ItemBannerCategory()
+              item["current_url"] = response.url
+              item["title"] = banner[""]
+              item["banner_type"] = BannerTypes.SLIDER_HOME_PAGE
+              item["category"] = ["Home"]
+              item["products"] = None
+              item["redirect_url"] = None
+              item["html_image"] = item["image_url"] = banner[""]
+              if False:
+                  item["redirect_url"] = urljoin(
+                      self.domain,
+                      banner[""],
+                  )
+                  yield Request(
+                      item["redirect_url"],
+                      callback=self.add_products,
+                      headers=self.custom_headers,
+                      meta={"force_headers": self.custom_headers.keys()},
+                      cb_kwargs=dict(banner=item),
+                  )
+              else:
+                  yield item
+
+      def parse_banners_category(self, response: TextResponse, path: list):
+          items = response.json[""]  # pyright: ignore
+          self.logger.info(f"got {len(items)} banners")
+          for banner in items:
+              item = ItemBannerCategory()
+              item["current_url"] = response.url
+              item["title"] = banner[""]
+              item["banner_type"] = BannerTypes.SLIDER_HOME_PAGE
+              item["category"] = path
+              item["products"] = None
+              item["redirect_url"] = None
+              item["html_image"] = item["image_url"] = banner[""]
+              if False:
+                  item["redirect_url"] = urljoin(
+                      self.domain,
+                      banner[""],
+                  )
+                  yield Request(
+                      item["redirect_url"],
+                      callback=self.add_products,
+                      headers=self.custom_headers,
+                      meta={"force_headers": self.custom_headers.keys()},
+                      cb_kwargs=dict(banner=item),
+                  )
+              else:
+                  yield item
+
+      def add_products(self, response: TextResponse, banner: ItemBannerCategory):
+          products = []
+          for product in response.json[""]:  # pyright: ignore
+              item = ItemBannerProduct()
+              item["id"] = product
+              item["image_link"] = ""
+              products.append(item)
+          banner["products"] = None or products
+          yield banner
+
+snippet bancatv2 banner category enhanced template
+    import dataclasses
+    import random
+    from dataclasses import dataclass
+    from typing import TypeAlias
+    from urllib.parse import urljoin, urlparse
+
+    from parsel import Selector
+    from playwright.async_api import Page
+    from scrapy.http import HtmlResponse
+
+    from core.config import BannerTypes
+    from core.requests_di import PlaywrightRequest
+    from core.spiders_fwk.playwright_spider import PlaywrightSpider
+    from core.spiders_fwk.v4_spider import V4Spider
+    from items.banner_category import ItemBannerCategory, ItemBannerProduct
+    from spiders.$1.base import $2
+    from tools.banner_utils import BucketImage, playwright_screenshot
+
+
+    @dataclass
+    class BannersExtractor:
+        seletor: str
+        type: BannerTypes
+        enable_screenshot: bool = True
+        is_iframe: bool = False
+        is_in_shadow_dom: bool = False
+
+
+    ExtractedData: TypeAlias = list[tuple[BucketImage, Selector, BannersExtractor]]
+
+
+    class BannerCategory(PlaywrightSpider, V4Spider):
+        domain = $2.domain
+        retailer_id = $2.retailer_id
+        proxy = playwright_proxy = ["AWS_US", "AWS_EU", "IPROYAL_RESIDENTIAL", "OXYLABS_DC", "OXYLABS_RESIDENTIAL"]
+        oxylabs_dc_country = oxylabs_residential_country = iproyal_residential_country = "$3"
+        playwright_nb_tabs = 2
+        tls = browser = ["chrome/133", "firefox/133"]
+        playwright_disable_webrtc = True
+        playwright_allow_images = True
+        playwright_visible = True
+        custom_settings = {
+            "DOWNLOADER_MIDDLEWARES": {"middlewares.custom_cache_middleware.SelectiveCacheMiddleware": 44},
+            "SPIDER_MIDDLEWARES": {
+                "middlewares.pagination_position_middleware.PositionDefaultMiddleware": None,
+                "middlewares.image_downloading_middleware.ImageDownloadingDefaultMiddleware": 999,
+            },
+        }
+        banners_selectors = [
+              BannersExtractor(
+                  seletor="",
+                  type=BannerTypes.CLASSIC,
+              ),
+          ]
+        popups_selectors = [
+            "",
+        ]
+        categories_selectors = [""]
+        sub_categories_selectors = [""]
+        path_selectors = [""]
+
+        @property
+        def wait_time(self) -> int:
+            return random.randint(self.playwright_nb_tabs * 3, self.playwright_nb_tabs * 6)
+
+        @classmethod
+        async def accept_popups(cls, page: Page):
+            for selector in cls.popups_selectors:
+                button = page.locator(selector)
+                if await button.is_visible():
+                    await button.click()
+
+        @staticmethod
+        async def load_content(page: Page, n: int = 3):
+            for _ in range(n):
+                await page.keyboard.press("PageDown")
+                await page.wait_for_timeout(timeout=1_000)
+            for _ in range(n):
+                await page.keyboard.press("PageUp")
+                await page.wait_for_timeout(timeout=1_000)
+
+        async def load_categories(self, page: Page, _, playwright_request: PlaywrightRequest):
+            await self.accept_popups(page)
+
+        async def get_banners(self, page: Page, _, playwright_request: PlaywrightRequest):
+            await self.accept_popups(page)
+            await self.load_content(page)
+            playwright_request.meta["banners"] = await self.extract_banners(page, self.banners_selectors)
+
+        async def extract_banners(self, page: Page, extraction_config: list[BannersExtractor]) -> ExtractedData:
+            banners = []
+            for ext in extraction_config:
+                locators = page.locator(selector=ext.seletor)
+                banners_count = await locators.count()
+                self.logger.debug(f"Found {banners_count} elements using selector {ext.seletor}")
+                for i in range(banners_count):
+                    banner = locators.nth(i)
+                    screenshot = None
+                    if not await banner.is_visible():
+                        continue
+                    if ext.is_iframe:
+                        banner = banner.frame_locator("//iframe").locator("//body")
+                    if ext.enable_screenshot:
+                        await banner.scroll_into_view_if_needed()
+                        await page.wait_for_timeout(1_000)
+                        screenshot = await playwright_screenshot(element=banner)
+                    html = await banner.evaluate("element => element.outerHTML")
+                    if ext.is_in_shadow_dom:
+                        html = await banner.evaluate("element => element.shadow.innerHTML")
+                    source = Selector(html)
+                    banners.append((screenshot, source, ext))
+            return banners
+
+        def banner_builder(self, banners: ExtractedData, current_url: str, path: list, is_home_page: bool = False):
+            for screenshot, src, ext in banners:
+                item = ItemBannerCategory()
+                item["current_url"] = current_url
+                item["other"] = dataclasses.asdict(ext)
+                img_url = src.xpath(".//img/@src").get() or src.xpath(".//source/@srcset").get()
+                if not img_url:
+                    self.logger.warning(f"no image url found for {current_url} - {ext}")
+                    continue
+                item["html_image"] = item["image_url"] = urljoin(self.domain, img_url)
+                item["title"] = src.xpath(".//img/@alt").get()
+                item["banner_type"] = (
+                    BannerTypes.CLASSIC
+                    if is_home_page and ext.type in (BannerTypes.SLIDER_HOME_PAGE, BannerTypes.BANNER_HOME_PAGE)
+                    else ext.type
+                )
+                if screenshot:
+                    item["screenshot_image"] = item["image_url"] = screenshot
+                item["category"] = ["Home"] if is_home_page else path
+                item["products"] = []
+                # add banners products
+                redirect_url = (
+                    src.xpath(".//a[not(contains(@href,'adssettings'))]/@href").get()
+                    or src.xpath(".//a/@href").get("")
+                    or src.xpath("./@href").get("")
+                )
+                if ext.type in (BannerTypes.SPONSORED_PRODUCT, BannerTypes.SHOWCASE, BannerTypes.BUTTERFLY):
+                    products = []
+                    for el in src.xpath(""):
+                        product = ItemBannerProduct()
+                        product["id"] = el.xpath("").get("")
+                        product["detail_link"] = urljoin(self.domain, el.xpath(".//@href").get())
+                        product["image_link"] = el.xpath(".//img/@src").get()
+                        products.append(product)
+                    item["products"] = products or None
+                    item["redirect_url"] = urljoin(self.domain, redirect_url)
+                    yield item
+                elif redirect_url:
+                    item["redirect_url"] = urljoin(self.domain, redirect_url)
+                    yield PlaywrightRequest(
+                        item["redirect_url"],
+                        callback=self.add_products,
+                        meta={
+                            "cache_this": True,
+                            "playwright": {
+                                "wait_time": self.wait_time,
+                            },
+                        },
+                        cb_kwargs=dict(banner=item),
+                        dont_filter=True,
+                    )
+                else:
+                    yield item
+
+        def start_requests(self):
+            yield PlaywrightRequest(
+                self.domain,
+                callback=self.parse_categories,
+                meta={
+                    "playwright": {
+                        "wait_time": self.wait_time,
+                        "action": self.load_categories,
+                    },
+                },
+            )
+
+        def parse_categories(self, response: HtmlResponse):
+            yield PlaywrightRequest(
+                self.domain,
+                callback=self.parse_banners,
+                meta={
+                    "playwright": {
+                        "wait_time": self.wait_time,
+                        "action": self.get_banners,
+                    },
+                },
+                dont_filter=True,
+                cb_kwargs=dict(is_home_page=True),
+            )
+            for sel in self.categories_selectors:
+                for category in response.xpath(sel):
+                    url = category.xpath(".//@href").get("")
+                    yield PlaywrightRequest(
+                        urljoin(self.domain, url),
+                        callback=self.parse_banners,
+                        meta={
+                            "playwright": {
+                                "wait_time": self.wait_time,
+                                "action": self.get_banners,
+                            },
+                        },
+                    )
+
+        def parse_banners(self, response: HtmlResponse, is_home_page: bool = False):
+          path = []
+          for sel in self.path_selectors:
+              path = path or [c for cat in response.xpath(sel).getall() if (c := cat.strip())]
+          if not path:
+              parsed_url = urlparse(response.url)
+              path = [parsed_url.path.split("/")[-1]]
+
+          banners: ExtractedData = response.meta.get("banners", [])
+          yield from self.banner_builder(banners=banners, current_url=response.url, path=path, is_home_page=is_home_page)
+
+          for sel in self.sub_categories_selectors:
+              for category in response.xpath(sel):
+                  url = category.xpath(".//@href").get("")
+                  yield PlaywrightRequest(
+                      urljoin(self.domain, url),
+                      callback=self.parse_banners,
+                      meta={
+                          "playwright": {
+                              "wait_time": self.wait_time,
+                              "action": self.get_banners,
+                          },
+                      },
+                  )
+
+        def add_products(self, response: HtmlResponse, banner: ItemBannerCategory):
+          products = []
+          for el in response.xpath(""):
+              product = ItemBannerProduct()
+              product["id"] = el.xpath("").get("")
+              product["detail_link"] = urljoin(self.domain, el.xpath(".//@href").get())
+              product["image_link"] = el.xpath(".//img/@src").get()
+              products.append(product)
+          banner["products"] = products or None
+          yield banner
+snippet bancat banner_category template
+  import random
+  from urllib.parse import urljoin, urlparse
+
+  from core.config import BannerTypes
+  from core.requests_di import PlaywrightRequest
+  from core.spiders_fwk.v4_spider import V4Spider
+  from items.banner_category import ItemBannerCategory, ItemBannerProduct
+  from parsel import Selector
+  from playwright.async_api import Page
+  from scrapy.http import HtmlResponse
+  from core.spiders_fwk.playwright_spider import PlaywrightSpider
+  from spiders.$1.base import $2
+  from tools.banner_utils import BucketImage, playwright_screenshot
+
+
+  class BannerCategory(PlaywrightSpider, V4Spider):
+      domain = $2.domain
+      retailer_id = $2.retailer_id
+      proxy = playwright_proxy = ["AWS_US", "AWS_EU", "IPROYAL_RESIDENTIAL", "OXYLABS_DC", "OXYLABS_RESIDENTIAL"]
+      oxylabs_dc_country = oxylabs_residential_country = iproyal_residential_country = "$3"
+      playwright_nb_tabs = 2
+      tls = browser = ["chrome/133", "firefox/133"]
+      playwright_disable_webrtc = True
+      playwright_allow_images = True
+      playwright_visible = True
+      custom_settings = {
+          "DOWNLOADER_MIDDLEWARES": {"middlewares.custom_cache_middleware.SelectiveCacheMiddleware": 44},
+          "SPIDER_MIDDLEWARES": {
+              "middlewares.pagination_position_middleware.PositionDefaultMiddleware": None,
+              "middlewares.image_downloading_middleware.ImageDownloadingDefaultMiddleware": 999,
+          },
+      }
+      classic_selector = []
+      iframe_selector = []
+      sponsored_selector = []
+      showcase_selector = []
+      slider_selector = []
+      butterfly_selector = []
+      popups_selectors = []
+      categories_selectors = []
+      sub_categories_selectors = []
+      path_selectors = []
+
+      @property
+      def wait_time(self) -> int:
+          return random.randint(self.playwright_nb_tabs * 3, self.playwright_nb_tabs * 6)
+
+      def start_requests(self):
+          yield PlaywrightRequest(
+                  self.domain,
+                  callback=self.parse_categories,
+                  meta={
+                      "playwright": {
+                          "wait_time": self.wait_time,
+                          "action": self.load_categories,
+                      },
+                  },
+              )
+
+      async def load_categories(self, page: Page, _, playwright_request: PlaywrightRequest):
+        await self.accept_popups(page)
+
+      def parse_categories(self, response: HtmlResponse):
+          yield PlaywrightRequest(
+              self.domain,
+              callback=self.parse_banners,
+              meta={
+                      "playwright": {
+                          "wait_time": self.wait_time,
+                          "action": self.get_banners,
+                      },
+                  },
+            dont_filter=True,
+            cb_kwargs=dict(is_home=True),
+          )
+          for sel in self.categories_selectors:
+            for category in response.xpath(sel):
+              url = category.xpath(".//@href").get("")
+              yield PlaywrightRequest(
+                  urljoin(self.domain, url),
+                  callback=self.parse_banners,
+                  meta={
+                      "playwright": {
+                          "wait_time": self.wait_time,
+                          "action": self.get_banners,
+                      },
+                  },
+              )
+
+      @classmethod
+      async def accept_popups(cls, page: Page):
+          for selector in cls.popups_selectors:
+              button = page.locator(selector)
+              if await button.is_visible():
+                  await button.click()
+
+      @staticmethod
+      async def load_content(page: Page, n: int = 3):
+          for _ in range(n):
+              await page.keyboard.press("PageDown")
+              await page.wait_for_timeout(timeout=1_000)
+          for _ in range(n):
+              await page.keyboard.press("PageUp")
+              await page.wait_for_timeout(timeout=1_000)
+
+      async def scrape_banners(
+          self, page: Page, selectors: list[str], iframe: bool = False, screen=False,shadow=False
+      ) -> list[tuple[BucketImage, Selector, str]]:
+          banners = []
+          for selector in selectors:
+              locators = page.locator(selector=selector)
+              banners_count = await locators.count()
+              self.logger.debug(f"Found {banners_count} elements using selector {selector}")
+              for i in range(banners_count):
+                  banner = locators.nth(i)
+                  screenshot = None
+                  if not await banner.is_visible():
+                      continue
+                  if iframe:
+                      banner = banner.frame_locator("//iframe").locator("//body")
+                  if screen:
+                      await banner.scroll_into_view_if_needed()
+                      await page.wait_for_timeout(1_000)
+                      screenshot = await playwright_screenshot(element=banner)
+                  html = await banner.evaluate("element => element.outerHTML")
+                  if shadow:
+                      html = await banner.evaluate("element => element.shadow.innerHTML")
+                  source = Selector(html)
+                  banners.append((screenshot, source, selector))
+          return banners
+
+      async def get_banners(self, page: Page, _, playwright_request: PlaywrightRequest):
+          await self.accept_popups(page)
+          await self.load_content(page)
+          playwright_request.meta["classic"] = await self.scrape_banners(page, self.classic_selector, screen=True) + await self.scrape_banners(page, self.iframe_selector, screen=True, iframe=True)
+          playwright_request.meta["sponsored"] = await self.scrape_banners(page, self.sponsored_selector, screen=True)
+          playwright_request.meta["showcase"] = await self.scrape_banners(page, self.showcase_selector, screen=True)
+          playwright_request.meta["slider"] = await self.scrape_banners(page, self.slider_selector, screen=True)
+          playwright_request.meta["butterfly"] = await self.scrape_banners(page, self.butterfly_selector, screen=True)
+
+      def banner_builder(
+          self,
+          banners: list[tuple[BucketImage, Selector, str]],
+          banner_type: BannerTypes,
+          current_url: str,
+          path: list,
+      ):
+          for screenshot, src, selector in banners:
+              item = ItemBannerCategory()
+              item["current_url"] = current_url
+              item["other"] = selector
+              img_url = src.xpath(".//img/@src").get() or src.xpath(".//source/@srcset").get()
+              if not img_url:
+                  self.logger.warning(f"image not found for {selector} in {current_url}")
+                  continue
+              item["html_image"] = item["image_url"] = urljoin(self.domain, img_url)
+              item["title"] = src.xpath(".//img/@alt").get()
+              item["banner_type"] = banner_type
+              if screenshot:
+                  item["screenshot_image"] = item["image_url"] = screenshot
+              item["category"] = path
+              item["products"] = []
+              # add banners products
+              redirect_url = (
+                src.xpath(".//a[not(contains(@href,'adssettings'))]/@href").get()
+                or src.xpath(".//a//@href").get()
+                or src.xpath(".//@href").get("")
+            )
+              if banner_type in (BannerTypes.SPONSORED_PRODUCT, BannerTypes.SHOWCASE, BannerTypes.BUTTERFLY):
+                  products = []
+                  for el in src.xpath(""):
+                      product = ItemBannerProduct()
+                      product["id"] = el.xpath("").get("")
+                      product["detail_link"] = urljoin(self.domain, el.xpath(".//@href").get())
+                      product["image_link"] = el.xpath(".//img/@src").get()
+                      products.append(product)
+                  item["products"] = products or None
+                  item["redirect_url"] = urljoin(self.domain, redirect_url)
+                  yield item
+              elif redirect_url:
+                  item["redirect_url"] = urljoin(self.domain, redirect_url)
+                  yield PlaywrightRequest(
+                      item["redirect_url"],
+                      callback=self.add_products,
+                      meta={
+                          "cache_this": True,
+                          "playwright": {
+                              "wait_time": self.wait_time,
+                          },
+                      },
+                      cb_kwargs=dict(banner=item),
+                      dont_filter=True,
+                  )
+              else:
+                  yield item
+
+      def parse_banners(self, response: HtmlResponse, is_home: bool = False):
+          path = []
+          for sel in self.path_selectors:
+              path = path or [c for cat in response.xpath(sel).getall() if (c := cat.strip())]
+          if not path:
+              parsed_url = urlparse(response.url)
+              path = [parsed_url.path.split("/")[-1]]
+          if is_home:
+              path = ["Home"]
+          banners = response.meta.get("sponsored", [])
+          yield from self.banner_builder(
+              banners=banners,
+              banner_type=BannerTypes.SPONSORED_PRODUCT,
+              current_url=response.url,
+              path=path,
+          )
+
+          banners = response.meta.get("classic", [])
+          yield from self.banner_builder(
+              banners=banners,
+              banner_type=BannerTypes.BANNER_HOME_PAGE if is_home else BannerTypes.CLASSIC,
+              current_url=response.url,
+              path=path,
+          )
+          banners = response.meta.get("slider", [])
+          yield from self.banner_builder(
+              banners=banners,
+              banner_type=BannerTypes.SLIDER_HOME_PAGE if is_home else BannerTypes.CLASSIC,
+              current_url=response.url,
+              path=path,
+          )
+
+          banners = response.meta.get("butterfly", [])
+          yield from self.banner_builder(
+              banners=banners,
+              banner_type=BannerTypes.BUTTERFLY,
+              current_url=response.url,
+              path=path,
+          )
+
+          banners = response.meta.get("showcase", [])
+          yield from self.banner_builder(
+              banners=banners,
+              banner_type=BannerTypes.SHOWCASE,
+              current_url=response.url,
+              path=path,
+          )
+          for sel in self.sub_categories_selectors:
+            for category in response.xpath(sel):
+                url = category.xpath(".//@href").get("")
+                yield PlaywrightRequest(
+                    urljoin(self.domain, url),
+                    callback=self.parse_banners,
+                    meta={
+                        "playwright": {
+                            "wait_time": self.wait_time,
+                            "action": self.get_banners,
+                        },
+                    },
+                )
+
+      def add_products(self, response: HtmlResponse, banner: ItemBannerCategory):
+        products = []
+        for el in response.xpath(""):
+            product = ItemBannerProduct()
+            product["id"] = el.xpath("").get("")
+            product["detail_link"] = urljoin(self.domain, el.xpath(".//@href").get())
+            product["image_link"] = el.xpath(".//img/@src").get()
+            products.append(product)
+        banner["products"] = products or None
+        yield banner
+
+snippet bancatms
+  import random
+  from urllib.parse import urljoin
+
+  from core.config import BannerTypes
+  from core.requests_di import PlaywrightRequest, RequestShelf
+  from core.spiders_fwk.v4_spider import V4Spider
+  from items.banner_category import ItemBannerCategory, ItemBannerProduct
+  from parsel import Selector
+  from playwright.async_api import Page
+  from scrapy.http import HtmlResponse
+  from core.spiders_fwk.playwright_spider import PlaywrightSpider
+  from spiders.$1.base import $2
+  from tools.banner_utils import BucketImage, playwright_screenshot
+
+
+  class BannerCategory(PlaywrightSpider, V4Spider):
+      domain = $2.domain
+      retailer_id = $2.retailer_id
+      proxy = playwright_proxy = ["AWS_US", "AWS_EU", "IPROYAL_RESIDENTIAL", "OXYLABS_DC", "OXYLABS_RESIDENTIAL"]
+      oxylabs_dc_country = oxylabs_residential_country = iproyal_residential_country = "$3"
+      playwright_nb_tabs = 2
+      tls = browser = ["chrome/133", "firefox/133"]
+      playwright_disable_webrtc = True
+      playwright_allow_images = True
+      playwright_visible = True
+      custom_settings = {
+          "DOWNLOADER_MIDDLEWARES": {"middlewares.custom_cache_middleware.SelectiveCacheMiddleware": 44},
+          "SPIDER_MIDDLEWARES": {
+              "middlewares.pagination_position_middleware.PositionDefaultMiddleware": None,
+              "middlewares.image_downloading_middleware.ImageDownloadingDefaultMiddleware": 999,
+          },
+      }
+      classic_selector = []
+      iframe_selector = []
+      sponsored_selector = []
+      showcase_selector = []
+      slider_selector = []
+      butterfly_selector = []
+      popups_selectors = []
+      categories_selectors = []
+      sub_categories_selectors = []
+      path_selectors = []
+
+      @property
+      def wait_time(self) -> int:
+          return random.randint(self.playwright_nb_tabs * 3, self.playwright_nb_tabs * 6)
+
+      def start_requests(self):
+          if self.paths_urls:
+              for _, url, _ in self.paths_urls:
+                  yield PlaywrightRequest(
+                      url,
+                      callback=self.parse_banners,
+                      meta={
+                          "playwright": {
+                              "wait_time": self.wait_time,
+                              "action": self.get_banners,
+                          },
+                      },
+                      cb_kwargs=dict(is_home=url == self.domain),
+                  )
+          else:
+              yield PlaywrightRequest(
+                  f"{self.domain}",
+                  callback=self.parse_categories,
+                  meta={
+                      "playwright": {
+                          "wait_time": self.wait_time,
+                          "action": self.load_categories,
+                      },
+                  },
+              )
+
+      async def load_categories(self, page: Page, _, playwright_request: PlaywrightRequest):
+        await self.accept_popups(page)
+
+      def parse_categories(self, response: HtmlResponse):
+          yield RequestShelf(
+              self.domain,
+              callback=self.parse_banners,
+              meta={"path": []},
+              dont_filter=True,
+          )
+        for sel in self.categories_selectors:
+            for category in response.xpath(sel):
+              url = category.xpath(".//@href").get("")
+              yield RequestShelf(
+                  urljoin(self.domain, url),
+                  callback=self.parse_banners,
+                  meta={"path": []},
+              )
+
+      @classmethod
+      async def accept_popups(cls, page: Page):
+          for selector in cls.popups_selectors:
+              button = page.locator(selector)
+              if await button.is_visible():
+                  await button.click()
+
+      @staticmethod
+      async def load_content(page: Page, n: int = 3):
+          for _ in range(n):
+              await page.keyboard.press("PageDown")
+              await page.wait_for_timeout(timeout=1_000)
+          for _ in range(n):
+              await page.keyboard.press("PageUp")
+              await page.wait_for_timeout(timeout=1_000)
+
+      async def scrape_banners(
+          self, page: Page, selectors: list[str], iframe: bool = False, screen=False,shadow=False
+      ) -> list[tuple[BucketImage, Selector, str]]:
+          banners = []
+          for selector in selectors:
+              locators = page.locator(selector=selector)
+              banners_count = await locators.count()
+              self.logger.debug(f"Found {banners_count} elements using selector {selector}")
+              for i in range(banners_count):
+                  banner = locators.nth(i)
+                  screenshot = None
+                  if not await banner.is_visible():
+                      continue
+                  if iframe:
+                      banner = banner.frame_locator("//iframe").locator("//body")
+                  if screen:
+                      await banner.scroll_into_view_if_needed()
+                      await page.wait_for_timeout(1_000)
+                      screenshot = await playwright_screenshot(element=banner)
+                  html = await banner.evaluate("element => element.outerHTML")
+                  if shadow:
+                      html = await banner.evaluate("element => element.shadow.innerHTML")
+                  source = Selector(html)
+                  banners.append((screenshot, source, selector))
+          return banners
+
+      async def get_banners(self, page: Page, _, playwright_request: PlaywrightRequest):
+          await self.accept_popups(page)
+          await self.load_content(page)
+          playwright_request.meta["classic"] = await self.scrape_banners(page, self.classic_selector, screen=True) + await self.scrape_banners(page, self.iframe_selector, screen=True, iframe=True)
+          playwright_request.meta["sponsored"] = await self.scrape_banners(page, self.sponsored_selector, screen=True)
+          playwright_request.meta["showcase"] = await self.scrape_banners(page, self.showcase_selector, screen=True)
+          playwright_request.meta["slider"] = await self.scrape_banners(page, self.slider_selector, screen=True)
+          playwright_request.meta["butterfly"] = await self.scrape_banners(page, self.butterfly_selector, screen=True)
+
+      def banner_builder(
+          self,
+          banners: list[tuple[BucketImage, Selector, str]],
+          banner_type: BannerTypes,
+          current_url: str,
+          path: list,
+      ):
+          for screenshot, src, selector in banners:
+              item = ItemBannerCategory()
+              item["current_url"] = current_url
+              item["other"] = selector
+              img_url = src.xpath(".//img/@src").get() or src.xpath(".//source/@srcset").get()
+              if not img_url:
+                  self.logger.warning(f"image not found for {selector} in {current_url}")
+                  continue
+              item["html_image"] = item["image_url"] = urljoin(self.domain, img_url)
+              item["title"] = src.xpath(".//img/@alt").get()
+              item["banner_type"] = banner_type
+              if screenshot:
+                  item["screenshot_image"] = item["image_url"] = screenshot
+              item["category"] = path
+              item["products"] = []
+              # add banners products
+              redirect_url = (
+                src.xpath(".//a[not(contains(@href,'adssettings'))]/@href").get()
+                or src.xpath(".//a/@href").get()
+                or src.xpath(".//@href").get("")
+            )
+              if banner_type in (BannerTypes.SPONSORED_PRODUCT, BannerTypes.SHOWCASE, BannerTypes.BUTTERFLY):
+                  products = []
+                  for el in src.xpath(""):
+                      product = ItemBannerProduct()
+                      product["id"] = el.xpath("").get("")
+                      product["detail_link"] = urljoin(self.domain, el.xpath(".//@href").get())
+                      product["image_link"] = el.xpath(".//img/@src").get()
+                      products.append(product)
+                  item["products"] = products or None
+                  item["redirect_url"] = urljoin(self.domain, redirect_url)
+                  yield item
+              elif redirect_url:
+                  item["redirect_url"] = urljoin(self.domain, redirect_url)
+                  yield PlaywrightRequest(
+                      item["redirect_url"],
+                      callback=self.add_products,
+                      meta={
+                          "cache_this": True,
+                          "playwright": {
+                              "wait_time": self.wait_time,
+                          },
+                      },
+                      cb_kwargs=dict(banner=item),
+                      dont_filter=True,
+                  )
+              else:
+                  yield item
+
+      def parse_banners(self, response: HtmlResponse, is_home: bool = False):
+          path = []
+          for sel in self.path_selectors:
+              path = path or [c for cat in response.xpath(sel).getall() if (c := cat.strip())]
+          if not path:
+              parsed_url = urlparse(response.url)
+              path = [parsed_url.path.split("/")[-1]]
+          if is_home:
+              path = ["Home"]
+          banners = response.meta.get("sponsored", [])
+          yield from self.banner_builder(
+              banners=banners,
+              banner_type=BannerTypes.SPONSORED_PRODUCT,
+              current_url=response.url,
+              path=path,
+          )
+
+          banners = response.meta.get("classic", [])
+          yield from self.banner_builder(
+              banners=banners,
+              banner_type=BannerTypes.BANNER_HOME_PAGE if is_home else BannerTypes.CLASSIC,
+              current_url=response.url,
+              path=path,
+          )
+          banners = response.meta.get("slider", [])
+          yield from self.banner_builder(
+              banners=banners,
+              banner_type=BannerTypes.SLIDER_HOME_PAGE if is_home else BannerTypes.CLASSIC,
+              current_url=response.url,
+              path=path,
+          )
+
+          banners = response.meta.get("butterfly", [])
+          yield from self.banner_builder(
+              banners=banners,
+              banner_type=BannerTypes.BUTTERFLY,
+              current_url=response.url,
+              path=path,
+          )
+
+          banners = response.meta.get("showcase", [])
+          yield from self.banner_builder(
+              banners=banners,
+              banner_type=BannerTypes.SHOWCASE,
+              current_url=response.url,
+              path=path,
+          )
+          for sel in self.sub_categories_selectors:
+            for category in response.xpath(sel):
+                url = category.xpath(".//@href").get("")
+                yield PlaywrightRequest(
+                    urljoin(self.domain, url),
+                    callback=self.parse_banners,
+                    meta={
+                        "playwright": {
+                            "wait_time": self.wait_time,
+                            "action": self.get_banners,
+                        },
+                    },
+                )
+
+      def add_products(self, response: HtmlResponse, banner: ItemBannerCategory):
+        products = []
+        for el in response.xpath(""):
+            product = ItemBannerProduct()
+            product["id"] = el.xpath("").get("")
+            product["detail_link"] = urljoin(self.domain, el.xpath(".//@href").get())
+            product["image_link"] = el.xpath(".//img/@src").get()
+            products.append(product)
+        banner["products"] = products or None
+        yield banner
+
+snippet banser
+  import random
+  from urllib.parse import quote, urljoin
+
+  from core.config import BannerTypes
+  from core.requests_di import PlaywrightRequest
+  from core.spiders_fwk.playwright_spider import PlaywrightSpider
+  from core.spiders_fwk.v4_spider import V4Spider
+  from items.banner_category import ItemBannerProduct
+  from items.banner_search import ItemBannerSearch
+  from parsel import Selector
+  from playwright.async_api import Page
+  from scrapy.http import HtmlResponse
+  from spiders.$1.base import $2
+  from tools.banner_utils import BucketImage, playwright_screenshot
+
+
+  class BannerSearch(PlaywrightSpider, V4Spider):
+      domain = $2.domain
+      retailer_id = $2.retailer_id
+      proxy = playwright_proxy = ["AWS_US", "AWS_EU", "IPROYAL_RESIDENTIAL", "OXYLABS_DC", "OXYLABS_RESIDENTIAL"]
+      oxylabs_dc_country = oxylabs_residential_country = iproyal_residential_country = "$3"
+      tls = browser = ["chrome/133", "firefox/133"]
+      playwright_nb_tabs = 2
+      playwright_disable_webrtc = True
+      playwright_allow_images = True
+      playwright_visible = True
+      custom_settings = {
+          "DOWNLOADER_MIDDLEWARES": {"middlewares.custom_cache_middleware.SelectiveCacheMiddleware": 44},
+          "SPIDER_MIDDLEWARES": {
+              "middlewares.pagination_position_middleware.PositionDefaultMiddleware": None,
+              "middlewares.image_downloading_middleware.ImageDownloadingDefaultMiddleware": 999,
+          },
+      }
+      classic_selector = []
+      iframe_selector = []
+      sponsored_selector = []
+      showcase_selector = []
+      slider_selector = []
+      butterfly_selector = []
+      popups_selectors = []
+      keywords: list[tuple[str, str]]
+
+      @property
+      def wait_time(self) -> int:
+          return random.randint(self.playwright_nb_tabs * 3, self.playwright_nb_tabs * 6)
+
+      def start_requests(self):
+          yield PlaywrightRequest(
+              url=self.domain, callback=self.parse_keywords, meta={"playwright": {"wait_time": self.wait_time, "action": self.accept_cookies}}
+          )
+
+      def parse_keywords(self, _: HtmlResponse):
+          for keyword, lower_keyword in self.keywords:
+              yield PlaywrightRequest(
+                  f"{self.domain}/{quote(lower_keyword)}",
+                  callback=self.parse_banners,
+                  meta={
+                      "keyword": lower_keyword,
+                      "playwright": {
+                          "wait_time": self.wait_time,
+                          "action": self.get_banners,
+                      },
+                  },
+                  cb_kwargs=dict(keyword=keyword),
+              )
+
+      async def accept_cookies(self, page: Page, _, playwright_request: PlaywrightRequest):
+          await self.accept_popups(page)
+
+      @classmethod
+      async def accept_popups(cls, page: Page):
+          for selector in cls.popups_selectors:
+              button = page.locator(selector)
+              if await button.is_visible():
+                  await button.click()
+
+      @staticmethod
+      async def load_content(page: Page, n: int = 3):
+          for _ in range(n):
+              await page.keyboard.press("PageDown")
+              await page.wait_for_timeout(timeout=1_000)
+          for _ in range(n):
+              await page.keyboard.press("PageUp")
+              await page.wait_for_timeout(timeout=1_000)
+
+      async def scrape_banners(
+          self, page: Page, selectors: list[str], iframe: bool = False, screen=False,shadow=False
+      ) -> list[tuple[BucketImage, Selector, str]]:
+          banners = []
+          for selector in selectors:
+              locators = page.locator(selector=selector)
+              banners_count = await locators.count()
+              self.logger.debug(f"Found {banners_count} elements using selector {selector}")
+              for i in range(banners_count):
+                  banner = locators.nth(i)
+                  screenshot = None
+                  if not await banner.is_visible():
+                      continue
+                  if iframe:
+                      banner = banner.frame_locator("//iframe").locator("//body")
+                  if screen:
+                      await banner.scroll_into_view_if_needed()
+                      await page.wait_for_timeout(1_000)
+                      screenshot = await playwright_screenshot(element=banner)
+                  html = await banner.evaluate("element => element.outerHTML")
+                  if shadow:
+                      html = await banner.evaluate("element => element.shadow.innerHTML")
+                  source = Selector(html)
+                  banners.append((screenshot, source, selector))
+          return banners
+
+      async def get_banners(self, page: Page, _, playwright_request: PlaywrightRequest):
+          await self.accept_popups(page)
+          await self.load_content(page)
+          playwright_request.meta["classic"] = await self.scrape_banners(page, self.classic_selector, screen=True) + await self.scrape_banners(page, self.iframe_selector, screen=True, iframe=True)
+          playwright_request.meta["sponsored"] = await self.scrape_banners(page, self.sponsored_selector, screen=True)
+          playwright_request.meta["showcase"] = await self.scrape_banners(page, self.showcase_selector, screen=True)
+          playwright_request.meta["slider"] = await self.scrape_banners(page, self.slider_selector, screen=True)
+          playwright_request.meta["butterfly"] = await self.scrape_banners(page, self.butterfly_selector, screen=True)
+
+      def banner_builder(
+          self, banners: list[tuple[BucketImage, Selector, str]], banner_type: BannerTypes, current_url: str, keyword: str
+      ):
+          for screenshot, src, selector in banners:
+              item = ItemBannerSearch()
+              item["current_url"] = current_url
+              item["other"] = selector
+              img_url = src.xpath(".//img/@src").get() or src.xpath(".//source/@srcset").get()
+              if not img_url:
+                  self.logger.warning(f"image not found for {selector} in {current_url}")
+                  continue
+              item["html_image"] = item["image_url"] = urljoin(self.domain, img_url)
+              item["title"] = src.xpath(".//img/@alt").get()
+              item["banner_type"] = banner_type
+              if screenshot:
+                  item["screenshot_image"] = item["image_url"] = screenshot
+              item["keyword"] = keyword
+              item["products"] = []
+              # add banners products
+              redirect_url = (
+                  src.xpath(".//a[not(contains(@href,'adssettings'))]/@href").get()
+                  or src.xpath(".//a//@href").get()
+                  or src.xpath(".//@href").get()
+              )
+              if banner_type in (BannerTypes.SPONSORED_PRODUCT, BannerTypes.SHOWCASE, BannerTypes.BUTTERFLY):
+                  products = []
+                  for el in src.xpath(""):
+                      product = ItemBannerProduct()
+                      product["id"] = el.xpath("").get("")
+                      product["detail_link"] = urljoin(self.domain, el.xpath(".//@href").get())
+                      product["image_link"] = el.xpath(".//img/@src").get()
+                      products.append(product)
+                  item["products"] = products or None
+                  item["redirect_url"] = urljoin(self.domain, redirect_url)
+                  yield item
+              elif redirect_url:
+                  item["redirect_url"] = urljoin(self.domain, redirect_url)
+                  yield PlaywrightRequest(
+                      item["redirect_url"],
+                      callback=self.add_products,
+                      meta={
+                          "cache_this": True,
+                          "playwright": {
+                              "wait_time": self.wait_time,
+                          },
+                      },
+                      cb_kwargs=dict(banner=item),
+                      dont_filter=True,
+                  )
+              else:
+                  yield item
+
+      def parse_banners(self, response: HtmlResponse, keyword: str):
+        banners = response.meta.get("classic", [])
+        yield from self.banner_builder(
+            banners=banners,
+            banner_type=BannerTypes.CLASSIC,
+            current_url=response.url,
+            keyword=keyword,
+        )
+        banners = response.meta.get("sponsored", [])
+        yield from self.banner_builder(
+            banners=banners,
+            banner_type=BannerTypes.SPONSORED_PRODUCT,
+            current_url=response.url,
+            keyword=keyword,
+        )
+        banners = response.meta.get("showcase", [])
+        yield from self.banner_builder(
+            banners=banners,
+            banner_type=BannerTypes.SHOWCASE,
+            current_url=response.url,
+            keyword=keyword,
+        )
+
+        banners = response.meta.get("butterfly", [])
+        yield from self.banner_builder(
+            banners=banners,
+            banner_type=BannerTypes.BUTTERFLY,
+            current_url=response.url,
+            keyword=keyword,
+        )
+
+        banners = response.meta.get("slider", [])
+        yield from self.banner_builder(
+            banners=banners,
+            banner_type=BannerTypes.CLASSIC,
+            current_url=response.url,
+            keyword=keyword,
+        )
+
+      def add_products(self, response: HtmlResponse, banner: ItemBannerSearch):
+        products = []
+        for el in response.xpath(""):
+            product = ItemBannerProduct()
+            product["id"] = el.xpath("").get("")
+            product["detail_link"] = urljoin(self.domain, el.xpath(".//@href").get())
+            product["image_link"] = el.xpath(".//img/@src").get()
+            products.append(product)
+        banner["products"] = products or None
+        yield banner
+
+snippet bancatsln banner category selenium
+  import random
+  from time import sleep
+  from urllib.parse import urljoin, urlparse
+
+  from parsel import Selector
+  from scrapy.http import HtmlResponse
+  from scrapy.spiders import Spider
+  from selenium.common.exceptions import (
+      ElementClickInterceptedException,
+      ElementNotInteractableException,
+      NoSuchElementException,
+  )
+  from selenium.webdriver.common.by import By
+  from selenium.webdriver.common.keys import Keys
+  from selenium.webdriver.remote.webdriver import WebDriver, WebElement
+  from selenium.webdriver.support import expected_conditions as ec
+
+  from core.config import BannerTypes
+  from core.requests_di import SeleniumRequest
+  from core.spiders_fwk.selenium_spider import T1000Spider
+  from core.spiders_fwk.v4_spider import V4Spider
+  from items.banner_category import ItemBannerCategory, ItemBannerProduct
+  from settings.settings import USER_AGENT_LIST
+  from tools.banner_utils import BucketImage, extract_image_scroll_element
+  from spiders.$1.base import $2
+
+  class BannerCategory(T1000Spider, V4Spider):
+      domain = $2.domain
+      retailer_id = $2.retailer_id
+      proxy = ["AWS_US", "AWS_EU", "IPROYAL_RESIDENTIAL", "OXYLABS_DC", "OXYLABS_RESIDENTIAL"]
+      oxylabs_dc_country = oxylabs_residential_country = iproyal_residential_country = "$3"
+      tls = browser = ["chrome/133", "firefox/133"]
+      PREFERENCES_OPTIONS = {
+          "profile.managed_default_content_settings.images": 1,
+      }
+
+      custom_settings = {
+          "SPIDER_MIDDLEWARES": {
+              "middlewares.pagination_position_middleware.PositionDefaultMiddleware": None,
+              "middlewares.image_downloading_middleware.ImageDownloadingDefaultMiddleware": 999,
+          },
+          "DOWNLOADER_MIDDLEWARES": {
+              "middlewares.custom_cache_middleware.SelectiveCacheMiddleware": 44,
+          },
+          # "SELENIUM_VISIBLE": 1,
+          "SELENIUM_DRIVER_ARGUMENTS": [
+              "--disable-dev-shm-usage ",
+              "--no-sandbox",
+              "--start-maximized",
+              "--window-size=1920,1080",
+              "--disable-blink-features=AutomationControlled",
+          ],
+          "SELENIUM_PROXY_ENABLED": 1,
+          "SELENIUM_DRIVER_EXPERIMENTAL_OPTION": [
+              ["prefs", PREFERENCES_OPTIONS],
+              ["excludeSwitches", ["enable-automation"]],
+              ["useAutomationExtension", False],
+          ],
+      }
+
+      classic_selector = []
+      iframe_selector = []
+      sponsored_selector = []
+      showcase_selector = []
+      slider_selector = []
+      butterfly_selector = []
+      popups_selectors = []
+      categories_selectors = []
+      sub_categories_selectors = []
+      path_selectors = []
+      driver: WebDriver
+
+      @property
+      def wait_time(self) -> int:
+          return random.randint(3, 6)
+
+      def start_requests(self):
+          yield SeleniumRequest(
+              self.domain,
+              callback=self.parse_categories,
+              meta={
+                  "selenium": {
+                      "pre_processing_fun": self.load_categories,
+                      "wait_time": self.wait_time,
+                      "wait_until": ec.presence_of_element_located(
+                          (
+                               By.XPATH,
+                               "",
+                           )
+                       ),
+                  },
+              },
+          )
+
+      def click(self, selector: str):
+          try:
+              button: WebElement = self.driver.find_element(by=By.XPATH, value=selector)
+              button.click()
+          except NoSuchElementException:
+              self.logger.debug("Button not found")
+          except ElementNotInteractableException:
+              self.logger.debug("Button not interactable.")
+          except ElementClickInterceptedException:
+              self.logger.debug("Button click was intercepted.")
+
+      def load_categories(self, _: SeleniumRequest):
+          self.accept_popups()
+
+      def parse_categories(self, response: HtmlResponse):
+          yield SeleniumRequest(
+              self.domain,
+              callback=self.parse_banners,
+              meta={
+                  "selenium": {
+                      "pre_processing_fun": self.get_banners,
+                      "wait_time": self.wait_time,
+                      "optional_wait_until": ec.presence_of_element_located(
+                           (
+                               By.XPATH,
+                               "",
+                           )
+                       ),
+                  }
+              },
+              dont_filter=True,
+              cb_kwargs=dict(is_home=True),
+          )
+          for sel in self.categories_selectors:
+              for category in response.xpath(sel):
+                  url = category.xpath(".//@href").get("")
+                  yield SeleniumRequest(
+                      urljoin(self.domain, url),
+                      callback=self.parse_banners,
+                      meta={
+                          "selenium": {
+                              "pre_processing_fun": self.get_banners,
+                              "wait_time": self.wait_time,
+                          },
+                      },
+                )
+
+      def accept_popups(self):
+          for selector in self.popups_selectors:
+              self.click(selector=selector)
+
+      def load_content(self, scroll=3):
+          body: WebElement = self.driver.find_element_by_xpath("//body")
+          for _ in range(scroll):
+              body.send_keys(Keys.PAGE_DOWN)
+              sleep(1)
+          for _ in range(scroll):
+              body.send_keys(Keys.PAGE_UP)
+              sleep(1)
+
+      def scrape_banners(
+          self, selectors: list[str], iframe: bool = False, screen=False, shadow=False
+      ) -> list[tuple[BucketImage, Selector, str]]:
+          banners = []
+          for selector in selectors:
+              elements: list[WebElement] = self.driver.find_elements_by_xpath(selector)
+              self.logger.debug(f"Found {len(elements)} elements using selector {selector}")
+              banners = []
+              for banner in elements:
+                  screenshot = None
+                  if screen:
+                      screenshot = extract_image_scroll_element(self.driver, banner)
+                  if iframe:
+                      self.driver.switch_to.frame(banner)
+                      html = self.driver.page_source
+                      self.driver.switch_to.default_content()
+                  elif shadow:
+                      html = self.driver.execute_script("return arguments[0].shadowRoot.innerHTML", banner)
+                  else:
+                      html = banner.get_attribute("outerHTML")
+                  source = Selector(html)
+                  banners.append((screenshot, source, selector))
+          return banners
+
+      def get_banners(self, selenium_request: SeleniumRequest):
+          self.accept_popups()
+          self.load_content()
+          selenium_request.meta["classic"] = self.scrape_banners(
+              self.classic_selector, screen=True
+          ) + self.scrape_banners(self.iframe_selector, screen=True, iframe=True)
+          selenium_request.meta["sponsored"] = self.scrape_banners(self.sponsored_selector, screen=True)
+          selenium_request.meta["showcase"] = self.scrape_banners(self.showcase_selector, screen=True)
+          selenium_request.meta["slider"] = self.scrape_banners(self.slider_selector, screen=True)
+          selenium_request.meta["butterfly"] = self.scrape_banners(self.butterfly_selector, screen=True)
+
+      def banner_builder(
+          self,
+          banners: list[tuple[BucketImage, Selector, str]],
+          banner_type: BannerTypes,
+          current_url: str,
+          path: list,
+      ):
+          for screenshot, src, selector in banners:
+              item = ItemBannerCategory()
+              item["current_url"] = current_url
+              item["other"] = selector
+              img_url = src.xpath(".//img/@src").get() or src.xpath(".//source/@srcset").get()
+              if not img_url:
+                  self.logger.warning(f"image not found for {selector} in {current_url}")
+                  continue
+              item["html_image"] = item["image_url"] = urljoin(self.domain, img_url)
+              item["title"] = src.xpath(".//img/@alt").get()
+              item["banner_type"] = banner_type
+              if screenshot:
+                  item["screenshot_image"] = item["image_url"] = screenshot
+              item["category"] = path
+              item["products"] = []
+              redirect_url = (
+                  src.xpath(".//a[not(contains(@href,'adssettings'))]/@href").get()
+                  or src.xpath(".//a//@href").get()
+                  or src.xpath(".//@href").get("")
+              )
+              if banner_type in (BannerTypes.SPONSORED_PRODUCT, BannerTypes.SHOWCASE, BannerTypes.BUTTERFLY):
+                  products = []
+                  for el in src.xpath(""):
+                      product = ItemBannerProduct()
+                      product["id"] = el.xpath("").get("")
+                      product["detail_link"] = urljoin(self.domain, el.xpath(".//@href").get())
+                      product["image_link"] = el.xpath(".//img/@src").get()
+                      products.append(product)
+                  item["products"] = products or None
+                  item["redirect_url"] = urljoin(self.domain, redirect_url)
+                  yield item
+              elif redirect_url:
+                  item["redirect_url"] = urljoin(self.domain, redirect_url)
+                  yield SeleniumRequest(
+                      item["redirect_url"],
+                      callback=self.add_products,
+                      meta={
+                          "cache_this": True,
+                          "selenium": {
+                              "wait_time": self.wait_time,
+                          },
+                      },
+                      cb_kwargs=dict(banner=item),
+                      dont_filter=True,
+                  )
+              else:
+                  yield item
+
+      def parse_banners(self, response: HtmlResponse, is_home: bool = False):
+          path = []
+          for sel in self.path_selectors:
+              path = path or [c for cat in response.xpath(sel).getall() if (c := cat.strip())]
+          if not path:
+              parsed_url = urlparse(response.url)
+              path = [parsed_url.path.split("/")[-1]]
+          if is_home:
+              path = ["Home"]
+          banners = response.meta.get("sponsored", [])
+          yield from self.banner_builder(
+              banners=banners,
+              banner_type=BannerTypes.SPONSORED_PRODUCT,
+              current_url=response.url,
+              path=path,
+          )
+
+          banners = response.meta.get("classic", [])
+          yield from self.banner_builder(
+              banners=banners,
+              banner_type=BannerTypes.BANNER_HOME_PAGE if is_home else BannerTypes.CLASSIC,
+              current_url=response.url,
+              path=path,
+          )
+          banners = response.meta.get("slider", [])
+          yield from self.banner_builder(
+              banners=banners,
+              banner_type=BannerTypes.SLIDER_HOME_PAGE if is_home else BannerTypes.CLASSIC,
+              current_url=response.url,
+              path=path,
+          )
+
+          banners = response.meta.get("butterfly", [])
+          yield from self.banner_builder(
+              banners=banners,
+              banner_type=BannerTypes.BUTTERFLY,
+              current_url=response.url,
+              path=path,
+          )
+
+          banners = response.meta.get("showcase", [])
+          yield from self.banner_builder(
+              banners=banners,
+              banner_type=BannerTypes.SHOWCASE,
+              current_url=response.url,
+              path=path,
+          )
+          for sel in self.sub_categories_selectors:
+              for category in response.xpath(sel):
+                  url = category.xpath(".//@href").get("")
+                  yield SeleniumRequest(
+                      urljoin(self.domain, url),
+                      callback=self.parse_banners,
+                      meta={
+                          "selenium": {
+                              "pre_processing_fun": self.get_banners,
+                              "wait_time": self.wait_time,
+                          },
+                      },
+                  )
+
+      def add_products(self, response: HtmlResponse, banner: ItemBannerCategory):
+          products = []
+          for el in response.xpath(""):
+              product = ItemBannerProduct()
+              product["id"] = el.xpath("").get("")
+              product["detail_link"] = urljoin(self.domain, el.xpath(".//@href").get())
+              product["image_link"] = el.xpath(".//img/@src").get()
+              products.append(product)
+          banner["products"] = products or None
+          yield banner
+
+snippet bancatslnms banner category selenium
+    import random
+    from time import sleep
+    from urllib.parse import urljoin, urlparse
+
+    from parsel import Selector
+    from scrapy.http import HtmlResponse
+    from scrapy.spiders import Spider
+    from selenium.common.exceptions import (
+        ElementClickInterceptedException,
+        ElementNotInteractableException,
+        NoSuchElementException,
+    )
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.common.keys import Keys
+    from selenium.webdriver.remote.webdriver import WebDriver, WebElement
+    from selenium.webdriver.support import expected_conditions as ec
+
+    from core.config import BannerTypes
+    from core.requests_di import RequestShelf, SeleniumRequest
+    from core.spiders_fwk.selenium_spider import T1000Spider
+    from core.spiders_fwk.v4_spider import V4Spider
+    from items.banner_category import ItemBannerCategory, ItemBannerProduct
+    from settings.settings import USER_AGENT_LIST
+    from tools.banner_utils import BucketImage, extract_image_scroll_element
+    from spiders.$1.base import $2
+
+    class BannerCategory(T1000Spider, V4Spider):
+        domain = $2.domain
+        retailer_id = $2.retailer_id
+        proxy = ["AWS_US", "AWS_EU", "IPROYAL_RESIDENTIAL", "OXYLABS_DC", "OXYLABS_RESIDENTIAL"]
+        oxylabs_dc_country = oxylabs_residential_country = iproyal_residential_country = "$3"
+        tls = browser = ["chrome/133", "firefox/133"]
+        PREFERENCES_OPTIONS = {
+            "profile.managed_default_content_settings.images": 1,
+        }
+
+        custom_settings = {
+            "SPIDER_MIDDLEWARES": {
+                "middlewares.pagination_position_middleware.PositionDefaultMiddleware": None,
+                "middlewares.image_downloading_middleware.ImageDownloadingDefaultMiddleware": 999,
+            },
+            "DOWNLOADER_MIDDLEWARES": {
+                "middlewares.custom_cache_middleware.SelectiveCacheMiddleware": 44,
+            },
+            # "SELENIUM_VISIBLE": 1,
+            "SELENIUM_DRIVER_ARGUMENTS": [
+                "--disable-dev-shm-usage ",
+                "--no-sandbox",
+                "--start-maximized",
+                "--window-size=1920,1080",
+                "--disable-blink-features=AutomationControlled",
+            ],
+            "SELENIUM_PROXY_ENABLED": 1,
+            "SELENIUM_DRIVER_EXPERIMENTAL_OPTION": [
+                ["prefs", PREFERENCES_OPTIONS],
+                ["excludeSwitches", ["enable-automation"]],
+                ["useAutomationExtension", False],
+            ],
+        }
+
+        classic_selector = []
+        iframe_selector = []
+        sponsored_selector = []
+        showcase_selector = []
+        slider_selector = []
+        butterfly_selector = []
+        popups_selectors = []
+        categories_selectors = []
+        sub_categories_selectors = []
+        path_selectors = []
+        driver: WebDriver
+
+        @property
+        def wait_time(self) -> int:
+            return random.randint(3, 6)
+
+        def start_requests(self):
+            if self.paths_urls:
+                for _, url, _ in self.paths_urls:
+                    yield SeleniumRequest(
+                        url,
+                        callback=self.parse_banners,
+                        meta={
+                            "selenium": {
+                                "pre_processing_fun": self.get_banners,
+                                "wait_time": self.wait_time,
+                            },
+                        },
+                    )
+
+            else:
+                yield SeleniumRequest(
+                    self.domain,
+                    callback=self.parse_categories,
+                    meta={
+                        "selenium": {
+                            "pre_processing_fun": self.load_categories,
+                            "optional_wait_time": self.wait_time,
+                            "optional_wait_until": ec.presence_of_element_located(
+                                (
+                                    By.XPATH,
+                                    "",
+                                )
+                            ),
+                        },
+                    },
+                )
+
+        def click(self, selector: str):
+            try:
+                button: WebElement = self.driver.find_element(by=By.XPATH, value=selector)
+                button.click()
+            except NoSuchElementException:
+                self.logger.debug("Button not found")
+            except ElementNotInteractableException:
+                self.logger.debug("Button not interactable.")
+            except ElementClickInterceptedException:
+                self.logger.debug("Button click was intercepted.")
+
+        def load_categories(self, _: SeleniumRequest):
+            self.accept_popups()
+
+        def parse_categories(self, response: HtmlResponse):
+            yield RequestShelf(
+                self.domain,
+                callback=self.parse_banners,
+                meta={"path": []},
+                dont_filter=True,
+            )
+            for sel in self.categories_selectors:
+                for category in response.xpath(sel):
+                    url = category.xpath(".//@href").get("")
+                    yield RequestShelf(
+                        urljoin(self.domain, url),
+                        callback=self.parse_banners,
+                        meta={"path": []},
+                    )
+
+        def accept_popups(self):
+            for selector in self.popups_selectors:
+                self.click(selector=selector)
+
+        def load_content(self, scroll=3):
+            body: WebElement = self.driver.find_element_by_xpath("//body")
+            for _ in range(scroll):
+                body.send_keys(Keys.PAGE_DOWN)
+                sleep(1)
+            for _ in range(scroll):
+                body.send_keys(Keys.PAGE_UP)
+                sleep(1)
+
+        def scrape_banners(
+            self, selectors: list[str], iframe: bool = False, screen=False, shadow=False
+        ) -> list[tuple[BucketImage, Selector, str]]:
+            banners = []
+            for selector in selectors:
+                elements: list[WebElement] = self.driver.find_elements_by_xpath(selector)
+                self.logger.debug(f"Found {len(elements)} elements using selector {selector}")
+                banners = []
+                for banner in elements:
+                    screenshot = None
+                    if screen:
+                        screenshot = extract_image_scroll_element(self.driver, banner)
+                    if iframe:
+                        self.driver.switch_to.frame(banner)
+                        html = self.driver.page_source
+                        self.driver.switch_to.default_content()
+                    elif shadow:
+                        html = self.driver.execute_script("return arguments[0].shadowRoot.innerHTML", banner)
+                    else:
+                        html = banner.get_attribute("outerHTML")
+                    source = Selector(html)
+                    banners.append((screenshot, source, selector))
+            return banners
+
+        def get_banners(self, selenium_request: SeleniumRequest):
+            self.accept_popups()
+            self.load_content()
+            selenium_request.meta["classic"] = self.scrape_banners(
+                self.classic_selector, screen=True
+            ) + self.scrape_banners(self.iframe_selector, screen=True, iframe=True)
+            selenium_request.meta["sponsored"] = self.scrape_banners(self.sponsored_selector, screen=True)
+            selenium_request.meta["showcase"] = self.scrape_banners(self.showcase_selector, screen=True)
+            selenium_request.meta["slider"] = self.scrape_banners(self.slider_selector, screen=True)
+            selenium_request.meta["butterfly"] = self.scrape_banners(self.butterfly_selector, screen=True)
+
+        def banner_builder(
+            self,
+            banners: list[tuple[BucketImage, Selector, str]],
+            banner_type: BannerTypes,
+            current_url: str,
+            path: list,
+        ):
+            for screenshot, src, selector in banners:
+                item = ItemBannerCategory()
+                item["current_url"] = current_url
+                item["other"] = selector
+                img_url = src.xpath(".//img/@src").get() or src.xpath(".//source/@srcset").get()
+                if not img_url:
+                    self.logger.warning(f"image not found for {selector} in {current_url}")
+                    continue
+                item["html_image"] = item["image_url"] = urljoin(self.domain, img_url)
+                item["title"] = src.xpath(".//img/@alt").get()
+                item["banner_type"] = banner_type
+                if screenshot:
+                    item["screenshot_image"] = item["image_url"] = screenshot
+                item["category"] = path
+                item["products"] = []
+                redirect_url = (
+                    src.xpath(".//a[not(contains(@href,'adssettings'))]/@href").get()
+                    or src.xpath(".//a//@href").get()
+                    or src.xpath(".//@href").get("")
+                )
+                if banner_type in (BannerTypes.SPONSORED_PRODUCT, BannerTypes.SHOWCASE, BannerTypes.BUTTERFLY):
+                    products = []
+                    for el in src.xpath(""):
+                        product = ItemBannerProduct()
+                        product["id"] = el.xpath("").get("")
+                        product["detail_link"] = urljoin(self.domain, el.xpath(".//@href").get())
+                        product["image_link"] = el.xpath(".//img/@src").get()
+                        products.append(product)
+                    item["products"] = products or None
+                    item["redirect_url"] = urljoin(self.domain, redirect_url)
+                    yield item
+                elif redirect_url:
+                    item["redirect_url"] = urljoin(self.domain, redirect_url)
+                    yield SeleniumRequest(
+                        item["redirect_url"],
+                        callback=self.add_products,
+                        meta={
+                            "cache_this": True,
+                            "selenium": {
+                                "wait_time": self.wait_time,
+                            },
+                        },
+                        cb_kwargs=dict(banner=item),
+                        dont_filter=True,
+                    )
+                else:
+                    yield item
+
+        def parse_banners(self, response: HtmlResponse, is_home: bool = False):
+            path = []
+            for sel in self.path_selectors:
+                path = path or [c for cat in response.xpath(sel).getall() if (c := cat.strip())]
+            if not path:
+                parsed_url = urlparse(response.url)
+                path = [parsed_url.path.split("/")[-1]]
+            if is_home:
+                path = ["Home"]
+            banners = response.meta.get("sponsored", [])
+            yield from self.banner_builder(
+                banners=banners,
+                banner_type=BannerTypes.SPONSORED_PRODUCT,
+                current_url=response.url,
+                path=path,
+            )
+
+            banners = response.meta.get("classic", [])
+            yield from self.banner_builder(
+                banners=banners,
+                banner_type=BannerTypes.BANNER_HOME_PAGE if is_home else BannerTypes.CLASSIC,
+                current_url=response.url,
+                path=path,
+            )
+            banners = response.meta.get("slider", [])
+            yield from self.banner_builder(
+                banners=banners,
+                banner_type=BannerTypes.SLIDER_HOME_PAGE if is_home else BannerTypes.CLASSIC,
+                current_url=response.url,
+                path=path,
+            )
+
+            banners = response.meta.get("butterfly", [])
+            yield from self.banner_builder(
+                banners=banners,
+                banner_type=BannerTypes.BUTTERFLY,
+                current_url=response.url,
+                path=path,
+            )
+
+            banners = response.meta.get("showcase", [])
+            yield from self.banner_builder(
+                banners=banners,
+                banner_type=BannerTypes.SHOWCASE,
+                current_url=response.url,
+                path=path,
+            )
+            for sel in self.sub_categories_selectors:
+                for category in response.xpath(sel):
+                    url = category.xpath(".//@href").get("")
+                    yield SeleniumRequest(
+                        urljoin(self.domain, url),
+                        callback=self.parse_banners,
+                        meta={
+                            "selenium": {
+                                "pre_processing_fun": self.get_banners,
+                                "wait_time": self.wait_time,
+                            },
+                        },
+                    )
+
+        def add_products(self, response: HtmlResponse, banner: ItemBannerCategory):
+            products = []
+            for el in response.xpath(""):
+                product = ItemBannerProduct()
+                product["id"] = el.xpath("").get("")
+                product["detail_link"] = urljoin(self.domain, el.xpath(".//@href").get())
+                product["image_link"] = el.xpath(".//img/@src").get()
+                products.append(product)
+            banner["products"] = products or None
+            yield banner
+snippet downmiddleware download middleware template
+    from core.utils import get_class_path
+    class $1:
+        def __init__(self, crawler):
+            self.crawler = crawler
+
+        @classmethod
+        def from_crawler(cls, crawler):
+            return cls(crawler)
+
+        def process_response(self, request, response: HtmlResponse, spider: Spider):
+            return response
