@@ -1,9 +1,9 @@
 [env]
 TERM = "xterm-256color"
 [general]
-import = ["~/.config/alacritty/themes/carbonfox.toml"]
+import = ["~/.config/alacritty/themes/catppuccin.toml"]
 [window]
-opacity = 0.96
+opacity = 0.90
 padding.x = 200
 padding.y = 90
 startup_mode = "Maximized"
