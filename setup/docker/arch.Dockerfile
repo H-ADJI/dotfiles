@@ -19,5 +19,5 @@ USER ${USER}
 
 # Set the working directory
 WORKDIR /home/${USER}
-RUN echo "alias dotinstall='curl -SL https://raw.githubusercontent.com/H-ADJI/cyborgV2/refs/heads/master/setup/init.sh | bash'" >> .bashrc
+RUN echo "alias dotinstall='curl -SL https://raw.githubusercontent.com/H-ADJI/dotfiles/refs/heads/master/setup/init.sh | bash'" >> .bashrc
 CMD ["/bin/bash"]
