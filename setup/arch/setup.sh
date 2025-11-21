@@ -150,7 +150,7 @@ link_dotfiles() {
         "scripts"
         "zsh"
     )
-    stow --dotfiles "${dotfiles[@]}"
+    stow --adopt --dotfiles "${dotfiles[@]}"
     cd || return 1
 }
 docker_post_install() {
