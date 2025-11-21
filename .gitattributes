@@ -5,3 +5,4 @@ zsh/.zsh_history  filter=crypt diff=crypt merge=crypt
 bin/.local/bin/work_setup  filter=crypt diff=crypt merge=crypt
 ssh/.ssh/*  filter=crypt diff=crypt merge=crypt
 leetcode/.leetcode/leetcode.toml filter=crypt diff=crypt merge=crypt
+scripts/dot-config/scripts/work_setup.sh  filter=crypt diff=crypt merge=crypt
