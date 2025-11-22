@@ -7,14 +7,21 @@ timeout=3000
 FILENAME="$SCREENSHOT_DIR/screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png"
 APP_NAME="Sway Screenshot"
 
-
 case $1 in
     window)
-        grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp)" - |
+        XY="$(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp)"
+        if [ $? -eq 1 ]; then
+            exit 1
+        fi
+        grim -g "$XY" - |
         tee "$FILENAME" | wl-copy
         ;;
     region)
-        grim -g "$(slurp -w 2)" - | tee "$FILENAME" | wl-copy
+        XY="$(slurp -w 2)"
+        if [ $? -eq 1 ]; then
+            exit 1
+        fi
+        grim -g "$XY" - | tee "$FILENAME" | wl-copy
         ;;
     display)
         # grim - | tee "$FILENAME" | wl-copy
