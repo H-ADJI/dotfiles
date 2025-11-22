@@ -19,12 +19,8 @@ curl -SL https://raw.githubusercontent.com/H-ADJI/dotfiles/refs/heads/master/set
 ## Roadmap
 
 - default apps
-- PWAs using omarchy webapp install/launch scripts
 - keybinds list
 - add mybattlestation link
-- yt-x
-- xcompose for emojies
-- widget list
 - wallpaper picker
 - theme picker
 - screen recording

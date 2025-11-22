@@ -1,7 +1,7 @@
 local map = vim.keymap.set
 
 map("n", "zz", function()
-  vim.cmd("q")
+  vim.cmd("qa")
 end, { desc = "[Q]uit" })
 
 map("n", "<leader>li", function()
