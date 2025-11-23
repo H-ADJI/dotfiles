@@ -149,6 +149,7 @@ link_dotfiles() {
         "waybar"
         "scripts"
         "zsh"
+        "sunsetr"
     )
     stow --adopt --dotfiles "${dotfiles[@]}"
     cp -r assets ~/.config/

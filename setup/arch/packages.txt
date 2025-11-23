@@ -99,6 +99,7 @@ spicetify-marketplace-bin
 spotify
 starship
 stow
+sunsetr
 swappy
 swaybg
 swayfx
