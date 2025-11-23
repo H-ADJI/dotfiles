@@ -26,4 +26,4 @@ curl -SL https://raw.githubusercontent.com/H-ADJI/dotfiles/refs/heads/master/set
 - screen recording
 - connect tmux / nvim over ssh
 - arch packages info , search , installed , installer picker
-- fix amd stuff
+- fix amd cpu stuff
