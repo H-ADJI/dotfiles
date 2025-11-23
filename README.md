@@ -21,8 +21,8 @@ curl -SL https://raw.githubusercontent.com/H-ADJI/dotfiles/refs/heads/master/set
 - default apps
 - keybinds list
 - add mybattlestation link
-- wallpaper picker
-- theme picker
+- theme wallpaper picker
+- assests / layers path
 - screen recording
 - connect tmux / nvim over ssh
 - arch packages info , search , installed , installer picker
