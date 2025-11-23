@@ -219,7 +219,7 @@ return {
     {
       "<leader>fh",
       function()
-        Snacks.picker.files({ hidden = true, ignored = false })
+        Snacks.picker.files({ hidden = true, ignored = true })
       end,
       desc = "Find Hidden files",
     },
