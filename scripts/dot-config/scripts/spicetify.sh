@@ -1,3 +1,4 @@
+# TODO: adapt with new spotify launcher and spicetify config
 gum log -l info "[START] Spotify file permissions"
 sudo chmod a+wr /opt/spotify
 sudo chmod a+wr /opt/spotify/Apps -R
