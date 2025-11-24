@@ -3,15 +3,6 @@ from qutebrowser.config.configfiles import ConfigAPI  # noqa: F401
 
 config: ConfigAPI = config  # noqa: F821 pylint: disable=E0602,C0103
 c: ConfigContainer = c  # noqa: F821 pylint: disable=E0602,C0103
-# TODO: colorsscheme
-# TODO: status bar
-# TODO: fonts
-# TODO: ytb play
-# TODO: shortcuts
-# TODO: image zoom using hints and userscript to download and zoom in local img viewer
-# TODO: pswd manager
-# TODO: homepage
-# TODO: session auto save
 config.load_autoconfig()
 
 # FONTS
