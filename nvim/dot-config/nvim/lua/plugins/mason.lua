@@ -23,6 +23,7 @@ return {
         "bashls",
         "hyprls",
         "taplo",
+        "just",
       },
     },
     dependencies = {
@@ -37,6 +38,7 @@ return {
     opts = {
       ensure_installed = {
         "lua_ls",
+        "just-lsp",
         "ty",
         "hyprls",
         "ruff",
