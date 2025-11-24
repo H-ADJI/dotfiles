@@ -38,6 +38,10 @@ map({ "n" }, "<a-l>", "<c-w>l")
 -- better indenting
 map("x", "<", "<gv")
 map("x", ">", ">gv")
+
+-- line mouvement
+map({ "n" }, "<c-e>h", "0")
+map({ "n" }, "<c-e>l", "$")
 -- save file
 local formated_diagnostics = function()
   local diagnostic_format = function(diagnostic)
