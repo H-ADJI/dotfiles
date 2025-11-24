@@ -12,3 +12,5 @@ bindkey '^n' history-search-forward
 autoload edit-command-line
 zle -N edit-command-line
 bindkey "^E" edit-command-line
+autoload -Uz select-word-style
+select-word-style bash

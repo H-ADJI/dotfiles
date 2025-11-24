@@ -35,6 +35,9 @@ map({ "n" }, "<a-j>", "<c-w>j")
 map({ "n" }, "<a-k>", "<c-w>k")
 
 map({ "n" }, "<a-l>", "<c-w>l")
+-- better indenting
+map("x", "<", "<gv")
+map("x", ">", ">gv")
 -- save file
 local formated_diagnostics = function()
   local diagnostic_format = function(diagnostic)
