@@ -1,3 +1,3 @@
 #!/bin/sh
-WALLPAPER="${HOME}/Pictures/assets/background.png"
+WALLPAPER="${HOME}/.config/assets/background.png"
 swaybg -i $WALLPAPER -m fill &
