@@ -96,7 +96,7 @@ solaar
 spicetify-cli
 spicetify-cli 
 spicetify-marketplace-bin
-spotify
+spotify-adblock
 starship
 stow
 sunsetr
