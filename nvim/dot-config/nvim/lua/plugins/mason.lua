@@ -33,7 +33,6 @@ return {
   },
 
   {
-    -- TODO: maybe replace with helper function from lazyvim.org
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     opts = {
       ensure_installed = {

@@ -40,8 +40,8 @@ map("x", "<", "<gv")
 map("x", ">", ">gv")
 
 -- line mouvement
-map({ "n" }, "<c-e>h", "0")
-map({ "n" }, "<c-e>l", "$")
+map({ "n" }, "<c-n>h", "0")
+map({ "n" }, "<c-n>l", "$")
 -- save file
 local formated_diagnostics = function()
   local diagnostic_format = function(diagnostic)

@@ -16,7 +16,7 @@ vim.api.nvim_create_autocmd("UIEnter", {
   end,
 })
 
--- FIX: not floating after first call
+-- BUG: not floating after first call
 -- vim.api.nvim_create_autocmd({ "FileType" }, {
 --   pattern = { "help", "man" },
 --   callback = function(event)

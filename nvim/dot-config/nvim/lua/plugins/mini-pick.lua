@@ -47,7 +47,6 @@ return {
     --   {
     --     "<leader>sh",
     --     function()
-    --       -- TODO: pick in seprate tabs / floating window
     --       require("mini.pick").builtin.help()
     --     end,
     --     desc = "[S]earch [H]elp",
