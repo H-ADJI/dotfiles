@@ -1,18 +1,3 @@
-note() {
-    # Get current year and ISO week number
-    local year week
-    year=$(date +%Y)
-    local NOTES_DIR="$HOME/secondBrain/notes/$year"
-    mkdir -p "$NOTES_DIR"
-    week=$(date +%V)
-    local note_file="$NOTES_DIR/week-$week.md"
-    cd "$NOTES_DIR" || return 1
-    if [ ! -f "$note_file" ]; then
-        echo "# $year Week $week " >"$note_file"
-        echo "- " >>"$note_file"
-    fi
-    nvim "$note_file"
-}
 create_bootable_usb() {
     # Check if exactly two arguments are provided
     if [ "$#" -ne 2 ]; then
@@ -62,9 +47,6 @@ create_bootable_usb() {
     sudo eject "$device"
 
     echo "Bootable USB created successfully!"
-}
-sddm_theme_picker() {
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/keyitdev/sddm-astronaut-theme/master/setup.sh)"
 }
 speaker_connect() {
     echo 'connect 10:94:97:36:C7:15' | bluetoothctl
