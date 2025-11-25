@@ -4,7 +4,7 @@ if ! command -v nvim >/dev/null 2>&1; then
 fi
 alias nv="nvim"
 alias nvconfig="cd ~/.config/nvim && nv"
-alias telescope_clear_cache="rm ~/.local/state/nvim/shada/main.shada"
+alias nvim_shada_clear="rm ~/.local/state/nvim/shada/main.shada"
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
     export EDITOR="vim"
