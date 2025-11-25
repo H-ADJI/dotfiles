@@ -153,9 +153,9 @@ link_dotfiles() {
         "scripts"
         "zsh"
         "sunsetr"
+        "assets"
     )
     stow --adopt --dotfiles "${dotfiles[@]}"
-    cp -r assets ~/.config/
     cd || return 1
 }
 docker_post_install() {
