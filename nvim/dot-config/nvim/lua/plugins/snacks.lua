@@ -247,7 +247,7 @@ return {
     {
       "<leader>fr",
       function()
-        Snacks.picker.recent()
+        Snacks.picker.recent({ filter = { cwd = true } })
       end,
       desc = "Find Recent",
     },
