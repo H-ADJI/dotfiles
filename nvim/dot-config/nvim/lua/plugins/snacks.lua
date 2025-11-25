@@ -107,34 +107,34 @@ return {
       desc = "Lsp Info",
     },
     {
-      "cfd",
+      "gd",
       function()
         Snacks.picker.lsp_definitions()
       end,
       desc = "Goto Definition",
     },
+    -- {
+    --   "cfD",
+    --   function()
+    --     Snacks.picker.lsp_declarations()
+    --   end,
+    --   desc = "Goto Declaration",
+    -- },
     {
-      "cfD",
-      function()
-        Snacks.picker.lsp_declarations()
-      end,
-      desc = "Goto Declaration",
-    },
-    {
-      "cfr",
+      "grr",
       function()
         Snacks.picker.lsp_references()
       end,
       nowait = true,
       desc = "References",
     },
-    {
-      "cfI",
-      function()
-        Snacks.picker.lsp_implementations()
-      end,
-      desc = "Goto Implementation",
-    },
+    -- {
+    --   "cfI",
+    --   function()
+    --     Snacks.picker.lsp_implementations()
+    --   end,
+    --   desc = "Goto Implementation",
+    -- },
     {
       "cft",
       function()
@@ -142,20 +142,20 @@ return {
       end,
       desc = "Goto T[y]pe Definition",
     },
-    {
-      "gai",
-      function()
-        Snacks.picker.lsp_incoming_calls()
-      end,
-      desc = "C[a]lls Incoming",
-    },
-    {
-      "gao",
-      function()
-        Snacks.picker.lsp_outgoing_calls()
-      end,
-      desc = "C[a]lls Outgoing",
-    },
+    -- {
+    --   "gai",
+    --   function()
+    --     Snacks.picker.lsp_incoming_calls()
+    --   end,
+    --   desc = "C[a]lls Incoming",
+    -- },
+    -- {
+    --   "gao",
+    --   function()
+    --     Snacks.picker.lsp_outgoing_calls()
+    --   end,
+    --   desc = "C[a]lls Outgoing",
+    -- },
     {
       "<leader>ss",
       function()
