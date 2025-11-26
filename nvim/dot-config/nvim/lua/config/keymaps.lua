@@ -87,3 +87,4 @@ end, { desc = "Save File" })
 
 map("n", "<C-W>f", "<C-W>_", { desc = "Window Full hight", remap = true })
 map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
+map("n", "<leader>wq", "<C-W>c", { desc = "Delete Window", remap = true })

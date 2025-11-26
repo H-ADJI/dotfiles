@@ -1,0 +1,8 @@
+session_name: Notes
+suppress_history: true
+start_directory: ~/secondBrain/
+windows:
+  - window_name: "notes"
+    shell_command_before: nvim
+    focus: true
+  - window_name: "shell"
