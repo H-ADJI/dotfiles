@@ -1,3 +1,4 @@
+# TODO: try podman ?
 FROM archlinux:latest
 LABEL maintainer="H-ADJI <https://github.com/H-ADJI>"
 

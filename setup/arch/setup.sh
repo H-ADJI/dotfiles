@@ -187,6 +187,7 @@ personal_repos() {
 }
 
 sudo --validate
+# TODO: handle history sync
 install_AUR_helper
 installpackages
 post_install
