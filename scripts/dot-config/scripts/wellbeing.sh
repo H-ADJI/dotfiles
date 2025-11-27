@@ -1,4 +1,3 @@
-# TODO: timer with snore gum and alacritty and notify-send
 notification_timeout=6000
 APP_NAME="Wellbeing Timer"
 notify() {
