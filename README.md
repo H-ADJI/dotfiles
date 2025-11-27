@@ -29,6 +29,6 @@ curl -SL https://raw.githubusercontent.com/H-ADJI/dotfiles/refs/heads/master/set
 - connect tmux / nvim over ssh
 - arch packages info , search , installed , installer picker
 
-## Nerd snippes
+## Nerd snipes
 
-comming soon
+[comming soon]
