@@ -88,4 +88,4 @@ end, { desc = "Save File" })
 map("n", "<C-W>f", "<C-W>_", { desc = "Window Full hight", remap = true })
 map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
 map("n", "<leader>wq", "<C-W>c", { desc = "Delete Window", remap = true })
--- TODO: delete to beginning of line keymap
+map("n", "dD", "d0", { desc = "Delete to start of line", remap = true })
