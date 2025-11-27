@@ -7,7 +7,6 @@ timeout=3000
 FILENAME="$SCREENSHOT_DIR/screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png"
 APP_NAME="Sway Screenshot"
 
-# TODO: vial screenshot flag
 case $1 in
     window)
         XY="$(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp)"

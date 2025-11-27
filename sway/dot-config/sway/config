@@ -3,5 +3,4 @@
 # Read `man 5 sway` for a complete reference.
 
 # user config directory
-# TODO: layout screenshot with 
 include $HOME/.config/sway/config.d/*

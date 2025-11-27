@@ -1,5 +1,4 @@
 return {
-  -- TODO: add generic hashtag pick
   "folke/todo-comments.nvim",
   event = "VeryLazy",
   dependencies = { "nvim-lua/plenary.nvim" },
