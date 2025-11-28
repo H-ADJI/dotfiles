@@ -1,10 +1,12 @@
 # Dotfiles
 
-Feel free to look around for inspiration
+Since i really care about (my) development experience, this is my second iteration of the [CYBORG PROJECT](https://github.com/H-ADJI/cyborg).
+Feel free to copy or look around for inspiration.
 
 ## Setup
 
-one command to setup my machine automagically :D
+A single command to setup my machine automagically :D.
+I hope i didn't leak any unencrypted secrets or ssh keys.
 
 ```bash
 curl -SL https://raw.githubusercontent.com/H-ADJI/dotfiles/refs/heads/master/setup/init.sh | bash
@@ -12,7 +14,7 @@ curl -SL https://raw.githubusercontent.com/H-ADJI/dotfiles/refs/heads/master/set
 
 ## Content
 
-- Dotfiles for my PDE ( personalized development environment ):
+- Dotfiles for my **PDE** (Personalized Development Environment) :
   - Sway (swayfx) minimalistic rice for maximum productivity
   - Homemade Neovim config
   - Alacritty simple yet effective
