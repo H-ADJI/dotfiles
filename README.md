@@ -73,5 +73,5 @@ curl -SL https://raw.githubusercontent.com/H-ADJI/dotfiles/refs/heads/master/set
 
 ### Battlestation
 
-![](./nerd_snipes/battlestatio_1.jpg)
-![](./nerd_snipes/battlestatio_2.jpg)
+![](./nerd_snipes/battlestation_1.jpg)
+![](./nerd_snipes/battlestation_2.jpg)
