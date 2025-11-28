@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # === Configuration ===
-FUZZEL_OPTS=(--dmenu --lines=20 --width=80 --prompt="💀 Kill program: ")
+FUZZEL_OPTS=(--dmenu --lines=12 --width=80 --prompt="💀 Kill program: ")
 ICON="utilities-terminal"
 
 # === Collect running processes ===
