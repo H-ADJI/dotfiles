@@ -31,4 +31,4 @@ curl -SL https://raw.githubusercontent.com/H-ADJI/dotfiles/refs/heads/master/set
 
 ## Nerd snipes
 
-[comming soon]
+![code editor](./nerd_snipes/editor.png)
