@@ -154,6 +154,7 @@ link_dotfiles() {
         "zsh"
         "sunsetr"
         "assets"
+        "yazi"
     )
     stow --adopt --dotfiles "${dotfiles[@]}"
     cd || return 1
