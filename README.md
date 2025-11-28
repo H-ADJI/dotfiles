@@ -31,13 +31,47 @@ curl -SL https://raw.githubusercontent.com/H-ADJI/dotfiles/refs/heads/master/set
 
 ## Nerd snipes
 
+### App launcher
+
 ![](./nerd_snipes/app_launcher.png)
+
+### Audio input picker
+
 ![](./nerd_snipes/audio_in_picker.png)
+
+### Audio output picker
+
 ![](./nerd_snipes/audio_in_picker.png)
+
+### Text editor
+
 ![text editor](./nerd_snipes/editor.png)
+
+### Tiling windows
+
 ![text editor cava btm](./nerd_snipes/editor_btm_cava.png)
+
+### Fastfetch
+
 ![](./nerd_snipes/fastfetch.png)
+
+### File explorer
+
 ![](./nerd_snipes/file_explorer.png)
+
+### Keyboard layout/layers viewer
+
 ![](./nerd_snipes/keyboard_layout_viewer.png)
+
+### Pkill menu
+
 ![](./nerd_snipes/pkill_menu.png)
+
+### Power menu
+
 ![](./nerd_snipes/power_menu.png)
+
+### Battlestation
+
+![](./nerd_snipes/battlestatio_1.jpg)
+![](./nerd_snipes/battlestatio_2.jpg)
