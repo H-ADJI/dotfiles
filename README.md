@@ -31,4 +31,13 @@ curl -SL https://raw.githubusercontent.com/H-ADJI/dotfiles/refs/heads/master/set
 
 ## Nerd snipes
 
-![code editor](./nerd_snipes/editor.png)
+![](./nerd_snipes/app_launcher.png)
+![](./nerd_snipes/audio_in_picker.png)
+![](./nerd_snipes/audio_in_picker.png)
+![text editor](./nerd_snipes/editor.png)
+![text editor cava btm](./nerd_snipes/editor_btm_cava.png)
+![](./nerd_snipes/fastfetch.png)
+![](./nerd_snipes/file_explorer.png)
+![](./nerd_snipes/keyboard_layout_viewer.png)
+![](./nerd_snipes/pkill_menu.png)
+![](./nerd_snipes/power_menu.png)
