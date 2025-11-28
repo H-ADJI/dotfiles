@@ -22,6 +22,7 @@ curl -SL https://raw.githubusercontent.com/H-ADJI/dotfiles/refs/heads/master/set
   - ZSH, no idea why i choose it
   - Starship for a pretty shell prompt
   - plus a lot of other tools...
+- justfile to automate testing of installation process.
 
 ## Roadmap
 
