@@ -1,0 +1,8 @@
+session_name: Homelab
+suppress_history: true
+start_directory: ~/homelab/
+windows:
+  - window_name: "src"
+    shell_command_before: nvim
+    focus: true
+  - window_name: "shell"
