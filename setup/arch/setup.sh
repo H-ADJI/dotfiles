@@ -134,6 +134,7 @@ link_dotfiles() {
     dotfiles=(
         "alacritty"
         "swappy"
+        "gocheat"
         "direnv"
         "fastfetch"
         "fuzzel"

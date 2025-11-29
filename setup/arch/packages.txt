@@ -33,6 +33,7 @@ gcc
 genymotion
 git-delta
 github-cli
+gocheat
 google-chrome
 grep
 grim
