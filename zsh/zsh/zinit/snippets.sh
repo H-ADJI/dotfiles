@@ -1,12 +1,6 @@
 # add git function library https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
 zinit snippet OMZL::git.zsh
 
-# TODO: wayland not supported maybe first opensource contrib ?
-# copy file content functions https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/copyfile
-# zinit snippet OMZP::copyfile
-# copy path utilities https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/copypath
-# zinit snippet OMZP::copypath
-
 # usefull git aliases and function https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
 zinit snippet OMZP::git
 
