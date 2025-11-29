@@ -51,3 +51,16 @@ create_bootable_usb() {
 speaker_connect() {
     echo 'connect 10:94:97:36:C7:15' | bluetoothctl
 }
+
+copyp() {
+    P="$(pwd)"
+    if [ "$#" = 1 ]; then
+        P="$(pwd)/$1"
+    fi
+    wl-copy "$P"
+    return 0
+}
+copyf() {
+    cat "$1" | wl-copy
+    return 0
+}
