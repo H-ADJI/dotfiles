@@ -224,6 +224,13 @@ return {
       desc = "Find Hidden files",
     },
     {
+      "<leader>fd",
+      function()
+        Snacks.picker.files({ cwd = "~/dotfiles/" })
+      end,
+      desc = "Find Config File",
+    },
+    {
       "<leader>fc",
       function()
         Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
