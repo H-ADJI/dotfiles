@@ -1,5 +1,6 @@
 7zip
 alacritty
+regex-tui
 alsa-tools
 alsa-utils
 android-tools 
