@@ -40,3 +40,6 @@ zinit snippet OMZP::ssh
 # docker aliases and completions https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/docker
 zinit snippet OMZP::docker
 zinit snippet OMZP::docker-compose
+
+# podman aliases and completions https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/podman
+zinit snippet OMZP::podman
