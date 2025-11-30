@@ -1,7 +1,5 @@
 7zip
-podman
 alacritty
-regex-tui
 alsa-tools
 alsa-utils
 android-tools 
@@ -69,12 +67,14 @@ pamixer
 pavucontrol
 pipewire
 playerctl
+podman
 python-pip
 python-setuptools
 python3
 qt5-wayland
 qt6-wayland
 qutebrowser
+regex-tui
 ripgrep
 rustup
 slack-desktop-wayland
