@@ -17,7 +17,6 @@ return {
     -- })
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function()
-        vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = 0 })
         vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename, { buffer = 0 })
         vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, { buffer = 0 })
       end,
