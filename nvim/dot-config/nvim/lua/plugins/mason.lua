@@ -24,6 +24,7 @@ return {
         "hyprls",
         "taplo",
         "just",
+        "dockerls",
       },
     },
     dependencies = {
@@ -49,8 +50,8 @@ return {
         "markdownlint",
         "biome",
         "pyright",
-        -- toml
         "taplo",
+        "dockerfile-language-server",
         -- python stuff
         -- golang stuff
         -- "gopls",
@@ -63,7 +64,6 @@ return {
         -- "css-lsp",
         -- "html-lsp",
         -- "sql-formatter",
-        -- "dockerfile-language-server",
         -- "docker-compose-language-service",
         "prettierd",
         "shellcheck",

@@ -1,7 +1,7 @@
 default: build run
 build:
-  docker image build --build-arg PASS=0806 -t arch-test -f ./setup/docker/arch.Dockerfile .
+  podman image build --build-arg PASS=0806 -t arch-test -f ./setup/Containerfile .
 run: build
-  docker container run -it --rm arch-test:latest
+  podman container run -it --rm arch-test:latest
 
 
