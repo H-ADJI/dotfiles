@@ -1,4 +1,5 @@
 7zip
+podman
 alacritty
 regex-tui
 alsa-tools
