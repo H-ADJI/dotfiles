@@ -1,7 +1,6 @@
-# TODO: add tmuxp edit -n session_name
-session_name: Dotfiles
+session_name: LSP
 suppress_history: true
-start_directory: ~/dotfiles/
+start_directory: ~/lsp/
 windows:
   - window_name: "src"
     shell_command_before: nvim
