@@ -8,6 +8,10 @@ map("n", "<leader>li", function()
   vim.cmd("Lazy")
 end, { desc = "[l]azy [I]nfo" })
 
+map("n", "<leader>bb", function()
+  vim.cmd("b#")
+end, { desc = "Recent buffer" })
+
 map("n", "<leader>li", function()
   vim.cmd("Lazy")
 end, { desc = "[l]azy [I]nfo" })
