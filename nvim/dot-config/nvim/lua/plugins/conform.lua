@@ -21,7 +21,7 @@ return {
     formatters_by_ft = {
       lua = { "stylua" },
       python = { "ruff_format", "ruff_organize_imports", "ruff_fix" },
-      go = { "gofmt", "golines", "goimports" },
+      go = { "gofumpt", "golines", "goimports", "gopls" },
       html = { "prettierd" },
       css = { "prettierd" },
       yaml = { "prettierd" },

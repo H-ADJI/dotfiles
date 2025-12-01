@@ -23,6 +23,7 @@ return {
         "bashls",
         "hyprls",
         "taplo",
+        "gopls",
         "just",
         "dockerls",
       },
@@ -40,6 +41,11 @@ return {
         "lua_ls",
         "just-lsp",
         "ty",
+        "gopls",
+        "iferr",
+        "goimports",
+        "gofumpt",
+        "golines",
         "hyprls",
         "ruff",
         "flake8",
@@ -54,10 +60,6 @@ return {
         "dockerfile-language-server",
         -- python stuff
         -- golang stuff
-        -- "gopls",
-        -- "iferr",
-        -- "goimports",
-        -- "golines",
         -- javascript
         -- "typescript-language-server",
         -- "eslint-lsp",
