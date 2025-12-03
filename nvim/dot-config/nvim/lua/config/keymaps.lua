@@ -93,4 +93,4 @@ map("n", "<C-W>f", "<C-W>_", { desc = "Window Full hight", remap = true })
 map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
 map("n", "<leader>wq", "<C-W>c", { desc = "Delete Window", remap = true })
 map("n", "dD", "d0", { desc = "Delete to start of line", remap = true })
-map("i", "<C-k>", "<C-o>", { noremap = true }) -- move the behavior elsewhere
+map("i", "<C-n>", "<C-o>", { noremap = true }) -- move the behavior elsewhere

@@ -858,7 +858,7 @@ snippet bancatms
         await self.accept_popups(page)
 
       def parse_categories(self, response: HtmlResponse):
-          yield RequestShelf(
+        yield RequestShelf(
               self.domain,
               callback=self.parse_banners,
               meta={"path": []},
