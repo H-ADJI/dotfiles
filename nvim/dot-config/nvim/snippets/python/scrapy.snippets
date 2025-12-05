@@ -388,7 +388,7 @@ snippet bancatv2 banner category enhanced template
                 item = ItemBannerCategory()
                 item["current_url"] = current_url
                 item["other"] = dataclasses.asdict(ext)
-                img_url = src.xpath(".//img/@src").get() or src.xpath(".//source/@srcset").get()
+                img_url = src.xpath(".//img[contains(@src,'http')]/@src").get() or src.xpath(".//source/@srcset").get()
                 if not img_url:
                     self.logger.warning(f"no image url found for {current_url} - {ext}")
                     continue
@@ -405,9 +405,9 @@ snippet bancatv2 banner category enhanced template
                 item["products"] = []
                 # add banners products
                 redirect_url = (
-                    src.xpath(".//a[not(contains(@href,'adssettings'))]/@href").get()
-                    or src.xpath(".//a/@href").get("")
-                    or src.xpath("./@href").get("")
+                    src.xpath(".//a[not(contains(@href,'adssettings'))]/@href").get("")
+                    or src.xpath(".//a//@href").get("")
+                    or src.xpath(".//@href").get("")
                 )
                 if ext.type in (BannerTypes.SPONSORED_PRODUCT, BannerTypes.SHOWCASE, BannerTypes.BUTTERFLY):
                     products = []
@@ -660,53 +660,53 @@ snippet bancat banner_category template
           path: list,
       ):
           for screenshot, src, selector in banners:
-              item = ItemBannerCategory()
-              item["current_url"] = current_url
-              item["other"] = selector
-              img_url = src.xpath(".//img/@src").get() or src.xpath(".//source/@srcset").get()
-              if not img_url:
-                  self.logger.warning(f"image not found for {selector} in {current_url}")
-                  continue
-              item["html_image"] = item["image_url"] = urljoin(self.domain, img_url)
-              item["title"] = src.xpath(".//img/@alt").get()
-              item["banner_type"] = banner_type
-              if screenshot:
-                  item["screenshot_image"] = item["image_url"] = screenshot
-              item["category"] = path
-              item["products"] = []
-              # add banners products
-              redirect_url = (
-                src.xpath(".//a[not(contains(@href,'adssettings'))]/@href").get()
-                or src.xpath(".//a//@href").get()
-                or src.xpath(".//@href").get("")
+            item = ItemBannerCategory()
+            item["current_url"] = current_url
+            item["other"] = selector
+            img_url = src.xpath(".//img[contains(@src,'http')]/@src").get() or src.xpath(".//source/@srcset").get()
+            if not img_url:
+              self.logger.warning(f"image not found for {selector} in {current_url}")
+              continue
+            item["html_image"] = item["image_url"] = urljoin(self.domain, img_url)
+            item["title"] = src.xpath(".//img/@alt").get()
+            item["banner_type"] = banner_type
+            if screenshot:
+              item["screenshot_image"] = item["image_url"] = screenshot
+            item["category"] = path
+            item["products"] = []
+            # add banners products
+            redirect_url = (
+            src.xpath(".//a[not(contains(@href,'adssettings'))]/@href").get("")
+            or src.xpath(".//a//@href").get("")
+            or src.xpath(".//@href").get("")
             )
-              if banner_type in (BannerTypes.SPONSORED_PRODUCT, BannerTypes.SHOWCASE, BannerTypes.BUTTERFLY):
-                  products = []
-                  for el in src.xpath(""):
-                      product = ItemBannerProduct()
-                      product["id"] = el.xpath("").get("")
-                      product["detail_link"] = urljoin(self.domain, el.xpath(".//@href").get())
-                      product["image_link"] = el.xpath(".//img/@src").get()
-                      products.append(product)
-                  item["products"] = products or None
-                  item["redirect_url"] = urljoin(self.domain, redirect_url)
-                  yield item
-              elif redirect_url:
-                  item["redirect_url"] = urljoin(self.domain, redirect_url)
-                  yield PlaywrightRequest(
-                      item["redirect_url"],
-                      callback=self.add_products,
-                      meta={
-                          "cache_this": True,
-                          "playwright": {
-                              "wait_time": self.wait_time,
-                          },
+            if banner_type in (BannerTypes.SPONSORED_PRODUCT, BannerTypes.SHOWCASE, BannerTypes.BUTTERFLY):
+              products = []
+              for el in src.xpath(""):
+                  product = ItemBannerProduct()
+                  product["id"] = el.xpath("").get("")
+                  product["detail_link"] = urljoin(self.domain, el.xpath(".//@href").get())
+                  product["image_link"] = el.xpath(".//img/@src").get()
+                  products.append(product)
+              item["products"] = products or None
+              item["redirect_url"] = urljoin(self.domain, redirect_url)
+              yield item
+            elif redirect_url:
+              item["redirect_url"] = urljoin(self.domain, redirect_url)
+              yield PlaywrightRequest(
+              item["redirect_url"],
+              callback=self.add_products,
+              meta={
+                  "cache_this": True,
+                  "playwright": {
+                      "wait_time": self.wait_time,
                       },
-                      cb_kwargs=dict(banner=item),
-                      dont_filter=True,
-                  )
-              else:
-                  yield item
+                  },
+                  cb_kwargs=dict(banner=item),
+                  dont_filter=True,
+              )
+            else:
+              yield item
 
       def parse_banners(self, response: HtmlResponse, is_home: bool = False):
           path = []
@@ -931,54 +931,54 @@ snippet bancatms
           current_url: str,
           path: list,
       ):
-          for screenshot, src, selector in banners:
-              item = ItemBannerCategory()
-              item["current_url"] = current_url
-              item["other"] = selector
-              img_url = src.xpath(".//img/@src").get() or src.xpath(".//source/@srcset").get()
-              if not img_url:
-                  self.logger.warning(f"image not found for {selector} in {current_url}")
-                  continue
-              item["html_image"] = item["image_url"] = urljoin(self.domain, img_url)
-              item["title"] = src.xpath(".//img/@alt").get()
-              item["banner_type"] = banner_type
-              if screenshot:
-                  item["screenshot_image"] = item["image_url"] = screenshot
-              item["category"] = path
-              item["products"] = []
-              # add banners products
-              redirect_url = (
-                src.xpath(".//a[not(contains(@href,'adssettings'))]/@href").get()
-                or src.xpath(".//a/@href").get()
+        for screenshot, src, selector in banners:
+            item = ItemBannerCategory()
+            item["current_url"] = current_url
+            item["other"] = selector
+            img_url = src.xpath(".//img[contains(@src,'http')]/@src").get() or src.xpath(".//source/@srcset").get()
+            if not img_url:
+              self.logger.warning(f"image not found for {selector} in {current_url}")
+              continue
+            item["html_image"] = item["image_url"] = urljoin(self.domain, img_url)
+            item["title"] = src.xpath(".//img/@alt").get()
+            item["banner_type"] = banner_type
+            if screenshot:
+              item["screenshot_image"] = item["image_url"] = screenshot
+            item["category"] = path
+            item["products"] = []
+            # add banners products
+            redirect_url = (
+                src.xpath(".//a[not(contains(@href,'adssettings'))]/@href").get("")
+                or src.xpath(".//a//@href").get("")
                 or src.xpath(".//@href").get("")
-            )
-              if banner_type in (BannerTypes.SPONSORED_PRODUCT, BannerTypes.SHOWCASE, BannerTypes.BUTTERFLY):
-                  products = []
-                  for el in src.xpath(""):
+                )
+            if banner_type in (BannerTypes.SPONSORED_PRODUCT, BannerTypes.SHOWCASE, BannerTypes.BUTTERFLY):
+                products = []
+                for el in src.xpath(""):
                       product = ItemBannerProduct()
                       product["id"] = el.xpath("").get("")
                       product["detail_link"] = urljoin(self.domain, el.xpath(".//@href").get())
                       product["image_link"] = el.xpath(".//img/@src").get()
                       products.append(product)
-                  item["products"] = products or None
-                  item["redirect_url"] = urljoin(self.domain, redirect_url)
-                  yield item
-              elif redirect_url:
+                item["products"] = products or None
+                item["redirect_url"] = urljoin(self.domain, redirect_url)
+                yield item
+            elif redirect_url:
                   item["redirect_url"] = urljoin(self.domain, redirect_url)
                   yield PlaywrightRequest(
                       item["redirect_url"],
-                      callback=self.add_products,
-                      meta={
-                          "cache_this": True,
-                          "playwright": {
-                              "wait_time": self.wait_time,
-                          },
-                      },
-                      cb_kwargs=dict(banner=item),
-                      dont_filter=True,
-                  )
-              else:
-                  yield item
+                          callback=self.add_products,
+                          meta={
+                              "cache_this": True,
+                              "playwright": {
+                                  "wait_time": self.wait_time,
+                                  },
+                              },
+                              cb_kwargs=dict(banner=item),
+                              dont_filter=True,
+                          )
+            else:
+              yield item
 
       def parse_banners(self, response: HtmlResponse, is_home: bool = False):
           path = []
@@ -1180,7 +1180,7 @@ snippet banser
               item = ItemBannerSearch()
               item["current_url"] = current_url
               item["other"] = selector
-              img_url = src.xpath(".//img/@src").get() or src.xpath(".//source/@srcset").get()
+              img_url = src.xpath(".//img[contains(@src,'http')]/@src").get() or src.xpath(".//source/@srcset").get()
               if not img_url:
                   self.logger.warning(f"image not found for {selector} in {current_url}")
                   continue
@@ -1193,10 +1193,10 @@ snippet banser
               item["products"] = []
               # add banners products
               redirect_url = (
-                  src.xpath(".//a[not(contains(@href,'adssettings'))]/@href").get()
-                  or src.xpath(".//a//@href").get()
-                  or src.xpath(".//@href").get()
-              )
+                    src.xpath(".//a[not(contains(@href,'adssettings'))]/@href").get("")
+                    or src.xpath(".//a//@href").get("")
+                    or src.xpath(".//@href").get("")
+                    )
               if banner_type in (BannerTypes.SPONSORED_PRODUCT, BannerTypes.SHOWCASE, BannerTypes.BUTTERFLY):
                   products = []
                   for el in src.xpath(""):
@@ -1476,7 +1476,7 @@ snippet bancatsln banner category selenium
               item = ItemBannerCategory()
               item["current_url"] = current_url
               item["other"] = selector
-              img_url = src.xpath(".//img/@src").get() or src.xpath(".//source/@srcset").get()
+              img_url = src.xpath(".//img[contains(@src,'http')]/@src").get() or src.xpath(".//source/@srcset").get()
               if not img_url:
                   self.logger.warning(f"image not found for {selector} in {current_url}")
                   continue
@@ -1488,10 +1488,10 @@ snippet bancatsln banner category selenium
               item["category"] = path
               item["products"] = []
               redirect_url = (
-                  src.xpath(".//a[not(contains(@href,'adssettings'))]/@href").get()
-                  or src.xpath(".//a//@href").get()
-                  or src.xpath(".//@href").get("")
-              )
+                    src.xpath(".//a[not(contains(@href,'adssettings'))]/@href").get("")
+                    or src.xpath(".//a//@href").get("")
+                    or src.xpath(".//@href").get("")
+                    )
               if banner_type in (BannerTypes.SPONSORED_PRODUCT, BannerTypes.SHOWCASE, BannerTypes.BUTTERFLY):
                   products = []
                   for el in src.xpath(""):
@@ -1790,7 +1790,7 @@ snippet bancatslnms banner category selenium
                 item = ItemBannerCategory()
                 item["current_url"] = current_url
                 item["other"] = selector
-                img_url = src.xpath(".//img/@src").get() or src.xpath(".//source/@srcset").get()
+                img_url = src.xpath(".//img[contains(@src,'http')]/@src").get() or src.xpath(".//source/@srcset").get()
                 if not img_url:
                     self.logger.warning(f"image not found for {selector} in {current_url}")
                     continue
