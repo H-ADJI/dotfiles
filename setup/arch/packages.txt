@@ -27,6 +27,7 @@ fastfetch
 fd
 feh
 fnott
+foliate
 fuzzel
 fzf
 gcc
