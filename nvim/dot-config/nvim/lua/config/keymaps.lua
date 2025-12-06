@@ -1,5 +1,9 @@
 local map = vim.keymap.set
 
+map("n", "<leader>rb", function()
+  vim.cmd("e")
+end, { desc = "[R]efresh [B]uffer" })
+
 map("n", "zz", function()
   vim.cmd("qa")
 end, { desc = "[Q]uit" })
