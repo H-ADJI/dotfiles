@@ -1,7 +1,11 @@
 #!/usr/bin/env sh
 THEMES="dark\nlight"
-SELECTED_THEME=$(echo -e "$THEMES" | fuzzel -d -p "Select Theme: ")
+SELECTED_THEME=$(echo -e "$THEMES" | fuzzel -d --lines=2 --width=20 -p "Select Theme: ")
 CONFIG_DIR="$HOME/.config"
+if [ -z "$SELECTED_THEME" ]; then
+    echo "No theme selected. Exiting."
+    exit 1
+fi
 # -------------------------------------------------------------------------------------
 # ALACRITTY
 ALACRITTY_CONF_DIR="$CONFIG_DIR/alacritty"

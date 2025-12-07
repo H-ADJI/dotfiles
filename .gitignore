@@ -1,14 +1,8 @@
 venv
 .env
 .direnv/
-bin/.local/bin/*
-!bin/.local/bin/block.sh
-!bin/.local/bin/unblock.sh
-!bin/.local/bin/vim_edit
-!bin/.local/bin/work_setup
-!bin/.local/bin/post_install
-cmus/.config/cmus/*
-!cmus/.config/cmus/catpuccin.theme
-!cmus/.config/cmus/rc
 ssh/.ssh/known*
 ssh/dot-ssh/known*
+assets/dot-config/assets/background
+waybar/dot-config/waybar/theme.css
+nvim/dot-config/nvim/theme
