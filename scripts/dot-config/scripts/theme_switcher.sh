@@ -1,9 +1,21 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 THEMES="dark\nlight"
-SELECTED_THEME=$(echo -e "$THEMES" | fuzzel -d --lines=2 --width=20 -p "Select Theme: ")
+ALLOWED_THEMES="dark / light"
 CONFIG_DIR="$HOME/.config"
+if [ -n "$1" ]; then
+    SELECTED_THEME="$1"
+else
+    SELECTED_THEME=$(echo -e "$THEMES" | fuzzel -d --lines=2 --width=20 -p "Select Theme: ")
+fi
+
+SELECTED_THEME=$(echo "$SELECTED_THEME" | xargs)
 if [ -z "$SELECTED_THEME" ]; then
     echo "No theme selected. Exiting."
+    exit 1
+fi
+
+if ! echo "$ALLOWED_THEMES" | grep -qw "$SELECTED_THEME"; then
+    echo "Invalid theme: $SELECTED_THEME. Allowed values are: $ALLOWED_THEMES"
     exit 1
 fi
 # -------------------------------------------------------------------------------------
