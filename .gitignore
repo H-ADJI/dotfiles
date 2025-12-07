@@ -6,3 +6,6 @@ ssh/dot-ssh/known*
 assets/dot-config/assets/background
 waybar/dot-config/waybar/theme.css
 nvim/dot-config/nvim/theme
+alacritty/dot-config/alacritty/alacritty.toml
+bat/dot-config/bat/bat.conf
+starship/dot-config/starship.toml
