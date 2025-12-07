@@ -1,0 +1,14 @@
+[env]
+TERM = "xterm-256color"
+[general]
+import = ["~/.config/alacritty/themes/catppuccin_latte.toml"]
+[window]
+opacity = 0.90
+padding.x = 200
+padding.y = 90
+startup_mode = "Maximized"
+[scrolling]
+history = 10_000
+[font]
+normal = { style = "bold", family = "JetBrainsMono Nerd Font" }
+size = 15.0

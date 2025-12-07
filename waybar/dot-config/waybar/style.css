@@ -1,37 +1,22 @@
-@define-color highlight #685878;
-@define-color base1 #1e1e2e;
-@define-color yellow #f9e2af;
-
-window#waybar {
-  all: unset;
-}
-@keyframes blink-warning {
-  70% {
-    color: white;
-  }
-
-  to {
-    color: white;
-    background-color: orange;
-  }
-}
-
-@keyframes blink-critical {
-  70% {
-    color: white;
-  }
-
-  to {
-    color: white;
-    background-color: red;
-  }
-}
+/* Load the selected theme via the central symlink.
+ * Your theme_switcher.sh script must ensure that this symlink
+ * points to EITHER dark.css or light.css in your theme directory.
+ * E.g., ~/.config/waybar/current_theme.css -> ~/.config/theme/dark/waybar.css
+ */
+@import "theme.css";
 
 /* -----------------------------------------------------------------------------
- * Base styles
+ * Base Reset
  * -------------------------------------------------------------------------- */
+window#waybar {
+  all: unset;
+  /* The border is applied inside the imported CSS files (dark.css/light.css) 
+     * to ensure the color matches the active theme's palette (@border).
+     * If you prefer to define it here, remove it from the imported files and use:
+     * border: 2px solid @border; 
+     */
+}
 
-/* Reset all styles */
 * {
   border: none;
   border-radius: 0;
@@ -40,38 +25,41 @@ window#waybar {
   padding: 0;
 }
 
-.modules-left {
+/* Module containers */
+.modules-left,
+.modules-center,
+.modules-right {
+  background-color: @base1; /* Uses imported variable */
   border-radius: 10px;
-  background-color: @base1;
-  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+  border: 2px solid @border; /* Apply the border to the whole bar */
 }
+
 .modules-center {
-  background-color: @base1;
-  border-radius: 10px;
-  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.6);
-  padding: 0 10px; /* Adds 10px padding on left and right */
+  padding: 0 10px;
 }
 .modules-right {
-  border-radius: 10px;
   padding-left: 30px;
-  background-color: @base1;
-  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.6);
 }
+
 /* The whole bar */
 #waybar {
   background: transparent;
-  color: #e3e3ea;
-  background-color: @base1;
+  background-color: @base1; /* Uses imported variable */
+  color: @text; /* Uses imported variable */
   font-family: JetBrainsMonoMedium Nerd Font;
   font-size: 15px;
   min-height: 0;
 }
 
-/* Every modules */
+/* Every module */
 #mode,
 #network,
 #keyboard-state,
 #custom-music,
+#custom-power,
+#workspaces,
+#window,
 #idle_inhibitor,
 #cpu,
 #memory,
@@ -80,108 +68,82 @@ window#waybar {
 #battery,
 #clock,
 #tray {
-  padding: 0.5rem 0.6rem;
+  padding: 0.3rem 0.3rem;
   margin: 1px 0px;
   font-weight: bold;
+  color: @text; /* text in the mode module */
 }
 
-/* -----------------------------------------------------------------------------
- * Module styles
- * -------------------------------------------------------------------------- */
-
+/* Module-specific styles */
 #custom-launcher {
   margin-left: 15px;
   margin-right: 10px;
 }
-
 #workspaces {
   font-size: 14px;
 }
 
 #workspaces button {
   border-radius: 5px;
-  color: #eceff4;
+  color: @text; /* Uses imported variable */
   padding: 4px;
-  margin-right: 2px;
-  margin-left: 2px;
+  margin: 0 2px;
 }
 
 #workspaces button.focused {
-  border: 3px solid #d8dee9;
+  border: 3px solid @highlight; /* Uses imported variable */
   font-weight: bold;
 }
 
 #workspaces button.urgent {
-  border: 3px solid #c9545d;
-  color: #c9545d;
+  border: 3px solid @red; /* Uses imported variable */
+  color: @red; /* Uses imported variable */
 }
+
 #keyboard-state {
-  color: orange;
+  color: @yellow;
   font-weight: bold;
-}
+} /* Uses imported variable */
 #mode {
-  background: orange;
-  border-bottom: 3px transparent;
-  color: black;
+  background: @yellow;
+  /* color: @base1; */
+  color: black; /* text in the mode module */
   margin-left: 5px;
-  padding: 10px; /* Adds 10px padding on left and right */
+  padding: 10px;
   font-weight: bold;
-}
+} /* Uses imported variable */
 
 #window {
   padding-right: 30px;
   font-weight: bold;
 }
-
 #network.disconnected {
-  color: orange;
-}
-
+  color: @yellow;
+} /* Uses imported variable */
 #cpu.warning {
-  color: orange;
-}
-
+  color: @yellow;
+} /* Uses imported variable */
 #cpu.critical {
-  color: red;
-}
-
-#memory {
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
-
+  color: @red;
+} /* Uses imported variable */
 #memory.warning {
-  color: orange;
-}
+  color: @yellow;
+} /* Uses imported variable */
 
 #memory.critical {
-  color: red;
+  color: @red; /* Uses imported variable */
   animation-name: blink-critical;
   animation-duration: 2s;
   padding-left: 5px;
   padding-right: 5px;
 }
 
-#backlight.icon {
-}
-
-#pulseaudio {
-}
-
-#battery {
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
-
 #battery.warning {
-  color: orange;
-}
-
+  color: @yellow;
+} /* Uses imported variable */
 #battery.critical {
-  color: red;
-}
+  color: @red;
+} /* Uses imported variable */
 
 #battery.warning.discharging {
   animation-name: blink-warning;
@@ -194,8 +156,29 @@ window#waybar {
 }
 
 #custom-power {
-  margin-left: 10px;
-  margin-right: 20px;
-  font-size: 25px;
+  /* margin-left: 10px; */
+  margin-right: 10px;
+  font-size: 20px;
   font-weight: bold;
+}
+
+/* Animations */
+@keyframes blink-warning {
+  70% {
+    color: @text;
+  } /* Uses imported variable */
+  to {
+    color: @base1;
+    background-color: @yellow;
+  } /* Uses imported variable */
+}
+
+@keyframes blink-critical {
+  70% {
+    color: @text;
+  } /* Uses imported variable */
+  to {
+    color: @base1;
+    background-color: @red;
+  } /* Uses imported variable */
 }
