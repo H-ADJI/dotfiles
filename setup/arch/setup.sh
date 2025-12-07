@@ -193,3 +193,4 @@ sudo --validate
 install_AUR_helper
 installpackages
 post_install
+bash "$HOME/.config/scripts/theme_switcher.sh" dark
