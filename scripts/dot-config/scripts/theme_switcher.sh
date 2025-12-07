@@ -28,13 +28,17 @@ cp "$BAT_CONF_DIR/$SELECTED_THEME" "$BAT_CONF_FILE"
 # -------------------------------------------------------------------------------------
 #
 # -------------------------------------------------------------------------------------
+# starship
+STARSHIP_CONF_DIR="$CONFIG_DIR/starship"
+STARSHIP_CONF_FILE="$STARSHIP_CONF_DIR/starship.toml"
+cp "$STARSHIP_CONF_DIR/$SELECTED_THEME.toml" "$STARSHIP_CONF_FILE"
 # -------------------------------------------------------------------------------------
 #
 # -------------------------------------------------------------------------------------
 # ALACRITTY
 ALACRITTY_CONF_DIR="$CONFIG_DIR/alacritty"
 ALACRITTY_CONF_FILE="$ALACRITTY_CONF_DIR/alacritty.toml"
-cp "$ALACRITTY_CONF_DIR/alacritty_$SELECTED_THEME.toml" "$ALACRITTY_CONF_FILE"
+cp "$ALACRITTY_CONF_DIR/$SELECTED_THEME.toml" "$ALACRITTY_CONF_FILE"
 # -------------------------------------------------------------------------------------
 #
 # -------------------------------------------------------------------------------------
