@@ -1,4 +1,2 @@
-# alias bat="batcat"
-export BAT_THEME="Visual Studio Dark+"
-# using nvim for now
-# eval "$(batman --export-env)"
+eval "$(batman --export-env)"
+export BAT_CONFIG_PATH="$HOME/.config/bat/bat.conf"
