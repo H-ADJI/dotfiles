@@ -29,7 +29,7 @@ cp "$BAT_CONF_DIR/$SELECTED_THEME" "$BAT_CONF_FILE"
 #
 # -------------------------------------------------------------------------------------
 # starship
-STARSHIP_CONF_DIR="$CONFIG_DIR/starship"
+STARSHIP_CONF_DIR="$CONFIG_DIR"
 STARSHIP_CONF_FILE="$STARSHIP_CONF_DIR/starship.toml"
 cp "$STARSHIP_CONF_DIR/$SELECTED_THEME.toml" "$STARSHIP_CONF_FILE"
 # -------------------------------------------------------------------------------------
