@@ -35,9 +35,6 @@ return {
     return opts
   end,
   keys = {
-    -- TODO: adapt this around pickers keymaps
-    -- map("n", "<leader>gdD", function() gs.diffthis("~") end, "Diff This ~")
-    -- map("n", "<leader>gdd", gs.diffthis, "Diff This")
     {
       "<leader>gbl",
       function()
