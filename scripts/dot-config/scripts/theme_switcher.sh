@@ -47,6 +47,13 @@ echo "$SELECTED_THEME" >"$HOME/.config/nvim/theme"
 # -------------------------------------------------------------------------------------
 #
 # -------------------------------------------------------------------------------------
+# fuzzel
+FUZZEL_CONFIG_DIR="$CONFIG_DIR/fuzzel"
+FUZZEL_CONFIG_FILE="$FUZZEL_CONFIG_DIR/fuzzel.ini"
+cp "$FUZZEL_CONFIG_DIR/$SELECTED_THEME" "$FUZZEL_CONFIG_FILE"
+# -------------------------------------------------------------------------------------
+#
+# -------------------------------------------------------------------------------------
 # waybar
 WAYBAR_CONFIG_DIR="$CONFIG_DIR/waybar"
 WAYBAR_CONFIG_FILE="$WAYBAR_CONFIG_DIR/theme.css"

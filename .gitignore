@@ -9,3 +9,4 @@ nvim/dot-config/nvim/theme
 alacritty/dot-config/alacritty/alacritty.toml
 bat/dot-config/bat/bat.conf
 starship/dot-config/starship.toml
+fuzzel/dot-config/fuzzel/fuzzel.ini
