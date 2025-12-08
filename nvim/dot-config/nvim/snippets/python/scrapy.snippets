@@ -388,7 +388,7 @@ snippet bancatv2 banner category enhanced template
                 item = ItemBannerCategory()
                 item["current_url"] = current_url
                 item["other"] = dataclasses.asdict(ext)
-                img_url = src.xpath(".//img[contains(@src,'http')]/@src").get() or src.xpath(".//source/@srcset").get()
+                img_url = src.xpath(".//img[not(contains(@src,'data:image'))]/@src").get() or src.xpath(".//source/@srcset").get()
                 if not img_url:
                     self.logger.warning(f"no image url found for {current_url} - {ext}")
                     continue
@@ -663,7 +663,7 @@ snippet bancat banner_category template
             item = ItemBannerCategory()
             item["current_url"] = current_url
             item["other"] = selector
-            img_url = src.xpath(".//img[contains(@src,'http')]/@src").get() or src.xpath(".//source/@srcset").get()
+            img_url = src.xpath(".//img[not(contains(@src,'data:image'))]/@src").get() or src.xpath(".//source/@srcset").get()
             if not img_url:
               self.logger.warning(f"image not found for {selector} in {current_url}")
               continue
@@ -935,7 +935,7 @@ snippet bancatms
             item = ItemBannerCategory()
             item["current_url"] = current_url
             item["other"] = selector
-            img_url = src.xpath(".//img[contains(@src,'http')]/@src").get() or src.xpath(".//source/@srcset").get()
+            img_url = src.xpath(".//img[not(contains(@src,'data:image'))]/@src").get() or src.xpath(".//source/@srcset").get()
             if not img_url:
               self.logger.warning(f"image not found for {selector} in {current_url}")
               continue
@@ -1180,7 +1180,7 @@ snippet banser
               item = ItemBannerSearch()
               item["current_url"] = current_url
               item["other"] = selector
-              img_url = src.xpath(".//img[contains(@src,'http')]/@src").get() or src.xpath(".//source/@srcset").get()
+              img_url = src.xpath(".//img[not(contains(@src,'data:image'))]/@src").get() or src.xpath(".//source/@srcset").get()
               if not img_url:
                   self.logger.warning(f"image not found for {selector} in {current_url}")
                   continue
@@ -1476,7 +1476,7 @@ snippet bancatsln banner category selenium
               item = ItemBannerCategory()
               item["current_url"] = current_url
               item["other"] = selector
-              img_url = src.xpath(".//img[contains(@src,'http')]/@src").get() or src.xpath(".//source/@srcset").get()
+              img_url = src.xpath(".//img[not(contains(@src,'data:image'))]/@src").get() or src.xpath(".//source/@srcset").get()
               if not img_url:
                   self.logger.warning(f"image not found for {selector} in {current_url}")
                   continue
@@ -1790,7 +1790,7 @@ snippet bancatslnms banner category selenium
                 item = ItemBannerCategory()
                 item["current_url"] = current_url
                 item["other"] = selector
-                img_url = src.xpath(".//img[contains(@src,'http')]/@src").get() or src.xpath(".//source/@srcset").get()
+                img_url = src.xpath(".//img[not(contains(@src,'data:image'))]/@src").get() or src.xpath(".//source/@srcset").get()
                 if not img_url:
                     self.logger.warning(f"image not found for {selector} in {current_url}")
                     continue

@@ -1,5 +1,8 @@
 local map = vim.keymap.set
 
+map("n", "<leader>rl", function()
+  vim.cmd("LSPRestart")
+end, { desc = "[R]efresh [L]sp" })
 map("n", "<leader>rb", function()
   vim.cmd("e")
 end, { desc = "[R]efresh [B]uffer" })
