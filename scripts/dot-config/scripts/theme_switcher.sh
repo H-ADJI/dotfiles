@@ -26,6 +26,13 @@ gsettings set org.gnome.desktop.interface color-scheme "prefer-$SELECTED_THEME"
 # -------------------------------------------------------------------------------------
 #
 # -------------------------------------------------------------------------------------
+# yazi
+YAZI_CONF_DIR="$CONFIG_DIR/yazi"
+YAZI_CONF_FILE="$YAZI_CONF_DIR/theme.toml"
+cp "$YAZI_CONF_DIR/$SELECTED_THEME" "$YAZI_CONF_FILE"
+# -------------------------------------------------------------------------------------
+#
+# -------------------------------------------------------------------------------------
 # bat
 BAT_CONF_DIR="$CONFIG_DIR/bat"
 BAT_CONF_FILE="$BAT_CONF_DIR/bat.conf"
