@@ -104,7 +104,7 @@ post_install() {
     gum log -l info "[DONE] nvim headless install"
 
     gum log -l info "[START] Change shell to use ZSH"
-    chsh -s "$(grep -E 'zsh$' /etc/shells | head -n1)"
+    chsh -s "/usr/bin/zsh"
     gum log -l info "[DONE] Change shell to use ZSH"
 
     gum log -l info "[START] copy ZSH history"
