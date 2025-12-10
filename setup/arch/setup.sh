@@ -160,6 +160,7 @@ link_dotfiles() {
         "sunsetr"
         "assets"
         "yazi"
+        "bat"
     )
     stow --adopt --dotfiles "${dotfiles[@]}"
     cd || return 1
