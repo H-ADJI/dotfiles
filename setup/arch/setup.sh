@@ -105,7 +105,11 @@ post_install() {
 
     gum log -l info "[START] Change shell to use ZSH"
     chsh -s "$(grep -E 'zsh$' /etc/shells | head -n1)"
-    gum log "[DONE] Change shell to use ZSH"
+    gum log -l info "[DONE] Change shell to use ZSH"
+
+    gum log -l info "[START] copy ZSH history"
+    cp ~/dotfiles/zsh/.zsh_history ~
+    gum log -l info "[DONE] copy ZSH history"
 }
 decrypt_secrets() {
     cd ~/dotfiles/ || return 1
@@ -189,7 +193,6 @@ personal_repos() {
 }
 
 sudo --validate
-# TODO: handle history sync
 install_AUR_helper
 installpackages
 post_install
