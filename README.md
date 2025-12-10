@@ -70,6 +70,11 @@ curl -SL https://raw.githubusercontent.com/H-ADJI/dotfiles/refs/heads/master/set
 
 ![](./nerd_snipes/pkill_menu.png)
 
+### Live themes switcher
+
+![](./nerd_snipes/theme_switcher_dark.png)
+![](./nerd_snipes/theme_switcher_light.png)
+
 ### Power menu
 
 ![](./nerd_snipes/power_menu.png)
