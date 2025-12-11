@@ -1,5 +1,8 @@
 snippet cache_setting debug response in browser
     "HTTPCACHE_ENABLED": True,
+snippet callback callback function
+    def $1(self, response: HtmlResponse,$2):
+        $3
 snippet oibrowser debug response in browser
     from scrapy.utils.response import open_in_browser
     open_in_browser(response)
@@ -1917,3 +1920,48 @@ snippet downmiddleware download middleware template
 
         def process_response(self, request, response: HtmlResponse, spider: Spider):
             return response
+snippet downmiddleware download middleware template
+    def add_products(self, response: HtmlResponse, banner: ItemBannerCategory):
+        if _id := response.xpath("").get(""):
+            product = ItemBannerProduct()
+            product["id"] = _id
+            product["detail_link"] = response.url
+            banner["products"] = [product]
+            yield banner
+        else:
+            urls = response.xpath("").getall()
+            banner["products"] = []
+            if urls := urls[1:]:
+                yield PlaywrightRequest(
+                    url=urljoin(self.domain, urls[0]),
+                    callback=self.add_ids,
+                    meta={
+                        "cache_this": True,
+                        "playwright": {
+                            "wait_time": self.wait_time,
+                        },
+                    },
+                    cb_kwargs=dict(banner=banner, products=urls),
+                    dont_filter=True,
+                )
+
+    def add_ids(self, response: HtmlResponse, banner: ItemBannerCategory, urls: list[str]):
+        product = ItemBannerProduct()
+        product["id"] = response.xpath("").get("")
+        product["detail_link"] = response.url
+        banner["products"].append(product)
+        if urls := urls[1:]:
+            yield PlaywrightRequest(
+                url=urls[0],
+                callback=self.add_ids,
+                meta={
+                    "cache_this": True,
+                    "playwright": {
+                        "wait_time": self.wait_time,
+                    },
+                },
+                cb_kwargs=dict(banner=banner, products=urls),
+                dont_filter=True,
+            )
+        else:
+            yield banner
