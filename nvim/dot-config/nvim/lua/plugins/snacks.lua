@@ -113,13 +113,13 @@ return {
       end,
       desc = "Goto Definition",
     },
-    -- {
-    --   "cfD",
-    --   function()
-    --     Snacks.picker.lsp_declarations()
-    --   end,
-    --   desc = "Goto Declaration",
-    -- },
+    {
+      "gD",
+      function()
+        Snacks.picker.lsp_declarations()
+      end,
+      desc = "Goto Declaration",
+    },
     {
       "gr",
       function()
