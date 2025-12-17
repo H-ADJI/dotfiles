@@ -23,17 +23,29 @@ install_AUR_helper() {
     fi
 }
 installpackages() {
-    while read package; do
-        gum log -l info "[START] Installing $package"
-        yay -Sq --noconfirm --noprogressbar --needed --disable-download-timeout "$package" >>~/yay.log 2>&1
-        gum log -l info "[DONE] Installing $package"
-    done <~/dotfiles/setup/arch/packages.txt
+    gum log -l info "[START] Installing packages"
+    yay -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - <~/dotfiles/setup/arch/packages.txt >>~/yay.log 2>&1
+    gum log -l info "[DONE] Installing packages"
 }
-post_install() {
-    gum log -l info "[START] Chosing stable rust toolchain release"
-    rustup default stable
-    gum log -l info "[DONE] Chosing stable rust toolchain release"
 
+personal_repos() {
+    projects=(
+        "neurogenesis"
+        "secondBrain"
+        "dicli"
+        "presentations"
+        "homelab"
+    )
+    for PROJECT in "${projects[@]}"; do
+        [ ! -d "$PROJECT" ] && git clone "git@github.com:H-ADJI/$PROJECT.git"
+    done
+    cd ~/dotfiles/ || return 1
+    git remote remove origin
+    git remote add origin git@github.com:H-ADJI/dotfiles.git
+    cd || exit 1
+}
+
+setup() {
     gum log -l info "[START] Installing TPM"
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     gum log -l info "[DONE] Installing TPM"
@@ -82,34 +94,6 @@ post_install() {
     sudo systemctl enable bluetooth.service
     gum log -l info "[DONE] Enable bluetooth service"
 
-    gum log -l info "[START] Default apps"
-    xdg-mime default mupdf.desktop application/pdf
-    xdg-mime default imv.desktop image/jpeg
-    xdg-mime default imv.desktop image/png
-    xdg-mime default google-chrome.desktop x-scheme-handler/https
-    xdg-mime default google-chrome.desktop x-scheme-handler/http
-    gum log -l info "[DONE] Default apps"
-    gum log -l info "[START] installing multiple uv python versions"
-    py_versions=(
-        "3.12"
-        "3.11"
-        "3.10"
-        "3.9"
-    )
-    uv python install "${py_versions[@]}"
-    gum log -l info "[DONE] Installing multiple uv python versions"
-
-    gum log -l info "[START] nvim headless install"
-    nvim --headless -c 'Lazy install' -c 'qa'
-    gum log -l info "[DONE] nvim headless install"
-
-    gum log -l info "[START] Change shell to use ZSH"
-    chsh -s "/usr/bin/zsh"
-    gum log -l info "[DONE] Change shell to use ZSH"
-
-    gum log -l info "[START] copy ZSH history"
-    cp ~/dotfiles/zsh/.zsh_history ~
-    gum log -l info "[DONE] copy ZSH history"
 }
 decrypt_secrets() {
     cd ~/dotfiles/ || return 1
@@ -177,25 +161,9 @@ ssh_setup() {
     ssh-add "$ssh_private_key"
 
 }
-personal_repos() {
-    projects=(
-        "neurogenesis"
-        "secondBrain"
-        "dicli"
-        "presentations"
-        "homelab"
-    )
-    for PROJECT in "${projects[@]}"; do
-        [ ! -d "$PROJECT" ] && git clone "git@github.com:H-ADJI/$PROJECT.git"
-    done
-    cd ~/dotfiles/ || return 1
-    git remote remove origin
-    git remote add origin git@github.com:H-ADJI/dotfiles.git
-    cd || exit 1
-}
 
 sudo --validate
 install_AUR_helper
 installpackages
-post_install
+setup
 bash "$HOME/.config/scripts/theme_switcher.sh" dark
