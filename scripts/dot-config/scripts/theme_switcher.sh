@@ -66,14 +66,10 @@ cp "$FUZZEL_CONFIG_DIR/$SELECTED_THEME" "$FUZZEL_CONFIG_FILE"
 # -------------------------------------------------------------------------------------
 #
 # -------------------------------------------------------------------------------------
-if [ -n "$1" ]; then
-    exit 0
-fi
 # swaybg
 BG_CONFIG_DIR="$CONFIG_DIR/assets"
 BG_CONFIG_FILE="$BG_CONFIG_DIR/background"
 cp "$BG_CONFIG_DIR/$SELECTED_THEME" "$BG_CONFIG_FILE"
-sh "$HOME/.config/scripts/swaybg.sh"
 # -------------------------------------------------------------------------------------
 #
 # -------------------------------------------------------------------------------------
@@ -81,4 +77,8 @@ sh "$HOME/.config/scripts/swaybg.sh"
 WAYBAR_CONFIG_DIR="$CONFIG_DIR/waybar"
 WAYBAR_CONFIG_FILE="$WAYBAR_CONFIG_DIR/theme.css"
 cp "$WAYBAR_CONFIG_DIR/$SELECTED_THEME.css" "$WAYBAR_CONFIG_FILE"
-killall -SIGUSR2 waybar
+# do not refresh if invoked as script with args
+if [ $# -eq 0 ]; then
+    sh "$HOME/.config/scripts/swaybg.sh"
+    killall -SIGUSR2 waybar
+fi
