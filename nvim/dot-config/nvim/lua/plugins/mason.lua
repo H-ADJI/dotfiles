@@ -26,6 +26,7 @@ return {
         "gopls",
         "just",
         "dockerls",
+        "systemd_ls",
       },
     },
     dependencies = {
@@ -48,6 +49,8 @@ return {
         "golines",
         "hyprls",
         "ruff",
+        "systemd_ls",
+        "systemdlint",
         "flake8",
         "mypy",
         "pyrefly",
