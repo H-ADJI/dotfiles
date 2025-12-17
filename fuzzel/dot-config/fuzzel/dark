@@ -4,7 +4,7 @@ anchor=center
 line-height=38
 lines=8
 width=40
-font=JetBrainsMono-Regular:size=14
+font=JetBrains Mono:size=14
 dpi-aware=yes
 prompt="Search apps ❯  "
 use-bold=yes
