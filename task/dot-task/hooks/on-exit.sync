@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-task sync >/dev/null 2>&1 &
-exit 0
