@@ -28,6 +28,7 @@ impala
 inetutils
 iwd
 jq
+leetcode-cli
 linux-firmware 
 localsend-bin
 ly
@@ -36,6 +37,7 @@ man-db
 mesa 
 netcat
 network-manager-applet
+nvim
 openssh
 pipewire
 playerctl
@@ -63,6 +65,7 @@ ttf-nerd-fonts-symbols
 ueberzugpp
 unp
 unzip
+uv
 vulkan-mesa-layers
 vulkan-radeon 
 waybar

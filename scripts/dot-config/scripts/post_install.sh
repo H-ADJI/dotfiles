@@ -31,7 +31,7 @@ nvim --headless -c 'Lazy install' -c 'qa'
 gum log -l info "[DONE] nvim headless install"
 
 gum log -l info "[START] Change shell to use ZSH"
-chsh -s "$(which zsh)"
+chsh -s /usr/bin/zsh
 gum log -l info "[DONE] Change shell to use ZSH"
 
 gum log -l info "[START] copy ZSH history"
