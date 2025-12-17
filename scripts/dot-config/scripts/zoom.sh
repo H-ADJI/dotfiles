@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 current=$(hyprctl -j getoption cursor:zoom_factor | jq -r '.float')
 

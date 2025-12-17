@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # Create the directory if it doesn't exist
 SCREENSHOT_DIR="$HOME/Pictures/Screenshots"
 mkdir -p "$SCREENSHOT_DIR"

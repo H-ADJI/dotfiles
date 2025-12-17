@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # This script lists Genymotion devices using the JSON output from gmtool,
 # presents a fuzzel menu to select a device, and launches the selected device.
 

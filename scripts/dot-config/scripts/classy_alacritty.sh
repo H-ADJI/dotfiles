@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 if [ $# -lt 2 ]; then
     echo "Usage: $0 <class> <cmd>"
     echo "Example: $0 my-class my-cmd"

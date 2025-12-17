@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 notification_timeout=6000
 APP_NAME="Wellbeing Timer"
 notify() {

@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 XY="$(slurp)"
 if [ $? -eq 0 ]; then
     TMP=$(mktemp)

@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Paris
 DEFAULT_LAT=48.8566
 DEFAULT_LON=2.3522

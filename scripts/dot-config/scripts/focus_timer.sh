@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 DURATION=$(zenity --entry --title="Timer" --text="Enter duration (minutes)")
 notification_timeout=8000
 APP_NAME="Timer"
