@@ -161,6 +161,7 @@ link_dotfiles() {
         "assets"
         "yazi"
         "bat"
+        "task"
     )
     stow --adopt --dotfiles "${dotfiles[@]}"
     cd || return 1
