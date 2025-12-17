@@ -11,7 +11,7 @@ adaptive_interval = 1    # Adaptive interval base for smooth transitions (1-1000
 #[Time-based config]
 night_temp = 3000        # Color temperature during night (1000-20000) Kelvin
 day_temp = 6500          # Color temperature during day (1000-20000) Kelvin
-night_gamma = 60         # Gamma percentage for night (10-200%)
+night_gamma = 70         # Gamma percentage for night (10-200%)
 day_gamma = 100          # Gamma percentage for day (10-200%)
 update_interval = 90     # Update frequency during transitions in seconds (10-300)
 
