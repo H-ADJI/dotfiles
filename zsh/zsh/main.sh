@@ -2,6 +2,7 @@
 # shellcheck disable=all
 source ~/zsh/lib/starship.sh
 source ~/zsh/zinit/zinit.sh
+source ~/zsh/lib/aichat.sh
 source ~/zsh/lib/aliases.sh
 source ~/zsh/lib/android.sh
 source ~/zsh/lib/bat.sh
