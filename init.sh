@@ -1,6 +1,13 @@
 #!/bin/bash
 
 DISTRO=$(awk '/^ID=/' /etc/*-release | awk -F'=' '{ print tolower($2) }')
+gum log -l info "DOTFILES Setup For : $DISTRO"
+# TODO: add fedora support
+if [ "$DISTRO" = "arch" ]; then
+    SETUPDIR="arch"
+else
+    SETUPDIR="ubuntu"
+fi
 if [ "$DISTRO" = "arch" ]; then
     sudo pacman -Syu --noconfirm
     toInstall=(
@@ -25,11 +32,4 @@ gum log -l info "Cloning DOTFILES"
 [ ! -d "dotfiles" ] && git clone https://github.com/H-ADJI/dotfiles
 cd dotfiles || exit 1
 
-DISTRO=$(awk '/^ID=/' /etc/*-release | awk -F'=' '{ print tolower($2) }')
-gum log -l info "DOTFILES Setup For : $DISTRO"
-if [ "$DISTRO" = "arch" ]; then
-    dir="arch"
-else
-    dir="ubuntu"
-fi
-bash "$HOME/dotfiles/setup/$dir/setup.sh"
+bash "$HOME/dotfiles/setup/$SETUPDIR/setup.sh"
