@@ -19,4 +19,4 @@ USER ${USER}
 
 # Set the working directory
 WORKDIR /home/${USER}
-CMD ["/bin/bash","-c","curl -fsSL https://raw.githubusercontent.com/H-ADJI/dotfiles/refs/heads/master/setup/init.sh | bash ; exec /bin/zsh"]
+CMD ["/bin/bash","-c","curl -fsSL h-adji.github.io/doftiles/init.sh | bash ; exec /bin/zsh"]

@@ -9,7 +9,7 @@ A single command to setup my machine automagically :D.
 I hope i didn't leak any unencrypted secrets or ssh keys.
 
 ```bash
-curl -SL https://raw.githubusercontent.com/H-ADJI/dotfiles/refs/heads/master/setup/init.sh | bash
+curl -fsSL h-adji.github.io/doftiles/init.sh | bash
 ```
 
 ## Content
