@@ -1,4 +1,5 @@
 {
+    // TODO: refactor using https://github.com/H-ADJI/cyborgV2/blob/master/waybar/dot-config/waybar/config.jsonc
     "layer": "top", // Waybar at top layer
     "position": "top", // Waybar position (top|bottom|left|right)
     // "height": 30, // Auto-height is used when commented
@@ -74,7 +75,6 @@
         "format-icons": {
             "locked": "CAPS",
             "unlocked": ""
-            
         }
     },
     "idle_inhibitor": {
