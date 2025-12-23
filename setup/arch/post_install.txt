@@ -1,5 +1,6 @@
 7zip
 alacritty
+yt-dlp
 alsa-tools
 alsa-utils
 android-tools 
