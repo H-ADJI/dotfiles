@@ -151,6 +151,7 @@ link_dotfiles() {
         "yazi"
         "bat"
         "task"
+        "pipewire"
     )
     stow --adopt --dotfiles "${dotfiles[@]}"
     cd || return 1
