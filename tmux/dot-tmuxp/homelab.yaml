@@ -6,3 +6,5 @@ windows:
     shell_command_before: nvim
     focus: true
   - window_name: "shell"
+  - window_name: "aichat"
+    shell_command_before: aises
