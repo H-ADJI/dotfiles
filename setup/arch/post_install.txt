@@ -1,6 +1,5 @@
 7zip
 alacritty
-yt-dlp
 alsa-tools
 alsa-utils
 android-tools 
@@ -80,6 +79,7 @@ regex-tui
 ripgrep
 slack-desktop-wayland
 slurp
+snore-git
 solaar
 spotify-adblock
 starship
@@ -121,6 +121,7 @@ xorg-server-xephyr
 xorg-server-xvfb
 yad
 yazi
+yt-dlp
 zbar
 zoxide
 zsh
