@@ -5,6 +5,7 @@ windows:
   - window_name: "src"
     shell_command_before: nvim
     focus: true
-  - window_name: "shell"
+  - window_name: "ssh"
+    shell_command_before: ssh homelab
   - window_name: "aichat"
     shell_command_before: aises
