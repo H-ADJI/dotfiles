@@ -7,5 +7,6 @@ windows:
     focus: true
   - window_name: "ssh"
     shell_command_before: ssh homelab
+  - window_name: "shell"
   - window_name: "aichat"
     shell_command_before: aises
