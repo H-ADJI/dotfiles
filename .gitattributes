@@ -9,5 +9,6 @@ task/dot-taskrc  filter=crypt diff=crypt merge=crypt
 leetcode/.leetcode/leetcode.toml filter=crypt diff=crypt merge=crypt
 leetcode/dot-leetcode/leetcode.toml filter=crypt diff=crypt merge=crypt
 scripts/dot-config/scripts/work_setup.sh  filter=crypt diff=crypt merge=crypt
+aichat/dot-config/aichat/config.yaml  filter=crypt diff=crypt merge=crypt
 qutebrowser/dot-config/qutebrowser/quickmarks filter=crypt diff=crypt merge=crypt
 qutebrowser/dot-config/qutebrowser/bookmarks/* filter=crypt diff=crypt merge=crypt
