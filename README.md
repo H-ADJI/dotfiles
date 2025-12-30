@@ -27,10 +27,7 @@ curl -fsSL h-adji.github.io/dotfiles/init.sh | bash
 ## Roadmap
 
 - add mybattlestation link
-- themes / wallpapers picker
 - based screen recording
-- connect tmux / nvim over ssh
-- arch packages info , search , installed , installer picker
 
 ## Nerd snipes
 
