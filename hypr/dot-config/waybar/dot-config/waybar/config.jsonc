@@ -1,41 +1,36 @@
 {
-    // TODO: refactor using https://github.com/H-ADJI/cyborgV2/blob/master/waybar/dot-config/waybar/config.jsonc
-    "layer": "top", // Waybar at top layer
-    "position": "top", // Waybar position (top|bottom|left|right)
-    // "height": 30, // Auto-height is used when commented
-    // "width": 1280, // Full screen width when commented
-    "spacing": 10, // Gaps between modules (in px)
+    "layer": "top", 
+    "position": "top", 
+    "spacing": 10, 
     "margin": 10,
-    // See `man waybar` for more configuration options
-    "modules-left": ["sway/workspaces", "sway/scratchpad", "sway/window"],
-    "sway/workspaces": {
+    "modules-left": ["hyprland/workspaces", "hyprland/window"],
+    "hyprland/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
+        "show-special": true,
+        "special-visible-only": true,
         "format": "{icon}",
-        "format-icons": {}
+        "format-icons": {
+            "special": "Scratch"
+        }
     },
-    "sway/window": {
+    "hyprland/window": {
         "format": "{}",
         "max-length": 40
     },
-    "sway/scratchpad": {
-        "format": "{icon} {count}",
-        "show-empty": false,
-        "format-icons": ["", ""]
+    "modules-center": ["hyprland/submap", "custom/music", "clock"],
+    "hyprland/submap": {
+        "format": "Mode : [{}]",
+        "tooltip": false
     },
-    "modules-center": ["custom/music", "sway/mode", "clock"],
     "custom/music": {
         "format": " 🎶  {}",
         "escape": true,
-        "interval": 5,
+        "interval": 10,
         "tooltip": false,
         "exec": "playerctl metadata --format='{{ artist }} - {{ title }}'",
         "on-click": "alacritty -T cava_popup -e cava",
         "max-length": 40
-    },
-    "sway/mode": {
-        "format": "<b> Mode :</b> <span> {} </span>",
-        "tooltip": false
     },
     "clock": {
         "format": " 󰅐  {:%H:%M  - %A - %d/%m}",
@@ -57,7 +52,6 @@
     },
 
     "modules-right": [
-        // "idle_inhibitor",
         "network",
         "cpu",
         "memory",
@@ -69,6 +63,7 @@
         "keyboard-state",
         "custom/power"
     ],
+    // TODO: adapt to hyprland
     "keyboard-state": {
         "capslock": true,
         "format": "{icon}",
@@ -77,15 +72,6 @@
             "unlocked": ""
         }
     },
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        },
-        "tooltip-format-activated": "Idle Inhibitor Activated",
-        "tooltip-format-deactivated": "Idle Inhibitor Deactivated"
-    },
     "network": {
         "format-disabled": " Disabled",
         "format-wifi": "    {bandwidthDownBits:>} 󰶡 {bandwidthUpBits:>} 󰶣",
@@ -93,23 +79,23 @@
         "format-ethernet": " {bandwidthDownBits:>} 󰶡 {bandwidthUpBits:>} 󰶣",
         "tooltip-format-ethernet": "{ifname}: {ipaddr}/{cidr}",
         "format-disconnected": " Disconnected",
-        "on-click": "",
-        "interval": 3
+        "on-click": "~/.config/scripts/classy_alacritty.sh floatty impala",
+        "interval": 10
     },
     "cpu": {
-        "interval": 5,
+        "interval": 10,
         "format": "CPU : {usage:>3}%",
         "states": {
             "warning": 70,
             "critical": 90
         },
-        "on-click": "alacritty -T btm_popup -e btm"
+        "on-click": "~/.config/scripts/classy_alacritty.sh floatty btm"
     },
     "memory": {
-        "interval": 5,
+        "interval": 10,
         "format": "RAM : {:>3}%",
         // "on-click": "footclient -T waybar_htop -e htop",
-        "on-click": "alacritty -T btm_popup -e btm",
+        "on-click": "~/.config/scripts/classy_alacritty.sh floatty btm",
         "states": {
             "warning": 70,
             "critical": 90
