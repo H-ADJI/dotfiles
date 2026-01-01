@@ -55,7 +55,6 @@ window#waybar {
 /* Every module */
 #submap,
 #network,
-#keyboard-state,
 #scratchpad,
 #custom-music,
 #custom-power,
@@ -105,10 +104,6 @@ window#waybar {
   color: @red; /* Uses imported variable */
 }
 
-#keyboard-state {
-  color: @yellow;
-  font-weight: bold;
-} /* Uses imported variable */
 #submap {
   background: @yellow;
   /* color: @base1; */

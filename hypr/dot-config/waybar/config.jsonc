@@ -1,7 +1,7 @@
 {
-    "layer": "top", 
-    "position": "top", 
-    "spacing": 10, 
+    "layer": "top",
+    "position": "top",
+    "spacing": 10,
     "margin": 10,
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "hyprland/workspaces": {
@@ -60,18 +60,8 @@
         "backlight",
         "battery",
         "tray",
-        "keyboard-state",
         "custom/power"
     ],
-    // TODO: adapt to hyprland
-    "keyboard-state": {
-        "capslock": true,
-        "format": "{icon}",
-        "format-icons": {
-            "locked": "CAPS",
-            "unlocked": ""
-        }
-    },
     "network": {
         "format-disabled": " Disabled",
         "format-wifi": "    {bandwidthDownBits:>} 󰶡 {bandwidthUpBits:>} 󰶣",
