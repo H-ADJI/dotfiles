@@ -24,11 +24,25 @@ install_AUR_helper() {
     fi
 }
 installpackages() {
-    gum log -l info "[START] Installing packages"
+    gum log -l info "[START] Installing $COMPOSITOR packages"
     yay -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - <~/dotfiles/setup/arch/"$COMPOSITOR"/packages >>~/yay.log 2>&1
-    pv -l ~/dotfiles/setup/arch/packages |
-    yay -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - >>~/yay.log 2>&1
+    gum log -l info "[DONE] Installing $COMPOSITOR packages"
+
+    gum log -l info "[START] Installing packages"
+    pkg_file="$HOME/dotfiles/setup/arch/packages"
+    total=$(grep -cv '^\s*$' "$pkg_file") # ignore empty lines
+    count=0
+    while read -r pkg; do
+        [[ -z "$pkg" ]] && continue
+        count=$((count + 1))
+        gum log -l info "[$count/$total] Installing -> $pkg..."
+        yay -Sq --noconfirm --noprogressbar --needed \
+            --disable-download-timeout "$pkg" \
+            >>"$HOME/yay.log" 2>&1
+        gum log -l info "[$count/$total] DONE -> $pkg..."
+    done <"$pkg_file"
     gum log -l info "[DONE] Installing packages"
+
 }
 
 personal_repos() {
