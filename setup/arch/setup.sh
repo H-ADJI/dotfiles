@@ -14,6 +14,17 @@ _installYay() {
     makepkg -si --noconfirm
     cd || return 1
 }
+install_dependencies() {
+    sudo pacman -Syu --noconfirm
+    toInstall=(
+        "base-devel"
+        "git"
+        "vim"
+        "go"
+        "gum"
+    )
+    sudo pacman -S --noconfirm --noprogressbar --needed --disable-download-timeout "${toInstall[@]}"
+}
 install_AUR_helper() {
     cd || exit 1
     if _checkCommandExists "yay"; then
@@ -180,6 +191,7 @@ ssh_setup() {
 }
 
 sudo --validate
+install_dependencies
 install_AUR_helper
 installpackages
 setup
