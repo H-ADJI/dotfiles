@@ -53,7 +53,7 @@ window#waybar {
 }
 
 /* Every module */
-#mode,
+#submap,
 #network,
 #keyboard-state,
 #scratchpad,
@@ -109,7 +109,7 @@ window#waybar {
   color: @yellow;
   font-weight: bold;
 } /* Uses imported variable */
-#mode {
+#submap {
   background: @yellow;
   /* color: @base1; */
   color: black; /* text in the mode module */
