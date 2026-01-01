@@ -213,7 +213,6 @@ ssh_setup() {
 
 }
 
-sudo --validate
 install_AUR_helper
 installpackages
 setup
