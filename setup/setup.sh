@@ -181,7 +181,6 @@ link_dotfiles() {
         "fuzzel"
         "git"
         "leetcode"
-        "mako"
         "nvim"
         "pipewire"
         "ruff"
