@@ -26,7 +26,6 @@ source ~/zsh/lib/python.sh
 source ~/zsh/lib/scrapy.sh
 source ~/zsh/lib/sound.sh
 source ~/zsh/lib/tmux.sh
-source ~/zsh/lib/utils.sh
 source ~/zsh/lib/uv.sh
 source ~/zsh/lib/zoxide.sh
 source ~/zsh/lib/zsh.sh
