@@ -132,12 +132,8 @@ setup() {
 
     gum log -l info "[START] Change display manager"
     sudo systemctl disable gdm.service
-    sudo systemctl enable ly@tty2.service
+    sudo systemctl enable ly@tty1.service
     gum log -l info "[DONE] Change display manager"
-
-    gum log -l info "[START] Change shell to use ZSH"
-    chsh -s /usr/bin/zsh
-    gum log -l info "[DONE] Change shell to use ZSH"
 
     gum log -l info "[START] copy ZSH history"
     cp ~/dotfiles/zsh/.zsh_history ~
