@@ -102,6 +102,24 @@ setup() {
     personal_repos
     gum log -l info "[DONE] Clone some repos"
 
+    gum log -l info "[START] Chosing stable rust toolchain release"
+    rustup default stable
+    gum log -l info "[DONE] Chosing stable rust toolchain release"
+
+    gum log -l info "[START] installing multiple uv python versions"
+    py_versions=(
+        "3.12"
+        "3.11"
+        "3.10"
+        "3.9"
+    )
+    uv python install "${py_versions[@]}"
+    gum log -l info "[DONE] Installing multiple uv python versions"
+
+    gum log -l info "[START] nvim headless install"
+    nvim --headless -c 'Lazy install' -c 'qa'
+    gum log -l info "[DONE] nvim headless install"
+
     gum log -l info "[START] Set timezone"
     sudo timedatectl set-timezone Europe/Paris
     gum log -l info "[DONE] Set timezone"
@@ -127,6 +145,21 @@ setup() {
     sudo systemctl enable ly@tty2.service
     gum log -l info "[DONE] Change display manager"
 
+    gum log -l info "[START] Change shell to use ZSH"
+    chsh -s /usr/bin/zsh
+    gum log -l info "[DONE] Change shell to use ZSH"
+
+    gum log -l info "[START] copy ZSH history"
+    cp ~/dotfiles/zsh/.zsh_history ~
+    gum log -l info "[DONE] copy ZSH history"
+
+    gum log -l info "[START] Default apps"
+    xdg-mime default mupdf.desktop application/pdf
+    xdg-mime default imv.desktop image/jpeg
+    xdg-mime default imv.desktop image/png
+    xdg-mime default google-chrome.desktop x-scheme-handler/https
+    xdg-mime default google-chrome.desktop x-scheme-handler/http
+    gum log -l info "[DONE] Default apps"
 }
 decrypt_secrets() {
     cd ~/dotfiles/ || return 1
