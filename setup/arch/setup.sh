@@ -24,6 +24,9 @@ install_dependencies() {
         "gum"
     )
     sudo pacman -S --noconfirm --noprogressbar --needed --disable-download-timeout "${toInstall[@]}"
+
+    [ ! -d "dotfiles" ] && git clone https://github.com/H-ADJI/dotfiles
+    cd dotfiles || exit 1
 }
 install_AUR_helper() {
     cd || exit 1

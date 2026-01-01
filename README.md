@@ -33,7 +33,7 @@ curl -fsSL h-adji.github.io/dotfiles/init.sh | bash
   - swaync
   - wlogout
   - look n feel
-  - shortcuts
+  - keymaps
   - separate from sway dots
   - remove bloat
 
