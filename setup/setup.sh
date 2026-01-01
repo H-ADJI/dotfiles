@@ -131,7 +131,7 @@ setup() {
     gum log -l info "[DONE] Enable bluetooth service"
 
     gum log -l info "[START] Change display manager"
-    sudo systemctl disable gdm.service
+    sudo systemctl disable sddm.service
     sudo systemctl enable ly@tty1.service
     gum log -l info "[DONE] Change display manager"
 
