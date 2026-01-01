@@ -28,6 +28,14 @@ curl -fsSL h-adji.github.io/dotfiles/init.sh | bash
 
 - add mybattlestation link
 - based screen recording
+- hyprland
+  - notif deamon
+  - swaync
+  - wlogout
+  - look n feel
+  - shortcuts
+  - separate from sway dots
+  - remove bloat
 
 ## Nerd snipes
 
