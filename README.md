@@ -32,6 +32,7 @@ curl -fsSL h-adji.github.io/dotfiles/init.sh | bash
   - notif deamon
   - swaync
   - yazi img fix
+  - togglegroup  from omarchy
 
 ## Nerd snipes
 
