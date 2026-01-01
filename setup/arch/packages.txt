@@ -23,6 +23,7 @@ gcc
 git-delta
 google-chrome
 grep
+hyprpolkitagent
 gum
 impala
 inetutils
