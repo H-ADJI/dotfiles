@@ -31,10 +31,6 @@ curl -fsSL h-adji.github.io/dotfiles/init.sh | bash
 - hyprland
   - notif deamon
   - swaync
-  - look n feel
-  - keymaps
-  - separate from sway dots
-  - remove bloat
 
 ## Nerd snipes
 
