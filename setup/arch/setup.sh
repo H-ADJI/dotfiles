@@ -24,7 +24,6 @@ install_AUR_helper() {
     fi
 }
 installpackages() {
-    # TODO: install packages per profile
     gum log -l info "[START] Installing packages"
     yay -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - <~/dotfiles/setup/arch/"$COMPOSITOR"/packages >>~/yay.log 2>&1
     yay -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - <~/dotfiles/setup/arch/packages >>~/yay.log 2>&1
@@ -130,22 +129,17 @@ link_dotfiles() {
     dotfiles=(
         "alacritty"
         "swappy"
-        "gocheat"
         "direnv"
         "fastfetch"
         "fuzzel"
         "git"
         "leetcode"
-        "mako"
         "nvim"
-        "qutebrowser"
         "ruff"
         "ssh"
         "starship"
-        "systemd"
         "tmux"
         "wlogout"
-        "waybar"
         "scripts"
         "zsh"
         "sunsetr"
