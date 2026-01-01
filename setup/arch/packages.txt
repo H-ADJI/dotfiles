@@ -16,7 +16,6 @@ docker
 docker-buildx
 eza
 fd
-fnott
 fuzzel
 fzf
 gcc
