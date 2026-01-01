@@ -31,6 +31,7 @@ curl -fsSL h-adji.github.io/dotfiles/init.sh | bash
 - hyprland
   - notif deamon
   - swaync
+  - yazi img fix
 
 ## Nerd snipes
 
