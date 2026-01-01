@@ -4,6 +4,3 @@ venv
 ssh/.ssh/known*
 ssh/dot-ssh/known*
 task/dot-task/taskchampion*
-assets/dot-config/assets/background
-waybar/dot-config/waybar/theme.css
-nvim/dot-config/nvim/theme
