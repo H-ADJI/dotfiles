@@ -1,8 +1,5 @@
 #!/bin/bash
-
 DISTRO=$(awk '/^ID=/' /etc/*-release | awk -F'=' '{ print tolower($2) }')
-gum log -l info "DOTFILES Setup For : $DISTRO"
-gum log -l info "Cloning DOTFILES"
 [ ! -d "dotfiles" ] && git clone https://github.com/H-ADJI/dotfiles
 cd dotfiles || exit 1
 sudo --validate
