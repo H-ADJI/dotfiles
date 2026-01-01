@@ -35,11 +35,11 @@ installpackages() {
     while read -r pkg; do
         [[ -z "$pkg" ]] && continue
         count=$((count + 1))
-        gum log -l info "[$count/$total] Installing -> $pkg..."
+        gum log -l info "[$(date '+%H:%M:%S')][$count/$total] Installing -> $pkg..."
         yay -Sq --noconfirm --noprogressbar --needed \
             --disable-download-timeout "$pkg" \
             >>"$HOME/yay.log" 2>&1
-        gum log -l info "[$count/$total] DONE -> $pkg..."
+        gum log -l info "[$(date '+%H:%M:%S')][$count/$total] DONE -> $pkg..."
     done <"$pkg_file"
     gum log -l info "[DONE] Installing packages"
 
@@ -154,7 +154,6 @@ link_dotfiles() {
         "ssh"
         "starship"
         "tmux"
-        "wlogout"
         "scripts"
         "zsh"
         "sunsetr"
