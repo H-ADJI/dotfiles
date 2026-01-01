@@ -1,4 +1,5 @@
 #!/bin/bash
+COMPOSITOR=$(gum choose hypr sway)
 _checkCommandExists() {
     package="$1"
     if ! command -v "$package" >/dev/null; then
@@ -25,7 +26,8 @@ install_AUR_helper() {
 installpackages() {
     # TODO: install packages per profile
     gum log -l info "[START] Installing packages"
-    yay -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - <~/dotfiles/setup/arch/packages.txt >>~/yay.log 2>&1
+    yay -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - <~/dotfiles/setup/arch/"$COMPOSITOR"/packages >>~/yay.log 2>&1
+    yay -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - <~/dotfiles/setup/arch/packages >>~/yay.log 2>&1
     gum log -l info "[DONE] Installing packages"
 }
 
@@ -133,7 +135,6 @@ link_dotfiles() {
         "fastfetch"
         "fuzzel"
         "git"
-        "sway"
         "leetcode"
         "mako"
         "nvim"
@@ -155,6 +156,7 @@ link_dotfiles() {
         "pipewire"
     )
     stow --adopt --dotfiles "${dotfiles[@]}"
+    stow --adopt --dotfiles "$COMPOSITOR"
     cd || return 1
 }
 docker_post_install() {
@@ -173,4 +175,3 @@ sudo --validate
 install_AUR_helper
 installpackages
 setup
-# bash "$HOME/.config/scripts/theme_switcher.sh" dark
