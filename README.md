@@ -28,11 +28,6 @@ curl -fsSL h-adji.github.io/dotfiles/init.sh | bash
 
 - add mybattlestation link
 - based screen recording
-- hyprland
-  - notif deamon
-  - swaync
-  - yazi img fix
-  - togglegroup  from omarchy
 
 ## Nerd snipes
 
