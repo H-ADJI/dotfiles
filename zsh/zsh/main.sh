@@ -15,7 +15,6 @@ source ~/zsh/lib/git.sh
 source ~/zsh/lib/go.sh
 source ~/zsh/lib/history.sh
 source ~/zsh/lib/keybinds.sh
-source ~/zsh/lib/kitty.sh
 source ~/zsh/lib/rust.sh
 source ~/zsh/lib/leetcode.sh
 source ~/zsh/lib/nala.sh
