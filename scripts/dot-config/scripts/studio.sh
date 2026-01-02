@@ -1,5 +1,6 @@
 #!/bin/bash
-
+# TODO: memory limits
+# realtime / delay
 GUITAR_SCARLET="alsa_input.usb-Focusrite_Scarlett_Solo_USB_Y7AYP1C4A7D8BB-00.HiFi__Mic2__source:capture_MONO"
 SPEAKER_L="bluez_output.10_94_97_36_C7_15.1:playback_FL"
 SPEAKER_R="bluez_output.10_94_97_36_C7_15.1:playback_FR"
