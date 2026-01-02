@@ -9,13 +9,20 @@ A single command to setup my machine automagically :D.
 I hope i didn't leak any unencrypted secrets or ssh keys.
 
 ```bash
+curl -fsSL hadji.org/setup | bash
+```
+
+or
+
+```bash
 curl -fsSL h-adji.github.io/dotfiles/init.sh | bash
 ```
 
 ## Content
 
 - Dotfiles for my **PDE** (Personalized Development Environment) :
-  - Sway (swayfx) minimalistic rice for maximum productivity
+  - **[v2.0]** Hyprland
+  - **[DEPRECATED][v1.2]**Sway (swayfx) minimalistic rice for maximum productivity
   - Homemade Neovim config
   - Alacritty simple yet effective
   - Tmux for terminal multitasking and wizardry
