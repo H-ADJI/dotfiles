@@ -143,8 +143,8 @@ setup() {
     xdg-mime default mupdf.desktop application/pdf
     xdg-mime default imv.desktop image/jpeg
     xdg-mime default imv.desktop image/png
-    xdg-mime default google-chrome.desktop x-scheme-handler/https
-    xdg-mime default google-chrome.desktop x-scheme-handler/http
+    xdg-mime default brave.desktop x-scheme-handler/https
+    xdg-mime default brave.desktop x-scheme-handler/http
     gum log -l info "[DONE] Default apps"
 }
 decrypt_secrets() {
