@@ -1,7 +1,7 @@
 {
 	"name": "Vimium C",
-	"@time": "1/1/2026, 5:02:01 PM",
-	"time": 1767283321804,
+	"@time": "1/2/2026, 1:51:07 PM",
+	"time": 1767358267418,
 	"environment": {
 		"extension": "2.12.2",
 		"platform": "linux",
@@ -19,5 +19,12 @@
 		"map zo zoomOut",
 		""
 	],
-	"vimSync": true
+	"vimSync": true,
+	"vomnibarOptions": {
+		"actions": "",
+		"maxMatches": 10,
+		"queryInterval": 100,
+		"sizes": "77,3,44,0.8,1944",
+		"styles": "mono-url"
+	}
 }
