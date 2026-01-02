@@ -9,7 +9,7 @@ A single command to setup my machine automagically :D.
 I hope i didn't leak any unencrypted secrets or ssh keys.
 
 ```bash
-curl -fsSL hadji.org/setup | bash
+curl -fsSL conf.hadji.org/setup | bash
 ```
 
 or
