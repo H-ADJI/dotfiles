@@ -146,6 +146,7 @@ setup() {
     xdg-mime default brave.desktop x-scheme-handler/https
     xdg-mime default brave.desktop x-scheme-handler/http
     gum log -l info "[DONE] Default apps"
+    echo "chsh -s /usr/bin/zsh" >> .bashrc
 }
 decrypt_secrets() {
     cd ~/dotfiles/ || return 1
