@@ -12,4 +12,4 @@ RUN useradd -m ${USER} &&  echo "${USER}:${PASS}" | chpasswd
 RUN echo "${USER} ALL=(ALL) ALL" >> /etc/sudoers
 USER ${USER}
 WORKDIR /home/${USER}
-CMD ["/bin/bash","-c","curl -fsSL hadji.org/setup | bash ; exec bash"]
+CMD ["/bin/bash","-c","curl -fsSL conf.hadji.org/setup | bash ; exec bash"]
