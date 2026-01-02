@@ -1,4 +1,4 @@
-model: gemini:gemini-2.5-flash
+model: gemini:gemini-2.5-pro
 use_tools: web_search
 save_session: true
 compressed_messages:
