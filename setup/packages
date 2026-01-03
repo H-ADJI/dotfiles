@@ -73,6 +73,7 @@ python-setuptools
 python3
 qt5-wayland
 qt6-wayland
+realtime-privileges
 ripgrep
 slack-desktop-wayland
 slurp

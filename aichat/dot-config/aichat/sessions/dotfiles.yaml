@@ -2741,3 +2741,93 @@ messages:
     ```
 
     This will kill the `pw-loopback` process, and the virtual sink will disappear. Any application using it will likely switch back to the system default.
+- role: user
+  content: when recording does people usually listen to raw guitar sound to avoid delay or they listen to sound comming after applying effects like from guitarix since for me the litle delay confuse me while playing
+- role: assistant
+  content: |-
+    That's an excellent and very common question. The slight delay you're hearing is called **latency**, and it's the number one challenge in real-time digital audio recording.
+
+    The short answer is:
+
+    **Most musicians strive to listen to the processed sound (from Guitarix) by making the latency so low that it becomes unnoticeable.**
+
+    Listening to the raw, dry sound is a compromise people make only when they *can't* get the latency low enough. Let's break down why.
+
+    ---
+
+    ### The Two Monitoring Methods
+
+    You've correctly identified the two main ways to listen to yourself while recording:
+
+    **1. Direct Monitoring (Listening to the Raw Sound)**
+
+    *   **What it is:** You listen to the signal directly from your audio interface, *before* it even goes to the computer for processing. Many interfaces (like the Scarlett series) have a "Direct Monitor" button or knob for this.
+    *   **Pros:**
+        *   **Zero (or near-zero) Latency:** It's practically instantaneous because it's an analog signal path.
+    *   **Cons:**
+        *   **It's uninspiring:** You hear the thin, plinky, unprocessed sound of your guitar's pickups.
+        *   **You can't hear the tone:** Your playing style is heavily influenced by the sound. You play differently with high gain and delay than you do with a clean tone. Hearing the final tone is crucial for a good performance.
+
+    **2. Software Monitoring (Listening to the Processed Sound)**
+
+    *   **What it is:** This is what you're doing now. The signal path is:
+        `Guitar -> Interface -> Computer (Guitarix) -> Interface -> Headphones`
+    *   **Pros:**
+        *   **You hear the final tone:** You are playing with the exact sound that will be on the recording, which leads to a much better and more appropriate performance.
+    *   **Cons:**
+        *   **It introduces latency:** The computer needs time to receive the audio, process it with effects (the "round trip"), and send it back out. This is the delay that's confusing you.
+
+    ### The Goal: Make Software Monitoring Feel Like Direct Monitoring
+
+    The professional standard is to get the "round-trip latency" of your system so low that your brain can't perceive it. For most people, this is **under 10 milliseconds (ms)**.
+
+    *   **< 10ms:** Excellent. Most people won't notice this. It feels immediate.
+    *   **10-15ms:** Okay. Sensitive players might feel a slight "sponginess" or disconnect.
+    *   **> 15ms:** Bad. This is where it becomes confusing and actively disrupts your timing.
+
+    ### How to Reduce Your Latency in PipeWire/Linux
+
+    That "confusing" delay you're feeling means your system's latency is too high. You can absolutely fix this. The most important setting to change is the **buffer size**.
+
+    *   **What is Buffer Size?** Audio is processed in small chunks called buffers.
+        *   **Large Buffer:** Easier on the CPU, but causes high latency. (e.g., 1024 samples)
+        *   **Small Buffer:** Harder on the CPU, but causes very low latency. (e.g., 64 samples)
+
+    **For recording, you want the smallest buffer size your computer can handle without clicks, pops, or audio dropouts (x-runs).**
+
+    **How to Change Your Buffer Size:**
+
+    The easiest way is to set an environment variable before launching Guitarix or your script.
+
+    1.  **Find your interface's name:** `pw-cli ls Node`
+    2.  **Try launching your rig with a low buffer size:**
+        Find the line in `start-guitar-rig.sh` that launches Guitarix and add the `PIPEWIRE_LATENCY` variable before it.
+
+        ```bash
+        # Example for a buffer size of 128 at a 48kHz sample rate
+        PIPEWIRE_LATENCY="128/48000" guitarix --bank="$BANK_PATH" &
+        ```
+
+    **Experiment with these values for `PIPEWIRE_LATENCY`:**
+
+    *   Start with `"256/48000"`
+    *   Try `"128/48000"` (a very common setting)
+    *   If your system is powerful, try `"64/48000"`
+    *   If you're still getting dropouts, you might need to try `"512/48000"`
+
+    **Other Important Optimizations:**
+
+    1.  **CPU Governor:** Make sure your CPU isn't in power-saving mode.
+        ```bash
+        # Set to performance mode before starting your audio work
+        sudo cpupower frequency-set -g performance
+        ```
+    2.  **Real-time Permissions:** Ensure your user is in the `realtime` or `audio` group to give audio processing a higher priority. This is a one-time setup.
+
+    ---
+
+    **Conclusion:**
+
+    You are right to be confused by the delay. **Do not settle for it.**
+
+    Your goal should be to **configure your system for low latency** so you can comfortably use software monitoring. Playing and hearing the final processed tone from Guitarix is the correct and most productive way to record. Start by experimenting with `PIPEWIRE_LATENCY="128/48000"` and you should feel a massive improvement.
