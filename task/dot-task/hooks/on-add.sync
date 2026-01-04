@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
+task_json="$(cat)"
+echo "$task_json"
 exit 0
 APP_NAME="Sway Screenshot"
 timeout=3000
-task_json="$(cat)"
-echo "$task_json"
 task sync >/dev/null 2>&1 &
 notify-send "Tasks synced" -t "$timeout" -a "$APP_NAME"
