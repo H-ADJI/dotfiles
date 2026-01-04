@@ -24,6 +24,7 @@ return {
       go = { "gofumpt", "golines", "goimports", "gopls" },
       html = { "prettierd" },
       css = { "prettierd" },
+      js = { "prettierd" },
       yaml = { "prettierd" },
       markdown = { "prettierd" },
       scss = { "prettierd" },

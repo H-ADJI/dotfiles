@@ -27,6 +27,8 @@ return {
         "just",
         "dockerls",
         "systemd_ls",
+        "tsgo",
+        "cssls",
       },
     },
     dependencies = {
@@ -61,16 +63,10 @@ return {
         "pyright",
         "taplo",
         "dockerfile-language-server",
-        -- python stuff
-        -- golang stuff
-        -- javascript
-        -- "typescript-language-server",
-        -- "eslint-lsp",
-        -- "css-lsp",
-        -- "html-lsp",
-        -- "sql-formatter",
-        -- "docker-compose-language-service",
+        "typescript-language-server",
+        "tsgo",
         "prettierd",
+        "css-lsp",
         "shellcheck",
         "shfmt",
         "stylua",

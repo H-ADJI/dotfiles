@@ -177,6 +177,7 @@ link_dotfiles() {
         "alacritty"
         "assets"
         "bat"
+        "browser"
         "direnv"
         "fastfetch"
         "fuzzel"
