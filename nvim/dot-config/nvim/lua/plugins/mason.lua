@@ -21,6 +21,7 @@ return {
         "pyright",
         "ruff",
         "bashls",
+        "marksman",
         "hyprls",
         "taplo",
         "gopls",
@@ -30,6 +31,7 @@ return {
         "tsgo",
         "cssls",
         "clangd",
+        "harper_ls",
       },
     },
     dependencies = {
@@ -49,6 +51,7 @@ return {
         "iferr",
         "goimports",
         "gofumpt",
+        "harper-ls",
         "clangd",
         "clang-format",
         "golines",
