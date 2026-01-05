@@ -1,6 +1,6 @@
-session_name: Dotfiles
+session_name: craft
 suppress_history: true
-start_directory: ~/dotfiles/
+start_directory: ~/ccraft
 windows:
   - window_name: "src"
     shell_command_before: nvim
