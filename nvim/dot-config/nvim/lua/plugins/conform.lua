@@ -22,6 +22,7 @@ return {
       lua = { "stylua" },
       python = { "ruff_format", "ruff_organize_imports", "ruff_fix" },
       go = { "gofumpt", "golines", "goimports", "gopls" },
+      c = { "clang_format","clangd" },
       html = { "prettierd" },
       css = { "prettierd" },
       js = { "prettierd" },

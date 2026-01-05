@@ -29,6 +29,7 @@ return {
         "systemd_ls",
         "tsgo",
         "cssls",
+        "clangd",
       },
     },
     dependencies = {
@@ -48,6 +49,8 @@ return {
         "iferr",
         "goimports",
         "gofumpt",
+        "clangd",
+        "clang-format",
         "golines",
         "hyprls",
         "ruff",
