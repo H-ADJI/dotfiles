@@ -128,13 +128,13 @@ return {
       nowait = true,
       desc = "References",
     },
-    -- {
-    --   "cfI",
-    --   function()
-    --     Snacks.picker.lsp_implementations()
-    --   end,
-    --   desc = "Goto Implementation",
-    -- },
+    {
+      "gi",
+      function()
+        Snacks.picker.lsp_implementations()
+      end,
+      desc = "Goto Implementation",
+    },
     {
       "cft",
       function()
