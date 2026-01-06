@@ -5,3 +5,4 @@ ssh/.ssh/known*
 ssh/dot-ssh/known*
 task/dot-task/taskchampion*
 aichat/dot-config/aichat/sessions/*
+aichat/dot-config/aichat/rags/*

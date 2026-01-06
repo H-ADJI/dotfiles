@@ -1,0 +1,9 @@
+session_name: Books
+suppress_history: true
+start_directory: ~/books/
+windows:
+  - window_name: "editor"
+    shell_command_before: nvim
+    focus: true
+  - window_name: "aichat"
+    shell_command_before: aises

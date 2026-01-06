@@ -53,6 +53,9 @@ personal_repos() {
         "dicli"
         "presentations"
         "homelab"
+        "ccraft"
+        "investments"
+        "books"
     )
     for PROJECT in "${projects[@]}"; do
         [ ! -d "$PROJECT" ] && git clone "git@github.com:H-ADJI/$PROJECT.git"
@@ -146,7 +149,7 @@ setup() {
     xdg-mime default brave.desktop x-scheme-handler/https
     xdg-mime default brave.desktop x-scheme-handler/http
     gum log -l info "[DONE] Default apps"
-    echo "chsh -s /usr/bin/zsh" >> .bashrc
+    echo "chsh -s /usr/bin/zsh" >>.bashrc
 }
 decrypt_secrets() {
     cd ~/dotfiles/ || return 1
