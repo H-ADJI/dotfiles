@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
-file=$(mktemp --suffix=.md)
-wl-paste --no-newline >"$file"
+MSG_DIR="$HOME/.aichat/"
+[ ! -d ~/.aichat ] && mkdir "$MSG_DIR"
+file="$HOME/.aichat/$(basename "$(pwd)").md"
+touch "$file"
+echo "---" >>"$file"
+wl-paste >>"$file"
+
 tmux new-window -n 'aichat output' "$EDITOR $file"
-# tmux new-window -n:scrollback-edit "$EDITOR '+ normal G $' $file"
