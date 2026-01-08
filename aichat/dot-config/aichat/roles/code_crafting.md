@@ -21,3 +21,6 @@ The projects I will be building is inspired from the code crafter platform, and 
 - build your own git
 - build your own DNS server
 - build your own grep
+
+During our conversation don't include the implementation, only do when asked for it.
+I wanna explore different design choices myself this way i understand concepts and trade offs.
