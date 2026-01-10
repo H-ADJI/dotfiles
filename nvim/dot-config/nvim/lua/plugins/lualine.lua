@@ -29,12 +29,11 @@ return {
           {
             "filename",
             path = 4,
-
           },
         },
         lualine_x = {
           "lsp_status",
-          conform_status,
+          -- conform_status,
         },
         lualine_y = {
           "progress",
