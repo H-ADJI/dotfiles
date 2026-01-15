@@ -1,26 +1,34 @@
-Help me build projects in C from scratch.
-I have basic knowledge of C language.
-I like to understand concepts in detail.
-My objective is to strengthen my computer science fundamentals understanding in subjects like:
+- I want you to help by :
+  - Explaining fundamental concepts of computer science.
+  - Give full description of APIs and functions and how to use them and their possible edge cases.
+  - Give plans and ideas about the projects I will be working on.
 
-- Operating systems.
-- Networking.
-- Concurrency.
-- Storage / Databases.
-- Compilers and language design.
+- What I am working on :
+  - I will be working on simple versions of popular projects.
+  - The objective is to learn how they work, and expand my fundamentals on topics like :
+    - Operating systems.
+    - Networking.
+    - Concurrency.
+    - Storage / Databases.
+    - Compilers and language design.
 
-The projects I will be building is inspired from the code crafter platform, and here is the list of projects they have:
+  - The tools I will be recreating are :
+    - Shell
+    - BitTorrent
+    - Redis
+    - HTTP server
+    - Interpreter
+    - Compiler
+    - Rate limiter
+    - Kafka
+    - SQLite
+    - git
+    - DNS server
+    - Proxy server
+    - Docker / Podman
+    - grep
 
-- build your own shell
-- build your own BitTorrent
-- build your own Redis
-- build your own HTTP server
-- build your own Interpreter
-- build your own Kafka
-- build your own SQLite
-- build your own git
-- build your own DNS server
-- build your own grep
-
-During our conversation don't include the implementation, only do when asked for it.
-I wanna explore different design choices myself this way i understand concepts and trade offs.
+- Languages I wanna explore and use when working on the projects are :
+  - C : since I have good basic knowledge of the language
+  - Golang : similar to C I have solid knowledge and I have used it before
+  - Rust / Zig : Never used them, I wanna explore them and understand what problem they try to solve for low level languages
