@@ -1,12 +1,20 @@
 # Dotfiles
 
-Since i really care about (my) development experience, this is my second iteration of the [CYBORG PROJECT](https://github.com/H-ADJI/cyborg).
+Since I really care about (my) development experience, this is my second iteration of the [CYBORG PROJECT](https://github.com/H-ADJI/cyborg).
 Feel free to copy or look around for inspiration.
 
 ## Setup
 
 A single command to setup my machine automagically :D.
-I hope i didn't leak any unencrypted secrets or ssh keys.
+I hope I didn't leak any unencrypted secrets or ssh keys.
+
+**Arch Install Configuration**
+
+```bash
+archinstall --config-url https://conf.hadji.org/workstation.json
+```
+
+**Desktop Environment**
 
 ```bash
 curl -fsSL conf.hadji.org/setup | bash
@@ -22,7 +30,7 @@ curl -fsSL h-adji.github.io/dotfiles/init.sh | bash
 
 - Dotfiles for my **PDE** (Personalized Development Environment) :
   - **[v2.0]** Hyprland
-  - **[DEPRECATED][v1.2]**Sway (swayfx) minimalistic rice for maximum productivity
+  - **[v1.2]** Sway (swayfx) minimalistic rice for maximum productivity
   - Homemade Neovim config
   - Alacritty simple yet effective
   - Tmux for terminal multitasking and wizardry
