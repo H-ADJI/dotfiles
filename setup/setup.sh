@@ -95,6 +95,10 @@ setup() {
     personal_repos
     gum log -l info "[DONE] Clone some repos"
 
+    gum log -l info "[START] Realtime audio setup"
+    sudo usermod -aG realtime,audio "$USER"
+    gum log -l info "[DONE] Realtime audio setup"
+
     gum log -l info "[START] Chosing stable rust toolchain release"
     rustup default stable
     gum log -l info "[DONE] Chosing stable rust toolchain release"
