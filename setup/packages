@@ -46,6 +46,7 @@ impala
 imv
 inetutils
 iwd
+jack_delay
 jnv
 jq
 just
@@ -105,7 +106,7 @@ vial
 vulkan-mesa-layers
 vulkan-radeon 
 waybar
-wayscriber
+wayscriber-bin
 wget
 wikiman
 wireplumber
