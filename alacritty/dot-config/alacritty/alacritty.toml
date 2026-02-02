@@ -3,7 +3,7 @@ TERM = "xterm-256color"
 [general]
 import = ["~/.config/alacritty/themes/catppuccin_latte.toml"]
 [window]
-padding.x = 200
+padding.x = 240
 padding.y = 90
 startup_mode = "Maximized"
 [scrolling]
