@@ -39,11 +39,6 @@ curl -fsSL h-adji.github.io/dotfiles/init.sh | bash
   - plus a lot of other tools...
 - justfile to automate testing of installation process.
 
-## Roadmap
-
-- add mybattlestation link
-- based screen recording
-
 ## Nerd snipes
 
 ### App launcher
