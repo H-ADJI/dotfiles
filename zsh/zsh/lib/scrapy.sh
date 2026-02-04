@@ -64,7 +64,7 @@ bindkey '^x^u' shub_deploy_shortcut
 
 clone_job() {
     tmp_file=$(mktemp --suffix=.sh)
-    cmd=$(pls job clone "$1")
+    cmd=$(pls job clone --local "$1")
     echo "$cmd" >&2 >"$tmp_file"
     sh "$tmp_file"
 }
