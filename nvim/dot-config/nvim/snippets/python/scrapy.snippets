@@ -785,7 +785,7 @@ snippet bancat banner_category template
 
 snippet bancatms
   import random
-  from urllib.parse import urljoin
+  from urllib.parse import urljoin, urlparse
 
   from core.config import BannerTypes
   from core.requests_di import PlaywrightRequest, RequestShelf
