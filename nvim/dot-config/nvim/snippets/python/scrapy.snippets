@@ -1920,7 +1920,7 @@ snippet downmiddleware download middleware template
 
         def process_response(self, request, response: HtmlResponse, spider: Spider):
             return response
-snippet downmiddleware download middleware template
+snippet pdp_pids getting list of ids from pdp
     def add_products(self, response: HtmlResponse, banner: ItemBannerCategory):
         if _id := response.xpath("").get(""):
             product = ItemBannerProduct()
@@ -1941,7 +1941,7 @@ snippet downmiddleware download middleware template
                             "wait_time": self.wait_time,
                         },
                     },
-                    cb_kwargs=dict(banner=banner, products=urls),
+                    cb_kwargs=dict(banner=banner, urls=urls),
                     dont_filter=True,
                 )
 
@@ -1952,7 +1952,7 @@ snippet downmiddleware download middleware template
         banner["products"].append(product)
         if urls := urls[1:]:
             yield PlaywrightRequest(
-                url=urls[0],
+                url=urljoin(self.domain, urls[0]),
                 callback=self.add_ids,
                 meta={
                     "cache_this": True,
