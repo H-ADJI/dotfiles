@@ -5,6 +5,12 @@ windows:
   - window_name: "src"
     shell_command_before: nvim
     focus: true
+
+  - window_name: "src"
+    start_directory: ~/tictactoe-ref/
+    shell_command_before: nvim
+
   - window_name: "shell"
+
   - window_name: "aichat"
     shell_command_before: aises

@@ -1,0 +1,8 @@
+session_name: neurogenisis
+suppress_history: true
+start_directory: ~/neurogenesis/
+windows:
+  - window_name: "src"
+    shell_command_before: nvim
+    focus: true
+  - window_name: "shell"
