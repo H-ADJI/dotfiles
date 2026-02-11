@@ -2,7 +2,7 @@ if [ "$#" -ne 2 ]; then
     echo "Usage: create_bootable_usb <path_to_iso> <device>"
     echo "Example: create_bootable_usb ubuntu_24.iso /dev/sda"
     echo "Use lsblk to list storage devices"
-    return 1
+    exit 1
 fi
 
 iso_path="$1"
@@ -10,12 +10,12 @@ device="$2"
 
 if [ ! -f "$iso_path" ]; then
     echo "Error: ISO file '$iso_path' does not exist."
-    return 1
+    exit 1
 fi
 
 if [ ! -e "$device" ]; then
     echo "Error: Device '$device' does not exist."
-    return 1
+    exit 1
 fi
 
 if mount | grep -q "$device"; then

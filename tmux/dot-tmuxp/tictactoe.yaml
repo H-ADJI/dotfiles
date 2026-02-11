@@ -11,6 +11,9 @@ windows:
     shell_command_before: nvim
 
   - window_name: "shell"
+    panes:
+      - live-server
+      - null
 
   - window_name: "aichat"
     shell_command_before: aises
