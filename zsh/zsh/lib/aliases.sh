@@ -1,7 +1,6 @@
 alias now="date +'%Y-%m-%d %H:%M:%S'"
 alias csv_to_json="jq -Rsn '(input | split(\"\n\") | .[1:] | map(select(length > 0) | split(\",\") | {url: .[0], path: .[1], params: null}))' > paths.json"
 alias c="clear"
-alias q="exit"
 alias ..="cd .."
 alias mkdir="mkdir -pv"
 alias grep="grep --color=auto"
