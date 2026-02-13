@@ -6,14 +6,16 @@ windows:
     shell_command_before: nvim
     focus: true
 
-  - window_name: "src"
-    start_directory: ~/tictactoe-ref/
-    shell_command_before: nvim
+  - window_name: "shell"
 
   - window_name: "shell"
+    # shell_command_before: nvim
     panes:
-      - live-server
-      - null
+      - bunx tsc --watch
 
   - window_name: "aichat"
     shell_command_before: aises
+
+  - window_name: "reference project"
+    start_directory: ~/tictactoe-ref/
+    shell_command_before: nvim
