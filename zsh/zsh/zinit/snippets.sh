@@ -46,3 +46,6 @@ zinit snippet OMZP::podman
 
 # gh cli aliases and completions https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/gh
 zinit snippet OMZP::gh
+
+# bun completions https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/bun
+zinit snippet OMZP::bun
