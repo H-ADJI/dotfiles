@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+sudo rm -rf /opt/T1000 && sudo rm -rf /opt/BotBrowser
+[ ! -d /opt/T1000 ] && sudo mkdir /opt/T1000
+sudo chmod -R 777 /opt/T1000
+[ ! -d /opt/BotBrowser ] && sudo mkdir /opt/BotBrowser
+sudo chmod -R 777 /opt/BotBrowser
+[ ! -d /opt/T1000/fonts/ ] && sudo mkdir -p /opt/T1000/fonts/
+sudo chmod -R 777 /opt/T1000/fonts
+projects=(
+    "dataimpact-scraping-monitoring"
+    "di-scraping-api"
+    "dataimpact-scraping"
+    "scraping-cli"
+    "dataimpact-scraping-launcher"
+)
+for PROJECT in "${projects[@]}"; do
+    [ ! -d "$HOME/$PROJECT" ] && git clone "git@bitbucket.org:dataimpact/$PROJECT.git" "$HOME/$PROJECT"
+done
+
+env_files=(
+    "dism.env"
+    "disapi.env"
+    "dis.env"
+    "discli.env"
+)
+DOTS_PATH="$HOME/dotfiles/secrets/"
+for i in "${!env_files[@]}"; do
+    PROJECT="${projects[$i]}"
+    FILE="${env_files[$i]}"
+    cp "$DOTS_PATH/$FILE" "$HOME/$PROJECT/.env"
+done
+gum log -l info work_setup done

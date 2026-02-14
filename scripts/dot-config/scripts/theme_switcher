@@ -79,6 +79,6 @@ WAYBAR_CONFIG_FILE="$WAYBAR_CONFIG_DIR/theme.css"
 cp "$WAYBAR_CONFIG_DIR/$SELECTED_THEME.css" "$WAYBAR_CONFIG_FILE"
 # do not refresh if invoked as script with args
 if [ $# -eq 0 ]; then
-    sh "$HOME/.config/scripts/swaybg.sh"
+    sh "$HOME/.config/scripts/swaybg"
     killall -SIGUSR2 waybar
 fi

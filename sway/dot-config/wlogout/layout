@@ -6,7 +6,7 @@
 }
 {
     "label" : "lock",
-    "action" : "~/.config/scripts/swaylock.sh",
+    "action" : "~/.config/scripts/swaylock",
     "keybind" : "l"
     "text": "Lock"
 }
