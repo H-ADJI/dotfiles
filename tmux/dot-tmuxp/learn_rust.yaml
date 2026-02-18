@@ -1,9 +1,12 @@
-session_name: investments
+session_name: Learn Rust
 suppress_history: true
-start_directory: ~/investments
+start_directory: ~/learn_rust
 windows:
-  - window_name: "notes"
+  - window_name: "src"
     shell_command_before: nvim
     focus: true
+
+  - window_name: "shell"
+
   - window_name: "aichat"
     shell_command_before: aises
