@@ -60,14 +60,8 @@
         "backlight",
         "battery",
         "tray",
-        "custom/mouse",
         "custom/power"
     ],
-    "custom/mouse": {
-        "format": " {}",
-        "interval": 3600, // Every hour (60 * 60 seconds)
-        "exec": "~/.config/scripts/mouse_battery"
-    },
     "network": {
         "format-disabled": " Disabled",
         "format-wifi": "    {bandwidthDownBits:>} 󰶡 {bandwidthUpBits:>} 󰶣",
