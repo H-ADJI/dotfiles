@@ -1,4 +1,3 @@
-alias lc="leetcode"
 eval "$(leetcode completions)"
 fzf_leetcode_problems() {
     local problem

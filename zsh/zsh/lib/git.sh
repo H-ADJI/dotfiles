@@ -1,5 +1,3 @@
-alias gclean="git clean -f"
-
 git_release() {
     if [ $# -lt 1 ]; then
         echo "Usage: $0 <new_git_tag>"
