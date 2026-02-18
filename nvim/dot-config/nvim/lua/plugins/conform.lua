@@ -36,6 +36,7 @@ return {
       zsh = { "beautysh" },
       bash = { "beautysh" },
       toml = { "taplo" },
+      typst = { "prettypst" },
     },
   },
 }

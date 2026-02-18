@@ -50,7 +50,6 @@ return {
       },
     },
   },
-  -- config call is necessary for some reason
   config = function()
     vim.lsp.config("harper_ls", {
       filetypes = { "markdown" },

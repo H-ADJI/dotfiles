@@ -1,3 +1,4 @@
+-- TODO: refactor lists of lsp / formatters so download/ activation is auto
 return {
   {
     "mason-org/mason.nvim",
@@ -32,6 +33,7 @@ return {
         "cssls",
         "clangd",
         "harper_ls",
+        "tinymist",
       },
     },
     dependencies = {
@@ -39,7 +41,6 @@ return {
       "neovim/nvim-lspconfig",
     },
   },
-
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     opts = {
@@ -52,6 +53,8 @@ return {
         "goimports",
         "gofumpt",
         "harper-ls",
+        "prettypst",
+        "tinymist",
         "clangd",
         "clang-format",
         "golines",
