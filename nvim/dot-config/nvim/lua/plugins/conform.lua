@@ -37,6 +37,13 @@ return {
       bash = { "beautysh" },
       toml = { "taplo" },
       typst = { "prettypst" },
+      rust = { "rustfmt" },
+    },
+    formatters = {
+      rustfmt = {
+        command = "rustfmt",
+        stdin = true,
+      },
     },
   },
 }
