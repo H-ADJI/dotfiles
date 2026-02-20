@@ -9,14 +9,14 @@ return {
       function()
         Snacks.picker.todo_comments()
       end,
-      desc = "Todo",
+      desc = "Search Todo Comments",
     },
     {
       "<leader>sT",
       function()
         Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } })
       end,
-      desc = "Todo/Fix/Fixme",
+      desc = "Search Todo/Fix/Fixme",
     },
   },
 }
