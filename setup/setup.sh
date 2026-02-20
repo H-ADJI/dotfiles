@@ -147,11 +147,11 @@ setup() {
     gum log -l info "[DONE] copy ZSH history"
 
     gum log -l info "[START] Default apps"
-    xdg-mime default mupdf.desktop application/pdf
     xdg-mime default imv.desktop image/jpeg
     xdg-mime default imv.desktop image/png
-    xdg-mime default brave.desktop x-scheme-handler/https
-    xdg-mime default brave.desktop x-scheme-handler/http
+    xdg-mime default google-chrome.desktop application/pdf
+    xdg-mime default google-chrome.desktop x-scheme-handler/https
+    xdg-mime default google-chrome.desktop x-scheme-handler/http
     gum log -l info "[DONE] Default apps"
     echo "chsh -s /usr/bin/zsh" >>.bashrc
 }
