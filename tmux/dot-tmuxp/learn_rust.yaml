@@ -1,6 +1,6 @@
 session_name: Learn Rust
 suppress_history: true
-start_directory: ~/learn_rust
+start_directory: ~/theRustBook/
 windows:
   - window_name: "src"
     shell_command_before: nvim
