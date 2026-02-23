@@ -52,7 +52,7 @@ return {
   },
   config = function()
     vim.lsp.config("harper_ls", {
-      filetypes = { "markdown" },
+      filetypes = { "markdown", "typst" },
     })
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function()
