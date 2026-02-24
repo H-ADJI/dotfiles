@@ -12,9 +12,7 @@ bluetui
 bluez
 bluez-utils
 bottom
-brave-bin
 brightnessctl
-btop
 bun
 cava
 chromium
@@ -27,7 +25,6 @@ eza
 fastfetch
 fd
 feh
-foliate
 fuzzel
 fzf
 gcc
@@ -37,7 +34,6 @@ github-cli
 google-chrome
 grep
 grim
-guitarix
 gum
 helvum
 httptoolkit
@@ -51,7 +47,6 @@ jack_delay
 jnv
 jq
 just
-kdeconnect
 leetcode-cli
 linux-firmware 
 localsend-bin
@@ -59,7 +54,6 @@ ly
 man-db
 mesa 
 mpv
-mupdf
 netcat
 network-manager-applet
 noto-fonts-emoji
@@ -72,15 +66,14 @@ pavucontrol
 pipewire
 playerctl
 podman
+podman-compose
 python-pip
 python-setuptools
 python3
 qt5-wayland
 qt6-wayland
-realtime-privileges
 ripgrep
 showmethekey
-slack-desktop-wayland
 slurp
 snore-git
 solaar
