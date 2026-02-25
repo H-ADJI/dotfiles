@@ -29,7 +29,6 @@ return {
         "gopls",
         "just",
         "dockerls",
-        "systemd_ls",
         "tsgo",
         "cssls",
         "clangd",
