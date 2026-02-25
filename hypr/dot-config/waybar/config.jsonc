@@ -79,13 +79,12 @@
             "warning": 70,
             "critical": 90
         },
-        "on-click": "~/.config/scripts/classy_alacritty.sh floatty btm"
+        "on-click": "~/.config/scripts/classy_alacritty btm btm"
     },
     "memory": {
         "interval": 10,
         "format": "RAM : {:>3}%",
-        // "on-click": "footclient -T waybar_htop -e htop",
-        "on-click": "~/.config/scripts/classy_alacritty.sh floatty btm",
+        "on-click": "~/.config/scripts/classy_alacritty btm btm",
         "states": {
             "warning": 70,
             "critical": 90
