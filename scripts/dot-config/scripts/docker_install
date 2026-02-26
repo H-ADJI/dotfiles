@@ -1,0 +1,17 @@
+#!/bin/bash
+REPO_URL="https://gitlab.archlinux.org/archlinux/packaging/packages/docker.git"
+COMMIT_HASH="68ac98186960610ec1c0a9139415cad830141e67"
+TEMP_DIR=$(mktemp -d -t docker-build-XXXXX)
+if [ ! -d "$TEMP_DIR" ]; then
+    echo "Error: Could not create temporary directory."
+    exit 1
+fi
+cd "$TEMP_DIR" || exit 1
+git init -q
+git remote add origin "$REPO_URL"
+git fetch --depth 1 origin "$COMMIT_HASH"
+git checkout -q FETCH_HEAD
+
+echo "Successfully cloned commit $COMMIT_HASH into:"
+echo "Installing"
+makepkg -si
