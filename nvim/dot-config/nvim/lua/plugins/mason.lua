@@ -61,7 +61,6 @@ return {
         "golines",
         "hyprls",
         "ruff",
-        "systemd_ls",
         "systemdlint",
         "flake8",
         "mypy",
