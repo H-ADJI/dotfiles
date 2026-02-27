@@ -1,4 +1,9 @@
-alias bezier_python_bininstall="uv pip uninstall bezier && BEZIER_NO_EXTENSION=true uv pip install --upgrade bezier --no-binary=bezier numpy==1.26.4"
+bezier_python_bininstall() {
+    uv pip uninstall bezier
+    BEZIER_NO_EXTENSION=true uv pip install --upgrade bezier --no-binary=bezier
+    uv pip install numpy==1.26.4
+}
+
 jsonk_path() {
     local file="$1"
     local key="$2"
