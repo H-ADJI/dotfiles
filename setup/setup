@@ -75,6 +75,10 @@ setup() {
     decrypt_secrets
     gum log -l info "[DONE] transcrypt decryption"
 
+    gum log -l info "[START] Remove default compositor config"
+    rm -rf "$HOME/.config/$COMPOSITOR"
+    gum log -l info "[DONE] Remove default compositor config"
+
     gum log -l info "[START] Linking dots"
     link_dotfiles
     gum log -l info "[DONE] Linking dots"
@@ -202,9 +206,9 @@ link_dotfiles() {
         "tmux"
         "yazi"
         "zsh"
+        "$COMPOSITOR"
     )
     stow --adopt --dotfiles "${dotfiles[@]}"
-    stow --adopt --dotfiles "$COMPOSITOR"
     cd || return 1
 }
 docker_post_install() {
