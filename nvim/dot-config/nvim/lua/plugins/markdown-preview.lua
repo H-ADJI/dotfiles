@@ -15,7 +15,7 @@ return {
           require("peek").open()
         end
       end,
-      desc = "Typst Preview Toggle",
+      desc = "Markdown Preview Toggle",
     },
   },
   opts = {
