@@ -18,6 +18,7 @@ bun
 cava
 chromium
 cliphist
+deno
 direnv
 docker
 docker-buildx
