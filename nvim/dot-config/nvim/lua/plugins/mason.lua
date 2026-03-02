@@ -21,6 +21,7 @@ return {
         "lua_ls",
         "pyright",
         "ruff",
+        -- "ty",
         "bashls",
         "marksman",
         "rust_analyzer",
