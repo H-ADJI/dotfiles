@@ -16,3 +16,5 @@ snippet xcontains
     contains($1,'$2')
 snippet xposition
     ($1)[position()=$2]
+snippet xjqval
+    jq_query = '.. | select(type == "object" and has("$1")) | .$1'

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+result_file="results.jq"
+echo "# looking for : $1 in $2" >>"$result_file"
+tmp_file=$(mktemp)
+jq -c "paths(scalars) as \$p | select(getpath(\$p) | tostring | contains(\"$1\")) | \$p" "$2" >>"$tmp_file"
+jq_path_to_query "$tmp_file" >>"$result_file"
+cat "$result_file"
