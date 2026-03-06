@@ -29,6 +29,7 @@ return {
         "taplo",
         "gopls",
         "just",
+        "jqls",
         "dockerls",
         "tsgo",
         "cssls",
@@ -48,6 +49,7 @@ return {
       ensure_installed = {
         "lua_ls",
         "just-lsp",
+        "jq-lsp",
         "ty",
         "gopls",
         "rust-analyzer",
