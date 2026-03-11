@@ -80,7 +80,7 @@ null_value_style = { foreground = "grey" }
 # Completion feature settings
 [completion]
 # Number of lines to display for completion candidates
-lines = 8
+lines = 3
 # Cursor character shown before the selected candidate
 cursor = "❯ "
 # Style for the selected candidate
@@ -108,23 +108,26 @@ copy_query = [{ Key = { modifiers = "CONTROL", code = { Char = "q" } } }]
 copy_result = [{ Key = { modifiers = "CONTROL", code = { Char = "o" } } }]
 # Keys to switch focus between editor and JSON viewer
 switch_mode = [
-  { Key = { code = { Char = "j" }, modifiers = "SHIFT" } },
-  { Key = { code = { Char = "k" }, modifiers = "SHIFT" } },
+  { Key = { code = "Down", modifiers = "SHIFT" } },
+  { Key = { code = "Up", modifiers = "SHIFT" } },
 ]
 
 # Keybindings for editor operations
 [keybinds.on_editor]
+# Move cursor left
 backward = [{ Key = { code = "Left", modifiers = "" } }]
+# Move cursor right
 forward = [{ Key = { code = "Right", modifiers = "" } }]
 # Move cursor to beginning of line
 move_to_head = [{ Key = { modifiers = "CONTROL", code = { Char = "a" } } }]
 # Move cursor to end of line
 move_to_tail = [{ Key = { modifiers = "CONTROL", code = { Char = "e" } } }]
-# Move cursor word boundary
+# Move cursor to previous word boundary
 move_to_previous_nearest = [
   { Key = { modifiers = "ALT", code = { Char = "b" } } },
 ]
-move_to_next_nearest = [{ Key = { modifiers = "ALT", code = { Char = "w" } } }]
+# Move cursor to next word boundary
+move_to_next_nearest = [{ Key = { modifiers = "ALT", code = { Char = "f" } } }]
 # Delete character at the cursor
 erase = [{ Key = { code = "Backspace", modifiers = "" } }]
 # Delete all input
@@ -158,9 +161,9 @@ down = [
   { Key = { code = "Down", modifiers = "" } },
 ]
 # Move to the top of JSON viewer
-move_to_head = [{ Key = { code = { Char = "g" } } }]
+move_to_head = [{ Key = { modifiers = "CONTROL", code = { Char = "l" } } }]
 # Move to the bottom of JSON viewer
-move_to_tail = [{ Key = { modifiers = "SHIFT", code = { Char = "g" } } }]
+move_to_tail = [{ Key = { modifiers = "CONTROL", code = { Char = "h" } } }]
 # Toggle expand/collapse of JSON nodes
 toggle = [{ Key = { code = "Enter", modifiers = "" } }]
 # Expand all JSON nodes
