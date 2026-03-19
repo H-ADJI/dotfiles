@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-DURATION=$(gum input --value 90 --placeholder "Duration in minutes")
+DURATION=$(gum input --value 20 --placeholder "Duration in minutes")
 notification_timeout=8000
 APP_NAME="Timer"
 
