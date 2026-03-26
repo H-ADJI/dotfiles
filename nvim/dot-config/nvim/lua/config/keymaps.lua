@@ -1,60 +1,58 @@
 local map = vim.keymap.set
 
+-- save
+map({ "i", "x", "n", "s" }, "<C-s>", function()
+  vim.cmd("w")
+  vim.notify("File Saved")
+end, { desc = "Save file" })
+
 map("n", "<leader>rl", function()
   vim.cmd("LspRestart")
-end, { desc = "[R]efresh [L]sp" })
+end, { desc = "[R]estart [L]SP" })
 
 map("n", "<leader>rb", function()
   vim.cmd("e")
-end, { desc = "[R]efresh [B]uffer" })
+end, { desc = "[R]eload [B]uffer" })
 
 map("n", "zz", function()
   vim.cmd("qa")
-end, { desc = "[Q]uit" })
+end, { desc = "[Q]uit all" })
 
 map("n", "<leader>li", function()
   vim.cmd("Lazy")
-end, { desc = "[l]azy [I]nfo" })
+end, { desc = "[L]azy [I]nfo" })
 
 map("n", "<leader>bb", function()
   vim.cmd("b#")
-end, { desc = "Recent buffer" })
-
-map("n", "<leader>li", function()
-  vim.cmd("Lazy")
-end, { desc = "[l]azy [I]nfo" })
+end, { desc = "Switch to recent buffer" })
 
 map("n", "<leader>so", function()
   vim.cmd("update")
   vim.cmd("source")
   vim.notify("config re-loaded")
-end, { desc = "s[o]urce config" })
+end, { desc = "[S]ource c[O]nfig" })
 
-map("t", "<esc>", "<c-\\><c-n>")
+map("t", "<esc>", "<c-\\><c-n>", { desc = "Exit terminal mode" })
 
-map({ "t", "i" }, "<a-h>", "<c-\\><c-n><c-w>h")
+map({ "t", "i" }, "<a-h>", "<c-\\><c-n><c-w>h", { desc = "Move to left window" })
+map({ "t", "i" }, "<a-j>", "<c-\\><c-n><c-w>j", { desc = "Move to lower window" })
+map({ "t", "i" }, "<a-k>", "<c-\\><c-n><c-w>k", { desc = "Move to upper window" })
+map({ "t", "i" }, "<a-l>", "<c-\\><c-n><c-w>l", { desc = "Move to right window" })
 
-map({ "t", "i" }, "<a-j>", "<c-\\><c-n><c-w>j")
+map("n", "<a-h>", "<c-w>h", { desc = "Move to left window" })
+map("n", "<a-j>", "<c-w>j", { desc = "Move to lower window" })
+map("n", "<a-k>", "<c-w>k", { desc = "Move to upper window" })
+map("n", "<a-l>", "<c-w>l", { desc = "Move to right window" })
 
-map({ "t", "i" }, "<a-k>", "<c-\\><c-n><c-w>k")
-
-map({ "t", "i" }, "<a-l>", "<c-\\><c-n><c-w>l")
-
-map({ "n" }, "<a-h>", "<c-w>h")
-
-map({ "n" }, "<a-j>", "<c-w>j")
-
-map({ "n" }, "<a-k>", "<c-w>k")
-
-map({ "n" }, "<a-l>", "<c-w>l")
 -- better indenting
-map("x", "<", "<gv")
-map("x", ">", ">gv")
+map("x", "<", "<gv", { desc = "Indent left and reselect" })
+map("x", ">", ">gv", { desc = "Indent right and reselect" })
 
--- line mouvement
-map({ "n" }, "<c-n>h", "0")
-map({ "n" }, "<c-n>l", "$")
--- save file
+-- line movement
+map("n", "<c-n>h", "0", { desc = "Go to start of line" })
+map("n", "<c-n>l", "$", { desc = "Go to end of line" })
+
+-- diagnostics
 local formated_diagnostics = function()
   local diagnostic_format = function(diagnostic)
     return string.format("%s [%s]", diagnostic.message, diagnostic.source or "unknown source")
@@ -68,12 +66,13 @@ map("n", "<leader>od", formated_diagnostics, { desc = "[O]pen [D]iagnostics" })
 
 map("n", "<leader>nd", function()
   vim.diagnostic.jump({ count = 1 })
-end, { desc = "[N]ext [D]iagnostics" })
+end, { desc = "[N]ext [D]iagnostic" })
 
 map("n", "<leader>pd", function()
   vim.diagnostic.jump({ count = -1 })
-end, { desc = "[P]rev [D]iagnostics" })
+end, { desc = "[P]revious [D]iagnostic" })
 
+-- file utils
 map("n", "<leader>pp", function()
   local file_path = vim.fn.expand("%:p")
   if file_path == "" then
@@ -81,25 +80,27 @@ map("n", "<leader>pp", function()
   end
   vim.notify(file_path)
   vim.fn.setreg("+", file_path)
-end, { desc = "Show and copy current file path" })
+end, { desc = "Copy current file path" })
 
 map("n", "<leader>fx", function()
-  local file_path = vim.fn.expand("%:p") -- Full path of current buffer
+  local file_path = vim.fn.expand("%:p")
   if file_path == "" then
     vim.notify("[No file opened]", vim.log.levels.ERROR)
     return
   end
   vim.fn.system("chmod +x " .. vim.fn.shellescape(file_path))
   vim.notify("Made " .. file_path .. " executable", vim.log.levels.INFO)
-end, { desc = "Make [F]ile e[X]ecutable (chmod +x)" })
-map({ "i", "x", "n", "s" }, "<C-s>", function()
-  vim.cmd("w")
-  vim.notify("File Saved")
-end, { desc = "Save File" })
+end, { desc = "Make file executable (chmod +x)" })
 
-map("n", "<C-W>fh", "<C-W>_", { desc = "Window Full hight", remap = true })
-map("n", "<C-W>fw", "<C-W>|", { desc = "Window Full width", remap = true })
-map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
-map("n", "<leader>wq", "<C-W>c", { desc = "Delete Window", remap = true })
+
+-- window management
+map("n", "<C-W>fh", "<C-W>_", { desc = "Maximize window height", remap = true })
+map("n", "<C-W>fw", "<C-W>|", { desc = "Maximize window width", remap = true })
+map("n", "<leader>wd", "<C-W>c", { desc = "Delete window", remap = true })
+map("n", "<leader>wq", "<C-W>c", { desc = "Close window", remap = true })
+
+-- editing
 map("n", "dD", "d0", { desc = "Delete to start of line", remap = true })
-map("i", "<C-n>", "<C-o>", { noremap = true }) -- move the behavior elsewhere
+
+-- quickfix for blink C-o keymap
+map("i", "<C-n>", "<C-o>", { noremap = true, desc = "Execute one normal-mode command" })
