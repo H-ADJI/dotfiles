@@ -20,6 +20,7 @@ return {
       ["<C-k>"] = { "select_prev", "show_signature", "hide_signature", "fallback" },
       ["<C-o>"] = { "accept", "fallback" },
       ["<C-j>"] = { "select_next", "fallback" },
+      ["<CR>"] = false,
     },
     appearance = {
       nerd_font_variant = "mono",
