@@ -165,8 +165,8 @@ fallback_channel = "files"
   "xz",
 ]
 "git-diff" = ["git add", "git restore"]
+"git-reflog" = ["git checkout"]
 "git-branch" = [
-  "git checkout",
   "git branch",
   "git merge",
   "git rebase",
@@ -175,6 +175,7 @@ fallback_channel = "files"
   "git switch",
   "gsw",
 ]
+
 "git-log" = ["git log", "git show"]
 "docker-images" = ["docker run"]
 "git-repos" = ["nvim", "code", "hx", "git clone"]
