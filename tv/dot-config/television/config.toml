@@ -183,7 +183,7 @@ fallback_channel = "files"
 [shell_integration.keybindings]
 # controls which key binding should trigger tv
 # for shell autocomplete
-"smart_autocomplete" = "ctrl-t"
+"smart_autocomplete" = "ctrl-f"
 # controls which keybinding should trigger tv
 # for command history
 "command_history" = "ctrl-r"
