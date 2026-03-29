@@ -4,59 +4,6 @@ bezier_python_bininstall() {
     uv pip install numpy==1.26.4
 }
 
-jsonk_path() {
-    local file="$1"
-    local key="$2"
-    jq -c "path(.. | select(.$key?))" "$file"
-}
-jsonv_path() {
-    local file="$1"
-    local value="$2"
-    jq -c "path(.. | select(. == \"$value\"))" "$file"
-}
-_fzf_spiders() {
-    local spider
-    spider=$(
-        pls spider list | fzf --height 40% --layout=reverse \
-            --border --prompt="Select Spider: " --pointer="▶ " --marker="✔ " \
-            --preview="echo 'Spider: {}'" --preview-window=down:1:wrap
-    )
-    echo "$spider"
-}
-choose_spider() {
-    local spider
-    spider=$(_fzf_spiders)
-    if [ -n "$spider" ]; then
-        LBUFFER="${LBUFFER}${spider} "
-    fi
-    zle redisplay
-}
-zle -N choose_spider
-bindkey '^x^f' choose_spider
-
-spider_launch_cmd() {
-    local spider
-    spider=$(_fzf_spiders)
-    if [ -n "$spider" ]; then
-        LBUFFER="${LBUFFER}scrapy crawl ${spider} "
-    fi
-    zle redisplay
-}
-zle -N spider_launch_cmd
-bindkey '^x^r' spider_launch_cmd
-
-open_spider_project() {
-    local spider
-    spider=$(_fzf_spiders)
-    if [ -n "$spider" ]; then
-        LBUFFER="${LBUFFER}pls zone open ${spider} "
-    fi
-    zle redisplay
-}
-
-zle -N open_spider_project
-bindkey '^x^o' open_spider_project
-
 shub_deploy() {
     shub image upload "$SHUB_DEVZONE" --build-arg PYPI_SECRET="$PYPI_SECRET"
 }

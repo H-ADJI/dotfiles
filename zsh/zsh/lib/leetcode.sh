@@ -1,4 +1,5 @@
 eval "$(leetcode completions)"
+# TODO: use lc list for tv selection and lc pick for preview
 # fzf_leetcode_problems() {
 #     local problem
 #     problem=$(
