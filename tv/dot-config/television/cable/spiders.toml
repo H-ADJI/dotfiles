@@ -1,0 +1,34 @@
+[metadata]
+name = "spiders"
+description = "a channel to list scrapy spiders"
+requirements = ["scrapy", "pls"]
+
+[source]
+command = "pls spider list"
+
+[keybindings]
+ctrl-e = "actions:launch"
+ctrl-o = "actions:open_dev"
+
+[actions.launch]
+description = "Launch the spider"
+command = "scrapy crawl '{}'"
+mode = "execute"
+
+[actions.open_dev]
+description = "open spider on zyte dev zone"
+command = "pls zone open '{}'"
+mode = "execute"
+separator = " "
+
+[actions.open_prod]
+description = "open spider on zyte dev zone"
+command = "pls zone open '{}' -z prod"
+mode = "execute"
+separator = " "
+
+[actions.data_checker]
+description = "open spider on zyte dev zone"
+command = "pls checker generate '{}' -y -c "
+mode = "execute"
+separator = " "

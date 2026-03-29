@@ -166,6 +166,8 @@ fallback_channel = "files"
 ]
 "git-diff" = ["git add", "git restore"]
 "git-reflog" = ["git checkout"]
+"spiders" = ["scrapy crawl", "pls checker generate", "pls zone open"]
+"channels" = ["tv"]
 "git-branch" = [
   "git branch",
   "git merge",
