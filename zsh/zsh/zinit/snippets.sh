@@ -10,9 +10,6 @@ zinit snippet OMZP::sudo
 # replace ls with eza and its aliases https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/eza
 zinit snippet OMZP::eza
 
-# enable fuzzy completions and key binds https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/fzf
-zinit snippet OMZP::fzf
-
 # gh CLI completions https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/gh
 zinit snippet OMZP::gh
 

@@ -4,5 +4,3 @@ if command -v zoxide >/dev/null 2>&1; then
 else
     echo 'zoxide not found, please install it from https://github.com/ajeetdsouza/zoxide'
 fi
-# cd just by typing name
-# setopt autocd
