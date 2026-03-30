@@ -1,0 +1,31 @@
+[metadata]
+name = "lc"
+description = "a channel to manage leetcode problems"
+requirements = ["leetcode"]
+
+[source]
+command = "leetcode list -c algorithms -q L"
+output = "{trim|strip_ansi|split:]:0|split:[:1}"
+ansi = true
+
+[preview]
+command = "leetcode pick {trim|strip_ansi|split:]:0|split:[:1} | bat -n "
+
+[keybindings]
+ctrl-o = "actions:edit"
+ctrl-e = "actions:execute"
+
+[actions.edit]
+description = "edit leetcode problem solution"
+command = "leetcode edit {trim|strip_ansi|split:]:0|split:[:1}"
+mode = "execute"
+
+[actions.test]
+description = "test leetcode problem"
+command = "leetcode test {trim|strip_ansi|split:]:0|split:[:1}"
+mode = "execute"
+
+[actions.execute]
+description = "execute leetcode problem"
+command = "leetcode exec {trim|strip_ansi|split:]:0|split:[:1}"
+mode = "execute"

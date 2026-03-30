@@ -1,4 +1,3 @@
--- TODO: refactor lists of lsp / formatters so download/ activation is auto
 return {
   {
     "mason-org/mason.nvim",
