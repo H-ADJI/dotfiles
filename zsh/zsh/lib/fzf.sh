@@ -1,1 +1,1 @@
-_evalcache fzf --zsh
+source <(fzf --zsh)
