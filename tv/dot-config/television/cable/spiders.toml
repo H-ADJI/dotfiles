@@ -12,23 +12,23 @@ ctrl-o = "actions:open_dev"
 
 [actions.launch]
 description = "Launch the spider"
-command = "scrapy crawl '{}'"
+command = "scrapy crawl {}"
 mode = "execute"
 
 [actions.open_dev]
 description = "open spider on zyte dev zone"
-command = "pls zone open '{}'"
-mode = "execute"
+command = "pls zone open {}"
+mode = "fork"
 separator = " "
 
 [actions.open_prod]
 description = "open spider on zyte dev zone"
-command = "pls zone open '{}' -z prod"
-mode = "execute"
+command = "pls zone open {} -z prod"
+mode = "fork"
 separator = " "
 
 [actions.data_checker]
 description = "open spider on zyte dev zone"
-command = "pls checker generate '{}' -y -c "
+command = "pls checker generate {} -y -c "
 mode = "execute"
 separator = " "
