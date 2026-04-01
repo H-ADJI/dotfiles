@@ -5,7 +5,7 @@ bezier_python_bininstall() {
 }
 
 shub_deploy() {
-    shub image upload "$SHUB_DEVZONE" --build-arg PYPI_SECRET="$PYPI_SECRET"
+    shub image upload --build-arg PYPI_SECRET="$PYPI_SECRET"
 }
 shub_deploy_shortcut() {
     shub_deploy

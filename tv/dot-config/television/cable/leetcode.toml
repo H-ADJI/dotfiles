@@ -14,6 +14,7 @@ command = "leetcode pick {trim|strip_ansi|split:]:0|split:[:1} | bat -n "
 [keybindings]
 ctrl-o = "actions:edit"
 ctrl-e = "actions:execute"
+ctrl-t = "actions:test"
 
 [actions.edit]
 description = "edit leetcode problem solution"
