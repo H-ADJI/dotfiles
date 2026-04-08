@@ -1,0 +1,30 @@
+return {
+  -- "CopilotC-Nvim/CopilotChat.nvim",
+  -- dependencies = {
+  --   { "nvim-lua/plenary.nvim", branch = "master" },
+  -- },
+  -- build = "make tiktoken",
+  -- -- stylua: ignore
+  -- keys = {
+  --   {  "<leader>cc",  mode = { "n", "v", "x" }, function() require("CopilotChat").toggle() end, desc = "Toggle CopilotChat" },
+  -- },
+  -- opts = {
+  --   window = {
+  --     layout = "replace",
+  --     width = 140, -- Fixed width in columns
+  --     height = 20, -- Fixed height in rows
+  --     border = "rounded", -- 'single', 'double', 'rounded', 'solid'
+  --     title = "🤖 CopilotChat",
+  --     zindex = 10, -- Ensure window stays on top
+  --   },
+  --
+  --   headers = {
+  --     user = "👤 You",
+  --     assistant = "🤖 Copilot",
+  --     tool = "🔧 Tool",
+  --   },
+  --
+  --   separator = "━━",
+  --   auto_fold = true, -- Automatically folds non-assistant messages
+  -- },
+}
