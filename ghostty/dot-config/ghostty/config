@@ -1,0 +1,13 @@
+theme = "Catppuccin Latte"
+font-family = "JetBrainsMono Nerd Font"
+window-decoration = none
+resize-overlay = never
+font-style = "bold"
+font-size = 15
+scrollbar = never
+scrollback-limit = 10000
+maximize = true
+confirm-close-surface = false
+window-padding-x = 180
+window-padding-y = 60
+
