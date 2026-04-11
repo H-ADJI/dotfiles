@@ -430,6 +430,33 @@ return {
       end,
       desc = "[C]hoose [S]cratch Buffer",
     },
+    {
+      -- TODO: fix file name / content preview
+      "<leader>fpw",
+      function()
+        local cwd = vim.fn.getcwd()
+        local cmd = { "fd", "--type", "f", "--color", "never", "-E", ".git", "." }
+        local files = vim.fn.systemlist(cmd)
+        local items = {}
+        for _, file in ipairs(files) do
+          table.insert(items, {
+            text = vim.fn.fnamemodify(file, ":p"),
+            path = vim.fn.fnamemodify(file, ":p"),
+          })
+        end
+        Snacks.picker({
+          items = items,
+          format = function(item)
+            return { { item.text, "SnacksPickerLabel" } }
+          end,
+          confirm = function(picker, item)
+            picker:close()
+            vim.api.nvim_put({ item.path }, "c", false, true)
+          end,
+        })
+      end,
+      desc = "Find file, insert path at cursor",
+    },
   },
   init = function()
     vim.api.nvim_create_autocmd("User", {
