@@ -92,7 +92,6 @@ map("n", "<leader>fx", function()
   vim.notify("Made " .. file_path .. " executable", vim.log.levels.INFO)
 end, { desc = "Make file executable (chmod +x)" })
 
-
 -- window management
 map("n", "<C-W>fh", "<C-W>_", { desc = "Maximize window height", remap = true })
 map("n", "<C-W>fw", "<C-W>|", { desc = "Maximize window width", remap = true })
