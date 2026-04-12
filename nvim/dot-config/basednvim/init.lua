@@ -117,8 +117,6 @@ map("n", "<leader>bb", function()
 end, { desc = "Switch to recent buffer" })
 map("x", "<", "<gv", { desc = "Indent left and reselect" })
 map("x", ">", ">gv", { desc = "Indent right and reselect" })
-map("n", "<c-n>h", "0", { desc = "Go to start of line" })
-map("n", "<c-n>l", "$", { desc = "Go to end of line" })
 map("n", "dD", "d0", { desc = "Delete to start of line", remap = true })
 
 vim.api.nvim_create_autocmd("TextYankPost", {

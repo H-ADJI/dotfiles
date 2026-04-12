@@ -48,10 +48,6 @@ map("n", "<a-l>", "<c-w>l", { desc = "Move to right window" })
 map("x", "<", "<gv", { desc = "Indent left and reselect" })
 map("x", ">", ">gv", { desc = "Indent right and reselect" })
 
--- line movement
-map("n", "<c-n>h", "0", { desc = "Go to start of line" })
-map("n", "<c-n>l", "$", { desc = "Go to end of line" })
-
 -- diagnostics
 local formated_diagnostics = function()
   local diagnostic_format = function(diagnostic)

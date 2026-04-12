@@ -432,6 +432,7 @@ return {
     },
     {
       -- TODO: fix file name / content preview
+      -- all files
       "<leader>fpw",
       function()
         local cwd = vim.fn.getcwd()
