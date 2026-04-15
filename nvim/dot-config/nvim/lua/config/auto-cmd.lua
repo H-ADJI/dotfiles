@@ -31,3 +31,15 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.textwidth = 0
   end,
 })
+
+-- local group = vim.api.nvim_create_augroup("autosave", {})
+
+-- vim.api.nvim_create_autocmd("User", {
+--   pattern = "AutoSaveWritePost",
+--   group = group,
+--   callback = function(opts)
+--     if opts.data.saved_buffer ~= nil then
+--       vim.notify("AutoSave: saved", vim.log.levels.INFO)
+--     end
+--   end,
+-- })
