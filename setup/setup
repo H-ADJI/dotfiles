@@ -210,6 +210,7 @@ link_dotfiles() {
         "tabiew"
         "task"
         "tmux"
+        "tv"
         "yazi"
         "zsh"
         "$COMPOSITOR"
