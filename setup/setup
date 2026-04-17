@@ -48,14 +48,16 @@ installpackages() {
 
 personal_repos() {
     projects=(
-        "neurogenesis"
-        "secondBrain"
-        "dicli"
-        "presentations"
-        "homelab"
-        "ccraft"
-        "investments"
         "books"
+        "ccraft"
+        "dicli"
+        "homelab"
+        "investments"
+        "neurogenesis"
+        "payment"
+        "presentations"
+        "secondBrain"
+        "zmk-config"
     )
     for PROJECT in "${projects[@]}"; do
         [ ! -d "$PROJECT" ] && git clone "git@github.com:H-ADJI/$PROJECT.git"
