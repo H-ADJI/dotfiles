@@ -18,6 +18,7 @@ return {
     opts = {
       automatic_enable = {
         "lua_ls",
+        -- "basedpyright",
         -- "pyright",
         -- "ty",
         "pyrefly",
@@ -73,6 +74,7 @@ return {
         "markdownlint",
         "biome",
         "pyright",
+        "basedpyright",
         "taplo",
         "dockerfile-language-server",
         "typescript-language-server",

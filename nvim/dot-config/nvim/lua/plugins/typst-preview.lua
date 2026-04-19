@@ -4,7 +4,7 @@ return {
   version = "1.*",
   keys = {
     {
-      "<leader>ts",
+      "<leader>tp",
       function()
         vim.cmd("TypstPreviewToggle")
       end,
