@@ -66,6 +66,7 @@ window#waybar {
 #memory,
 #backlight,
 #pulseaudio,
+#bluetooth,
 #battery,
 #clock,
 #tray {

@@ -55,6 +55,7 @@
         "network",
         "cpu",
         "memory",
+        "bluetooth",
         "pulseaudio#out",
         "pulseaudio#in",
         "backlight",
@@ -69,9 +70,9 @@
         "format-ethernet": " {bandwidthDownBits:>} 󰶡 {bandwidthUpBits:>} 󰶣",
         "tooltip-format-ethernet": "{ifname}: {ipaddr}/{cidr}",
         "format-disconnected": " Disconnected",
-        "on-click": "~/.config/scripts/classy_alacritty.sh floatty impala",
         "interval": 10
     },
+
     "cpu": {
         "interval": 10,
         "format": "CPU : {usage:>3}%",
@@ -119,6 +120,16 @@
         },
         "format": "{icon}   {capacity}%",
         "format-icons": ["", "", "", "", ""]
+    },
+    "bluetooth": {
+        "format": "󰂯 {status}",
+        "format-on": "󰂯",
+        "format-off": "󰂲",
+        "format-disabled": "", // an empty format will hide the module
+        "format-connected": "{num_connections} 󰂱",
+        "tooltip-format-connected": "{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address} - {device_battery_percentage}%",
+        "on-click": "alacritty -o window.padding.x=20 -o window.padding.y=20  --class bluetui -e bluetui"
     },
     "tray": {
         "icon-size": 18,
