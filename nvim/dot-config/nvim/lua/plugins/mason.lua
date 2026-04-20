@@ -18,10 +18,10 @@ return {
     opts = {
       automatic_enable = {
         "lua_ls",
+        "pyright",
         -- "basedpyright",
-        -- "pyright",
         -- "ty",
-        "pyrefly",
+        -- "pyrefly",
         "ruff",
         "bashls",
         "marksman",
