@@ -18,10 +18,11 @@ return {
     opts = {
       automatic_enable = {
         "lua_ls",
-        "pyright",
-        -- "basedpyright",
+        -- "pyright",
         -- "ty",
-        -- "pyrefly",
+        -- "basedpyright",
+        "pyrefly",
+        "zuban",
         "ruff",
         "bashls",
         "marksman",
@@ -69,6 +70,7 @@ return {
         "flake8",
         "mypy",
         "pyrefly",
+        "zuban",
         "bash-language-server",
         "marksman",
         "markdownlint",

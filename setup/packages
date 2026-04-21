@@ -98,6 +98,7 @@ tmux
 tmuxp
 transcrypt
 tree
+tree-sitter-cli
 ttf-jetbrains-mono 
 ttf-jetbrains-mono-nerd
 ttf-nerd-fonts-symbols
