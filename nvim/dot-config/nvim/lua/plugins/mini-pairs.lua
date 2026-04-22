@@ -1,1 +1,6 @@
-return { "nvim-mini/mini.pairs", version = false, opts = {} }
+return {
+  "nvim-mini/mini.pairs",
+  version = false,
+  enabled = false,
+  opts = {},
+}

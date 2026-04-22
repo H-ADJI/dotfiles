@@ -2,9 +2,6 @@ return {
   "nvim-mini/mini.files",
   version = false,
   opts = {},
-  -- config = function()
-  --   require("mini.files").setup({})
-  -- end,
   keys = {
     {
       "<leader>fe",

@@ -1,1 +1,1 @@
-return { "nvim-mini/mini.move", version = false, opts = {} }
+return { "nvim-mini/mini.move", version = false, enabled = false, opts = {} }
