@@ -4,5 +4,4 @@ return {
   opts = {
     preset = "helix",
   },
-  keys = {},
 }
