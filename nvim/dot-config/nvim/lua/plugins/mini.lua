@@ -22,6 +22,7 @@ return {
       }
     end
     require("mini.pick").setup({ window = { config = win_config } })
+
     require("mini.surround").setup({
       mappings = {
         add = "gsa", -- Add surrounding in Normal and Visual modes
@@ -38,7 +39,7 @@ return {
     {
       "<leader>fg",
       function()
-        require("mini.pick").builtin.grep()
+        MiniPick.builtin.grep()
       end,
       desc = "[F]ile [G]rep",
     },
