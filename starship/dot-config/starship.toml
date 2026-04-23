@@ -47,9 +47,10 @@ behind = '😰'
 diverged = '😵'
 up_to_date = '✓'
 stashed = '📦'
+deleted = '[✘\($count\)](red)'
 modified = '📝[\($count\)](red)'
 untracked = '🤷[\($count\)](red)'
-format = '([$untracked$modified]())'
+format = '([$untracked$deleted$modified]())'
 
 [python]
 style = 'yellow bold'
