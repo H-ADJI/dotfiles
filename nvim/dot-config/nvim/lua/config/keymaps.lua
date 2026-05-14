@@ -34,11 +34,6 @@ end, { desc = "[S]ource c[O]nfig" })
 
 map("t", "<esc>", "<c-\\><c-n>", { desc = "Exit terminal mode" })
 
-map({ "t", "i" }, "<a-h>", "<c-\\><c-n><c-w>h", { desc = "Move to left window" })
-map({ "t", "i" }, "<a-j>", "<c-\\><c-n><c-w>j", { desc = "Move to lower window" })
-map({ "t", "i" }, "<a-k>", "<c-\\><c-n><c-w>k", { desc = "Move to upper window" })
-map({ "t", "i" }, "<a-l>", "<c-\\><c-n><c-w>l", { desc = "Move to right window" })
-
 map("n", "<a-h>", "<c-w>h", { desc = "Move to left window" })
 map("n", "<a-j>", "<c-w>j", { desc = "Move to lower window" })
 map("n", "<a-k>", "<c-w>k", { desc = "Move to upper window" })
