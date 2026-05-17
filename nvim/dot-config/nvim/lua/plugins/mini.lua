@@ -2,13 +2,13 @@ return {
   "nvim-mini/mini.nvim",
   version = "*",
   config = function()
-    require("mini.files").setup({})
-    require("mini.pairs").setup({})
-    require("mini.move").setup({})
-    require("mini.icons").setup({})
-    require("mini.hipatterns").setup({})
-    require("mini.files").setup({})
-    require("mini.ai").setup({})
+    require("mini.files").setup()
+    require("mini.pairs").setup()
+    require("mini.move").setup()
+    require("mini.icons").setup()
+    require("mini.hipatterns").setup()
+    require("mini.files").setup()
+    require("mini.ai").setup()
 
     local win_config = function()
       local height = math.floor(0.618 * vim.o.lines)

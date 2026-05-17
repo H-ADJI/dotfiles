@@ -19,11 +19,11 @@ return {
     opts = {
       automatic_enable = {
         "lua_ls",
+        "zuban",
         -- "pyright",
         -- "ty",
         -- "basedpyright",
-        "pyrefly",
-        "zuban",
+        -- "pyrefly",
         "ruff",
         "bashls",
         "marksman",

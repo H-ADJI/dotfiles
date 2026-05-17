@@ -1,6 +1,7 @@
 return {
   "chrisgrieser/nvim-origami",
   event = "VeryLazy",
+  enabled = false,
   opts = {
     foldKeymaps = {
       setup = false,
