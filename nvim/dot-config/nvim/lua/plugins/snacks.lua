@@ -1,3 +1,4 @@
+--  TODO: replace as much as possible using mini.nvim
 return {
   "folke/snacks.nvim",
   priority = 1000,
