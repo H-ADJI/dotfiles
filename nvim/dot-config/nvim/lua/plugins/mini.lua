@@ -3,7 +3,6 @@ return {
   version = "*",
   config = function()
     require("mini.files").setup()
-    require("mini.pairs").setup()
     require("mini.move").setup()
     require("mini.icons").setup()
     require("mini.hipatterns").setup()

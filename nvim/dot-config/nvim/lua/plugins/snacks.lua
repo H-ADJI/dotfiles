@@ -1,4 +1,4 @@
---  TODO: replace as much as possible using mini.nvim
+--  TODO: trim / remove bulk / replace with better options
 return {
   "folke/snacks.nvim",
   priority = 1000,
