@@ -2,6 +2,7 @@ return {
   "folke/noice.nvim",
   event = "VeryLazy",
   opts = {
+    -- TODO: fix pyright verbose messages
     lsp = {
       -- fix for ruff lsp showing notification missing capabilities notification
       hover = { silent = true },

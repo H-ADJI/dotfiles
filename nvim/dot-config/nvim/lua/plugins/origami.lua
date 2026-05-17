@@ -3,10 +3,9 @@ return {
   event = "VeryLazy",
   opts = {
     foldKeymaps = {
-      setup = false, -- disable h l and $ re-mapping
+      setup = false,
     },
   },
-  -- recommended: disable vim's auto-folding
   init = function()
     vim.opt.foldlevel = 99
     vim.opt.foldlevelstart = 99

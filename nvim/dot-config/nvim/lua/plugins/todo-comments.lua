@@ -3,6 +3,7 @@ return {
   event = "VeryLazy",
   dependencies = { "nvim-lua/plenary.nvim" },
   opts = {},
+  -- todo: replace with mini
   keys = {
     {
       "<leader>st",

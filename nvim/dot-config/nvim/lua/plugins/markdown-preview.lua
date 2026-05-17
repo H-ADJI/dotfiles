@@ -20,6 +20,6 @@ return {
   },
   opts = {
     app = { "google-chrome-stable", "--new-window" },
-    theme = "light", -- 'dark' or 'light'
+    theme = "light",
   },
 }
