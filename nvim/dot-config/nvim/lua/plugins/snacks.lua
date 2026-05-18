@@ -5,76 +5,22 @@ return {
   lazy = false,
   ---@type snacks.Config
   opts = {
-    bigfile = {
-      enabled = true,
-      size = 1 * 1024 * 1024, -- 1MB
-      line_length = 20000, -- average line length (useful for minified files)
-    },
-    dashboard = {
-      enabled = true,
-      sections = {
-        { section = "header" },
-        { section = "startup" },
-      },
-    },
-    explorer = {
-      enabled = true,
-    },
-    indent = {
-      enabled = true,
-      only_scope = false, -- only show indent guides of the scope
-      only_current = true, -- only show indent guides in the current window
-    },
-    picker = {
-      enabled = true,
-    },
-    notifier = {
-      enabled = true,
-      timeout = 1500,
-    },
+    bigfile = { enabled = true, size = 1 * 1024 * 1024, line_length = 20000 },
+    dashboard = { enabled = true, sections = { { section = "header" }, { section = "startup" } } },
+    explorer = { enabled = true },
+    indent = { enabled = true, only_scope = false, only_current = true },
+    picker = { enabled = true },
+    notifier = { enabled = true, timeout = 1500 },
     scroll = {
       enabled = true,
-      animate = {
-        duration = { step = 10, total = 200 },
-        easing = "linear",
-      },
-      -- faster animation when repeating scroll after delay
-      animate_repeat = {
-        delay = 100, -- delay in ms before using the repeat animation
-        duration = { step = 5, total = 20 },
-        easing = "linear",
-      },
+      animate = { duration = { step = 10, total = 200 }, easing = "linear" },
+      animate_repeat = { delay = 100, duration = { step = 5, total = 20 }, easing = "linear" },
     },
-    toggle = {
-      enabled = true,
-      which_key = true, -- integrate with which-key to show enabled/disabled icons and colors
-      notify = true, -- show a notification when toggling
-    },
-    statuscolumn = {
-      enabled = true,
-      folds = {
-        open = true, -- show open fold icons
-        git_hl = true, -- use Git Signs hl for fold icons
-      },
-      git = {
-        patterns = { "GitSign", "MiniDiffSign" },
-      },
-    },
+    toggle = { enabled = true, which_key = true, notify = true },
+    statuscolumn = { enabled = true, folds = { open = true, git_hl = true }, git = { patterns = { "GitSign", "MiniDiffSign" } } },
     quickfile = { enabled = true },
-    terminal = {
-      win = {
-        style = "terminal",
-        position = "float",
-        backdrop = 60,
-        border = true,
-        height = 0.8,
-        width = 0.8,
-        zindex = 50,
-      },
-    },
+    terminal = { win = { style = "terminal", position = "float", backdrop = 60, border = true, height = 0.8, width = 0.8, zindex = 50 } },
     words = { enabled = false },
-    -- input = { enabled = true },
-    -- scope = { enabled = true },
   },
   keys = {
     {
@@ -142,20 +88,6 @@ return {
       end,
       desc = "Goto T[y]pe Definition",
     },
-    -- {
-    --   "gai",
-    --   function()
-    --     Snacks.picker.lsp_incoming_calls()
-    --   end,
-    --   desc = "C[a]lls Incoming",
-    -- },
-    -- {
-    --   "gao",
-    --   function()
-    --     Snacks.picker.lsp_outgoing_calls()
-    --   end,
-    --   desc = "C[a]lls Outgoing",
-    -- },
     {
       "<leader>ss",
       function()
@@ -170,9 +102,6 @@ return {
       end,
       desc = "LSP Workspace Symbols",
     },
-    -- LSP stuff
-    -- Git pickers
-    -- File pickers
     {
       "<leader>e",
       function()
@@ -430,48 +359,17 @@ return {
       end,
       desc = "[C]hoose [S]cratch Buffer",
     },
-    {
-      -- TODO: fix file name / content preview
-      -- all files
-      "<leader>fpw",
-      function()
-        local cwd = vim.fn.getcwd()
-        local cmd = { "fd", "--type", "f", "--color", "never", "-E", ".git", "." }
-        local files = vim.fn.systemlist(cmd)
-        local items = {}
-        for _, file in ipairs(files) do
-          table.insert(items, {
-            text = vim.fn.fnamemodify(file, ":p"),
-            path = vim.fn.fnamemodify(file, ":p"),
-          })
-        end
-        Snacks.picker({
-          items = items,
-          format = function(item)
-            return { { item.text, "SnacksPickerLabel" } }
-          end,
-          confirm = function(picker, item)
-            picker:close()
-            vim.api.nvim_put({ item.path }, "c", false, true)
-          end,
-        })
-      end,
-      desc = "Find file, insert path at cursor",
-    },
   },
   init = function()
     vim.api.nvim_create_autocmd("User", {
       pattern = "VeryLazy",
       callback = function()
-        -- Create some toggle mappings
         Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
         Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
         Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
         Snacks.toggle.diagnostics():map("<leader>ud")
         Snacks.toggle.line_number():map("<leader>ul")
-        Snacks.toggle
-          .option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 })
-          :map("<leader>uc")
+        Snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>uc")
         Snacks.toggle.treesitter():map("<leader>uT")
         Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
         Snacks.toggle.inlay_hints():map("<leader>uh")
