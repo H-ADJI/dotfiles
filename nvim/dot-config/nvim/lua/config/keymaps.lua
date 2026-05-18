@@ -32,14 +32,37 @@ map("n", "<leader>so", function()
   vim.notify("config re-loaded")
 end, { desc = "[S]ource c[O]nfig" })
 
-map("t", "<esc>", "<c-\\><c-n>", { desc = "Exit terminal mode" })
-
 map("n", "<a-h>", "<c-w>h", { desc = "Move to left window" })
 map("n", "<a-j>", "<c-w>j", { desc = "Move to lower window" })
 map("n", "<a-k>", "<c-w>k", { desc = "Move to upper window" })
 map("n", "<a-l>", "<c-w>l", { desc = "Move to right window" })
 
+-- line mouvement
+map("n", "<A-j>", function()
+  vim.cmd("move .+1")
+  vim.cmd("normal ==")
+end, { silent = true })
+
+map("n", "<A-k>", function()
+  vim.cmd("move .-2")
+  vim.cmd("normal ==")
+end, { silent = true })
+
+map("x", "<A-j>", function()
+  vim.cmd("move '>+1")
+  vim.cmd("normal gv=gv")
+end, { silent = true })
+
+map("x", "<A-k>", function()
+  vim.cmd("move '<-2")
+  vim.cmd("normal gv=gv")
+end, { silent = true })
+
 -- better indenting
+map("n", "<A-h>", "<<", { silent = true })
+map("n", "<A-l>", ">>", { silent = true })
+map("x", "<A-h>", "<gv", { silent = true })
+map("x", "<A-l>", ">gv", { silent = true })
 map("x", "<", "<gv", { desc = "Indent left and reselect" })
 map("x", ">", ">gv", { desc = "Indent right and reselect" })
 
