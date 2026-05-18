@@ -1,4 +1,3 @@
---  TODO: cleanup lsp config
 return {
   {
     "mason-org/mason.nvim",

@@ -11,7 +11,6 @@ default_channel = "files"
 # shell = "bash"
 # History settings
 # ---------------
-# TODO: test history
 history_size = 200
 global_history = false
 
