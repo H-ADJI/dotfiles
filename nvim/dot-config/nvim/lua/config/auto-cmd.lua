@@ -11,6 +11,12 @@ vim.api.nvim_create_autocmd("UIEnter", {
   end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  callback = function(ev)
+    pcall(vim.treesitter.start, ev.buf)
+  end,
+})
+
 vim.api.nvim_create_autocmd({ "BufWritePost", "BufWinEnter" }, {
   callback = function()
     -- try_lint without arguments runs the linters defined in `linters_by_ft`
@@ -31,15 +37,3 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.textwidth = 0
   end,
 })
-
--- local group = vim.api.nvim_create_augroup("autosave", {})
-
--- vim.api.nvim_create_autocmd("User", {
---   pattern = "AutoSaveWritePost",
---   group = group,
---   callback = function(opts)
---     if opts.data.saved_buffer ~= nil then
---       vim.notify("AutoSave: saved", vim.log.levels.INFO)
---     end
---   end,
--- })
