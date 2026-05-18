@@ -5,12 +5,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
-vim.api.nvim_create_autocmd("UIEnter", {
-  callback = function()
-    vim.o.clipboard = "unnamedplus"
-  end,
-})
-
 vim.api.nvim_create_autocmd("FileType", {
   callback = function(ev)
     pcall(vim.treesitter.start, ev.buf)
@@ -25,15 +19,5 @@ vim.api.nvim_create_autocmd({ "BufWritePost", "BufWinEnter" }, {
     -- You can call `try_lint` with a linter name or a list of names to always
     -- run specific linters, independent of the `linters_by_ft` configuration
     -- require("lint").try_lint("cspell")
-  end,
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "markdown",
-  callback = function()
-    vim.opt_local.wrap = true
-    vim.opt_local.linebreak = true
-    vim.opt_local.breakindent = true
-    vim.opt_local.textwidth = 0
   end,
 })

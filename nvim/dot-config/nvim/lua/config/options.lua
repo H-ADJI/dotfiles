@@ -2,6 +2,7 @@
 -- See `:help mapleader`
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
+vim.o.clipboard = "unnamedplus"
 vim.o.number = true
 vim.o.autowriteall = true
 vim.o.undofile = false
