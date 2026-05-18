@@ -20,10 +20,6 @@ return {
       automatic_enable = {
         "lua_ls",
         "zuban",
-        -- "pyright",
-        -- "ty",
-        -- "basedpyright",
-        -- "pyrefly",
         "ruff",
         "bashls",
         "marksman",

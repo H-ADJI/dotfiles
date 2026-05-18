@@ -34,12 +34,7 @@ return {
               parameterNames = true,
               rangeVariableTypes = true,
             },
-            analyses = {
-              nilness = true,
-              unusedparams = true,
-              unusedwrite = true,
-              useany = true,
-            },
+            analyses = { nilness = true, unusedparams = true, unusedwrite = true, useany = true },
             usePlaceholders = true,
             completeUnimported = true,
             staticcheck = true,
@@ -51,9 +46,7 @@ return {
     },
   },
   config = function()
-    vim.lsp.config("harper_ls", {
-      filetypes = { "markdown", "typst" },
-    })
+    vim.lsp.config("harper_ls", { filetypes = { "markdown", "typst" } })
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function()
         vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename, { buffer = 0 })

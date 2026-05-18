@@ -21,11 +21,5 @@ return {
       desc = "Highlight urls",
     },
   },
-  opts = {
-    highlight_url = {
-      cursor_move = {
-        enabled = false,
-      },
-    },
-  },
+  opts = { highlight_url = { cursor_move = { enabled = false } } },
 }

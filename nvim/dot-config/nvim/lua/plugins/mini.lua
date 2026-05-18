@@ -4,7 +4,6 @@ return {
   config = function()
     require("mini.files").setup()
     require("mini.move").setup()
-    require("mini.icons").setup()
     require("mini.hipatterns").setup()
     require("mini.files").setup()
     require("mini.ai").setup()

@@ -3,7 +3,6 @@ return {
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000,
-    -- enabled = false,
     config = function()
       vim.cmd([[colorscheme catppuccin-latte]])
     end,
@@ -11,26 +10,15 @@ return {
   {
     "okuuva/auto-save.nvim",
     version = "^1.0.0",
-    cmd = "ASToggle", -- optional for lazy loading on command
-    event = { "InsertLeave", "TextChanged" }, -- optional for lazy loading on trigger events
-    opts = {
-      debounce_delay = 200, -- delay after which a pending save is executed
-    },
+    cmd = "ASToggle",
+    event = { "InsertLeave", "TextChanged" },
+    opts = { debounce_delay = 200 },
   },
-  {
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
-    opts = {},
-  },
+  { "windwp/nvim-autopairs", event = "InsertEnter", opts = {} },
   {
     "folke/lazydev.nvim",
     ft = "lua",
-    opts = {
-      library = {
-        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-        { path = "snacks.nvim", words = { "Snacks" } },
-      },
-    },
+    opts = { library = { { path = "${3rd}/luv/library", words = { "vim%.uv" } }, { path = "snacks.nvim", words = { "Snacks" } } } },
   },
   {
     "barrett-ruth/live-server.nvim",
@@ -46,18 +34,6 @@ return {
       }
     end,
   },
-  {
-    "linux-cultist/venv-selector.nvim",
-    ft = "python",
-    keys = {
-      { ",v", "<cmd>VenvSelect<cr>" },
-    },
-  },
-  {
-    "folke/which-key.nvim",
-    event = "VeryLazy",
-    opts = {
-      preset = "helix",
-    },
-  },
+  { "linux-cultist/venv-selector.nvim", ft = "python", keys = { { ",v", "<cmd>VenvSelect<cr>" } } },
+  { "folke/which-key.nvim", event = "VeryLazy", opts = { preset = "helix" } },
 }

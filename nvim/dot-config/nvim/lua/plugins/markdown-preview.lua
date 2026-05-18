@@ -18,8 +18,5 @@ return {
       desc = "Markdown Preview Toggle",
     },
   },
-  opts = {
-    app = { "google-chrome-stable", "--new-window" },
-    theme = "light",
-  },
+  opts = { app = { "google-chrome-stable", "--new-window" }, theme = "light" },
 }

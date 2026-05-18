@@ -39,11 +39,6 @@ return {
       typst = { "prettypst" },
       rust = { "rustfmt" },
     },
-    formatters = {
-      rustfmt = {
-        command = "rustfmt",
-        stdin = true,
-      },
-    },
+    formatters = { rustfmt = { command = "rustfmt", stdin = true } },
   },
 }

@@ -11,7 +11,5 @@ return {
       desc = "Typst Preview Toggle",
     },
   },
-  opts = {
-    open_cmd = "google-chrome-stable %s --new-window",
-  },
+  opts = { open_cmd = "google-chrome-stable %s --new-window" },
 }
