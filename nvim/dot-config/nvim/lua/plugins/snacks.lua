@@ -7,14 +7,13 @@ return {
   opts = {
     bigfile = {
       enabled = true,
-      size = 5 * 1024 * 1024, -- 1.5MB
-      line_length = 5000, -- average line length (useful for minified files)
+      size = 1 * 1024 * 1024, -- 1MB
+      line_length = 20000, -- average line length (useful for minified files)
     },
     dashboard = {
       enabled = true,
       sections = {
         { section = "header" },
-        -- { section = "keys", gap = 1, padding = 1 },
         { section = "startup" },
       },
     },
