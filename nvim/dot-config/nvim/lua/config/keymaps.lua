@@ -4,6 +4,10 @@ map("n", "zz", function()
   vim.cmd("qa")
 end, { desc = "[Q]uit all" })
 
+map("n", "<Esc>", function()
+  vim.cmd("nohlsearch")
+end, { desc = "Disable Search Highlight" })
+
 map("n", "<leader>so", function()
   vim.cmd("update")
   vim.cmd("source")
