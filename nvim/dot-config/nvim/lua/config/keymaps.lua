@@ -1,5 +1,19 @@
 local map = vim.keymap.set
 
+map("n", "zz", function()
+  vim.cmd("qa")
+end, { desc = "[Q]uit all" })
+
+map("n", "<leader>so", function()
+  vim.cmd("update")
+  vim.cmd("source")
+  vim.notify("config re-loaded")
+end, { desc = "[S]ource c[O]nfig" })
+
+map("n", "<leader>li", function()
+  vim.cmd("Lazy")
+end, { desc = "[L]azy [I]nfo" })
+
 -- save
 map({ "i", "x", "n", "s" }, "<C-s>", function()
   vim.cmd("w")
@@ -10,59 +24,16 @@ map("n", "<leader>rl", function()
   vim.cmd("LspRestart")
 end, { desc = "[R]estart [L]SP" })
 
+-- buffers
 map("n", "<leader>rb", function()
   vim.cmd("e")
 end, { desc = "[R]eload [B]uffer" })
-
-map("n", "zz", function()
-  vim.cmd("qa")
-end, { desc = "[Q]uit all" })
-
-map("n", "<leader>li", function()
-  vim.cmd("Lazy")
-end, { desc = "[L]azy [I]nfo" })
 
 map("n", "<leader>bb", function()
   vim.cmd("b#")
 end, { desc = "Switch to recent buffer" })
 
-map("n", "<leader>so", function()
-  vim.cmd("update")
-  vim.cmd("source")
-  vim.notify("config re-loaded")
-end, { desc = "[S]ource c[O]nfig" })
-
-map("n", "<a-h>", "<c-w>h", { desc = "Move to left window" })
-map("n", "<a-j>", "<c-w>j", { desc = "Move to lower window" })
-map("n", "<a-k>", "<c-w>k", { desc = "Move to upper window" })
-map("n", "<a-l>", "<c-w>l", { desc = "Move to right window" })
-
--- line mouvement
-map("n", "<A-j>", function()
-  vim.cmd("move .+1")
-  vim.cmd("normal ==")
-end, { silent = true })
-
-map("n", "<A-k>", function()
-  vim.cmd("move .-2")
-  vim.cmd("normal ==")
-end, { silent = true })
-
-map("x", "<A-j>", function()
-  vim.cmd("move '>+1")
-  vim.cmd("normal gv=gv")
-end, { silent = true })
-
-map("x", "<A-k>", function()
-  vim.cmd("move '<-2")
-  vim.cmd("normal gv=gv")
-end, { silent = true })
-
 -- better indenting
-map("n", "<A-h>", "<<", { silent = true })
-map("n", "<A-l>", ">>", { silent = true })
-map("x", "<A-h>", "<gv", { silent = true })
-map("x", "<A-l>", ">gv", { silent = true })
 map("x", "<", "<gv", { desc = "Indent left and reselect" })
 map("x", ">", ">gv", { desc = "Indent right and reselect" })
 
