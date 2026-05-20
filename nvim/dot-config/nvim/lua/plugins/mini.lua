@@ -10,28 +10,18 @@ return {
     local win_config = function()
       local height = math.floor(0.6 * vim.o.lines)
       local width = math.floor(0.6 * vim.o.columns)
-      return {
-        anchor = "NW",
-        height = height,
-        width = width,
-        row = math.floor(0.5 * (vim.o.lines - height)),
-        col = math.floor(0.5 * (vim.o.columns - width)),
-      }
+      local start_row = math.floor(0.5 * (vim.o.lines - height))
+      local start_col = math.floor(0.5 * (vim.o.columns - width))
+      return { anchor = "NW", height = height, width = width, row = start_row, col = start_col }
     end
     require("mini.pick").setup({ window = { config = win_config } })
 
     require("mini.surround").setup({
-      mappings = {
-        add = "gsa", -- Add surrounding in Normal and Visual modes
-        delete = "gsd", -- Delete surrounding
-        find = "gsf", -- Find surrounding (to the right)
-        find_left = "gsF", -- Find surrounding (to the left)
-        highlight = "gsh", -- Highlight surrounding
-        replace = "gsr", -- Replace surrounding
-      },
+      mappings = { add = "gsa", delete = "gsd", find = "gsf", find_left = "gsF", highlight = "gsh", replace = "gsr" },
       n_lines = 20,
     })
   end,
+
   keys = {
     {
       "<leader>fg",
