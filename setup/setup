@@ -148,6 +148,10 @@ setup() {
     sudo systemctl enable ly@tty1.service
     gum log -l info "[DONE] Change display manager"
 
+    gum log -l info "[START] Enable polikit service"
+    systemctl --user enable --now hyprpolkitagent
+    gum log -l info "[DONE] Enable polikit service"
+
     gum log -l info "[START] copy ZSH history"
     cp ~/dotfiles/zsh/dot-zsh_history ~/.zsh_history
     gum log -l info "[DONE] copy ZSH history"
