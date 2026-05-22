@@ -30,8 +30,8 @@ hl.window_rule({
     border_size = 0,
     no_anim = false,
     -- TODO: fix wiki docs - expr can contains space or not
-    size = { "monitor_w * 0.1", "monitor_h * 0.1" },
-    move = { "monitor_w * 0.9", "monitor_h * 0.9" },
+    size = { "monitor_w * 0.2", "monitor_h * 0.1" },
+    move = { "monitor_w * 0.8", "monitor_h * 0.9" },
 })
 hl.window_rule({
     name = "screenshare_indicator",

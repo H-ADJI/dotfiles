@@ -1,6 +1,6 @@
 hl.on("hyprland.start", function()
     local home_dir = os.getenv("HOME")
-    hl.exec_cmd("sleep 1 && dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+    hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
     hl.exec_cmd("sunsetr")
     hl.exec_cmd("swaync")
     hl.exec_cmd("hyprpaper")
