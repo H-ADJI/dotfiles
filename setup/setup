@@ -48,14 +48,10 @@ installpackages() {
 
 personal_repos() {
     projects=(
-        "books"
         "ccraft"
         "dicli"
         "homelab"
-        "investments"
         "neurogenesis"
-        "payment"
-        "presentations"
         "secondBrain"
         "zmk-config"
     )
