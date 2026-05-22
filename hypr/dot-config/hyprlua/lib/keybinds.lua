@@ -35,10 +35,9 @@ hl.bind("SUPER + SHIFT + A", hl.dsp.exec_cmd(emulator_picker))
 local pkill_picker = script_dir .. "pkill"
 hl.bind("SUPER + SHIFT + D", hl.dsp.exec_cmd(pkill_picker))
 
+-- TODO: migrate zoom to lua
 hl.bind("SUPER + Z", hl.dsp.exec_cmd(script_dir .. "hypr_zoom"))
 hl.bind("SUPER + SHIFT + Z", hl.dsp.exec_cmd(script_dir .. "sway_zoom"))
-
--- TODO: migrate to lua
 local hypr_zoom_scroll = script_dir .. "hypr_zoom_scroll "
 hl.bind("SUPER + KP_ADD", hl.dsp.exec_cmd(hypr_zoom_scroll .. "in"))
 hl.bind("SUPER + minus", hl.dsp.exec_cmd(hypr_zoom_scroll .. "out"))
