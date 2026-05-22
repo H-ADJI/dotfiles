@@ -1,6 +1,6 @@
 hl.bind("SUPER + Q", hl.dsp.window.close("activewindow"))
 hl.bind("mouse:276", hl.dsp.window.close("activewindow"))
-hl.bind("SUPER + SHIFT + R", hl.dsp.window.close("hyprctl reload"))
+hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"))
 
 hl.bind("SUPER + B", hl.dsp.exec_cmd("google-chrome-stable "))
 hl.bind("SUPER + SPACE", hl.dsp.exec_cmd("alacritty"))
@@ -102,7 +102,7 @@ hl.bind("SUPER + 7", hl.dsp.focus({ workspace = 7 }))
 hl.bind("SUPER + 8", hl.dsp.focus({ workspace = 8 }))
 hl.bind("SUPER + 9", hl.dsp.focus({ workspace = 9 }))
 hl.bind("SUPER + 0", hl.dsp.focus({ workspace = 10 }))
-hl.bind("SUPER + S", hl.dsp.focus({ workspace = "special:magic" }))
+hl.bind("SUPER + S", hl.dsp.workspace.toggle_special("magic"))
 hl.bind("SUPER + mouse_down", hl.dsp.focus({ workspace = "e-1" }))
 hl.bind("SUPER + mouse_up", hl.dsp.focus({ workspace = "e+1" }))
 

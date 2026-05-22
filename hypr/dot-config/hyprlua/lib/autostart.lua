@@ -8,10 +8,10 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd(home_dir .. "/.config/scripts/blue_speaker")
 	hl.exec_cmd("wl-paste --type text --watch cliphist store")
 	hl.exec_cmd("wl-paste --type image --watch cliphist store")
+	hl.exec_cmd("waybar")
 	hl.exec_cmd("nm-applet --indicator")
 end)
 
 hl.on("config.reloaded", function()
-	-- TODO: restart on refresh
 	hl.exec_cmd("pkill waybar; waybar")
 end)
