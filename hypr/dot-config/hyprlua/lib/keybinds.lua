@@ -35,13 +35,6 @@ hl.bind("SUPER + SHIFT + A", hl.dsp.exec_cmd(emulator_picker))
 local pkill_picker = script_dir .. "pkill"
 hl.bind("SUPER + SHIFT + D", hl.dsp.exec_cmd(pkill_picker))
 
--- TODO: migrate zoom to lua
-hl.bind("SUPER + Z", hl.dsp.exec_cmd(script_dir .. "hypr_zoom"))
-hl.bind("SUPER + SHIFT + Z", hl.dsp.exec_cmd(script_dir .. "sway_zoom"))
-local hypr_zoom_scroll = script_dir .. "hypr_zoom_scroll "
-hl.bind("SUPER + KP_ADD", hl.dsp.exec_cmd(hypr_zoom_scroll .. "in"))
-hl.bind("SUPER + minus", hl.dsp.exec_cmd(hypr_zoom_scroll .. "out"))
-
 local sink_volume = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%"
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(sink_volume .. "+"), { repeating = true })
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(sink_volume .. "-"), { repeating = true })
@@ -64,22 +57,14 @@ hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"
 
 local cliphist_fuzzel_list = "cliphist list | fuzzel -d -w 90 -l 5 -p "
 hl.bind(
-	"SUPER + V",
-	hl.dsp.exec_cmd(
-		cliphist_fuzzel_list
-			.. "Select an entry to copy it to your clipboard buffer:"
-			.. " | cliphist decode"
-			.. " | wl-copy"
-	)
+    "SUPER + V",
+    hl.dsp.exec_cmd(cliphist_fuzzel_list .. "Select an entry to copy it to your clipboard buffer:" .. " | cliphist decode" .. " | wl-copy")
 )
 hl.bind(
-	"SUPER + X",
-	hl.dsp.exec_cmd(
-		cliphist_fuzzel_list
-			.. "Select an entry to delete it from cliphist:"
-			.. "-t cc9393ff -S cc9393ff"
-			.. " | cliphist delete"
-	)
+    "SUPER + X",
+    hl.dsp.exec_cmd(
+        cliphist_fuzzel_list .. "Select an entry to delete it from cliphist:" .. "-t cc9393ff -S cc9393ff" .. " | cliphist delete"
+    )
 )
 
 hl.bind("SUPER + H", hl.dsp.focus({ direction = "l" }))
