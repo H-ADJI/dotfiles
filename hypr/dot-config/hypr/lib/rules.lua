@@ -1,17 +1,13 @@
 hl.window_rule({
     name = "float window",
-    match = {
-        class = "btm|imv",
-    },
+    match = { class = "btm|imv" },
     float = true,
     center = true,
     size = { "monitor_w * 0.8", "monitor_h * 0.8" },
 })
 hl.window_rule({
     name = "terminal img preview ueberzug",
-    match = {
-        class = "ueberzugpp.+",
-    },
+    match = { class = "ueberzugpp.+" },
     float = true,
     no_initial_focus = true,
     no_focus = true,
@@ -20,9 +16,7 @@ hl.window_rule({
 })
 hl.window_rule({
     name = "showmethekey",
-    match = {
-        title = "Floating Window - Show Me The Key",
-    },
+    match = { title = "Floating Window - Show Me The Key" },
     float = true,
     no_initial_focus = true,
     no_focus = true,
@@ -35,9 +29,7 @@ hl.window_rule({
 })
 hl.window_rule({
     name = "screenshare_indicator",
-    match = {
-        title = ".+ is sharing .+",
-    },
+    match = { title = ".+ is sharing .+" },
     float = true,
     no_initial_focus = true,
     no_focus = false,
