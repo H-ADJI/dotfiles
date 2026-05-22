@@ -7,6 +7,9 @@ return {
     require("mini.files").setup()
     require("mini.ai").setup()
 
+    local hipatterns = require("mini.hipatterns")
+    hipatterns.setup({ highlighters = { hex_color = hipatterns.gen_highlighter.hex_color() } })
+
     local win_config = function()
       local height = math.floor(0.6 * vim.o.lines)
       local width = math.floor(0.6 * vim.o.columns)

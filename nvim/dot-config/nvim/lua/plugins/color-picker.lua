@@ -1,6 +1,6 @@
 return {
   "vi013t/easycolor.nvim",
   dependencies = { "stevearc/dressing.nvim" },
-  opts = {},
+  opts = { ui = { mappings = { ["<C-n>"] = "hue_down", ["<C-p>"] = "hue_up" } } },
   keys = { { "<leader>cp", "<cmd>EasyColor<cr>", desc = "Color Picker" } },
 }
