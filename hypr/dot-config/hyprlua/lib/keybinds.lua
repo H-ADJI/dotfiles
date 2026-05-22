@@ -116,5 +116,4 @@ hl.bind("SUPER + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "t
 -- TODO: toggle docs
 hl.bind("SUPER + SHIFT + F", hl.dsp.window.float())
 
-hl.bind("ALT + mouse:272", hl.dsp.window.drag(), { mouse = true }) -- ALT + LMB: Move a window by dragging more than 10px.
-hl.bind("ALT + mouse:272", hl.dsp.window.resize(), { mouse = true }) -- ALT + LMB: Floats a window by clicking
+hl.bind("SUPER+ mouse:272", hl.dsp.window.drag(), { mouse = true }) -- ALT + LMB: Move a window by dragging more than 10px.
