@@ -40,10 +40,10 @@ hl.window_rule({
     },
     float = true,
     no_initial_focus = true,
-    no_focus = true,
+    no_focus = false,
     pin = true,
     border_size = 0,
     no_anim = false,
-    size = { "monitor_w / 5", "monitor_h / 20" },
-    move = { "monitor_w / 2 - monitor_w / 10", "monitor_h - monitor_h / 20" },
+    size = { "monitor_w / 5", "monitor_h / 30" },
+    move = { "monitor_w / 2 - monitor_w / 10", "monitor_h - monitor_h / 30" },
 })
