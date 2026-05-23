@@ -1,28 +1,28 @@
+local MAX_ZOOM = 3
+local MIN_ZOOM = 1
+local ZOOM_TOGGLE_FACTOR = 1.5
+
 ---@param offset number
 ---@return nil
-local function zoooooooooom(offset)
-    local current_zoom_factor = hl.get_config("cursor.zoom_factor")
-    if offset then
-        current_zoom_factor = current_zoom_factor + offset
-    elseif current_zoom_factor ~= 1 then
-        current_zoom_factor = 1
+local function zoom(offset)
+    local current = hl.get_config("cursor.zoom_factor")
+    if offset ~= nil then
+        current = current + offset
+    elseif current ~= MIN_ZOOM then
+        current = MIN_ZOOM
     else
-        current_zoom_factor = 2
+        current = ZOOM_TOGGLE_FACTOR
     end
-
-    if current_zoom_factor == 0 then
-        current_zoom_factor = 1
-    end
-
-    hl.config({ cursor = { zoom_factor = current_zoom_factor } })
+    current = math.max(MIN_ZOOM, math.min(MAX_ZOOM, current))
+    hl.config({ cursor = { zoom_factor = current } })
 end
 
-hl.bind("SUPER + Z", zoooooooooom)
+hl.bind("SUPER + Z", zoom)
 hl.bind("SUPER + KP_ADD", function()
-    zoooooooooom(0.5)
+    zoom(0.5)
 end)
 hl.bind("SUPER + minus", function()
-    zoooooooooom(-0.5)
+    zoom(-0.5)
 end)
 
 local home_dir = os.getenv("HOME")
