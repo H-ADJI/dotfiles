@@ -113,7 +113,6 @@ hl.bind("SUPER + N", hl.dsp.group.next())
 hl.bind("SUPER + P", hl.dsp.group.prev())
 
 hl.bind("SUPER + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
--- TODO: toggle docs
 hl.bind("SUPER + SHIFT + F", hl.dsp.window.float())
 
 hl.bind("SUPER+ mouse:272", hl.dsp.window.drag(), { mouse = true }) -- ALT + LMB: Move a window by dragging more than 10px.
