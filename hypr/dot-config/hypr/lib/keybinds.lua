@@ -116,3 +116,29 @@ hl.bind("SUPER + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "t
 hl.bind("SUPER + SHIFT + F", hl.dsp.window.float())
 
 hl.bind("SUPER+ mouse:272", hl.dsp.window.drag(), { mouse = true }) -- ALT + LMB: Move a window by dragging more than 10px.
+--
+hl.bind("SUPER + R", hl.dsp.submap("resize"))
+
+hl.define_submap("resize", function()
+    local offset = 40
+    hl.bind("L", hl.dsp.window.resize({ x = offset, y = 0, relative = true }), { repeating = true })
+    hl.bind("H", hl.dsp.window.resize({ x = -offset, y = 0, relative = true }), { repeating = true })
+    hl.bind("K", hl.dsp.window.resize({ x = 0, y = offset, relative = true }), { repeating = true })
+    hl.bind("J", hl.dsp.window.resize({ x = 0, y = -offset, relative = true }), { repeating = true })
+
+    -- Use `reset` to go back to the global submap
+    hl.bind("escape", hl.dsp.submap("reset"))
+end)
+
+hl.bind("SUPER + SHIFT + X", function()
+    local workspace = hl.get_active_workspace().id
+    local current_layout = hl.get_active_workspace().tiled_layout
+    local layout
+    if current_layout == "master" then
+        layout = "scrolling"
+    else
+        layout = "master"
+    end
+
+    hl.workspace_rule({ workspace = tostring(workspace), layout = layout })
+end)
