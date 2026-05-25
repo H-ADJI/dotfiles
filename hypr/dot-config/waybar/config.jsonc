@@ -5,10 +5,9 @@
     "margin": 10,
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "hyprland/workspaces": {
-        "disable-scroll": true,
-        "all-outputs": true,
         "show-special": true,
         "special-visible-only": true,
+        "move-to-monitor": true,
         "format": "{icon}",
         "format-icons": {
             "special": "Scratch"
