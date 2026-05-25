@@ -24,7 +24,7 @@ local script_dir = home_dir .. "/.config/scripts/"
 
 local hypr_screen = script_dir .. "hypr_screen "
 hl.bind("SUPER + C", hl.dsp.exec_cmd(hypr_screen .. "region"))
-hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd(hypr_screen .. "display"))
+hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd(hypr_screen .. "display"), { locked = true })
 
 local audio_picker = script_dir .. "audio_picker "
 hl.bind("SUPER + I", hl.dsp.exec_cmd(audio_picker .. "source"))
