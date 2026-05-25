@@ -213,6 +213,7 @@ link_dotfiles() {
         "task"
         "tmux"
         "tv"
+        "walt"
         "yazi"
         "zsh"
         "$COMPOSITOR"
