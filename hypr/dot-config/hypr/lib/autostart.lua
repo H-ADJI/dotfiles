@@ -14,4 +14,5 @@ end)
 
 hl.on("config.reloaded", function()
     hl.exec_cmd("pkill waybar; waybar")
+    hl.exec_cmd("pkill hyprpaper; hyprpaper")
 end)

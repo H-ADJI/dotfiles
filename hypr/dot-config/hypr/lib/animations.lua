@@ -1,2 +1,2 @@
 hl.animation({ leaf = "global", enabled = false })
-hl.animation({ leaf = "zoomFactor", enabled = true, speed = 20, bezier = "default" })
+hl.animation({ leaf = "zoomFactor", enabled = true, speed = 15, bezier = "default" })
