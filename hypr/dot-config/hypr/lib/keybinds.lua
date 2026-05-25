@@ -131,15 +131,23 @@ hl.define_submap("resize", function()
     hl.bind("escape", hl.dsp.submap("reset"))
 end)
 
-hl.bind("SUPER + SHIFT + X", function()
-    local workspace = hl.get_active_workspace().id
-    local current_layout = hl.get_active_workspace().tiled_layout
-    local layout
-    if current_layout == "master" then
-        layout = "scrolling"
-    else
-        layout = "master"
+hl.bind("SUPER + SHIFT + TAB", function()
+    local layouts = { "scrolling", "dwindle", "master", "monocle" }
+    local workspace = hl.get_active_workspace()
+    local next_layout = "dwindle"
+
+    if not workspace then
+        return
     end
 
-    hl.workspace_rule({ workspace = tostring(workspace), layout = layout })
+    for i = 1, #layouts do
+        if layouts[i] == workspace.tiled_layout then
+            local next_layout_idx = (i % #layouts) + 1
+            next_layout = layouts[next_layout_idx]
+            hl.exec_cmd(string.format("notify-send  -t 2000 -a 'Layout_Switcher' 'Layout: %s' ", next_layout))
+            break
+        end
+    end
+
+    hl.workspace_rule({ workspace = workspace.name, layout = next_layout })
 end)
