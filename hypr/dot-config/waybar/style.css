@@ -48,7 +48,7 @@ window#waybar {
   background-color: @base1; /* Uses imported variable */
   color: @text; /* Uses imported variable */
   font-family: JetBrainsMonoMedium Nerd Font;
-  font-size: 15px;
+  font-size: 12px;
   min-height: 0;
 }
 
@@ -82,7 +82,7 @@ window#waybar {
   margin-right: 10px;
 }
 #workspaces {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 #workspaces button {

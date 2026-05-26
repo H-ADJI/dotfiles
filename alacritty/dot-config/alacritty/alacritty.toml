@@ -10,4 +10,4 @@ startup_mode = "Maximized"
 history = 10_000
 [font]
 normal = { style = "bold", family = "JetBrainsMono Nerd Font" }
-size = 15.0
+size = 12.0
