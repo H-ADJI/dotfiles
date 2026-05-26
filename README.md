@@ -41,52 +41,19 @@ curl -fsSL h-adji.github.io/dotfiles/init.sh | bash
 
 ## Nerd snipes
 
-### App launcher
+### Desktop
 
-![](./nerd_snipes/app_launcher.png)
+![](./nerd_snipes/ns3.png)
 
-### Audio input picker
+### Lock Screen
 
-![](./nerd_snipes/audio_in_picker.png)
+![](./nerd_snipes/ns2.png)
 
-### Audio output picker
+### Neovim
 
-![](./nerd_snipes/audio_in_picker.png)
-
-### Text editor
-
-![text editor](./nerd_snipes/editor.png)
-
-### Tiling windows
-
-![text editor cava btm](./nerd_snipes/editor_btm_cava.png)
-
-### Fastfetch
-
-![](./nerd_snipes/fastfetch.png)
-
-### File explorer
-
-![](./nerd_snipes/file_explorer.png)
-
-### Keyboard layout/layers viewer
-
-![](./nerd_snipes/keyboard_layout_viewer.png)
-
-### Pkill menu
-
-![](./nerd_snipes/pkill_menu.png)
-
-### Live themes switcher
-
-![](./nerd_snipes/theme_switcher_dark.png)
-![](./nerd_snipes/theme_switcher_light.png)
-
-### Power menu
-
-![](./nerd_snipes/power_menu.png)
+![](./nerd_snipes/ns5.png)
+![](./nerd_snipes/ns6.png)
 
 ### Battlestation
 
-![](./nerd_snipes/battlestation_1.jpg)
-![](./nerd_snipes/battlestation_2.jpg)
+![](./nerd_snipes/ns1.png)
