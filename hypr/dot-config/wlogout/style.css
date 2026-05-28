@@ -11,7 +11,7 @@ window {
 }
 
 button {
-  border-radius: 0;
+  border-radius: 40px;
   border-color: black;
   text-decoration-color: #ffffff;
   color: #ffffff;
@@ -21,11 +21,11 @@ button {
   background-repeat: no-repeat;
   background-position: center;
   background-size: 25%;
+  margin: 20px;
 }
 
 button:focus,
-button:active,
-button:hover {
+button:active {
   background-color: #c6c6c6;
   color: black;
   outline-style: none;
