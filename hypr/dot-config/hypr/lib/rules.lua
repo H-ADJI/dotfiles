@@ -1,6 +1,6 @@
 hl.window_rule({
     name = "float window",
-    match = { class = "btm|imv" },
+    match = { class = "btm|imv|cava" },
     float = true,
     center = true,
     size = { "monitor_w * 0.8", "monitor_h * 0.8" },

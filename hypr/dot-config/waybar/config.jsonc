@@ -28,7 +28,7 @@
         "interval": 10,
         "tooltip": false,
         "exec": "playerctl metadata --format='{{ artist }} - {{ title }}'",
-        "on-click": "alacritty -T cava_popup -e cava",
+        "on-click": "alacritty --class cava -e cava",
         "max-length": 40
     },
     "clock": {
@@ -79,12 +79,12 @@
             "warning": 70,
             "critical": 90
         },
-        "on-click": "~/.config/scripts/classy_alacritty btm btm"
+        "on-click": "alacritty -o window.padding.x=20 -o window.padding.y=20 --class btm -e btm"
     },
     "memory": {
         "interval": 10,
         "format": "RAM : {:>3}%",
-        "on-click": "~/.config/scripts/classy_alacritty btm btm",
+        "on-click": "alacritty -o window.padding.x=20 -o window.padding.y=20 --class btm -e btm",
         "states": {
             "warning": 70,
             "critical": 90
