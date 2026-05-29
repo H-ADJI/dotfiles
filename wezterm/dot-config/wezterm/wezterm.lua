@@ -7,7 +7,7 @@ config.font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Bold", italic 
 config.font_size = 15
 
 config.enable_tab_bar = false
-config.window_padding = { left = "16cell", right = "16cell", top = "3cell", bottom = "4cell" }
+config.window_padding = { left = "20cell", right = "16cell", top = "3cell", bottom = "4cell" }
 
 config.window_close_confirmation = "NeverPrompt"
 

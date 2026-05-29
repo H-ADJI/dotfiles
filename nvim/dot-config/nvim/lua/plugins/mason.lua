@@ -18,7 +18,7 @@ return {
     opts = {
       automatic_enable = {
         "lua_ls",
-        "zuban",
+        "pyright",
         "ruff",
         "bashls",
         "marksman",
