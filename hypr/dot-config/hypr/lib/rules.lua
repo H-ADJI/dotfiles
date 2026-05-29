@@ -38,3 +38,4 @@ hl.window_rule({
     size = { "monitor_w / 5", "monitor_h / 30" },
     move = { "monitor_w / 2 - monitor_w / 10", "monitor_h - monitor_h / 30" },
 })
+hl.workspace_rule({ workspace = "s[true]", gaps_out = 80 })
