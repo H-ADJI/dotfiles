@@ -10,5 +10,6 @@ config.enable_tab_bar = false
 config.window_padding = { left = "20cell", right = "16cell", top = "3cell", bottom = "4cell" }
 
 config.window_close_confirmation = "NeverPrompt"
+config.warn_about_missing_glyphs = false
 
 return config
