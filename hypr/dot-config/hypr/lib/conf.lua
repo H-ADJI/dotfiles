@@ -15,9 +15,7 @@ hl.config({
         shadow = { enabled = false },
         blur = {
             enabled = true,
-            size = 10,
-            passes = 3,
-            new_optimizations = true,
+            passes = 2,
             xray = true,
         },
     },
