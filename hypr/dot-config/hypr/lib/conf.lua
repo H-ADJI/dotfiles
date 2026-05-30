@@ -13,7 +13,13 @@ hl.config({
         active_opacity = 1.0,
         inactive_opacity = 0.9,
         shadow = { enabled = false },
-        blur = { enabled = false },
+        blur = {
+            enabled = true,
+            size = 10,
+            passes = 3,
+            new_optimizations = true,
+            xray = true,
+        },
     },
     binds = {
         drag_threshold = 10, -- Fire a drag event only after dragging for more than 10px
