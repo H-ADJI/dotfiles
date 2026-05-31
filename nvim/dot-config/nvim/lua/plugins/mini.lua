@@ -4,7 +4,6 @@ return {
   config = function()
     require("mini.files").setup()
     require("mini.move").setup()
-    require("mini.files").setup()
     require("mini.ai").setup()
 
     local hipatterns = require("mini.hipatterns")
@@ -18,6 +17,7 @@ return {
       return { anchor = "NW", height = height, width = width, row = start_row, col = start_col }
     end
     require("mini.pick").setup({ window = { config = win_config } })
+    vim.api.nvim_set_hl(0, "MiniPickMatchCurrent", { bg = "#aec2e7" })
 
     require("mini.surround").setup({
       mappings = { add = "gsa", delete = "gsd", find = "gsf", find_left = "gsF", highlight = "gsh", replace = "gsr" },
