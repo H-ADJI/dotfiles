@@ -15,9 +15,9 @@ hl.bind("SUPER + N", hl.dsp.exec_cmd("swaync-client --hide-all"))
 hl.bind("SUPER + SHIFT + N", hl.dsp.exec_cmd("swaync-client -C"))
 hl.bind("SUPER + T", hl.dsp.exec_cmd("swaync-client -t"))
 
-local wlogout = "wlogout -b 4 -T 400 -B 400"
-hl.bind("SUPER + SHIFT + P", hl.dsp.exec_cmd(wlogout))
-hl.bind("mouse:275", hl.dsp.exec_cmd(wlogout))
+local wlogout_toggle = "pkill wlogout || wlogout -b 4 -T 400 -B 400"
+hl.bind("SUPER + SHIFT + P", hl.dsp.exec_cmd(wlogout_toggle))
+hl.bind("mouse:275", hl.dsp.exec_cmd(wlogout_toggle))
 
 local home_dir = os.getenv("HOME")
 local script_dir = home_dir .. "/.config/scripts/"
