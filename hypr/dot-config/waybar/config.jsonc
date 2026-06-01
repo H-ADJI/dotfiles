@@ -8,6 +8,8 @@
         "show-special": true,
         "special-visible-only": true,
         "move-to-monitor": true,
+        "on-scroll-up": "hyprctl dispatch 'hl.dsp.workspace(\"workspace e+1\")'",
+        "on-scroll-down": "hyprctl dispatch 'hl.dsp.workspace(\"workspace e-1\")'",
         "format": "{icon}",
         "format-icons": {
             "special": "Scratch"
