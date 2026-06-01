@@ -5,8 +5,10 @@ return {
     -- enabled = false,
     priority = 1000,
     config = function()
-      require("catppuccin").setup({ transparent_background = true })
-      vim.cmd([[colorscheme catppuccin-latte]])
+      local catppuccin = require("catppuccin")
+      catppuccin.setup({ transparent_background = true })
+      catppuccin.load("latte")
+
       vim.api.nvim_set_hl(0, "CursorLine", { bg = "#cddbf0" })
       vim.api.nvim_set_hl(0, "Folded", { fg = "#57606a", bg = "#aec2e7" })
     end,
