@@ -214,6 +214,7 @@ link_dotfiles() {
         "tmux"
         "tv"
         "walt"
+        "wezterm"
         "yazi"
         "zsh"
         "$COMPOSITOR"

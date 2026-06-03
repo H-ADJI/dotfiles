@@ -4,20 +4,20 @@ hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"))
 
 hl.bind("SUPER + B", hl.dsp.exec_cmd("google-chrome-stable "))
 hl.bind("SUPER + SPACE", hl.dsp.exec_cmd("alacritty"))
-hl.bind("SUPER + E", hl.dsp.exec_cmd("ghostty --env=EDITOR=nvim -e yazi"))
-hl.bind("SUPER + W", hl.dsp.exec_cmd("ghostty --env=EDITOR=nvim -e walt"))
+hl.bind("SUPER + E", hl.dsp.exec_cmd("EDITOR=nvim  wezterm start -- yazi"))
+hl.bind("SUPER + W", hl.dsp.exec_cmd("EDITOR=nvim  wezterm start -- walt"))
 hl.bind("SUPER + SHIFT + E", hl.dsp.exec_cmd("thunar"))
 hl.bind("SUPER + D", hl.dsp.exec_cmd("fuzzel"))
-hl.bind("SUPER + SHIFT + B", hl.dsp.exec_cmd("alacritty -e bluetui"))
-hl.bind("SUPER + SHIFT + W", hl.dsp.exec_cmd("alacritty -e impala"))
+hl.bind("SUPER + SHIFT + B", hl.dsp.exec_cmd("wezterm start -- bluetui"))
+hl.bind("SUPER + SHIFT + W", hl.dsp.exec_cmd("wezterm start -- impala"))
 hl.bind("SUPER + A", hl.dsp.exec_cmd("wayscriber --active"))
 hl.bind("SUPER + N", hl.dsp.exec_cmd("swaync-client --hide-all"))
 hl.bind("SUPER + SHIFT + N", hl.dsp.exec_cmd("swaync-client -C"))
 hl.bind("SUPER + T", hl.dsp.exec_cmd("swaync-client -t"))
 
-local wlogout = "wlogout -b 4 -T 400 -B 400"
-hl.bind("SUPER + SHIFT + P", hl.dsp.exec_cmd(wlogout))
-hl.bind("mouse:275", hl.dsp.exec_cmd(wlogout))
+local wlogout_toggle = "pkill wlogout || wlogout -b 4 -T 400 -B 400"
+hl.bind("SUPER + SHIFT + P", hl.dsp.exec_cmd(wlogout_toggle))
+hl.bind("mouse:275", hl.dsp.exec_cmd(wlogout_toggle))
 
 local home_dir = os.getenv("HOME")
 local script_dir = home_dir .. "/.config/scripts/"
@@ -56,17 +56,9 @@ hl.bind("CTRL + XF86AudioPrev", hl.dsp.exec_cmd("playerctl position 5-"), { repe
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"), { repeating = true })
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"), { repeating = true })
 
-local cliphist_fuzzel_list = "cliphist list | fuzzel -d -w 90 -l 5 -p "
-hl.bind(
-    "SUPER + V",
-    hl.dsp.exec_cmd(cliphist_fuzzel_list .. "Select an entry to copy it to your clipboard buffer:" .. " | cliphist decode" .. " | wl-copy")
-)
-hl.bind(
-    "SUPER + X",
-    hl.dsp.exec_cmd(
-        cliphist_fuzzel_list .. "Select an entry to delete it from cliphist:" .. "-t cc9393ff -S cc9393ff" .. " | cliphist delete"
-    )
-)
+local cliphist_fuzzel_list = "cliphist list | fuzzel -d -w 90 -l 5 -p '❯ ' --placeholder "
+hl.bind("SUPER + V", hl.dsp.exec_cmd(cliphist_fuzzel_list .. "'Copy from clipboard history' | cliphist decode | wl-copy"))
+hl.bind("SUPER + X", hl.dsp.exec_cmd(cliphist_fuzzel_list .. "'Delete from clipboard history' | cliphist delete"))
 
 hl.bind("SUPER + H", hl.dsp.focus({ direction = "l" }))
 hl.bind("SUPER + L", hl.dsp.focus({ direction = "r" }))

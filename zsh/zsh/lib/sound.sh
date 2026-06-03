@@ -53,7 +53,3 @@ choose_input() {
         pactl move-source-output "$id" "$device" 2>/dev/null || true
     done
 }
-
-speaker_connect() {
-    echo 'connect 10:94:97:36:C7:15' | bluetoothctl
-}

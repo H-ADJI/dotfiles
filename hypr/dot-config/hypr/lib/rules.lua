@@ -1,6 +1,6 @@
 hl.window_rule({
     name = "float window",
-    match = { class = "btm|imv" },
+    match = { class = "btm|imv|cava" },
     float = true,
     center = true,
     size = { "monitor_w * 0.8", "monitor_h * 0.8" },
@@ -38,3 +38,4 @@ hl.window_rule({
     size = { "monitor_w / 5", "monitor_h / 30" },
     move = { "monitor_w / 2 - monitor_w / 10", "monitor_h - monitor_h / 30" },
 })
+hl.workspace_rule({ workspace = "s[true]", gaps_out = 80 })
