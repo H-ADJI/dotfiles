@@ -56,17 +56,9 @@ hl.bind("CTRL + XF86AudioPrev", hl.dsp.exec_cmd("playerctl position 5-"), { repe
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"), { repeating = true })
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"), { repeating = true })
 
-local cliphist_fuzzel_list = "cliphist list | fuzzel -d -w 90 -l 5 -p "
-hl.bind(
-    "SUPER + V",
-    hl.dsp.exec_cmd(cliphist_fuzzel_list .. "Select an entry to copy it to your clipboard buffer:" .. " | cliphist decode" .. " | wl-copy")
-)
-hl.bind(
-    "SUPER + X",
-    hl.dsp.exec_cmd(
-        cliphist_fuzzel_list .. "Select an entry to delete it from cliphist:" .. "-t cc9393ff -S cc9393ff" .. " | cliphist delete"
-    )
-)
+local cliphist_fuzzel_list = "cliphist list | fuzzel -d -w 90 -l 5 -p '❯ ' --placeholder "
+hl.bind("SUPER + V", hl.dsp.exec_cmd(cliphist_fuzzel_list .. "'Copy from clipboard history' | cliphist decode | wl-copy"))
+hl.bind("SUPER + X", hl.dsp.exec_cmd(cliphist_fuzzel_list .. "'Delete from clipboard history' | cliphist delete"))
 
 hl.bind("SUPER + H", hl.dsp.focus({ direction = "l" }))
 hl.bind("SUPER + L", hl.dsp.focus({ direction = "r" }))
