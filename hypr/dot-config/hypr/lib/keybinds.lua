@@ -69,7 +69,7 @@ hl.bind("SUPER + left", hl.dsp.focus({ direction = "l" }))
 hl.bind("SUPER + right", hl.dsp.focus({ direction = "r" }))
 hl.bind("SUPER + up", hl.dsp.focus({ direction = "u" }))
 hl.bind("SUPER + down", hl.dsp.focus({ direction = "d" }))
-hl.bind("SUPER + TAB", hl.dsp.window.cycle_next())
+hl.bind("SUPER + TAB", hl.dsp.window.cycle_next({ tiled = true }))
 
 hl.bind("SUPER + 1", hl.dsp.focus({ workspace = 1 }))
 hl.bind("SUPER + 2", hl.dsp.focus({ workspace = 2 }))
@@ -144,7 +144,4 @@ hl.bind("SUPER + SHIFT + TAB", function()
     end
 
     hl.workspace_rule({ workspace = workspace.name, layout = next_layout })
-    if next_layout == "monocle" then
-        hl.bind("SUPER + TAB", hl.dsp.window.cycle_next({ tiled = true }))
-    end
 end)
