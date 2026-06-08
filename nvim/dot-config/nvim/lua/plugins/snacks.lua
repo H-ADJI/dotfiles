@@ -219,7 +219,7 @@ return {
       function()
         Snacks.picker.git_diff()
       end,
-      desc = "Git Diff (Hunks)",
+      desc = "Git Diff",
     },
     {
       "<leader>gf",
