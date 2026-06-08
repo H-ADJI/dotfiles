@@ -1,6 +1,6 @@
 hl.bind("SUPER + Q", hl.dsp.window.close("activewindow"))
 hl.bind("mouse:276", hl.dsp.window.close("activewindow"))
-hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"))
+hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload; notify-send 'Hyprland Reloaded'"))
 
 hl.bind("SUPER + B", hl.dsp.exec_cmd("google-chrome-stable "))
 hl.bind("SUPER + SPACE", hl.dsp.exec_cmd("alacritty"))
