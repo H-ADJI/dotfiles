@@ -1,6 +1,6 @@
 hl.bind("SUPER + Q", hl.dsp.window.close("activewindow"))
 hl.bind("mouse:276", hl.dsp.window.close("activewindow"))
-hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"))
+hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload; notify-send 'Hyprland Reloaded'"))
 
 hl.bind("SUPER + B", hl.dsp.exec_cmd("google-chrome-stable "))
 hl.bind("SUPER + SPACE", hl.dsp.exec_cmd("alacritty"))
@@ -69,7 +69,7 @@ hl.bind("SUPER + left", hl.dsp.focus({ direction = "l" }))
 hl.bind("SUPER + right", hl.dsp.focus({ direction = "r" }))
 hl.bind("SUPER + up", hl.dsp.focus({ direction = "u" }))
 hl.bind("SUPER + down", hl.dsp.focus({ direction = "d" }))
-hl.bind("SUPER + TAB", hl.dsp.window.cycle_next())
+hl.bind("SUPER + TAB", hl.dsp.window.cycle_next({ tiled = true }))
 
 hl.bind("SUPER + 1", hl.dsp.focus({ workspace = 1 }))
 hl.bind("SUPER + 2", hl.dsp.focus({ workspace = 2 }))
@@ -126,15 +126,16 @@ end)
 
 hl.bind("SUPER + SHIFT + TAB", function()
     local layouts = { "scrolling", "dwindle", "master", "monocle" }
-    local workspace = hl.get_active_workspace()
     local next_layout = "dwindle"
 
+    local workspace = hl.get_active_special_workspace() or hl.get_active_workspace()
     if not workspace then
         return
     end
+    local current_layout = workspace.tiled_layout
 
     for i = 1, #layouts do
-        if layouts[i] == workspace.tiled_layout then
+        if layouts[i] == current_layout then
             local next_layout_idx = (i % #layouts) + 1
             next_layout = layouts[next_layout_idx]
             hl.exec_cmd(string.format("notify-send  -t 2000 -a 'Layout_Switcher' 'Layout: %s' ", next_layout))

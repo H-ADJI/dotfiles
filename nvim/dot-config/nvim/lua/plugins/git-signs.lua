@@ -21,6 +21,7 @@ return {
         require("gitsigns").toggle_signs(state)
       end,
     }):map("<leader>uGS")
+
     opts.on_attach = function()
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "gitsigns-blame",
@@ -48,6 +49,13 @@ return {
         require("gitsigns").blame()
       end,
       desc = "[G]it [B]lame [B]uffer",
+    },
+    {
+      "<leader>gpd",
+      function()
+        require("gitsigns").preview_hunk()
+      end,
+      desc = "[G]it [P]review [D]iff",
     },
   },
 }
