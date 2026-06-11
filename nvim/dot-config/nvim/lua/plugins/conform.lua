@@ -26,6 +26,7 @@ return {
       html = { "prettierd" },
       css = { "prettierd" },
       javascript = { "prettierd" },
+      asm = { "asmfmt" },
       typescript = { "prettierd" },
       yaml = { "prettierd" },
       markdown = { "prettierd" },
