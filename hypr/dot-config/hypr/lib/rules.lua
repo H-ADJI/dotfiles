@@ -39,3 +39,5 @@ hl.window_rule({
     move = { "monitor_w / 2 - monitor_w / 10", "monitor_h - monitor_h / 30" },
 })
 hl.workspace_rule({ workspace = "s[true]", gaps_out = 80 })
+
+hl.window_rule({ name = "floating windows", match = { float = true }, workspace = "unset" })
