@@ -2,7 +2,7 @@
 bindkey -e
 
 # accept zsh-autosuggestions
-bindkey '^o' autosuggest-accept
+bindkey '^y' autosuggest-accept
 bindkey '^ ' autosuggest-execute
 
 bindkey '^p' history-search-backward
