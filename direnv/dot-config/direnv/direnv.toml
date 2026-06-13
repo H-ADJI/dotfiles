@@ -1,2 +1,6 @@
 [whitelist]
-prefix = ["~/dataimpact-scraping/","~/scraping-cli/"]
+prefix = [
+  "~/dataimpact-scraping/",
+  "~/scraping-cli/",
+  "~/dgscrp-dataimpact-scraping/",
+]
