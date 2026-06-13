@@ -8,7 +8,17 @@ return {
     dashboard = { enabled = true, sections = { { section = "header" }, { section = "startup" } } },
     explorer = { enabled = true },
     indent = { enabled = true, only_scope = false, only_current = true },
-    picker = { enabled = true },
+    picker = {
+      enabled = true,
+      win = {
+        input = {
+          keys = {
+            ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
+            ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
+          },
+        },
+      },
+    },
     notifier = { enabled = true, timeout = 1500 },
     scroll = {
       enabled = true,

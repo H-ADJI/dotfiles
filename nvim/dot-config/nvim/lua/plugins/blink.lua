@@ -3,20 +3,12 @@ return {
   dependencies = { "rafamadriz/friendly-snippets" },
   enabled = true,
   version = "1.*",
+
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
     signature = { enabled = true, window = { show_documentation = false } },
-    keymap = {
-      preset = "enter",
-      ["<C-c>"] = { "hide", "fallback" },
-      ["<C-u>"] = { "scroll_signature_up", "scroll_documentation_up", "fallback" },
-      ["<C-d>"] = { "scroll_signature_down", "scroll_documentation_down", "fallback" },
-      ["<C-k>"] = { "select_prev", "show_signature", "hide_signature", "fallback" },
-      ["<C-o>"] = { "accept", "fallback" },
-      ["<C-j>"] = { "select_next", "fallback" },
-      ["<CR>"] = false,
-    },
+    keymap = { preset = "default", ["<C-c>"] = { "hide", "fallback" }, ["<CR>"] = false },
     appearance = { nerd_font_variant = "mono" },
     completion = {
       accept = { auto_brackets = { enabled = true } },
@@ -30,16 +22,7 @@ return {
       providers = { lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 } },
     },
     fuzzy = { implementation = "prefer_rust_with_warning" },
-    cmdline = {
-      keymap = {
-        ["<C-k>"] = { "select_prev", "fallback" },
-        ["<C-j>"] = { "select_next", "fallback" },
-        ["<C-c>"] = { "hide", "fallback" },
-        ["<C-o>"] = { "accept", "fallback" },
-      },
-      completion = { menu = { auto_show = false } },
-    },
+    cmdline = { keymap = { preset = "inherit" }, completion = { menu = { auto_show = false } } },
   },
   opts_extend = { "sources.default" },
-  signature = { enabled = true },
 }

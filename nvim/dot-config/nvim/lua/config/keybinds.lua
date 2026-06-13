@@ -8,12 +8,6 @@ map("n", "<Esc>", function()
   vim.cmd("nohlsearch")
 end, { desc = "Disable Search Highlight" })
 
-map("n", "<leader>so", function()
-  vim.cmd("update")
-  vim.cmd("source")
-  vim.notify("config re-loaded")
-end, { desc = "[S]ource c[O]nfig" })
-
 map("n", "<leader>li", function()
   vim.cmd("Lazy")
 end, { desc = "[L]azy [I]nfo" })
@@ -89,6 +83,4 @@ map("n", "<leader>wq", "<C-W>c", { desc = "Close window", remap = true })
 
 -- editing
 map("n", "dD", "d0", { desc = "Delete to start of line", remap = true })
-
--- quickfix for blink C-o keymap
-map("i", "<C-n>", "<C-o>", { noremap = true, desc = "Execute one normal-mode command" })
+map("n", "_", "0", { desc = "Start of line", remap = true })
