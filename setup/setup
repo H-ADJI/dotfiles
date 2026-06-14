@@ -26,11 +26,11 @@ install_AUR_helper() {
 }
 installpackages() {
     gum log -l info "[START] Installing $COMPOSITOR packages"
-    yay -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - <~/dotfiles/setup/"$COMPOSITOR"/packages >>~/yay.log 2>&1
+    yay -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - <~/dotfiles/setup/"$COMPOSITOR"/requirements.txt >>~/yay.log 2>&1
     gum log -l info "[DONE] Installing $COMPOSITOR packages"
 
     gum log -l info "[START] Installing packages"
-    pkg_file="$HOME/dotfiles/setup/packages"
+    pkg_file="$HOME/dotfiles/setup/requirements.txt"
     total=$(grep -cv '^\s*$' "$pkg_file") # ignore empty lines
     count=0
     while read -r pkg; do
