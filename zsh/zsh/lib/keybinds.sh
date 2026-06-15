@@ -4,6 +4,7 @@ bindkey -e
 # accept zsh-autosuggestions
 bindkey '^y' autosuggest-accept
 bindkey '^ ' autosuggest-execute
+bindkey '^o' forward-word
 
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
