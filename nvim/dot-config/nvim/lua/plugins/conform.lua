@@ -23,6 +23,7 @@ return {
       python = { "ruff_format", "ruff_organize_imports", "ruff_fix" },
       go = { "gofumpt", "golines", "goimports", "gopls" },
       c = { "clang_format" },
+      asm = { "asmfmt" },
       html = { "prettierd" },
       css = { "prettierd" },
       javascript = { "prettierd" },

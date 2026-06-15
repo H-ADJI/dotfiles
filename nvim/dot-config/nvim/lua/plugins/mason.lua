@@ -18,6 +18,7 @@ return {
     opts = {
       automatic_enable = {
         "lua_ls",
+        "asm_lsp",
         "pyright",
         "ruff",
         "bashls",
@@ -46,6 +47,8 @@ return {
     opts = {
       ensure_installed = {
         "lua_ls",
+        "asm_lsp",
+        "asmfmt",
         "just-lsp",
         "jq-lsp",
         "ty",
