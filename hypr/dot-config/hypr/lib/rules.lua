@@ -41,3 +41,4 @@ hl.window_rule({
 hl.workspace_rule({ workspace = "s[true]", gaps_out = 80 })
 
 hl.window_rule({ name = "floating windows", match = { float = true }, workspace = "unset" })
+hl.window_rule({ name = "screen sharing picker", match = { class = "hyprland-share-picker" }, workspace = "unset", float = true })
