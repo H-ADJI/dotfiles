@@ -18,6 +18,7 @@ return {
     opts = {
       automatic_enable = {
         "lua_ls",
+        "nil_ls",
         "asm_lsp",
         "pyright",
         "ruff",
@@ -47,6 +48,8 @@ return {
     opts = {
       ensure_installed = {
         "lua_ls",
+        "nil_ls",
+        "nixfmt",
         "asm_lsp",
         "asmfmt",
         "just-lsp",
