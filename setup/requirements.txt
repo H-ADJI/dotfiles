@@ -68,6 +68,7 @@ pipewire
 playerctl
 podman
 podman-compose
+pulsemixer
 python-pip
 python-setuptools
 python3
