@@ -203,6 +203,7 @@ link_dotfiles() {
         "leetcode"
         "nvim"
         "pipewire"
+        "pulsemixer"
         "ruff"
         "scripts"
         "ssh"
