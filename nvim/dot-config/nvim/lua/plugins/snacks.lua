@@ -91,6 +91,20 @@ return {
       desc = "Goto Implementation",
     },
     {
+      "<leader>sD",
+      function()
+        Snacks.picker.diagnostics()
+      end,
+      desc = "Diagnostics",
+    },
+    {
+      "<leader>sd",
+      function()
+        Snacks.picker.diagnostics_buffer()
+      end,
+      desc = "Buffer Diagnostics",
+    },
+    {
       "cft",
       function()
         Snacks.picker.lsp_type_definitions()
@@ -105,13 +119,6 @@ return {
       desc = "LSP Symbols",
     },
     {
-      "<leader>sS",
-      function()
-        Snacks.picker.lsp_workspace_symbols()
-      end,
-      desc = "LSP Workspace Symbols",
-    },
-    {
       "<leader>e",
       function()
         Snacks.explorer()
@@ -119,33 +126,11 @@ return {
       desc = "File [E]xplorer",
     },
     {
-      "<leader>sb",
-      function()
-        Snacks.picker.lines()
-      end,
-      desc = "Buffer Lines",
-    },
-    {
-      "<leader>sB",
-      function()
-        Snacks.picker.grep_buffers()
-      end,
-      desc = "Grep Open Buffers",
-    },
-    {
       "<leader>sg",
       function()
         Snacks.picker.grep()
       end,
       desc = "Grep",
-    },
-    {
-      "<leader>sw",
-      function()
-        Snacks.picker.grep_word()
-      end,
-      desc = "Visual selection or word",
-      mode = { "n", "x" },
     },
     {
       "<leader>:",
