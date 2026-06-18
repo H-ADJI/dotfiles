@@ -86,6 +86,7 @@ tabiew
 task
 tealdeer
 television
+termdown
 thunar
 tmux
 tmuxp

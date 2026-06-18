@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 DURATION=$(gum input --value 20 --placeholder "Duration in minutes")
-notification_timeout=8000
+notification_timeout=5000
 APP_NAME="Timer"
 
 notify() {
@@ -9,4 +9,4 @@ notify() {
 }
 notify "Timer Activated" "$DURATION minutes of focused work started !"
 
-snore "$DURATION""m" && notify "Time is up" "Time to rest your eyes and take a walk!"
+termdown "$DURATION""m" && notify "Time is up" "Time to rest your eyes and take a walk!"
