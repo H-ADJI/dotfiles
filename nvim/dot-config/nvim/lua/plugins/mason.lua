@@ -50,6 +50,7 @@ return {
         "lua_ls",
         "nil_ls",
         "nixfmt",
+        "statix",
         "asm_lsp",
         "asmfmt",
         "just-lsp",
