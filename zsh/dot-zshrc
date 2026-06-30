@@ -1,5 +1,3 @@
 #!/usr/bin/env zsh
 
 source ~/zsh/main.sh
-
-if [ -e /home/khalil/.nix-profile/etc/profile.d/nix.sh ]; then . /home/khalil/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
