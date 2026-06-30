@@ -15,7 +15,7 @@ projects=(
     "dataimpact-scraping-launcher"
 )
 for PROJECT in "${projects[@]}"; do
-    [ ! -d "$HOME/$PROJECT" ] && git clone "git@bitbucket.org:dataimpact/$PROJECT.git" "$HOME/$PROJECT"
+    [ ! -d "$HOME/projects/$PROJECT" ] && git clone "git@bitbucket.org:dataimpact/$PROJECT.git" "$HOME/projects/$PROJECT"
 done
 
 env_files=(
@@ -30,4 +30,4 @@ for i in "${!env_files[@]}"; do
     FILE="${env_files[$i]}"
     cp "$DOTS_PATH/$FILE" "$HOME/$PROJECT/.env"
 done
-gum log -l info work_setup done
+gum log -l info "work_setup done"
