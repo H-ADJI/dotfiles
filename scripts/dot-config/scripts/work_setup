@@ -7,20 +7,17 @@ sudo chmod -R 777 /opt/T1000
 sudo chmod -R 777 /opt/BotBrowser
 [ ! -d /opt/T1000/fonts/ ] && sudo mkdir -p /opt/T1000/fonts/
 sudo chmod -R 777 /opt/T1000/fonts
+
+PROJECTS_DIR="$HOME/projects"
 projects=(
-    "dataimpact-scraping-monitoring"
-    "di-scraping-api"
-    "dataimpact-scraping"
-    "scraping-cli"
-    "dataimpact-scraping-launcher"
+    "dgscrp-dataimpact-scraping"
+    "dgscrp-scraping-cli"
 )
 for PROJECT in "${projects[@]}"; do
-    [ ! -d "$HOME/projects/$PROJECT" ] && git clone "git@bitbucket.org:dataimpact/$PROJECT.git" "$HOME/projects/$PROJECT"
+    [ ! -d "$PROJECTS_DIR/$PROJECT" ] && git clone --depth 1 "git clone git@github.com-niq:niq-enterprise/$PROJECT.git" "$PROJECTS_DIR/$PROJECT"
 done
 
 env_files=(
-    "dism.env"
-    "disapi.env"
     "dis.env"
     "discli.env"
 )
@@ -28,6 +25,7 @@ DOTS_PATH="$HOME/dotfiles/secrets/"
 for i in "${!env_files[@]}"; do
     PROJECT="${projects[$i]}"
     FILE="${env_files[$i]}"
-    cp "$DOTS_PATH/$FILE" "$HOME/$PROJECT/.env"
+    cp "$DOTS_PATH/$FILE" "$PROJECTS_DIR/$PROJECT/.env"
 done
+
 gum log -l info "work_setup done"
