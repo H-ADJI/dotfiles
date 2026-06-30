@@ -54,6 +54,7 @@ ly
 man-db
 mesa 
 miller
+mise
 mpv
 netcat
 network-manager-applet

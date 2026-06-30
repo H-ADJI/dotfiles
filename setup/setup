@@ -47,6 +47,8 @@ installpackages() {
 }
 
 personal_repos() {
+    projects_dir="$HOME/projects"
+    mkdir "$projects_dir"
     projects=(
         "ccraft"
         "dicli"
@@ -55,8 +57,8 @@ personal_repos() {
         "secondBrain"
         "zmk-config"
     )
-    for PROJECT in "${projects[@]}"; do
-        [ ! -d "$PROJECT" ] && git clone "git@github.com:H-ADJI/$PROJECT.git"
+    for project in "${projects[@]}"; do
+        [ ! -d "$project" ] && git clone --depth 1 "git@github.com:H-ADJI/$project.git" "$projects_dir/$project"
     done
     cd ~/dotfiles/ || return 1
     git remote remove origin
@@ -96,24 +98,6 @@ setup() {
     gum log -l info "[START] Clone some repos"
     personal_repos
     gum log -l info "[DONE] Clone some repos"
-
-    gum log -l info "[START] Realtime audio setup"
-    sudo usermod -aG realtime,audio "$USER"
-    gum log -l info "[DONE] Realtime audio setup"
-
-    gum log -l info "[START] Chosing stable rust toolchain release"
-    rustup default stable
-    gum log -l info "[DONE] Chosing stable rust toolchain release"
-
-    gum log -l info "[START] installing multiple uv python versions"
-    py_versions=(
-        "3.12"
-        "3.11"
-        "3.10"
-        "3.9"
-    )
-    uv python install "${py_versions[@]}"
-    gum log -l info "[DONE] Installing multiple uv python versions"
 
     gum log -l info "[START] nvim headless install"
     nvim --headless -c 'Lazy install' -c 'qa'
@@ -161,8 +145,8 @@ setup() {
     xdg-mime default google-chrome.desktop application/html
     xdg-mime default google-chrome.desktop application/octet-stream
     gum log -l info "[DONE] Default apps"
-    echo "chsh -s /usr/bin/zsh" >>.bashrc
 }
+
 decrypt_secrets() {
     cd ~/dotfiles/ || return 1
     VERIFY=1
@@ -193,7 +177,6 @@ link_dotfiles() {
         "assets"
         "bat"
         "browser"
-        "direnv"
         "fastfetch"
         "fuzzel"
         "ghostty"
@@ -201,6 +184,7 @@ link_dotfiles() {
         "jnv"
         "jqp"
         "leetcode"
+        "mise"
         "nvim"
         "pipewire"
         "pulsemixer"

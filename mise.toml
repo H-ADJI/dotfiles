@@ -3,3 +3,5 @@ run = "podman image build --build-arg PASS=0806 -t arch-test -f ./setup/Containe
 [tasks.test]
 depends = ["build"]
 run = "podman container run -it --rm arch-test:latest"
+[shell_alias]
+test_setup = "mise run test"
