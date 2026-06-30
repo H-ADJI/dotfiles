@@ -1,3 +1,4 @@
+# WARNING: Deprecated, using mise instead
 default: build run
 build:
   podman image build --build-arg PASS=0806 -t arch-test -f ./setup/Containerfile .
