@@ -16,7 +16,7 @@ source ~/zsh/lib/leetcode.sh
 source ~/zsh/lib/nvim.sh
 source ~/zsh/lib/path.sh
 source ~/zsh/lib/scrapy.sh
-source ~/zsh/lib/sound.sh
+source ~/zsh/lib/mise.sh
 source ~/zsh/lib/uv.sh
 source ~/zsh/lib/zoxide.sh
 

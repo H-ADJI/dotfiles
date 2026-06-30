@@ -1,1 +1,1 @@
-eval "$(tv init zsh)"
+_evalcache tv init zsh

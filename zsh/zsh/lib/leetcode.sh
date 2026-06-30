@@ -1,4 +1,4 @@
-eval "$(leetcode completions)"
+_evalcache leetcode completions
 
 leetcode_channel() {
     tv lc
