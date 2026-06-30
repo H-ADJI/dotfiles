@@ -1,0 +1,5 @@
+[tasks.build]
+run = "podman image build --build-arg PASS=0806 -t arch-test -f ./setup/Containerfile ."
+[tasks.test]
+depends = ["build"]
+run = "podman container run -it --rm arch-test:latest"

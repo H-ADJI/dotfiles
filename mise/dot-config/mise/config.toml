@@ -1,0 +1,9 @@
+[settings]
+idiomatic_version_file_enable_tools = ['node', "python"]
+trusted_config_paths = [
+  "~/dgscrp-dataimpact-scraping/",
+  "~/dgscrp-scraping-cli/",
+  "~/dotfiles/",
+]
+env_file = '.env'
+activate_aggressive = true
