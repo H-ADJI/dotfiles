@@ -1,3 +1,4 @@
+#:schema https://mise.jdx.dev/schema/mise.json
 [tasks.build]
 run = "podman image build --build-arg PASS=0806 -t arch-test -f ./setup/Containerfile ."
 [tasks.test]
