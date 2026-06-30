@@ -16,6 +16,7 @@ return {
       "vim",
       "vimdoc",
       "yaml",
+      "toml",
       "nix",
     })
   end,
