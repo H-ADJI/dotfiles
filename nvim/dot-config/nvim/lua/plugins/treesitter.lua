@@ -1,5 +1,6 @@
 return {
   "nvim-treesitter/nvim-treesitter",
+  dependencies = { "neovim-treesitter/treesitter-parser-registry" },
   lazy = false,
   build = ":TSUpdate",
   config = function()
@@ -11,6 +12,8 @@ return {
       "markdown",
       "markdown_inline",
       "python",
+      "zsh",
+      "bash",
       "query",
       "rust",
       "vim",
