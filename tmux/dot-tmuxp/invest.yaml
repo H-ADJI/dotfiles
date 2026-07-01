@@ -1,9 +1,0 @@
-session_name: investments
-suppress_history: true
-start_directory: ~/investments
-windows:
-  - window_name: "notes"
-    shell_command_before: nvim
-    focus: true
-  - window_name: "aichat"
-    shell_command_before: aises

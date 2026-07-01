@@ -1,6 +1,6 @@
 session_name: Notes
 suppress_history: true
-start_directory: ~/secondBrain/
+start_directory: ~/projects/secondBrain/
 windows:
   - window_name: "src"
     shell_command_before: nvim

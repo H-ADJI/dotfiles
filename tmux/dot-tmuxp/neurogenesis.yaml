@@ -1,6 +1,6 @@
 session_name: neurogenesis
 suppress_history: true
-start_directory: ~/neurogenesis/
+start_directory: ~/projects/neurogenesis/
 windows:
   - window_name: "src"
     shell_command_before: nvim
