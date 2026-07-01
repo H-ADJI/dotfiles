@@ -3,9 +3,9 @@
 [settings]
 idiomatic_version_file_enable_tools = ['node', "python"]
 trusted_config_paths = [
+  "~/dotfiles/",
   "~/projects/dgscrp-dataimpact-scraping/",
   "~/projects/dgscrp-scraping-cli/",
-  "~/projects/dotfiles/",
   "~/projects/neurogenesis/",
 ]
 env_file = '.env'
@@ -13,4 +13,5 @@ activate_aggressive = true
 lockfile = true
 
 [tools]
-usage = "latest"
+usage = "3.5.3"
+tmux = "3.6b"
