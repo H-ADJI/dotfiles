@@ -6,16 +6,15 @@ run = "podman image build --build-arg PASS=0806 -t arch-test -f ./setup/Containe
 depends = ["build"]
 run = "podman container run -it --rm arch-test:latest"
 
-[tasks.bootable_usb]
+[tasks.burn]
 description = "Create bootable usb"
 alias = "b"
 usage = '''
 arg "<iso>" help="ISO path"
-arg "<disk>" help="disk to format (/dev/sda) "
 '''
 
 run = '''
-sudo dd if="$usage_iso" of="$usage_disk" bs=1M status=progress conv=fsync
+caligula burn "$usage_iso" -f --root=always --interactive=never --hash=skip
 '''
 
 [shell_alias]
