@@ -48,7 +48,7 @@ return {
     opts = {
       ensure_installed = {
         "lua_ls",
-        "nil_ls",
+        -- "nil_ls",
         "nixfmt",
         "statix",
         "asm_lsp",
