@@ -37,27 +37,6 @@ uv pip uninstall bezier && BEZIER_NO_EXTENSION=true uv pip install --upgrade bez
 uv pip install shub
 
 '''
-[hooks.enter]
-shell = "zsh"
-script = """
-#!/usr/bin/env zsh
-shub_deploy_shortcut() {
-    shub image upload "$SHUB_DEVZONE" --build-arg PYPI_SECRET="$PYPI_SECRET"
-    shub_deploy
-    zle redisplay
-}
-zle -N shub_deploy_shortcut
-bindkey '^x^u' shub_deploy_shortcut
-
-"""
-[hooks.leave]
-shell = "zsh"
-script = """
-#!/usr/bin/env zsh
-unfunction shub_deploy_shortcut
-zle -D shub_deploy_shortcut
-bindkey -r '^x^u'
-"""
 
 [env]
 PROJECT_NAME = "{{ config_root | basename }}"
