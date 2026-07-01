@@ -66,9 +66,6 @@ personal_repos() {
 }
 
 setup() {
-    gum log -l info "[START] Installing TPM"
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-    gum log -l info "[DONE] Installing TPM"
 
     gum log -l info "[START] transcrypt decryption"
     decrypt_secrets
@@ -81,10 +78,6 @@ setup() {
     gum log -l info "[START] Linking dots"
     link_dotfiles
     gum log -l info "[DONE] Linking dots"
-
-    gum log -l info "[START] install tmux plugins"
-    sh ~/.tmux/plugins/tpm/bin/install_plugins
-    gum log -l info "[DONE] install tmux plugins"
 
     gum log -l info "[START] ssh setup"
     ssh_setup
@@ -130,6 +123,22 @@ setup() {
     cp ~/dotfiles/zsh/dot-zsh_history ~/.zsh_history
     gum log -l info "[DONE] copy ZSH history"
 
+    gum log -l info "[START] Installing mise tools"
+    mise i --locked
+    gum log -l info "[DONE] Installing mise tools"
+
+    gum log -l info "[START] Installing TPM"
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    gum log -l info "[DONE] Installing TPM"
+
+    gum log -l info "[START] install tmux plugins"
+    sh ~/.tmux/plugins/tpm/bin/install_plugins
+    gum log -l info "[DONE] install tmux plugins"
+
+    gum log -l info "[START] Default apps"
+    which zsh | sudo tee -a /etc/shells
+    gum log -l info "[DONE] Default apps"
+
     gum log -l info "[START] Default apps"
     xdg-mime default imv.desktop image/jpeg
     xdg-mime default imv.desktop image/png
@@ -139,6 +148,7 @@ setup() {
     xdg-mime default google-chrome.desktop application/html
     xdg-mime default google-chrome.desktop application/octet-stream
     gum log -l info "[DONE] Default apps"
+
 }
 
 decrypt_secrets() {
@@ -212,6 +222,7 @@ ssh_setup() {
 
 }
 
+set -e
 install_AUR_helper
 installpackages
 setup
