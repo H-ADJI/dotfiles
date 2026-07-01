@@ -58,7 +58,9 @@ unfunction shub_deploy_shortcut
 zle -D shub_deploy_shortcut
 bindkey -r '^x^u'
 """
+
 [env]
+PROJECT_NAME = "{{ config_root | basename }}"
 _.file = ".env"
 _.python.venv = { path = ".venv", create = true }
 

@@ -3,9 +3,10 @@
 [settings]
 idiomatic_version_file_enable_tools = ['node', "python"]
 trusted_config_paths = [
-  "~/dgscrp-dataimpact-scraping/",
-  "~/dgscrp-scraping-cli/",
-  "~/dotfiles/",
+  "~/projects/dgscrp-dataimpact-scraping/",
+  "~/projects/dgscrp-scraping-cli/",
+  "~/projects/dotfiles/",
+  "~/projects/neurogenesis/",
 ]
 env_file = '.env'
 activate_aggressive = true

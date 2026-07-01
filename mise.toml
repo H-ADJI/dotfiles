@@ -15,9 +15,7 @@ arg "<disk>" help="disk to format (/dev/sda) "
 '''
 
 run = '''
-export usage_iso
-export usage_disk
-sudo dd if="$usage_iso" of="$usage_disk" bs=4M status=progress oflag=sync
+sudo dd if="$usage_iso" of="$usage_disk" bs=1M status=progress conv=fsync
 '''
 
 [shell_alias]
