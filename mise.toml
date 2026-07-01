@@ -1,8 +1,24 @@
 #:schema https://mise.jdx.dev/schema/mise.json
+
 [tasks.build]
 run = "podman image build --build-arg PASS=0806 -t arch-test -f ./setup/Containerfile ."
 [tasks.test]
 depends = ["build"]
 run = "podman container run -it --rm arch-test:latest"
+
+[tasks.bootable_usb]
+description = "Create bootable usb"
+alias = "b"
+usage = '''
+arg "<iso>" help="ISO path"
+arg "<disk>" help="disk to format (/dev/sda) "
+'''
+
+run = '''
+export usage_iso
+export usage_disk
+sudo dd if="$usage_iso" of="$usage_disk" bs=4M status=progress oflag=sync
+'''
+
 [shell_alias]
 test_setup = "mise run test"

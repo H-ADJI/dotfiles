@@ -10,3 +10,6 @@ trusted_config_paths = [
 env_file = '.env'
 activate_aggressive = true
 lockfile = true
+
+[tools]
+usage = "latest"
