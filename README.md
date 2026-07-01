@@ -16,15 +16,15 @@ archinstall --config-url https://conf.hadji.org/workstation.json
 
 or
 
-```bash
-archinstall --config-url https://raw.githubusercontent.com/H-ADJI/homelab/master/caddy/static/archinstall/workstation.json
+````bash
+archinstall --config-url https://h-adji.github.io/dotfiles/archinstall/workstation.json
 ```
 
 **Desktop Environment**
 
 ```bash
 curl -fsSL conf.hadji.org/setup | bash
-```
+````
 
 or
 
