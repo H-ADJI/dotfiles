@@ -116,7 +116,6 @@ yazi
 zbar
 zoxide
 zsh
-# AUR
 android-studio
 argc
 exercism

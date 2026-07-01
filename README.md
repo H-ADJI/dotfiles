@@ -12,7 +12,6 @@ I hope I didn't leak any unencrypted secrets or ssh keys.
 
 ```bash
 archinstall --config-url https://conf.hadji.org/workstation.json
-archinstall --config-url https://raw.githubusercontent.com/H-ADJI/homelab/master/caddy/static/archinstall/workstation.json
 ```
 
 or
