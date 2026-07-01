@@ -31,7 +31,6 @@ feh
 fuzzel
 fzf
 gcc
-ghostty
 git-delta
 github-cli
 grep
