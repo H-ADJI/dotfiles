@@ -224,7 +224,6 @@ ssh_setup() {
 
 }
 
-set -e
 install_AUR_helper
 installpackages
 setup
