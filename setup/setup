@@ -27,12 +27,12 @@ install_AUR_helper() {
 installpackages() {
     gum log -l info "[START] Installing $COMPOSITOR packages"
     yay -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - \
-        <~/dotfiles/setup/"$COMPOSITOR"/requirements.txt >>~/packages.log 2>>errors.log
+        <~/dotfiles/setup/"$COMPOSITOR"/requirements.txt
     gum log -l info "[DONE] Installing $COMPOSITOR packages"
 
     gum log -l info "[START] Installing common packages"
     yay -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - \
-        <~/dotfiles/setup/requirements.txt >>~/packages.log 2>>errors.log
+        <~/dotfiles/setup/requirements.txt
     gum log -l info "[DONE] Installing common packages"
 
     # gum log -l info "[START] Installing packages"
