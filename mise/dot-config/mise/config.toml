@@ -15,4 +15,4 @@ lockfile = true
 [tools]
 usage = "3.5.3"
 tmux = "3.6b"
-deno = "latest"
+deno = "2.9.0"
