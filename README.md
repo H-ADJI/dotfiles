@@ -11,22 +11,10 @@ I hope I didn't leak any unencrypted secrets or ssh keys.
 **Arch Install Configuration**
 
 ```bash
-archinstall --config-url https://conf.hadji.org/workstation.json
-```
-
-or
-
-````bash
 archinstall --config-url https://h-adji.github.io/dotfiles/archinstall/workstation.json
 ```
 
 **Desktop Environment**
-
-```bash
-curl -fsSL conf.hadji.org/setup | bash
-````
-
-or
 
 ```bash
 curl -fsSL h-adji.github.io/dotfiles/init.sh | bash

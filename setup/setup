@@ -35,21 +35,6 @@ installpackages() {
         <~/dotfiles/setup/requirements.txt
     gum log -l info "[DONE] Installing common packages"
 
-    # gum log -l info "[START] Installing packages"
-    # pkg_file="$HOME/dotfiles/setup/requirements.txt"
-    # total=$(grep -cv '^\s*$' "$pkg_file") # ignore empty lines
-    # count=0
-    # while read -r pkg; do
-    #     [[ -z "$pkg" ]] && continue
-    #     count=$((count + 1))
-    #     gum log -l info "[$(date '+%H:%M:%S')][$count/$total] Installing -> $pkg..."
-    #     yay -Sq --noconfirm --noprogressbar --needed \
-        #         --disable-download-timeout "$pkg" \
-        #         >>"$HOME/yay.log" 2>&1
-    #     gum log -l info "[$(date '+%H:%M:%S')][$count/$total] DONE -> $pkg..."
-    # done <"$pkg_file"
-    # gum log -l info "[DONE] Installing packages"
-
 }
 
 personal_repos() {
@@ -143,7 +128,6 @@ setup() {
 
     gum log -l info "[START] Default shelll"
     which zsh | sudo tee -a /etc/shells
-    chsh -s "$(which zsh)"
     gum log -l info "[DONE] Default shell"
 
     gum log -l info "[START] Default apps"
