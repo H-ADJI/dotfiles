@@ -1,12 +1,12 @@
 # Dotfiles
 
-Since I really care about (my) development experience, this is my second iteration of the [CYBORG PROJECT](https://github.com/H-ADJI/cyborg).
-Feel free to copy or look around for inspiration.
+> PDE: Personal Desktop Environment
 
 ## Setup
 
-A single command to setup my machine automagically :D.
-I hope I didn't leak any unencrypted secrets or ssh keys.
+A single command (actually 2 commands) to set up my machine automagically :D.
+
+> Current PR for an Arch install from scratch : 11 minutes
 
 **Arch Install Configuration**
 
@@ -22,16 +22,11 @@ curl -fsSL h-adji.github.io/dotfiles/init.sh | bash
 
 ## Content
 
-- Dotfiles for my **PDE** (Personalized Development Environment) :
-  - **[v2.0]** Hyprland
-  - **[v1.2]** Sway (swayfx) minimalistic rice for maximum productivity
-  - Homemade Neovim config
-  - Alacritty simple yet effective
-  - Tmux for terminal multitasking and wizardry
-  - ZSH, no idea why i choose it
-  - Starship for a pretty shell prompt
-  - plus a lot of other tools...
-- justfile to automate testing of installation process.
+- Dotfiles for my **PDE** (Personalized Development Environment) based on :
+  - Hyprland
+  - Waybar
+  - Alacritty
+  - Neovim
 
 ## Nerd snipes
 
