@@ -90,7 +90,7 @@ setup() {
     gum log -l info "[DONE] ssh setup"
 
     gum log -l info "[START] docker post install steps"
-    docker_post_install
+    sudo usermod -aG docker "$USER"
     gum log -l info "[DONE] docker post install steps"
 
     gum log -l info "[START] Clone some repos"
@@ -98,8 +98,7 @@ setup() {
     gum log -l info "[DONE] Clone some repos"
 
     gum log -l info "[START] nvim headless install"
-    nvim --headless -c 'Lazy install' -c 'qa'
-    nvim --headless -c 'MasonToolsInstallSync' -c 'qa'
+    nvim --headless -c 'Lazy install' -c 'MasonToolsInstallSync' -c 'qa'
     gum log -l info "[DONE] nvim headless install"
 
     gum log -l info "[START] Set timezone"
@@ -217,10 +216,6 @@ link_dotfiles() {
     )
     stow --adopt --dotfiles "${dotfiles[@]}"
     cd || return 1
-}
-docker_post_install() {
-    sudo groupadd docker
-    sudo usermod -aG docker "$USER"
 }
 ssh_setup() {
     local ssh_private_key="$HOME/.ssh/ssh_git"
