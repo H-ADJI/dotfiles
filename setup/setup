@@ -46,6 +46,7 @@ personal_repos() {
         "neurogenesis"
         "secondBrain"
         "zmk-config"
+        "learn_nix"
     )
     for project in "${projects[@]}"; do
         [ ! -d "$project" ] && git clone --depth 1 "git@github.com:H-ADJI/$project.git" "$projects_dir/$project"
