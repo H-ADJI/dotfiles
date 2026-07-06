@@ -10,6 +10,7 @@ source ~/zsh/lib/history.sh
 source ~/zsh/lib/keybinds.sh
 source ~/zsh/lib/fzf.sh
 source ~/zsh/lib/tv.sh
+source ~/zsh/lib/mise.sh
 source ~/zsh/lib/nvim.sh
 source ~/zsh/lib/path.sh
 

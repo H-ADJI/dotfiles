@@ -49,6 +49,3 @@ zinit snippet OMZP::bun
 
 # mise completions https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/zoxide/zoxide.plugin.zsh
 zinit snippet OMZP::zoxide
-
-# mise completions https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/mise
-zinit snippet OMZP::mise

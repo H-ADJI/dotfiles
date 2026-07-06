@@ -32,6 +32,45 @@ url = "https://dl.deno.land/release/v2.9.0/deno-x86_64-apple-darwin.zip"
 checksum = "sha256:37e3a8e5f4ee360d08bbeec9ee07fdcaa9dcd1a39d4aeaac5807354aec557451"
 url = "https://dl.deno.land/release/v2.9.0/deno-x86_64-pc-windows-msvc.zip"
 
+[[tools.pi]]
+version = "0.80.3"
+backend = "github:earendil-works/pi"
+
+[tools.pi."platforms.linux-arm64"]
+checksum = "sha256:c544ab2a0953a9bda358cab9bc328b1ef6892d4a824d8693880977e4b23c6168"
+url = "https://github.com/earendil-works/pi/releases/download/v0.80.3/pi-linux-arm64.tar.gz"
+url_api = "https://api.github.com/repos/earendil-works/pi/releases/assets/462498372"
+
+[tools.pi."platforms.linux-arm64-musl"]
+checksum = "sha256:c544ab2a0953a9bda358cab9bc328b1ef6892d4a824d8693880977e4b23c6168"
+url = "https://github.com/earendil-works/pi/releases/download/v0.80.3/pi-linux-arm64.tar.gz"
+url_api = "https://api.github.com/repos/earendil-works/pi/releases/assets/462498372"
+
+[tools.pi."platforms.linux-x64"]
+checksum = "sha256:e74a34ac2505556164144d8e39a64d6d5276f092166dad914319edc30c48abee"
+url = "https://github.com/earendil-works/pi/releases/download/v0.80.3/pi-linux-x64.tar.gz"
+url_api = "https://api.github.com/repos/earendil-works/pi/releases/assets/462498373"
+
+[tools.pi."platforms.linux-x64-musl"]
+checksum = "sha256:e74a34ac2505556164144d8e39a64d6d5276f092166dad914319edc30c48abee"
+url = "https://github.com/earendil-works/pi/releases/download/v0.80.3/pi-linux-x64.tar.gz"
+url_api = "https://api.github.com/repos/earendil-works/pi/releases/assets/462498373"
+
+[tools.pi."platforms.macos-arm64"]
+checksum = "sha256:072789f5f5571198bd2d856f1ac4bbc980eecce1d02e7d0acf896e2387e3ee8f"
+url = "https://github.com/earendil-works/pi/releases/download/v0.80.3/pi-darwin-arm64.tar.gz"
+url_api = "https://api.github.com/repos/earendil-works/pi/releases/assets/462498374"
+
+[tools.pi."platforms.macos-x64"]
+checksum = "sha256:c1e007bd68cf3779f09476f9c06de5fc93a00733d4ae34a36a96180156ff1e7f"
+url = "https://github.com/earendil-works/pi/releases/download/v0.80.3/pi-darwin-x64.tar.gz"
+url_api = "https://api.github.com/repos/earendil-works/pi/releases/assets/462498370"
+
+[tools.pi."platforms.windows-x64"]
+checksum = "sha256:ca36266c726214fc351b9a6fcc5093cee8ae73c0ea4cf8ec292b8fa646d334df"
+url = "https://github.com/earendil-works/pi/releases/download/v0.80.3/pi-windows-x64.zip"
+url_api = "https://api.github.com/repos/earendil-works/pi/releases/assets/462498371"
+
 [[tools.tmux]]
 version = "3.6b"
 backend = "aqua:tmux/tmux-builds"
