@@ -165,7 +165,6 @@ decrypt_secrets() {
     cd || return 1
 }
 link_dotfiles() {
-    cd ~/dotfiles/ || return 1
     dotfiles=(
         "aichat"
         "alacritty"
@@ -175,6 +174,7 @@ link_dotfiles() {
         "fastfetch"
         "fuzzel"
         "git"
+        "hunk"
         "jnv"
         "jqp"
         "leetcode"
@@ -198,8 +198,7 @@ link_dotfiles() {
         "zsh"
         "$COMPOSITOR"
     )
-    stow --adopt --dotfiles "${dotfiles[@]}"
-    cd || return 1
+    stow --dotfiles --adopt -d "$HOME/dotfiles/" -t "$HOME" "${dotfiles[@]}"
 }
 ssh_setup() {
     local ssh_private_key="$HOME/.ssh/ssh_git"
