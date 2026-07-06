@@ -12,40 +12,42 @@ map("n", "<leader>li", function()
   vim.cmd("Lazy")
 end, { desc = "[L]azy [I]nfo" })
 
--- save
-map({ "i", "x", "n", "s" }, "<C-s>", function()
-  vim.cmd("w")
-  vim.notify("File Saved")
-end, { desc = "Save file" })
-
 map("n", "<leader>rl", function()
   vim.cmd("LspRestart")
 end, { desc = "[R]estart [L]SP" })
 
--- buffers
-map("n", "<leader>rb", function()
-  vim.cmd("e")
-end, { desc = "[R]eload [B]uffer" })
-
 map("n", "<leader>bb", function()
-  vim.cmd("b#")
+  vim.cmd("bprevious")
 end, { desc = "Switch to recent buffer" })
 
--- better indenting
 map("x", "<", "<gv", { desc = "Indent left and reselect" })
 map("x", ">", ">gv", { desc = "Indent right and reselect" })
 
--- diagnostics
-local formated_diagnostics = function()
-  local diagnostic_format = function(diagnostic)
-    return string.format("%s [%s]", diagnostic.message, diagnostic.source or "unknown source")
-  end
+map("n", "<leader>od", function()
   vim.diagnostic.open_float(nil, {
-    format = diagnostic_format,
+    format = function(diagnostic)
+      return string.format("%s [%s]", diagnostic.message, diagnostic.source or "unknown source")
+    end,
   })
-end
+end, { desc = "[O]pen [D]iagnostics" })
 
-map("n", "<leader>od", formated_diagnostics, { desc = "[O]pen [D]iagnostics" })
+map("n", "<leader>cd", function()
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local lnum = cursor[1] - 1 -- 0-indexed
+  local diagnostics = vim.diagnostic.get(0, { lnum = lnum })
+
+  if #diagnostics == 0 then
+    vim.notify("No diagnostics on current line")
+    return
+  end
+  local file = vim.fn.fnamemodify(vim.fn.expand("%"), ":~:.")
+  local lines = {}
+  for _, d in ipairs(diagnostics) do
+    table.insert(lines, string.format("%s:%d:%d %s [%s]", file, d.lnum + 1, d.col + 1, d.message, d.source or "unknown"))
+  end
+  vim.fn.setreg("+", table.concat(lines, "\n"))
+  vim.notify("Copied " .. #diagnostics .. " diagnostic(s)")
+end, { desc = "[C]opy line [D]iagnostics" })
 
 map("n", "<leader>nd", function()
   vim.diagnostic.jump({ count = 1 })
@@ -55,12 +57,8 @@ map("n", "<leader>pd", function()
   vim.diagnostic.jump({ count = -1 })
 end, { desc = "[P]revious [D]iagnostic" })
 
--- file utils
 map("n", "<leader>pp", function()
-  local file_path = vim.fn.expand("%:p")
-  if file_path == "" then
-    file_path = "[No file opened]"
-  end
+  local file_path = vim.fn.fnamemodify(vim.fn.expand("%"), ":~:.")
   vim.notify(file_path)
   vim.fn.setreg("+", file_path)
 end, { desc = "Copy current file path" })
@@ -75,12 +73,5 @@ map("n", "<leader>fx", function()
   vim.notify("Made " .. file_path .. " executable", vim.log.levels.INFO)
 end, { desc = "Make file executable (chmod +x)" })
 
--- window management
-map("n", "<C-W>fh", "<C-W>_", { desc = "Maximize window height", remap = true })
-map("n", "<C-W>fw", "<C-W>|", { desc = "Maximize window width", remap = true })
-map("n", "<leader>wd", "<C-W>c", { desc = "Delete window", remap = true })
-map("n", "<leader>wq", "<C-W>c", { desc = "Close window", remap = true })
-
--- editing
 map("n", "dD", "d0", { desc = "Delete to start of line", remap = true })
 map("n", "_", "0", { desc = "Start of line", remap = true })
