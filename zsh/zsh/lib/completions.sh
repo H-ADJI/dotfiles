@@ -1,4 +1,5 @@
 # Extending completions path
+[ ! -d "$HOME/.zfunc" ] && mkdir "$HOME/.zfunc"
 fpath+=~/.zfunc
 
 # importing completion loader
