@@ -21,6 +21,7 @@ return {
       "yaml",
       "toml",
       "nix",
+      "kdl",
     })
   end,
 }
