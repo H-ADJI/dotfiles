@@ -31,6 +31,7 @@ fuzzel
 fzf
 gcc
 git-delta
+gnome-boxes
 google-chrome
 grep
 grim
@@ -122,6 +123,7 @@ xorg-server-xephyr
 xorg-server-xvfb
 yazi
 zbar
+zellij
 zmk-studio
 zoxide
 zsh
