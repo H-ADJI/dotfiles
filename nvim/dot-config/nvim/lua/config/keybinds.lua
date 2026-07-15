@@ -13,7 +13,7 @@ map("n", "<leader>li", function()
 end, { desc = "[L]azy [I]nfo" })
 
 map("n", "<leader>rl", function()
-  vim.cmd("LspRestart")
+  vim.cmd("lsp restart")
 end, { desc = "[R]estart [L]SP" })
 
 map("n", "<leader>bb", function()
