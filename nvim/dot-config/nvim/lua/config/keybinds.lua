@@ -17,7 +17,7 @@ map("n", "<leader>rl", function()
 end, { desc = "[R]estart [L]SP" })
 
 map("n", "<leader>bb", function()
-  vim.cmd("bprevious")
+  vim.cmd("b#")
 end, { desc = "Switch to recent buffer" })
 
 map("x", "<", "<gv", { desc = "Indent left and reselect" })
