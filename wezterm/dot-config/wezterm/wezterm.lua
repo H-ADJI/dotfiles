@@ -3,7 +3,7 @@ local config = wezterm.config_builder() ---@type Config
 
 config.color_scheme = "Catppuccin Latte"
 
-config.font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Bold", italic = false })
+config.font = wezterm.font("JetBrainsMono Nerd Font", { weight = 600, italic = false })
 config.font_size = 15
 
 config.enable_tab_bar = false

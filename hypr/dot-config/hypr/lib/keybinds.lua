@@ -3,7 +3,7 @@ hl.bind("mouse:276", hl.dsp.window.close("activewindow"))
 hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload; notify-send 'Hyprland Reloaded'"))
 
 hl.bind("SUPER + B", hl.dsp.exec_cmd("google-chrome-stable "))
-hl.bind("SUPER + SPACE", hl.dsp.exec_cmd("alacritty"))
+hl.bind("SUPER + SPACE", hl.dsp.exec_cmd("wezterm"))
 hl.bind("SUPER + E", hl.dsp.exec_cmd("EDITOR=nvim  wezterm start -- yazi"))
 hl.bind("SUPER + W", hl.dsp.exec_cmd("EDITOR=nvim  wezterm start -- walt"))
 hl.bind("SUPER + SHIFT + E", hl.dsp.exec_cmd("thunar"))
