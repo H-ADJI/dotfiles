@@ -1,12 +1,11 @@
+// TODO: layouts
 layout {
     cwd "~/dotfiles/"
-    tab name="neovim" focus=true {
-        pane command="nvim"
-    }
-    tab {
-        pane name=""
-    }
-    tab {
-        pane name=""
+    tab
+    default_tab_template {
+        children
+        pane size=1 borderless=true {
+            plugin location="cb"
+        }
     }
 }
