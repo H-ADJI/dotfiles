@@ -83,10 +83,6 @@ setup() {
     personal_repos
     gum log -l info "[DONE] Clone some repos"
 
-    gum log -l info "[START] nvim headless install"
-    nvim --headless -c 'Lazy install' -c 'MasonToolsInstallSync' -c 'qa'
-    gum log -l info "[DONE] nvim headless install"
-
     gum log -l info "[START] Set timezone"
     sudo timedatectl set-timezone Europe/Paris
     gum log -l info "[DONE] Set timezone"
@@ -118,6 +114,10 @@ setup() {
     gum log -l info "[START] Installing mise tools"
     mise i --locked
     gum log -l info "[DONE] Installing mise tools"
+
+    gum log -l info "[START] nvim headless install"
+    nvim --headless -c 'Lazy install' -c 'MasonToolsInstallSync' -c 'qa'
+    gum log -l info "[DONE] nvim headless install"
 
     gum log -l info "[START] Installing TPM"
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
