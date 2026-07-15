@@ -3,7 +3,8 @@ hl.bind("mouse:276", hl.dsp.window.close("activewindow"))
 hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload; notify-send 'Hyprland Reloaded'"))
 
 hl.bind("SUPER + B", hl.dsp.exec_cmd("google-chrome-stable"))
-hl.bind("SUPER + SPACE", hl.dsp.exec_cmd("ghostty"))
+local home_dir = os.getenv("HOME")
+hl.bind("SUPER + SPACE", hl.dsp.exec_cmd("ghostty --working-directory=" .. home_dir))
 hl.bind("SUPER + E", hl.dsp.exec_cmd("ghostty -e yazi"))
 hl.bind("SUPER + W", hl.dsp.exec_cmd("ghostty -e walt"))
 hl.bind("SUPER + SHIFT + E", hl.dsp.exec_cmd("thunar"))
@@ -21,7 +22,6 @@ local wlogout_toggle = "pkill wlogout || wlogout -b 4 -T 400 -B 400"
 hl.bind("SUPER + SHIFT + P", hl.dsp.exec_cmd(wlogout_toggle))
 hl.bind("mouse:275", hl.dsp.exec_cmd(wlogout_toggle))
 
-local home_dir = os.getenv("HOME")
 local script_dir = home_dir .. "/.config/scripts/"
 
 local hypr_screen = script_dir .. "hypr_screen "
