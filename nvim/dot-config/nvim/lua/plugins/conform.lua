@@ -46,5 +46,8 @@ return {
       rustfmt = { command = "rustfmt", stdin = true },
       kdlfmt = { args = { "format", "--kdl-version", "v1", "-" }, stdin = true },
     },
+    default_format_opts = {
+      lsp_format = "fallback",
+    },
   },
 }

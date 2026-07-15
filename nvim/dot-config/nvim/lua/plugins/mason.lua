@@ -19,6 +19,7 @@ return {
       automatic_enable = {
         "lua_ls",
         "nil_ls",
+        "fish_lsp",
         "asm_lsp",
         "pyright",
         "ruff",
@@ -87,6 +88,7 @@ return {
         "prettierd",
         "css-lsp",
         "shellcheck",
+        "fish-lsp",
         "shfmt",
         "stylua",
         "beautysh",
