@@ -22,7 +22,7 @@ return {
       providers = { lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 } },
     },
     fuzzy = { implementation = "prefer_rust_with_warning" },
-    cmdline = {  completion = { menu = { auto_show = false } } },
+    cmdline = { completion = { menu = { auto_show = false } } },
   },
   opts_extend = { "sources.default" },
 }
