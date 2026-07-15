@@ -42,6 +42,9 @@ return {
       rust = { "rustfmt" },
       kdl = { "kdlfmt" },
     },
-    formatters = { rustfmt = { command = "rustfmt", stdin = true } },
+    formatters = {
+      rustfmt = { command = "rustfmt", stdin = true },
+      kdlfmt = { args = { "format", "--kdl-version", "v1", "-" }, stdin = true },
+    },
   },
 }
