@@ -1,16 +1,10 @@
 // TODO: plugins
 plugins {
+    // WARNING: does not work properly
+    zellij-palette location="https://github.com/timonwong/zellij-palette/releases/latest/download/zellij-palette.wasm"
     cb location="https://github.com/ndavd/zellij-cb/releases/download/v0.1.2/zellij-cb.wasm"
     choose_tree location="https://github.com/laperlej/zellij-choose-tree/releases/download/v0.4.2/zellij-choose-tree.wasm"
     zextract location="https://github.com/codingfragments/zellij-zextract/releases/download/v0.4.0/zextract.wasm"
-    zellij-palette location="https://github.com/timonwong/zellij-palette/releases/latest/download/zellij-palette.wasm"
-    zellij-palette-themes location="https://github.com/timonwong/zellij-palette/releases/latest/download/zellij-palette.wasm" {
-        palette "themes"
-        theme_dir "~/.config/zellij/themes"
-    }
-    zellij-palette-tools location="https://github.com/timonwong/zellij-palette/releases/latest/download/zellij-palette.wasm" {
-        category "Tools"
-    }
     about location="zellij:about"
     compact-bar location="zellij:compact-bar"
     configuration location="zellij:configuration"
@@ -24,9 +18,8 @@ plugins {
     tab-bar location="zellij:tab-bar"
 }
 load_plugins {
-    cb
-    choose_tree
     session-manager
+    cb
 }
 ui {
     pane_frames {
@@ -40,7 +33,6 @@ default_mode "locked"
 default_layout "default"
 pane_frames true
 show_startup_tips false
-// TODO: tmux keybinds
 keybinds clear-defaults=true {
     locked {
         bind "Ctrl a" {
@@ -57,13 +49,20 @@ keybinds clear-defaults=true {
         }
     }
     normal {
-        bind "ctrl e" {
+        bind "t" {
+            LaunchOrFocusPlugin "zellij-palette" {
+                floating true
+            }
+            SwitchToMode "locked"
+        }
+        bind "space" {
             LaunchOrFocusPlugin "zextract" {
                 floating true
             }
             SwitchToMode "locked"
         }
         bind "s" {
+            // WARNING: do not preload otherwise cant list all sessions + need session manager loaded
             LaunchOrFocusPlugin "choose_tree" {
                 move_to_focused_tab true
                 floating true

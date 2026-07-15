@@ -1,0 +1,25 @@
+{
+    "commands": [
+        {
+            "aliases": ["git", "lg"],
+            "category": "Tools",
+            "description": "open lazygit in a floating command pane",
+            "icon": "󰊢",
+            "shortcut": "Ctrl-G",
+            "title": "lazygit",
+            "action": {
+                "borderless": true,
+                "height": "80%",
+                "popup": "lazygit",
+                "width": "80%"
+            }
+        },
+        {
+            "group": "Tools",
+            "title": "Reload shell rc",
+            "action": {
+                "shell": "exec $SHELL -lc 'source ~/.zshrc'"
+            }
+        }
+    ]
+}
