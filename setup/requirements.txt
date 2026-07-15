@@ -30,6 +30,7 @@ feh
 fuzzel
 fzf
 gcc
+ghostty
 git-delta
 gnome-boxes
 google-chrome
@@ -112,7 +113,6 @@ vulkan-radeon
 walt
 waybar
 wayscriber-bin
-wezterm
 wget
 wikiman
 wireplumber
