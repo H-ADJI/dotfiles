@@ -40,6 +40,7 @@ return {
       toml = { "taplo" },
       typst = { "prettypst" },
       rust = { "rustfmt" },
+      kdl = { "kdlfmt" },
     },
     formatters = { rustfmt = { command = "rustfmt", stdin = true } },
   },

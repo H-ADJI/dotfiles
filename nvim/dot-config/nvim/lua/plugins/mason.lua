@@ -90,6 +90,7 @@ return {
         "shfmt",
         "stylua",
         "beautysh",
+        "kdlfmt",
       },
     },
   },
