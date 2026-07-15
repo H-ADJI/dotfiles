@@ -24,5 +24,9 @@ pane_frames true
 theme "catppuccin-latte"
 default_layout "compact"
 default_mode "locked"
-simplified_ui true
 show_startup_tips false
+ui {
+    pane_frames {
+        rounded_corners true
+    }
+}

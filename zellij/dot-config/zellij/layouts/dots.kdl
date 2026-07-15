@@ -1,0 +1,12 @@
+layout {
+    cwd "~/dotfiles/"
+    tab name="neovim" focus=true {
+        pane command="nvim"
+    }
+    tab {
+        pane name=""
+    }
+    tab {
+        pane name=""
+    }
+}
