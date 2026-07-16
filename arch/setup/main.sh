@@ -15,6 +15,7 @@ sudo pacman -S --noconfirm --noprogressbar --needed --disable-download-timeout "
 
 SETUP_DIR="dotfiles/arch/setup/lib"
 
+# TODO: activate prompts using args
 gum confirm "install AUR helper"
 bash "$SETUP_DIR/aur_helper.sh"
 
