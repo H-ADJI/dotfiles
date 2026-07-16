@@ -1,0 +1,153 @@
+{
+    "app_config": {
+        "audio_config": {
+            "audio": "pipewire"
+        },
+        "bluetooth_config": {
+            "enabled": true
+        }
+    },
+    "archinstall-language": "English",
+    "auth_config": {},
+    "bootloader_config": {
+        "bootloader": "Systemd-boot",
+        "removable": false,
+        "uki": false
+    },
+    "custom_commands": [],
+    "disk_config": {
+        "btrfs_options": {
+            "snapshot_config": null
+        },
+        "config_type": "default_layout",
+        "device_modifications": [
+            {
+                "device": "/dev/nvme0n1",
+                "partitions": [
+                    {
+                        "btrfs": [],
+                        "dev_path": null,
+                        "flags": ["boot", "esp"],
+                        "fs_type": "fat32",
+                        "mount_options": [],
+                        "mountpoint": "/boot",
+                        "obj_id": "b73c92e4-d68d-42b4-8df8-59b296a75350",
+                        "size": {
+                            "sector_size": {
+                                "unit": "B",
+                                "value": 512
+                            },
+                            "unit": "GiB",
+                            "value": 1
+                        },
+                        "start": {
+                            "sector_size": {
+                                "unit": "B",
+                                "value": 512
+                            },
+                            "unit": "MiB",
+                            "value": 1
+                        },
+                        "status": "create",
+                        "type": "primary"
+                    },
+                    {
+                        "btrfs": [
+                            {
+                                "mountpoint": "/",
+                                "name": "@"
+                            },
+                            {
+                                "mountpoint": "/home",
+                                "name": "@home"
+                            },
+                            {
+                                "mountpoint": "/var/log",
+                                "name": "@log"
+                            },
+                            {
+                                "mountpoint": "/var/cache/pacman/pkg",
+                                "name": "@pkg"
+                            }
+                        ],
+                        "dev_path": null,
+                        "flags": [],
+                        "fs_type": "btrfs",
+                        "mount_options": ["compress=zstd"],
+                        "mountpoint": null,
+                        "obj_id": "9ac25521-5315-4199-a627-ee87e6675fd7",
+                        "size": {
+                            "sector_size": {
+                                "unit": "B",
+                                "value": 512
+                            },
+                            "unit": "B",
+                            "value": 999128301568
+                        },
+                        "start": {
+                            "sector_size": {
+                                "unit": "B",
+                                "value": 512
+                            },
+                            "unit": "B",
+                            "value": 1074790400
+                        },
+                        "status": "create",
+                        "type": "primary"
+                    }
+                ],
+                "wipe": true
+            }
+        ]
+    },
+    "hostname": "archlinux",
+    "kernels": ["linux"],
+    "locale_config": {
+        "kb_layout": "us",
+        "sys_enc": "UTF-8",
+        "sys_lang": "en_US.UTF-8"
+    },
+    "network_config": {
+        "nics": [
+            {
+                "dhcp": true,
+                "dns": [],
+                "gateway": null,
+                "iface": "wlan0",
+                "ip": null
+            },
+            {
+                "dhcp": true,
+                "dns": [],
+                "gateway": null,
+                "iface": "enp5s0",
+                "ip": null
+            }
+        ],
+        "type": "manual"
+    },
+    "ntp": true,
+    "packages": [],
+    "parallel_downloads": 0,
+    "profile_config": {
+        "gfx_driver": "All open-source",
+        "greeter": "ly",
+        "profile": {
+            "custom_settings": {
+                "Hyprland": {
+                    "seat_access": "polkit"
+                }
+            },
+            "details": ["Hyprland"],
+            "main": "Desktop"
+        }
+    },
+    "script": null,
+    "services": [],
+    "swap": {
+        "algorithm": "zstd",
+        "enabled": true
+    },
+    "timezone": "Europe/Paris",
+    "version": "3.0.15"
+}

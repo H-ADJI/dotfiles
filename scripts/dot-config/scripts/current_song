@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+playerctl metadata --format '  {{trunc(title, 40)}} - {{artist}}' || echo '  No Active Song        '

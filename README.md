@@ -32,17 +32,17 @@ curl -fsSL h-adji.github.io/dotfiles/init.sh | bash
 
 ### Desktop
 
-![](./snipes/ns3.png)
+![](./nerd_snipes/ns3.png)
 
 ### Lock Screen
 
-![](./snipes/ns2.png)
+![](./nerd_snipes/ns2.png)
 
 ### Neovim
 
-![](./snipes/ns5.png)
-![](./snipes/ns6.png)
+![](./nerd_snipes/ns5.png)
+![](./nerd_snipes/ns6.png)
 
 ### Battlestation
 
-![](./snipes/ns1.png)
+![](./nerd_snipes/ns1.png)

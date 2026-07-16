@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+DURATION=$(gum input --value 60 --placeholder "Duration in minutes")
+notification_timeout=5000
+APP_NAME="Timer"
+
+notify() {
+    notify-send "$1" "$2" -t "$notification_timeout" -a "$APP_NAME"
+    paplay /usr/share/sounds/freedesktop/stereo/complete.oga
+}
+notify "Timer Activated" "$DURATION minutes of focused work started !"
+
+termdown "$DURATION""m" && notify "Time is up" "Time to rest your eyes and take a walk!"
