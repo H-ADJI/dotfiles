@@ -21,4 +21,4 @@ fi
 
 CURRENT_OS="$(echo_os)"
 
-bash "$HOME/dotfiles/$CURRENT_OS/setup/setup"
+bash "$HOME/dotfiles/$CURRENT_OS/setup/main.sh"
