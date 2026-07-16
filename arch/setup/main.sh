@@ -22,8 +22,6 @@ bash "$SETUP_DIR/packages.sh"
 
 bash "$SETUP_DIR/dotfiles.sh"
 
-bash "$SETUP_DIR/projects.sh"
-
 bash "$SETUP_DIR/extra_packages.sh"
 
 bash "$SETUP_DIR/system_state.sh"
