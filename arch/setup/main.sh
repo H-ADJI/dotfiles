@@ -22,6 +22,7 @@ bash "$SETUP_DIR/packages.sh"
 
 bash "$SETUP_DIR/secrets.sh"
 
+gum "waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa3"
 bash "$SETUP_DIR/dotfiles.sh"
 
 bash "$SETUP_DIR/projects.sh"
