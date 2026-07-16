@@ -1,8 +1,9 @@
 gum log -l info "[START] transcrypt decryption"
 
 cd ~/dotfiles/ || exit 1
+
 VERIFY=1
-STORED_HASH=$(cat ./lock.secure)
+STORED_HASH="4bf69f1718ef5130a05c4d01b363b1ca65ef92081449e24cc1d37fe7a9a07c69"
 
 while true; do
     MASTER_PASSWORD=$(
