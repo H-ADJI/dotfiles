@@ -1,19 +1,22 @@
-FROM archlinux:latest
+FROM archlinux:base-devel
 LABEL maintainer="H-ADJI <https://github.com/H-ADJI>"
+COPY arch/setup/lib/requirements.txt .
+RUN pacman -Syu --noconfirm go vim gum git \
+    && pacman -S --noconfirm --needed \
+    $(grep -v '^#' requirements.txt | while read pkg; do pacman -Si "$pkg" >/dev/null 2>&1 && echo "$pkg"; done)
+ARG USER=test-user
+RUN useradd --system --create-home ${USER} \
+    && echo "${USER} ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/${USER}
+USER ${USER}
+WORKDIR /home/${USER}
+RUN git clone https://aur.archlinux.org/yay.git \
+    && cd yay \
+    && makepkg -sri --needed --noconfirm \
+    && cd \
+    && rm -rf .cache yay
 ENV TERM=xterm-256color
 ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US.UTF-8
 ENV LC_CTYPE=en_US.UTF-8
-RUN pacman -Syu --noconfirm curl base-devel go vim gum git
-ARG USER=test-user
-ARG PASS
-RUN useradd -m ${USER} &&  echo "${USER}:${PASS}" | chpasswd 
-RUN echo "${USER} ALL=(ALL) ALL" >> /etc/sudoers
-USER ${USER}
-WORKDIR /home/${USER}
-COPY . ./dotfiles
-ARG SETUP_DIR="dotfiles/arch/setup/lib"
-RUN bash "${SETUP_DIR}/aur_helper.sh"
-RUN bash "${SETUP_DIR}/packages.sh"
 # TODO: take branch name as arg for easy testing
 CMD ["/bin/bash","-c","curl -fsSL https://raw.githubusercontent.com/H-ADJI/dotfiles/migration/multi_os_setup/init.sh | bash ; exec bash"]
