@@ -9,12 +9,15 @@ toInstall=(
     "gum"
 )
 sudo pacman -S --noconfirm --noprogressbar --needed --disable-download-timeout "${toInstall[@]}"
-[ ! -d "dotfiles" ] && git clone https://github.com/H-ADJI/dotfiles
 
-bash ./lib/aur_helper.sh
-bash ./lib/packages.sh
-bash ./lib/projects.sh
-bash ./lib/secrets.sh
-bash ./lib/dotfiles.sh
-bash ./lib/extra_packages.sh
-bash ./lib/system_state.sh
+# TODO: dynamic branch from args
+[ ! -d "dotfiles" ] && git clone --branch migration/multi_os_setup https://github.com/H-ADJI/dotfiles
+
+SETUP_DIR="dotfiles/arch/setup/lib"
+bash "$SETUP_DIR/aur_helper.sh"
+bash "$SETUP_DIR/packages.sh"
+bash "$SETUP_DIR/projects.sh"
+bash "$SETUP_DIR/secrets.sh"
+bash "$SETUP_DIR/dotfiles.sh"
+bash "$SETUP_DIR/extra_packages.sh"
+bash "$SETUP_DIR/system_state.sh"
