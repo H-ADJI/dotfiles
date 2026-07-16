@@ -20,5 +20,4 @@ fi
 [ ! -d "dotfiles" ] && git clone https://github.com/H-ADJI/dotfiles
 
 CURRENT_OS="$(echo_os)"
-
-bash "$HOME/dotfiles/$CURRENT_OS/setup/main.sh"
+curl -fsSL "https://raw.githubusercontent.com/H-ADJI/dotfiles/migration/multi_os_setup/$CURRENT_OS/setup/main.sh" | bash
