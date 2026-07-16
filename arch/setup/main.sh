@@ -13,7 +13,7 @@ sudo pacman -S --noconfirm --noprogressbar --needed --disable-download-timeout "
 
 cat >>~/.bashrc <<'EOF'
 SETUP_DIR="dotfiles/arch/setup/lib"
-launc_setup() {
+launch_setup() {
     bash "$SETUP_DIR/aur_helper.sh"
     bash "$SETUP_DIR/packages.sh"
     bash "$SETUP_DIR/dotfiles.sh"
