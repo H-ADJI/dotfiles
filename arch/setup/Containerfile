@@ -1,9 +1,8 @@
 FROM archlinux:base-devel
 LABEL maintainer="H-ADJI <https://github.com/H-ADJI>"
-COPY arch/setup/lib/requirements.txt .
-RUN pacman -Syu --noconfirm go vim gum git \
-    && pacman -S --noconfirm --needed \
-    $(grep -v '^#' requirements.txt | while read pkg; do pacman -Si "$pkg" >/dev/null 2>&1 && echo "$pkg"; done)
+RUN pacman -Syu --noconfirm go vim gum git 
+COPY arch/setup/lib/requirements-pacman.txt .
+RUN pacman -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - <requirements-pacman.txt
 ARG USER=test-user
 RUN useradd --system --create-home ${USER} \
     && echo "${USER} ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/${USER}

@@ -1,4 +1,0 @@
-httptoolkit
-android-studio
-genymotion
-android-tools 
