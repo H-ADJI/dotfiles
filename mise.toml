@@ -20,4 +20,4 @@ caligula burn "$usage_iso" -f --root=always --interactive=never --hash=skip
 '''
 
 [shell_alias]
-test_arch = "mise run test"
+test_arch = "mise run test arch"
