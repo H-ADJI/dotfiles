@@ -1,4 +1,5 @@
 #!/bin/env bash
+# shellcheck disable=all
 
 sudo pacman -Syu --noconfirm
 toInstall=(
