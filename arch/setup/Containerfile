@@ -4,12 +4,16 @@ ENV TERM=xterm-256color
 ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US.UTF-8
 ENV LC_CTYPE=en_US.UTF-8
-RUN pacman -Syu --noconfirm curl base-devel
+RUN pacman -Syu --noconfirm curl base-devel go vim gum git
 ARG USER=test-user
 ARG PASS
 RUN useradd -m ${USER} &&  echo "${USER}:${PASS}" | chpasswd 
 RUN echo "${USER} ALL=(ALL) ALL" >> /etc/sudoers
 USER ${USER}
 WORKDIR /home/${USER}
+COPY . ./dotfiles
+ARG SETUP_DIR="dotfiles/arch/setup/lib"
+RUN bash "${SETUP_DIR}/aur_helper.sh"
+RUN bash "${SETUP_DIR}/packages.sh"
 # TODO: take branch name as arg for easy testing
 CMD ["/bin/bash","-c","curl -fsSL https://raw.githubusercontent.com/H-ADJI/dotfiles/migration/multi_os_setup/init.sh | bash ; exec bash"]
