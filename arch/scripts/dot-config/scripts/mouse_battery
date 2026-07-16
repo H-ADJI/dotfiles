@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+solaar show 1 2>/dev/null | grep -m 1 -oP '\d+\%'
