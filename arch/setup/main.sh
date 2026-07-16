@@ -16,16 +16,10 @@ sudo pacman -S --noconfirm --noprogressbar --needed --disable-download-timeout "
 SETUP_DIR="dotfiles/arch/setup/lib"
 
 # TODO: early return for manual testing
-bash "$SETUP_DIR/aur_helper.sh"
-
-bash "$SETUP_DIR/packages.sh"
-
-bash "$SETUP_DIR/secrets.sh"
-
-bash "$SETUP_DIR/dotfiles.sh"
-
-bash "$SETUP_DIR/projects.sh"
-
-bash "$SETUP_DIR/extra_packages.sh"
-
-bash "$SETUP_DIR/system_state.sh"
+source ./lib/aur_helper.sh
+source ./lib/packages.sh
+source ./lib/secrets.sh
+source ./lib/dotfiles.sh
+source ./lib/projects.sh
+source ./lib/extra_packages.sh
+source ./lib/system_state.sh
