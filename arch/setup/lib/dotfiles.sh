@@ -5,12 +5,8 @@ rm -rf "$HOME/.config/hypr"
 cp ~/dotfiles/arch/zsh/dot-zsh_history ~/.zsh_history
 
 for dir in "$HOME"/dotfiles/arch/*/; do
-    package="${dir##*/}"
-
-    stow --dotfiles --adopt \
-        -d "$HOME/dotfiles/arch" \
-        -t "$HOME" \
-        "$package" || exit 1
+    echo "package"
+    stow --dotfiles --adopt -d "$HOME/dotfiles/arch" -t "$HOME" "$(basename "$dir")"
 done
 
 ssh_private_key="$HOME/.ssh/ssh_git"
