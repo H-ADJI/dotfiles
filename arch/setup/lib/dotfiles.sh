@@ -1,45 +1,17 @@
 gum log -l info "[START] Linking dots"
 
-dotfiles=(
-    "aichat"
-    # TODO: migrate to ghostty
-    "alacritty"
-    "assets"
-    "bat"
-    "browser"
-    "fastfetch"
-    "fuzzel"
-    "git"
-    "hunk"
-    "jnv"
-    "jqp"
-    "leetcode"
-    "mise"
-    "nvim"
-    "pipewire"
-    "pulsemixer"
-    "ruff"
-    "scripts"
-    "ssh"
-    "starship"
-    "sunsetr"
-    "swappy"
-    "tabiew"
-    "task"
-    "tmux"
-    "tv"
-    "walt"
-    "ghostty"
-    "yazi"
-    "zsh"
-    "$COMPOSITOR"
-)
-
-rm -rf "$HOME/.config/$COMPOSITOR"
+rm -rf "$HOME/.config/hypr"
 
 cp ~/dotfiles/arch/zsh/dot-zsh_history ~/.zsh_history
 
-stow --dotfiles --adopt -d "$HOME/dotfiles/arch/" -t "$HOME" "${dotfiles[@]}"
+for dir in "$HOME"/dotfiles/arch/*/; do
+    package="${dir##*/}"
+
+    stow --dotfiles --adopt \
+        -d "$HOME/dotfiles/arch" \
+        -t "$HOME" \
+        "$package" || exit 1
+done
 
 ssh_private_key="$HOME/.ssh/ssh_git"
 eval "$(ssh-agent -s)"
