@@ -13,13 +13,19 @@ sudo pacman -S --noconfirm --noprogressbar --needed --disable-download-timeout "
 # TODO: dynamic branch from args
 [ ! -d "dotfiles" ] && git clone --branch migration/multi_os_setup https://github.com/H-ADJI/dotfiles
 
-SETUP_DIR="dotfiles/arch/setup/lib"
+SETUP_DIR="$HOME/dotfiles/arch/setup/lib"
 
 # TODO: early return for manual testing
-source ./lib/aur_helper.sh
-source ./lib/packages.sh
-source ./lib/secrets.sh
-source ./lib/dotfiles.sh
-source ./lib/projects.sh
-source ./lib/extra_packages.sh
-source ./lib/system_state.sh
+source $SETUP_DIR/aur_helper.sh
+
+source "$SETUP_DIR/packages.sh"
+
+source "$SETUP_DIR/secrets.sh"
+
+source "$SETUP_DIR/dotfiles.sh"
+
+source "$SETUP_DIR/projects.sh"
+
+source "$SETUP_DIR/extra_packages.sh"
+
+source "$SETUP_DIR/system_state.sh"
