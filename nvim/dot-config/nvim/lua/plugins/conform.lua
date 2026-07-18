@@ -41,6 +41,7 @@ return {
       typst = { "prettypst" },
       rust = { "rustfmt" },
       kdl = { "kdlfmt" },
+      dockerfile = { "dockerfmt" },
     },
     formatters = {
       rustfmt = { command = "rustfmt", stdin = true },
