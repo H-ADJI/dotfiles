@@ -13,6 +13,7 @@ source ~/zsh/lib/mise.sh
 source ~/zsh/lib/nvim.sh
 source ~/zsh/lib/path.sh
 source ~/zsh/lib/tv.sh
-source ~/zsh/lib/zellij.sh
+# source ~/zsh/lib/zellij.sh
+source ~/zsh/lib/zoxide.sh
 
 zinit cdreplay -q
