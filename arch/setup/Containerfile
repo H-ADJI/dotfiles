@@ -1,11 +1,11 @@
 FROM archlinux:base-devel
 LABEL maintainer="H-ADJI <https://github.com/H-ADJI>"
-RUN pacman -Syu --noconfirm go vim gum git 
+RUN pacman -Syu --noconfirm go vim gum git
 COPY arch/setup/lib/requirements-pacman.txt .
 RUN pacman -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - <requirements-pacman.txt
 ARG USER=test-user
 RUN useradd --system --create-home ${USER} \
-    && echo "${USER} ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/${USER}
+    && echo "${USER} ALL=(ALL:ALL) NOPASSWD:ALL" >/etc/sudoers.d/${USER}
 USER ${USER}
 WORKDIR /home/${USER}
 RUN git clone https://aur.archlinux.org/yay.git \
@@ -18,4 +18,5 @@ ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US.UTF-8
 ENV LC_CTYPE=en_US.UTF-8
 # TODO: take branch name as arg for easy testing
-CMD ["/bin/bash","-c","curl -fsSL https://raw.githubusercontent.com/H-ADJI/dotfiles/migration/multi_os_setup/init.sh | bash ; exec bash"]
+ENTRYPOINT ["/bin/env", "bash", "-c"]
+CMD ["curl -fsSL https://raw.githubusercontent.com/H-ADJI/dotfiles/migration/multi_os_setup/init.sh | bash ; exec bash"]
