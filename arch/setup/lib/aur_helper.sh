@@ -1,5 +1,10 @@
 set -euo pipefail
 
+if command -v yay &>/dev/null; then
+    gum log -l info "yay already installed, skipping"
+    exit 0
+fi
+
 gum log -l info "[START] AUR helper"
 
 YAY_DIR="/tmp/yay"
