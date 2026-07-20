@@ -38,7 +38,7 @@ ssh_private_key="$HOME/.ssh/ssh_git"
 gum log -l info "Starting SSH agent"
 eval "$(ssh-agent -s)" &>/dev/null
 chmod 600 "$ssh_private_key"
-ssh-add "$ssh_private_key" &>/dev/null
+ssh-add "$ssh_private_key" 
 
 projects_dir="$HOME/projects"
 mkdir -p "$projects_dir"
