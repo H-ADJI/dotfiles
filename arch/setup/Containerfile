@@ -8,7 +8,7 @@ ARG USER=test-user
 
 # Minimal packages needed before dotfiles repo is available:
 # go (yay build), vim (default editor), gum (UI prompts), git (clone)
-RUN pacman -Syu --noconfirm go vim gum git
+RUN pacman -Syyu --noconfirm go vim gum git
 
 # Pre-install setup-essential pacman packages only.
 # Extras (games, browsers, fonts) deferred to install-extras.sh.
