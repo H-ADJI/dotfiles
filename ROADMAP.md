@@ -24,7 +24,7 @@ Existing `arch/` setup works conceptually but has bugs and fragility.
 
 ### packages.sh
 
-5. **Fragile `SETUP_DIR` path.** Hardcodes `dotfiles/arch/setup/lib` relative to `$HOME`. When called from `main.sh`, working directory may differ. Use `SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"` for robust path resolution.
+5. ~~Fragile `SETUP_DIR` path.~~ **Resolved.** All setup merged into single `main.sh`. No more `SETUP_DIR/lib` path issue.
 
 ### dotfiles.sh
 
@@ -54,7 +54,7 @@ After Phase 0 fixes, improve the arch setup:
 
 1. **Modular runner.** Instead of `launch_setup` defining functions in `.bashrc`, create an orchestrator script `arch/setup/run.sh` that sources and runs each lib script sequentially with proper error handling (`set -euo pipefail`).
 
-2. **Shared lib.** Extract common utilities (logging wrapper, OS detection, user prompts) into `arch/setup/lib/common.sh`. Each module sources it.
+2. ~~Shared lib.~~ **Superseded.** Scripts merged into single `main.sh`, no lib directory.
 
 3. **Container test pass.** Verify `mise run build arch && mise run test arch` completes successfully with no interactive prompts (except password verification).
 
@@ -67,7 +67,7 @@ After Phase 0 fixes, improve the arch setup:
 
 5. **Delete root-level config duplicates** (zsh/, nvim/, hypr/, tmux/, etc.) once `arch/` stow verified. Stow target is `arch/` now.
 
-6. **Delete old `setup/` directory** (monolithic `setup/setup`, old Containerfile, old requirements). All functionality ported to `arch/setup/lib/`.
+6. **Delete old `setup/` directory** (monolithic `setup/setup`, old Containerfile, old requirements). All functionality ported to `arch/setup/main.sh`.
 
 7. **Single `.gitattributes` and `.gitignore` at root.** Remove `arch/.gitattributes` and `arch/.gitignore` — files inside `arch/` are matched by root-level patterns. Update root `.gitattributes` paths to reference `arch/` variants where needed (e.g., `arch/zsh/dot-zsh_history`).
 
@@ -179,7 +179,7 @@ stow --dotfiles -d "$HOME/dotfiles/$CURRENT_OS" -t "$HOME" */
 
 ### To modify
 - `arch/setup/main.sh` — bugfixes per Phase 0
-- `arch/setup/lib/*.sh` — bugfixes, path hardening, debug cleanup
+- `arch/setup/main.sh` — unified setup script (was 5 separate lib files)
 - `init.sh` — optional: detect branch dynamically
 - `mise.toml` — add macos/nixos tasks
 - `.gitattributes` — update paths for new structure
@@ -189,7 +189,7 @@ stow --dotfiles -d "$HOME/dotfiles/$CURRENT_OS" -t "$HOME" */
 - `macos/` — macOS-specific configs + `setup/`
 - `nixos/` — NixOS flake + `setup/`
 - `arch/setup/run.sh` — orchestrator runner
-- `arch/setup/lib/common.sh` — shared utilities
+- `arch/setup/lib/` — **Deleted.** All scripts merged into `main.sh`.
 
 ---
 
