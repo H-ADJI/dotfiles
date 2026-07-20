@@ -10,6 +10,5 @@ echo_os() {
     echo "$ID"
 }
 
-
 CURRENT_OS="$(echo_os)"
-curl -fsSL "https://raw.githubusercontent.com/H-ADJI/dotfiles/migration/multi_os_setup/$CURRENT_OS/setup/main.sh" | bash
+curl -fsSL "https://h-adji.github.io/dotfiles/$CURRENT_OS/setup/main.sh" | bash
