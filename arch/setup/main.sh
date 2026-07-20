@@ -1,12 +1,15 @@
 #!/bin/env bash
 set -euo pipefail
-BRANCH="${1:-migration/multi_os_setup}"
+BRANCH="${1:-master}"
 SETUP_DIR="$HOME/dotfiles/arch/setup/lib"
 
 run_step() {
     local step="$1"
     gum log -l info "[START] ${step%.sh}"
-    bash "$SETUP_DIR/$step" || { gum log -l error "[FAIL] $step"; exit 1; }
+    bash "$SETUP_DIR/$step" || {
+        gum log -l error "[FAIL] $step"
+        exit 1
+    }
     gum log -l info "[DONE] ${step%.sh}"
 }
 

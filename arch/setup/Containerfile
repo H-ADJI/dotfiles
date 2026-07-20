@@ -3,7 +3,7 @@ LABEL maintainer="H-ADJI <https://github.com/H-ADJI>"
 
 # Branch setup scripts clone from; also passed to main.sh for re-clone on test
 # Override via --build-arg BRANCH=other-branch
-ARG BRANCH=migration/multi_os_setup
+ARG BRANCH=master
 ARG USER=test-user
 
 # Minimal packages needed before dotfiles repo is available:
