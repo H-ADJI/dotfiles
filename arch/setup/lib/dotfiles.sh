@@ -1,8 +1,6 @@
 set -euo pipefail
 trap 'echo "[FAIL] $(basename $0) line $LINENO" >&2' ERR
 
-gum log -l info "[START] Clone projects"
-
 DOTFILES="$HOME/dotfiles"
 
 git -C "$DOTFILES" remote remove origin
@@ -51,5 +49,3 @@ projects=(
 for project in "${projects[@]}"; do
     [ ! -d "$project" ] && git clone -q --depth 1 "git@github.com:H-ADJI/$project.git" "$projects_dir/$project"
 done
-
-gum log -l info "[DONE] Clone projects"
