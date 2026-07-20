@@ -1,6 +1,11 @@
 set -euo pipefail
 trap 'echo "[FAIL] $(basename $0) line $LINENO" >&2' ERR
 
+if [ ! -d /run/systemd/system ]; then
+    gum log -l info "Not running under systemd, skipping system state"
+    exit 0
+fi
+
 sudo usermod -aG docker "$USER"
 sudo timedatectl set-timezone Europe/Paris
 sudo systemctl enable --now iwd.service
