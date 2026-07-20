@@ -31,8 +31,8 @@ install_packages() {
 
 setup_dotfiles() {
     gum log -l info "Switching remote to SSH"
-    git -C "$DOTFILES" remote set-url origin git@github.com:H-ADJI/dotfiles.git 2>/dev/null \
-        || git -C "$DOTFILES" remote add origin git@github.com:H-ADJI/dotfiles.git
+    git -C "$DOTFILES" remote set-url origin git@github.com:H-ADJI/dotfiles.git 2>/dev/null ||
+    git -C "$DOTFILES" remote add origin git@github.com:H-ADJI/dotfiles.git
 
     local STORED_HASH="4bf69f1718ef5130a05c4d01b363b1ca65ef92081449e24cc1d37fe7a9a07c69"
 
@@ -69,6 +69,7 @@ setup_dotfiles() {
     chmod 600 "$ssh_private_key"
     ssh-add -l &>/dev/null || ssh-add "$ssh_private_key" &>/dev/null
 
+    gum log -l info "Cloning Projects"
     local projects_dir="$HOME/projects"
     mkdir -p "$projects_dir"
     local -a projects=(ccraft homelab neurogenesis secondBrain zmk-config learn_nix)
@@ -94,19 +95,19 @@ install_extras() {
         gum log -l info "Container detected, skipping extra packages"
         return
     fi
-    gum log -l info "[START] Installing extra pacman packages"
+    gum log -l warn "[START] Installing extra pacman packages"
     sudo pacman -S --noconfirm --needed --disable-download-timeout - \
         <"$DOTFILES/arch/setup/packages/pacman-extra.txt"
     gum log -l info "[DONE] Extra pacman packages"
-    gum log -l info "[START] Installing extra AUR packages"
+    gum log -l warn "[START] Installing extra AUR packages"
     yay -S --noconfirm --needed --disable-download-timeout - \
         <"$DOTFILES/arch/setup/packages/aur-extra.txt"
     gum log -l info "[DONE] Extra AUR packages"
 }
 
 setup_system_state() {
-    if ! command -v systemctl &>/dev/null; then
-        gum log -l info "Not running under systemd, skipping system state"
+    if systemd-detect-virt -c &>/dev/null; then
+        gum log -l info "Container detected, skipping"
         return
     fi
 
@@ -128,26 +129,26 @@ setup_system_state() {
 }
 
 # ── Run ────────────────────────────────────────────────────────────
-gum log -l info "[START] aur_helper"
+gum log -l warn "[START] aur_helper"
 install_aur_helper
 gum log -l info "[DONE] aur_helper"
 
-gum log -l info "[START] packages"
+gum log -l warn "[START] packages"
 install_packages
 gum log -l info "[DONE] packages"
 
-gum log -l info "[START] dotfiles"
+gum log -l warn "[START] dotfiles"
 setup_dotfiles
 gum log -l info "[DONE] dotfiles"
 
-gum log -l info "[START] dev tools"
+gum log -l warn "[START] dev tools"
 install_devtools
 gum log -l info "[DONE] dev tools"
 
-gum log -l info "[START] system_state"
+gum log -l warn "[START] system_state"
 setup_system_state
 gum log -l info "[DONE] system_state"
 
-gum log -l info "[START] extras"
+gum log -l warn "[START] extras"
 install_extras
 gum log -l info "[DONE] extras"
