@@ -3,6 +3,7 @@ trap 'echo "[FAIL] $(basename $0) line $LINENO" >&2' ERR
 
 DOTFILES="$HOME/dotfiles"
 
+gum log -l info "Switching remote to SSH"
 git -C "$DOTFILES" remote remove origin
 git -C "$DOTFILES" remote add origin git@github.com:H-ADJI/dotfiles.git
 
@@ -21,17 +22,20 @@ while true; do
     fi
 done
 
-(cd "$DOTFILES" && transcrypt -y -p "$MASTER_PASSWORD")
+gum log -l info "Decrypting secrets"
+(cd "$DOTFILES" && transcrypt -y -p "$MASTER_PASSWORD") &>/dev/null
 
 rm -rf "$HOME/.config/hypr"
 
 cp ~/dotfiles/arch/zsh/dot-zsh_history ~/.zsh_history
 
+gum log -l info "Stowing dotfiles"
 for dir in "$HOME"/dotfiles/arch/*/; do
     stow --dotfiles --adopt -d "$HOME/dotfiles/arch" -t "$HOME" "$(basename "$dir")" 2>/dev/null
 done
 
 ssh_private_key="$HOME/.ssh/ssh_git"
+gum log -l info "Starting SSH agent"
 eval "$(ssh-agent -s)" &>/dev/null
 chmod 600 "$ssh_private_key"
 ssh-add "$ssh_private_key" &>/dev/null
@@ -49,3 +53,4 @@ projects=(
 for project in "${projects[@]}"; do
     [ ! -d "$project" ] && git clone -q --depth 1 "git@github.com:H-ADJI/$project.git" "$projects_dir/$project"
 done
+gum log -l info "Projects cloned"
