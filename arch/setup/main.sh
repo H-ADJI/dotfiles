@@ -27,9 +27,9 @@ install_aur_helper() {
 install_packages() {
     REQ_DIR="$DOTFILES/arch/setup/packages"
     sudo pacman -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - \
-        <"$REQ_DIR/requirements-pacman.txt"
+        <"$REQ_DIR/pacman.txt"
     yay -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - \
-        <"$REQ_DIR/requirements-aur.txt"
+        <"$REQ_DIR/aur.txt"
 }
 
 # ── Dotfiles ───────────────────────────────────────────────────────
@@ -91,6 +91,22 @@ install_devtools() {
     bash ~/.tmux/plugins/tpm/bin/install_plugins &>/dev/null
 }
 
+# ── Extra Packages ─────────────────────────────────────────────────
+install_extras() {
+    if systemd-detect-virt -c &>/dev/null; then
+        gum log -l info "Container detected, skipping extra packages"
+        return
+    fi
+    gum log -l info "[START] Installing extra pacman packages"
+    sudo pacman -S --noconfirm --needed --disable-download-timeout - \
+        <"$DOTFILES/arch/setup/packages/pacman-extra.txt"
+    gum log -l info "[DONE] Extra pacman packages"
+    gum log -l info "[START] Installing extra AUR packages"
+    yay -S --noconfirm --needed --disable-download-timeout - \
+        <"$DOTFILES/arch/setup/packages/aur-extra.txt"
+    gum log -l info "[DONE] Extra AUR packages"
+}
+
 # ── System State ───────────────────────────────────────────────────
 setup_system_state() {
     if ! command -v systemctl &>/dev/null || [ ! -d /run/systemd/system ]; then
@@ -135,3 +151,7 @@ gum log -l info "[DONE] extra_packages"
 gum log -l info "[START] system_state"
 setup_system_state
 gum log -l info "[DONE] system_state"
+
+gum log -l info "[START] extras"
+install_extras
+gum log -l info "[DONE] extras"

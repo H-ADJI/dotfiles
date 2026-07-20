@@ -6,8 +6,8 @@ jqp
 leetcode-cli
 localsend-bin
 netcat
-python3
 snore-git
+zmk-studio
 spotify-adblock
 sunsetr
 ttf-x2

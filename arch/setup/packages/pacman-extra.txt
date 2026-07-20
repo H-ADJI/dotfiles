@@ -57,6 +57,7 @@ podman-compose
 pulsemixer
 python-pip
 python-setuptools
+python3
 qt5-wayland
 qt6-wayland
 ripgrep
