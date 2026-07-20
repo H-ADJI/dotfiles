@@ -11,9 +11,7 @@ A single command (actually 2 commands) to set up my machine automagically :D.
 **Arch Install Configuration**
 
 ```bash
-archinstall --config-url https://h-adji.github.io/dotfiles/arch/archinstall/workstation.json
-# or
-archinstall --config-url https://h-adji.github.io/dotfiles/arch/archinstall/laptop.json
+archinstall --config-url https://h-adji.github.io/dotfiles/arch/setup/workstation.json
 ```
 
 **Desktop Environment**
