@@ -83,6 +83,7 @@ return {
         "basedpyright",
         "taplo",
         "dockerfile-language-server",
+        "dockerfmt",
         "typescript-language-server",
         "tsgo",
         "prettierd",

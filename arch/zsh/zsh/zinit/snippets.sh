@@ -16,18 +16,6 @@ zinit snippet OMZP::gh
 # hooks direnv to terminal https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/direnv
 zinit snippet OMZP::direnv
 
-# rust completions for rustup cargo and rustc https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/rust
-zinit snippet OMZP::rust
-
-# npm completions and aliases I https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/npm
-zinit snippet OMZP::npm
-
-# node docs https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/node
-zinit snippet OMZP::node
-
-# suggest package to be installed if command not found https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/command-not-found
-zinit snippet OMZP::command-not-found
-
 # uv aliases and completions https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/uv
 zinit snippet OMZP::uv
 
@@ -43,9 +31,3 @@ zinit snippet OMZP::podman
 
 # gh cli aliases and completions https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/gh
 zinit snippet OMZP::gh
-
-# bun completions https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/bun
-zinit snippet OMZP::bun
-
-# mise completions https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/zoxide/zoxide.plugin.zsh
-zinit snippet OMZP::zoxide

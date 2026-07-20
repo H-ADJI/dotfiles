@@ -18,3 +18,5 @@ window-decoration = none
 maximize = true
 window-padding-x = 180
 window-padding-y = 80
+
+keybind = ctrl+shift+r=reload_config

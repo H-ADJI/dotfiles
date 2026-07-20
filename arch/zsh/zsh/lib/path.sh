@@ -1,1 +1,1 @@
-export PATH=$PATH:~/.local/bin:/home/khalil/.config/scripts
+export PATH=$PATH:~/.config/scripts

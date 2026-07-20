@@ -8,6 +8,5 @@ COMPLETIONS_DIR="${HOME}/.cache/zinit/completions"
 source "${ZINIT_HOME}/zinit.zsh"
 
 # plugins
-# source ~/zsh/zinit/options/zoxide.zsh
 source ~/zsh/zinit/plugins.sh
 source ~/zsh/zinit/snippets.sh
