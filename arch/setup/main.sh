@@ -1,24 +1,29 @@
 #!/bin/env bash
+set -euo pipefail
+BRANCH="${1:-migration/multi_os_setup}"
+SETUP_DIR="$HOME/dotfiles/arch/setup/lib"
 
-sudo pacman -Syu --noconfirm
-toInstall=(
-    "base-devel"
-    "git"
-    "vim"
-    "go"
-    "gum"
-)
-sudo pacman -S --noconfirm --noprogressbar --needed --disable-download-timeout "${toInstall[@]}"
-[ ! -d "dotfiles" ] && git clone --branch migration/multi_os_setup https://github.com/H-ADJI/dotfiles
-
-cat >>~/.bashrc <<'EOF'
-SETUP_DIR="dotfiles/arch/setup/lib"
-launch_setup() {
-    bash "$SETUP_DIR/aur_helper.sh"
-    bash "$SETUP_DIR/packages.sh"
-    bash "$SETUP_DIR/dotfiles.sh"
-    bash "$SETUP_DIR/extra_packages.sh"
-    bash "$SETUP_DIR/system_state.sh"
+run_step() {
+    gum log -l info "[RUN] $1"
+    bash "$SETUP_DIR/$1"
 }
-export PATH=$PATH:~/$SETUP_DIR
-EOF
+
+sudo pacman -S --noconfirm --noprogressbar --needed --disable-download-timeout \
+    base-devel git vim go gum
+
+[ ! -d "$HOME/dotfiles" ] && git clone --branch "$BRANCH" https://github.com/H-ADJI/dotfiles "$HOME/dotfiles"
+
+cat >>~/.bashrc <<'SETUP_EOF'
+SETUP_DIR="$HOME/dotfiles/arch/setup/lib"
+launch_setup() {
+    for step in aur_helper.sh packages.sh dotfiles.sh extra_packages.sh system_state.sh; do
+        bash "$SETUP_DIR/$step"
+    done
+}
+SETUP_EOF
+
+run_step aur_helper.sh
+run_step packages.sh
+run_step dotfiles.sh
+run_step extra_packages.sh
+run_step system_state.sh
