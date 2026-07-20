@@ -38,15 +38,15 @@ hl.bind("SUPER + SHIFT + A", hl.dsp.exec_cmd(emulator_picker))
 local pkill_picker = script_dir .. "pkill"
 hl.bind("SUPER + SHIFT + D", hl.dsp.exec_cmd(pkill_picker))
 
-local sink_volume = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%"
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(sink_volume .. "+"), { repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(sink_volume .. "-"), { repeating = true })
+local volume_streams = script_dir .. "volume_streams "
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(volume_streams .. "5% up"), { repeating = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(volume_streams .. "5% down"), { repeating = true })
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true })
 
 local source_volume = "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%"
 hl.bind("SUPER + XF86AudioRaiseVolume", hl.dsp.exec_cmd(source_volume .. "+"), { repeating = true })
 hl.bind("SUPER + XF86AudioLowerVolume", hl.dsp.exec_cmd(source_volume .. "-"), { repeating = true })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), { locked = true })
+hl.bind("SUPER + XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), { locked = true })
 
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
