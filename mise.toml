@@ -1,7 +1,7 @@
 #:schema https://mise.jdx.dev/schema/mise.json
 [tasks.build]
 usage = 'arg "<system>" help="Targeted System"'
-run = 'podman image build --build-arg PASS=0806 -t "$usage_system"-test -f ./"$usage_system"/setup/Containerfile .'
+run = 'podman image build -t "$usage_system"-test -f ./"$usage_system"/setup/Containerfile .'
 
 [tasks.test]
 usage = 'arg "<system>" help="Targeted System"'
