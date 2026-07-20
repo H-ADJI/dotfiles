@@ -1,0 +1,185 @@
+/* Load the selected theme via the central symlink.
+ * Your theme_switcher.sh script must ensure that this symlink
+ * points to EITHER dark.css or light.css in your theme directory.
+ * E.g., ~/.config/waybar/current_theme.css -> ~/.config/theme/dark/waybar.css
+ */
+@import "theme.css";
+
+/* -----------------------------------------------------------------------------
+ * Base Reset
+ * -------------------------------------------------------------------------- */
+window#waybar {
+  all: unset;
+  /* The border is applied inside the imported CSS files (dark.css/light.css) 
+     * to ensure the color matches the active theme's palette (@border).
+     * If you prefer to define it here, remove it from the imported files and use:
+     * border: 2px solid @border; 
+     */
+}
+
+* {
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+  margin: 1px;
+  padding: 0;
+}
+
+/* Module containers */
+.modules-left,
+.modules-center,
+.modules-right {
+  background-color: @base1; /* Uses imported variable */
+  border-radius: 10px;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+  border: 2px solid @border; /* Apply the border to the whole bar */
+}
+
+.modules-center {
+  padding: 0 10px;
+}
+.modules-right {
+  padding-left: 30px;
+}
+
+/* The whole bar */
+#waybar {
+  background: transparent;
+  background-color: @base1; /* Uses imported variable */
+  color: @text; /* Uses imported variable */
+  font-family: JetBrainsMonoMedium Nerd Font;
+  font-size: 15px;
+  min-height: 0;
+}
+
+/* Every module */
+#mode,
+#network,
+#keyboard-state,
+#scratchpad,
+#custom-music,
+#custom-power,
+#workspaces,
+#window,
+#idle_inhibitor,
+#cpu,
+#memory,
+#backlight,
+#pulseaudio,
+#battery,
+#clock,
+#tray {
+  padding: 0.3rem 0.3rem;
+  margin: 1px 0px;
+  font-weight: bold;
+  color: @text; /* text in the mode module */
+}
+
+/* Module-specific styles */
+#custom-launcher {
+  margin-left: 15px;
+  margin-right: 10px;
+}
+#workspaces {
+  font-size: 14px;
+}
+
+#workspaces button {
+  border-radius: 5px;
+  color: @text; /* Uses imported variable */
+  padding: 4px;
+  margin: 0 2px;
+}
+
+#workspaces button.focused {
+  border: 3px solid @highlight; /* Uses imported variable */
+  font-weight: bold;
+}
+
+#workspaces button.urgent {
+  border: 3px solid @red; /* Uses imported variable */
+  color: @red; /* Uses imported variable */
+}
+
+#keyboard-state {
+  color: @yellow;
+  font-weight: bold;
+} /* Uses imported variable */
+#mode {
+  background: @yellow;
+  /* color: @base1; */
+  color: black; /* text in the mode module */
+  margin-left: 5px;
+  padding: 10px;
+  font-weight: bold;
+} /* Uses imported variable */
+
+#window {
+  padding-right: 30px;
+  font-weight: bold;
+}
+#network.disconnected {
+  color: @yellow;
+} /* Uses imported variable */
+#cpu.warning {
+  color: @yellow;
+} /* Uses imported variable */
+#cpu.critical {
+  color: @red;
+} /* Uses imported variable */
+#memory.warning {
+  color: @yellow;
+} /* Uses imported variable */
+
+#memory.critical {
+  color: @red; /* Uses imported variable */
+  animation-name: blink-critical;
+  animation-duration: 2s;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#battery.warning {
+  color: @yellow;
+} /* Uses imported variable */
+#battery.critical {
+  color: @red;
+} /* Uses imported variable */
+
+#battery.warning.discharging {
+  animation-name: blink-warning;
+  animation-duration: 3s;
+}
+
+#battery.critical.discharging {
+  animation-name: blink-critical;
+  animation-duration: 2s;
+}
+
+#custom-power {
+  /* margin-left: 10px; */
+  margin-right: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Animations */
+@keyframes blink-warning {
+  70% {
+    color: @text;
+  } /* Uses imported variable */
+  to {
+    color: @base1;
+    background-color: @yellow;
+  } /* Uses imported variable */
+}
+
+@keyframes blink-critical {
+  70% {
+    color: @text;
+  } /* Uses imported variable */
+  to {
+    color: @base1;
+    background-color: @red;
+  } /* Uses imported variable */
+}
