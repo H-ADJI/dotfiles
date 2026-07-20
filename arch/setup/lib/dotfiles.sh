@@ -1,11 +1,12 @@
+set -euo pipefail
+
 gum log -l info "[START] Clone projects"
 
-cd ~/dotfiles/ || exit 1
+DOTFILES="$HOME/dotfiles"
 
-git remote remove origin
-git remote add origin git@github.com:H-ADJI/dotfiles.git
+git -C "$DOTFILES" remote remove origin
+git -C "$DOTFILES" remote add origin git@github.com:H-ADJI/dotfiles.git
 
-VERIFY=1
 STORED_HASH="4bf69f1718ef5130a05c4d01b363b1ca65ef92081449e24cc1d37fe7a9a07c69"
 
 while true; do
@@ -13,9 +14,6 @@ while true; do
         gum input --prompt "Master Password> " --password
     )
     COMPUTED_HASH=$(echo -n "$MASTER_PASSWORD" | argon2 "08061999" -r)
-    if [ "$VERIFY" -eq 0 ]; then
-        break
-    fi
     if [ "$COMPUTED_HASH" = "$STORED_HASH" ]; then
         gum log -l info "✅ Correct password"
         break
@@ -24,16 +22,13 @@ while true; do
     fi
 done
 
-transcrypt -y -p "$MASTER_PASSWORD"
-
-cd || exit 1
+(cd "$DOTFILES" && transcrypt -y -p "$MASTER_PASSWORD")
 
 rm -rf "$HOME/.config/hypr"
 
 cp ~/dotfiles/arch/zsh/dot-zsh_history ~/.zsh_history
 
 for dir in "$HOME"/dotfiles/arch/*/; do
-    echo "package"
     stow --dotfiles --adopt -d "$HOME/dotfiles/arch" -t "$HOME" "$(basename "$dir")"
 done
 
@@ -43,7 +38,7 @@ chmod 600 "$ssh_private_key"
 ssh-add "$ssh_private_key"
 
 projects_dir="$HOME/projects"
-mkdir "$projects_dir"
+mkdir -p "$projects_dir"
 projects=(
     "ccraft"
     "homelab"
