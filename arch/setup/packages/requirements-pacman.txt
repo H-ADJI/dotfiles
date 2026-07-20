@@ -1,0 +1,15 @@
+argon2
+bluez
+docker
+gum
+hyprpolkitagent
+imv
+iwd
+mise
+networkmanager
+openssh
+pipewire
+stow
+wireplumber
+xdg-utils
+zsh

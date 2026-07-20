@@ -6,12 +6,10 @@ jqp
 leetcode-cli
 localsend-bin
 netcat
-nvim
 python3
 snore-git
 spotify-adblock
 sunsetr
-transcrypt
 ttf-x2
 vial
 walt

@@ -4,12 +4,10 @@ alacritty
 alsa-tools
 alsa-utils
 arch-wiki-docs
-argon2
 bat
 bat-extras
 blanket
 bluetui
-bluez
 bluez-utils
 bottom
 brightnessctl
@@ -18,7 +16,6 @@ cava
 chromium
 cliphist
 direnv
-docker
 docker-buildx
 evince
 eza
@@ -33,16 +30,12 @@ git-delta
 gnome-boxes
 grep
 grim
-gum
 helvum
 hypridle
 hyprlock
 hyprpaper
-hyprpolkitagent
 impala
-imv
 inetutils
-iwd
 jack_delay
 jnv
 jq
@@ -51,16 +44,13 @@ linux-firmware
 man-db
 mesa
 miller
-mise
 mpv
 network-manager-applet
 noto-fonts-emoji
 npm
 obs-studio
-openssh
 pamixer
 pavucontrol
-pipewire
 playerctl
 podman
 podman-compose
@@ -74,7 +64,6 @@ showmethekey
 slurp
 solaar
 starship
-stow
 swappy
 swaync
 tabiew
@@ -99,7 +88,6 @@ vulkan-radeon
 waybar
 wget
 wikiman
-wireplumber
 wl-clipboard
 wlsunset
 xdg-desktop-portal-hyprland
@@ -109,4 +97,3 @@ yazi
 zbar
 zellij
 zoxide
-zsh
