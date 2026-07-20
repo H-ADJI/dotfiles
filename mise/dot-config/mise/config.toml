@@ -14,7 +14,5 @@ lockfile = true
 
 [tools]
 usage = "3.5.3"
-tmux = "3.6b"
-deno = "2.9.0"
 pi = "0.80.3"
 hunk = "0.16.0"

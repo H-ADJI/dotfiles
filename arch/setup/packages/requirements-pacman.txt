@@ -13,3 +13,7 @@ stow
 wireplumber
 xdg-utils
 zsh
+tmux
+deno
+neovim
+tree-sitter-cli
