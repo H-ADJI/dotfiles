@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# --- Arguments ---
+# $1: Volume step as a percentage (default: 5%)
+# $2: Action - "up", "down", or "mute" (default: up)
+#
+# Usage: volume_streams [step] [action]
+# Example: volume_streams 10% down
+
+STEP="${1:-5%}"
+ACTION="${2:-up}"
+
+# --- Helper: get current master volume as a decimal (e.g., 0.60) ---
+get_master_volume() {
+    # wpctl get-volume returns "Volume: 0.60"
+    # awk '{print $2}' extracts the numeric value
+    wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2}'
+}
+
+# --- Set master (sink) volume ---
+# wpctl set-volume: change volume on a PipeWire node
+#   @DEFAULT_AUDIO_SINK@: shortcut for the current default output device
+#   "$STEP"+ / "$STEP"-: relative increment/decrement
+#   -l 1.0: cap the max volume at 100% (default allows up to 1.5, which distorts)
+case "$ACTION" in
+    up)   wpctl set-volume @DEFAULT_AUDIO_SINK@ "$STEP"+ -l 1.0 ;;
+    down) wpctl set-volume @DEFAULT_AUDIO_SINK@ "$STEP"- ;;
+    mute) wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle ;;
+esac
+
+# --- Read the new master volume after the change ---
+MASTER_VOL=$(get_master_volume)
+
+# --- Get all active audio output stream node IDs ---
+# wpctl status output looks like:
+#    └─ Streams:
+#           78. Google Chrome
+#                79. output_FL > Logi Z207:playback_FL [active]
+#                80. output_FR > Logi Z207:playback_FR [active]
+#
+# We want only the stream node IDs (78), not the port IDs (79, 80).
+#
+# awk #1: extract only the "Streams:" section until the next top-level line
+# awk #2: keep only stream header lines (have an ID, no "output_" or ">" port info)
+# sed:   strip leading whitespace
+# cut:   extract the ID before the first dot
+streams=$(wpctl status | awk '/^ └─ Streams:/,/^[^ ]/' | awk '/^[[:space:]]+[0-9]+\./ && !/output_|input_|>/' | sed 's/^[[:space:]]*//' | cut -d. -f1)
+
+# --- Sync each stream's volume to match the master volume ---
+# wpctl set-volume "$id" "$MASTER_VOL":
+#   Sets the stream's volume to an absolute level (e.g., 0.60)
+#   This ensures all apps play at the same loudness as the master
+for id in $streams; do
+    wpctl set-volume "$id" "$MASTER_VOL"
+done
