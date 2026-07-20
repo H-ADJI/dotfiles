@@ -23,7 +23,7 @@ while true; do
 done
 
 gum log -l info "Decrypting secrets"
-(cd "$DOTFILES" && transcrypt -y -f -p "$MASTER_PASSWORD")
+(cd "$DOTFILES" && transcrypt --display &>/dev/null) || (cd "$DOTFILES" && transcrypt -y -p "$MASTER_PASSWORD")
 
 rm -rf "$HOME/.config/hypr"
 
@@ -38,7 +38,7 @@ ssh_private_key="$HOME/.ssh/ssh_git"
 gum log -l info "Starting SSH agent"
 eval "$(ssh-agent -s)" &>/dev/null
 chmod 600 "$ssh_private_key"
-ssh-add "$ssh_private_key" 
+ssh-add "$ssh_private_key" &>/dev/null
 
 projects_dir="$HOME/projects"
 mkdir -p "$projects_dir"
