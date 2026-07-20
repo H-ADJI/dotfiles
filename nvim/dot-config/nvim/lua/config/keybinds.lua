@@ -17,7 +17,12 @@ map("n", "<leader>rl", function()
 end, { desc = "[R]estart [L]SP" })
 
 map("n", "<leader>bb", function()
-  vim.cmd("b#")
+  local bufs = vim.fn.getbufinfo({ buflisted = 1 })
+  if #bufs > 1 then
+    vim.cmd("b#")
+  else
+    vim.notify("Only one buffer open")
+  end
 end, { desc = "Switch to recent buffer" })
 
 map("x", "<", "<gv", { desc = "Indent left and reselect" })
