@@ -2,17 +2,25 @@
 set -euo pipefail
 trap 'echo "[FAIL] main.sh line $LINENO" >&2' ERR
 
+log_start() { gum log --message.foreground "#d20f39" "→ $*"; }
+log_done() { gum log --message.foreground "#40a02b" "✓ $*"; }
+log_skip() { gum log --message.foreground "#df8e1d" "… $*"; }
+log_error() { gum log --message.foreground "#d20f39" "✗ $*"; }
+
 BRANCH="${1:-master}"
 DOTFILES="$HOME/dotfiles"
 
-sudo pacman -S --noconfirm --noprogressbar --needed --disable-download-timeout \
-    base-devel git vim go gum
-
-[ ! -d "$DOTFILES" ] && git clone --branch "$BRANCH" https://github.com/H-ADJI/dotfiles "$DOTFILES"
+bootstrap_system() {
+    sudo pacman -Sq --noconfirm --noprogressbar --needed --disable-download-timeout \
+        base-devel git vim go gum &>/dev/null
+    if [ ! -d "$DOTFILES" ]; then
+        git clone --branch "$BRANCH" https://github.com/H-ADJI/dotfiles "$DOTFILES"
+    fi
+}
 
 install_aur_helper() {
     if command -v yay &>/dev/null; then
-        gum log -l info "yay already installed, skipping"
+        log_skip "yay already installed, skipping"
         return
     fi
     local YAY_DIR="/tmp/yay"
@@ -24,15 +32,16 @@ install_aur_helper() {
 install_packages() {
     local REQ_DIR="$DOTFILES/arch/setup/packages"
     sudo pacman -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - \
-        <"$REQ_DIR/pacman.txt"
+        <"$REQ_DIR/pacman.txt" &>/dev/null
     yay -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - \
-        <"$REQ_DIR/aur.txt"
+        <"$REQ_DIR/aur.txt" &>/dev/null
 }
 
 setup_dotfiles() {
-    gum log -l info "Switching remote to SSH"
+    log_start "switching remote to SSH"
     git -C "$DOTFILES" remote set-url origin git@github.com:H-ADJI/dotfiles.git 2>/dev/null ||
     git -C "$DOTFILES" remote add origin git@github.com:H-ADJI/dotfiles.git
+    log_done "remote switched to SSH"
 
     local STORED_HASH="4bf69f1718ef5130a05c4d01b363b1ca65ef92081449e24cc1d37fe7a9a07c69"
 
@@ -43,71 +52,79 @@ setup_dotfiles() {
         )
         COMPUTED_HASH=$(echo -n "$MASTER_PASSWORD" | argon2 "08061999" -r)
         if [ "$COMPUTED_HASH" = "$STORED_HASH" ]; then
-            gum log -l info "Correct password"
+            log_done "correct password"
             break
         else
-            gum log -l error "Wrong password, try again"
+            log_error "wrong password, try again"
         fi
     done
 
-    gum log -l info "Decrypting secrets"
+    log_start "decrypting secrets"
     (cd "$DOTFILES" && transcrypt --display &>/dev/null) || (cd "$DOTFILES" && transcrypt -y -p "$MASTER_PASSWORD")
+    log_done "secrets decrypted"
 
     rm -rf "$HOME/.config/hypr"
     [ ! -f "$HOME/.zsh_history" ] && cp "$DOTFILES/arch/zsh/dot-zsh_history" "$HOME/.zsh_history"
 
-    gum log -l info "Stowing dotfiles"
+    log_start "stowing dotfiles"
     for dir in "$DOTFILES"/arch/*/; do
         stow --dotfiles --adopt -d "$DOTFILES/arch" -t "$HOME" "$(basename "$dir")" 2>/dev/null
     done
+    log_done "stowing dotfiles"
 
     local ssh_private_key="$HOME/.ssh/ssh_git"
     if [ -z "${SSH_AUTH_SOCK:-}" ]; then
-        gum log -l info "Starting SSH agent"
+        log_start "starting SSH agent"
         eval "$(ssh-agent -s)" &>/dev/null
+        log_done "SSH agent started"
     fi
     chmod 600 "$ssh_private_key"
     ssh-add -l &>/dev/null || ssh-add "$ssh_private_key" &>/dev/null
 
-    gum log -l info "Cloning Projects"
+    log_start "cloning projects"
     local projects_dir="$HOME/projects"
     mkdir -p "$projects_dir"
     local -a projects=(ccraft homelab neurogenesis secondBrain zmk-config learn_nix)
     for project in "${projects[@]}"; do
         [ ! -d "$projects_dir/$project" ] && git clone -q --depth 1 "git@github.com:H-ADJI/$project.git" "$projects_dir/$project"
     done
-    gum log -l info "Projects cloned"
+    log_done "projects cloned"
 }
 
 install_devtools() {
-    gum log -l info "Installing mise tools"
+    log_start "installing mise tools"
     mise i --locked -q
-    gum log -l info "Installing nvim plugins"
+    log_done "mise tools installed"
+
+    log_start "installing nvim plugins"
     nvim --headless -c 'Lazy install' -c 'MasonToolsInstallSync' -c 'qa' &>/dev/null
-    gum log -l info "Installing TPM plugins"
+    log_done "nvim plugins installed"
+
+    log_start "installing TPM plugins"
     local TPM_DIR="$HOME/.tmux/plugins/tpm"
     [ ! -d "$TPM_DIR" ] && git clone -q https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     bash ~/.tmux/plugins/tpm/bin/install_plugins &>/dev/null
+    log_done "TPM plugins installed"
 }
 
 install_extras() {
     if systemd-detect-virt -c &>/dev/null; then
-        gum log -l info "Container detected, skipping extra packages"
+        log_skip "container detected, skipping extra packages"
         return
     fi
-    gum log -l warn "[START] Installing extra pacman packages"
+    log_start "installing extra pacman packages"
     sudo pacman -S --noconfirm --needed --disable-download-timeout - \
         <"$DOTFILES/arch/setup/packages/pacman-extra.txt"
-    gum log -l info "[DONE] Extra pacman packages"
-    gum log -l warn "[START] Installing extra AUR packages"
+    log_done "extra pacman packages installed"
+    log_start "installing extra AUR packages"
     yay -S --noconfirm --needed --disable-download-timeout - \
         <"$DOTFILES/arch/setup/packages/aur-extra.txt"
-    gum log -l info "[DONE] Extra AUR packages"
+    log_done "extra AUR packages installed"
 }
 
 setup_system_state() {
     if systemd-detect-virt -c &>/dev/null; then
-        gum log -l info "Container detected, skipping"
+        log_skip "container detected, skipping"
         return
     fi
 
@@ -129,26 +146,30 @@ setup_system_state() {
 }
 
 # ── Run ────────────────────────────────────────────────────────────
-gum log -l warn "[START] aur_helper"
+log_start "[BOOTSTRAP]"
+bootstrap_system
+log_done "[BOOTSTRAP]"
+
+log_start "[AUR HELPER]"
 install_aur_helper
-gum log -l info "[DONE] aur_helper"
+log_done "[AUR HELPER]"
 
-gum log -l warn "[START] packages"
+log_start "[CORE PACKAGES]"
 install_packages
-gum log -l info "[DONE] packages"
+log_done "[CORE PACKAGES]"
 
-gum log -l warn "[START] dotfiles"
+log_start "[DOTFILES]"
 setup_dotfiles
-gum log -l info "[DONE] dotfiles"
+log_done "[DOTFILES]"
 
-gum log -l warn "[START] dev tools"
+log_start "[DEV TOOLS]"
 install_devtools
-gum log -l info "[DONE] dev tools"
+log_done "[DEV TOOLS]"
 
-gum log -l warn "[START] system_state"
+log_start "[SYSTEM STATE]"
 setup_system_state
-gum log -l info "[DONE] system_state"
+log_done "[SYSTEM STATE]"
 
-gum log -l warn "[START] extras"
+log_start "[EXTRAS]"
 install_extras
-gum log -l info "[DONE] extras"
+log_done "[EXTRAS]"
