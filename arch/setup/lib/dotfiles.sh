@@ -51,6 +51,6 @@ projects=(
     "learn_nix"
 )
 for project in "${projects[@]}"; do
-    [ ! -d "$project" ] && git clone -q --depth 1 "git@github.com:H-ADJI/$project.git" "$projects_dir/$project"
+    [ ! -d "$projects_dir/$project" ] && git clone -q --depth 1 "git@github.com:H-ADJI/$project.git" "$projects_dir/$project"
 done
 gum log -l info "Projects cloned"
