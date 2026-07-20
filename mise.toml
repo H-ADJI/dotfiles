@@ -1,10 +1,12 @@
 #:schema https://mise.jdx.dev/schema/mise.json
-
 [tasks.build]
-run = "podman image build --build-arg PASS=0806 -t arch-test -f ./setup/Containerfile ."
+usage = 'arg "<system>" help="Targeted System"'
+run = 'podman image build -t "$usage_system"-test -f ./"$usage_system"/setup/Containerfile .'
+
 [tasks.test]
-depends = ["build"]
-run = "podman container run -it --rm arch-test:latest"
+usage = 'arg "<system>" help="Targeted System"'
+depends = [{ task = "build", args = ["{{usage.system}}"] }]
+run = 'podman container run -it --rm "$usage_system"-test:latest'
 
 [tasks.burn]
 description = "Create bootable usb"
@@ -18,4 +20,4 @@ caligula burn "$usage_iso" -f --root=always --interactive=never --hash=skip
 '''
 
 [shell_alias]
-test_setup = "mise run test"
+test_arch = "mise run test arch"

@@ -1,0 +1,17 @@
+argc
+exercism
+google-chrome
+i3
+jqp
+leetcode-cli
+localsend-bin
+netcat
+python3
+snore-git
+spotify-adblock
+sunsetr
+ttf-x2
+vial
+walt
+wayscriber-bin
+wlogout

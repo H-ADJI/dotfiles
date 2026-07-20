@@ -1,15 +1,55 @@
-FROM archlinux:latest
+FROM archlinux:base-devel
 LABEL maintainer="H-ADJI <https://github.com/H-ADJI>"
+
+# Branch setup scripts clone from; also passed to main.sh for re-clone on test
+# Override via --build-arg BRANCH=other-branch
+ARG BRANCH=migration/multi_os_setup
+ARG USER=test-user
+
+# Minimal packages needed before dotfiles repo is available:
+# go (yay build), vim (default editor), gum (UI prompts), git (clone)
+RUN pacman -Syyu --noconfirm go vim gum git
+
+# Pre-install setup-essential pacman packages only.
+# Extras (games, browsers, fonts) deferred to install-extras.sh.
+# Layer caching: unchanged requirements.txt reuses this layer.
+COPY arch/setup/packages/requirements-pacman.txt /tmp/
+RUN pacman -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - </tmp/requirements-pacman.txt
+
+RUN useradd --system --create-home ${USER} \
+    && echo "${USER} ALL=(ALL:ALL) NOPASSWD:ALL" >/etc/sudoers.d/${USER}
+
+USER ${USER}
+WORKDIR /home/${USER}
+
+# yay must be built as non-root (makepkg refuses root).
+# Install here to cache binary across re-builds.
+RUN git clone https://aur.archlinux.org/yay.git /tmp/yay \
+    && cd /tmp/yay \
+    && makepkg -sri --needed --noconfirm \
+    && rm -rf /tmp/yay /home/${USER}/.cache
+
+# Pre-install setup-essential AUR packages only (nvim, transcrypt).
+# Rest deferred to install-extras.sh. script fakes TTY for yay.
+# Layer invalidated only when requirements-aur.txt changes.
+COPY arch/setup/packages/requirements-aur.txt /tmp/
+RUN script -q -c "yay -S --noconfirm --needed --disable-download-timeout - < /tmp/requirements-aur.txt" /dev/null
+
+# Switch back to root for COPY (non-root COPY changes ownership ambiguously).
+# COPY . copies the full repo so main.sh can run from local checkout
+# instead of re-fetching from remote (previous approach).
+USER root
+COPY . /home/${USER}/dotfiles
+RUN chown -R ${USER}:${USER} /home/${USER}/dotfiles
+
+USER ${USER}
+
+ENV USER=${USER}
 ENV TERM=xterm-256color
 ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US.UTF-8
 ENV LC_CTYPE=en_US.UTF-8
-RUN pacman -Syu --noconfirm \
-  && pacman -S --noconfirm curl base-devel
-ARG USER=test-user
-ARG PASS
-RUN useradd -m ${USER} &&  echo "${USER}:${PASS}" | chpasswd 
-RUN echo "${USER} ALL=(ALL) ALL" >> /etc/sudoers
-USER ${USER}
-WORKDIR /home/${USER}
-CMD ["/bin/bash","-c","curl -fsSL h-adji.github.io/dotfiles/init.sh | bash ; exec bash"]
+
+# Run setup, then drop into interactive shell.
+# ${BRANCH} is passed as $1 to main.sh (used for git clone --branch).
+CMD ["bash", "-c", "bash /home/test-user/dotfiles/arch/setup/main.sh ${BRANCH} ; exec bash"]
