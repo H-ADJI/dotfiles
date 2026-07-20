@@ -162,10 +162,6 @@ log_start "[DOTFILES]"
 setup_dotfiles
 log_done "[DOTFILES]"
 
-log_start "[DEV TOOLS]"
-install_devtools
-log_done "[DEV TOOLS]"
-
 log_start "[SYSTEM STATE]"
 setup_system_state
 log_done "[SYSTEM STATE]"
@@ -173,3 +169,7 @@ log_done "[SYSTEM STATE]"
 log_start "[EXTRAS]"
 install_extras
 log_done "[EXTRAS]"
+
+log_start "[DEV TOOLS]"
+install_devtools
+log_done "[DEV TOOLS]"
