@@ -23,7 +23,7 @@ while true; do
 done
 
 gum log -l info "Decrypting secrets"
-(cd "$DOTFILES" && transcrypt -y -p "$MASTER_PASSWORD")
+(cd "$DOTFILES" && transcrypt -y -f -p "$MASTER_PASSWORD")
 
 rm -rf "$HOME/.config/hypr"
 
