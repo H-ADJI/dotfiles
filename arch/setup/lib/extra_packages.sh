@@ -1,3 +1,5 @@
+set -euo pipefail
+
 gum log -l info "[START] extra packages"
 
 mise i --locked

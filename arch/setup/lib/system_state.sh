@@ -1,3 +1,5 @@
+set -euo pipefail
+
 gum log -l info "[START] Setting system state"
 
 sudo usermod -aG docker "$USER"
