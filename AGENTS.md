@@ -36,6 +36,8 @@
     mise run test arch    # runs built container interactively
 ```
 
+- agents should not run the test command since they take too long
+
 ## Hardware
 
 - current hardware is desktop workstation
