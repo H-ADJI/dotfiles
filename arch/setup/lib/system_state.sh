@@ -1,4 +1,5 @@
 set -euo pipefail
+trap 'echo "[FAIL] $(basename $0) line $LINENO" >&2' ERR
 
 gum log -l info "[START] Setting system state"
 

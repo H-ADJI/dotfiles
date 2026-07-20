@@ -1,4 +1,5 @@
 set -euo pipefail
+trap 'echo "[FAIL] $(basename $0) line $LINENO" >&2' ERR
 
 if command -v yay &>/dev/null; then
     gum log -l info "yay already installed, skipping"

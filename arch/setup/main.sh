@@ -5,7 +5,7 @@ SETUP_DIR="$HOME/dotfiles/arch/setup/lib"
 
 run_step() {
     gum log -l info "[RUN] $1"
-    bash "$SETUP_DIR/$1"
+    bash "$SETUP_DIR/$1" || { gum log -l error "[FAIL] $1"; exit 1; }
 }
 
 sudo pacman -S --noconfirm --noprogressbar --needed --disable-download-timeout \
