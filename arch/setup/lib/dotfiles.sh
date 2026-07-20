@@ -30,13 +30,13 @@ rm -rf "$HOME/.config/hypr"
 cp ~/dotfiles/arch/zsh/dot-zsh_history ~/.zsh_history
 
 for dir in "$HOME"/dotfiles/arch/*/; do
-    stow --dotfiles --adopt -d "$HOME/dotfiles/arch" -t "$HOME" "$(basename "$dir")"
+    stow --dotfiles --adopt -d "$HOME/dotfiles/arch" -t "$HOME" "$(basename "$dir")" 2>/dev/null
 done
 
 ssh_private_key="$HOME/.ssh/ssh_git"
-eval "$(ssh-agent -s)"
+eval "$(ssh-agent -s)" &>/dev/null
 chmod 600 "$ssh_private_key"
-ssh-add "$ssh_private_key"
+ssh-add "$ssh_private_key" &>/dev/null
 
 projects_dir="$HOME/projects"
 mkdir -p "$projects_dir"
@@ -49,7 +49,7 @@ projects=(
     "learn_nix"
 )
 for project in "${projects[@]}"; do
-    [ ! -d "$project" ] && git clone --depth 1 "git@github.com:H-ADJI/$project.git" "$projects_dir/$project"
+    [ ! -d "$project" ] && git clone -q --depth 1 "git@github.com:H-ADJI/$project.git" "$projects_dir/$project"
 done
 
 gum log -l info "[DONE] Clone projects"
