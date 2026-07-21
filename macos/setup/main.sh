@@ -48,8 +48,8 @@ install_nix() {
         return
     fi
 
-    echo "Installing Nix with Determinate Systems installer."
-    curl -fsSL https://install.determinate.systems/nix | sh -s -- install
+    echo "Installing Lix."
+    curl -sSf -L https://install.lix.systems/lix | sh -s -- install
 
     if [[ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
         # shellcheck disable=SC1091

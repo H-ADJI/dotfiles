@@ -5,7 +5,7 @@ First clean-install goal: get enough tools to continue building dotfiles comfort
 Installs:
 
 - Xcode Command Line Tools
-- Nix
+- Lix
 - Homebrew
 - Google Chrome
 - Ghostty

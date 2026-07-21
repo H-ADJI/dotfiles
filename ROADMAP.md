@@ -71,7 +71,7 @@ Copy/adapt from `arch/` only when useful. Do not move files into shared location
 ### Setup
 
 1. Detect macOS in `init.sh` and dispatch to `macos/setup/main.sh`.
-2. Bootstrap Nix on macOS.
+2. Bootstrap Lix on macOS.
 3. Use nix-darwin + Home Manager.
    - Keep structure simple at first.
    - Prefer one host config before introducing reusable modules.
@@ -146,12 +146,12 @@ macos/
 
 Do not copy all dotfiles yet. First goal is a working Nix/macOS rebuild.
 
-#### Step 4: Install Nix
+#### Step 4: Install Lix
 
-Use Determinate Systems installer unless there is a concrete reason not to:
+Use Lix installer, as recommended by nix-darwin:
 
 ```bash
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+curl -sSf -L https://install.lix.systems/lix | sh -s -- install
 ```
 
 Then restart terminal and verify:
@@ -163,7 +163,7 @@ nix --version
 For first-boot ergonomics, `macos/setup/main.sh` may be used before full nix-darwin exists. It installs:
 
 - Xcode Command Line Tools
-- Nix
+- Lix
 - Homebrew
 - Google Chrome
 - Ghostty
@@ -184,6 +184,7 @@ Start with one host only.
 Keep `darwin.nix` minimal:
 
 - enable flakes
+- use `nix.package = pkgs.lix;`
 - set username/home directory
 - set hostname
 - set keyboard repeat defaults
