@@ -1,55 +1,9 @@
 return {
   {
-    "mason-org/mason.nvim",
-    keys = {
-      {
-        "<leader>mi",
-        function()
-          vim.cmd("Mason")
-        end,
-        mode = { "n", "v" },
-        desc = "[M]ason [I]nfo",
-      },
-    },
-    opts = {},
-  },
-  {
-    "mason-org/mason-lspconfig.nvim",
-    opts = {
-      automatic_enable = {
-        "lua_ls",
-        "nil_ls",
-        "fish_lsp",
-        "asm_lsp",
-        "pyright",
-        "ruff",
-        "bashls",
-        "marksman",
-        "rust_analyzer",
-        "hyprls",
-        "taplo",
-        "gopls",
-        "just",
-        "jqls",
-        "dockerls",
-        "tsgo",
-        "cssls",
-        "clangd",
-        "harper_ls",
-        "tinymist",
-      },
-    },
-    dependencies = {
-      { "mason-org/mason.nvim", opts = {} },
-      "neovim/nvim-lspconfig",
-    },
-  },
-  {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     opts = {
       ensure_installed = {
         "lua_ls",
-        -- "nil_ls",
         "nixfmt",
         "statix",
         "asm_lsp",
@@ -94,6 +48,21 @@ return {
         "stylua",
         "beautysh",
         "kdlfmt",
+      },
+    },
+    dependencies = { { "mason-org/mason-lspconfig.nvim", opts = {} }, "neovim/nvim-lspconfig", "mason-org/mason.nvim" },
+  },
+  {
+    "mason-org/mason.nvim",
+    opts = {},
+    keys = {
+      {
+        "<leader>mi",
+        function()
+          vim.cmd("Mason")
+        end,
+        mode = { "n", "v" },
+        desc = "[M]ason [I]nfo",
       },
     },
   },
