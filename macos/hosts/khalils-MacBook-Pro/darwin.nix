@@ -22,9 +22,11 @@
     direnv
     delta
     eza
+    fd
     fzf
     git
     gh
+    gnugrep
     gnutar
     go
     gzip
@@ -33,6 +35,7 @@
     neovim
     nodejs
     python3
+    ripgrep
     rustc
     starship
     stow
