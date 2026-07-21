@@ -5,7 +5,7 @@ fpath+=~/.zfunc
 # importing completion loader
 autoload -Uz compinit
 # loading completions
-compinit
+compinit -C
 
 # Case insensitive completion match
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
