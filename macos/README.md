@@ -4,7 +4,6 @@ First clean-install goal: get enough tools to continue building dotfiles comfort
 
 Installs:
 
-- Xcode Command Line Tools
 - Lix
 - Homebrew
 - Google Chrome
@@ -17,8 +16,6 @@ Run:
 cd ~/dotfiles
 bash macos/setup/main.sh
 ```
-
-If Xcode Command Line Tools installer opens, finish it, then re-run the script.
 
 After bootstrap:
 

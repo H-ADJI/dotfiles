@@ -1,21 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [[ "$(uname)" != "Darwin" ]]; then
-    echo "This setup is macOS-only."
-    exit 1
-fi
-
-install_xcode_tools() {
-    if xcode-select -p >/dev/null 2>&1; then
-        return
-    fi
-
-    echo "Installing Xcode Command Line Tools. Re-run this script after installer finishes."
-    xcode-select --install
-    exit 0
-}
-
 load_homebrew() {
     if command -v brew >/dev/null 2>&1; then
         return
@@ -63,7 +48,6 @@ install_first_tools() {
     brew install anomalyco/tap/opencode
 }
 
-install_xcode_tools
 install_nix
 install_homebrew
 install_first_tools

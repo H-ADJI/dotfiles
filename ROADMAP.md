@@ -111,18 +111,12 @@ Do manually before dotfiles:
 2. Sign in to Apple ID only if needed.
 3. Install system updates.
 4. Open Terminal once.
-5. Install Xcode Command Line Tools:
-
-```bash
-xcode-select --install
-```
-
-6. Set keyboard input source to **English - ABC**.
-7. Confirm network, iCloud/company enrollment, and security tooling are stable.
+5. Set keyboard input source to **English - ABC**.
+6. Confirm network, iCloud/company enrollment, and security tooling are stable.
 
 #### Step 2: Clone Dotfiles
 
-Install Git if Command Line Tools did not already provide it, then clone repo:
+Install Git if macOS prompts for it, then clone repo:
 
 ```bash
 git clone git@github.com:H-ADJI/dotfiles.git ~/dotfiles
@@ -162,7 +156,6 @@ nix --version
 
 For first-boot ergonomics, `macos/setup/main.sh` may be used before full nix-darwin exists. It installs:
 
-- Xcode Command Line Tools
 - Lix
 - Homebrew
 - Google Chrome
