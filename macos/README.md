@@ -2,7 +2,30 @@
 
 Nix-darwin + Home Manager workstation configuration for `khalils-MacBook-Pro`.
 
-Ownership:
+## Bootstrap
+
+Clone repository, then run:
+
+```bash
+git clone git@github.com:H-ADJI/dotfiles.git ~/dotfiles
+bash ~/dotfiles/macos/setup/main.sh
+```
+
+First run installs Lix when missing, then stops. Restart terminal and rerun script.
+
+Manual rebuild:
+
+```bash
+sudo darwin-rebuild switch --flake ~/dotfiles/macos#khalils-MacBook-Pro
+```
+
+Static check:
+
+```bash
+mise run check macos
+```
+
+## Ownership
 
 - Lix
 - nix-darwin + Home Manager: system, user packages, and dotfiles
@@ -10,16 +33,28 @@ Ownership:
 - Homebrew cask: Ghostty
 - Nix: Google Chrome and OpenCode
 
-Run:
+## Manual Steps
+
+- Complete macOS setup assistant and system updates.
+- Set input source to English - ABC.
+- Grant requested accessibility, input monitoring, and screen-recording permissions after desktop tools are added.
+- Keep company-managed software outside this configuration unless declarative management is explicitly allowed.
+
+## Rollback
+
+List generations:
 
 ```bash
-cd ~/dotfiles
-bash macos/setup/main.sh
+darwin-rebuild --list-generations
 ```
 
-First run installs Lix when missing, then stops. Restart terminal and run script again. Later runs use `darwin-rebuild`.
+Switch to previous generation:
 
-Verify:
+```bash
+sudo darwin-rebuild switch --rollback
+```
+
+## Verify
 
 ```bash
 open -a Ghostty
