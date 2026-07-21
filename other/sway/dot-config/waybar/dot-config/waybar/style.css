@@ -1,20 +1,18 @@
-/* Load the selected theme via the central symlink.
- * Your theme_switcher.sh script must ensure that this symlink
- * points to EITHER dark.css or light.css in your theme directory.
- * E.g., ~/.config/waybar/current_theme.css -> ~/.config/theme/dark/waybar.css
- */
-@import "theme.css";
+@define-color base1 #eff1f5;
+@define-color base2 #e6e9ed;
+@define-color text #4c4f69;
+@define-color subtext #626880;
+@define-color highlight #1e66f5;
+@define-color red #d20f39;
+@define-color yellow #df8e1d;
+@define-color green #40a02b;
+@define-color border #7287fd;
 
 /* -----------------------------------------------------------------------------
  * Base Reset
  * -------------------------------------------------------------------------- */
 window#waybar {
   all: unset;
-  /* The border is applied inside the imported CSS files (dark.css/light.css) 
-     * to ensure the color matches the active theme's palette (@border).
-     * If you prefer to define it here, remove it from the imported files and use:
-     * border: 2px solid @border; 
-     */
 }
 
 * {
