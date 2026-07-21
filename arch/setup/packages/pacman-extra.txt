@@ -4,6 +4,7 @@ alacritty
 alsa-tools
 alsa-utils
 arch-wiki-docs
+bandwhich
 bat
 bat-extras
 blanket

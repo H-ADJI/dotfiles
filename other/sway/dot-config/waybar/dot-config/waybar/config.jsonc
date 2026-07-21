@@ -29,7 +29,7 @@
         "interval": 5,
         "tooltip": false,
         "exec": "playerctl metadata --format='{{ artist }} - {{ title }}'",
-        "on-click": "alacritty -T cava_popup -e cava",
+        "on-click": "ghostty --title=cava_popup -e cava",
         "max-length": 40
     },
     "sway/mode": {
@@ -103,13 +103,13 @@
             "warning": 70,
             "critical": 90
         },
-        "on-click": "alacritty -T btm_popup -e btm"
+        "on-click": "ghostty --title=btm_popup -e btm"
     },
     "memory": {
         "interval": 5,
         "format": "RAM : {:>3}%",
         // "on-click": "footclient -T waybar_htop -e htop",
-        "on-click": "alacritty -T btm_popup -e btm",
+        "on-click": "ghostty --title=btm_popup -e btm",
         "states": {
             "warning": 70,
             "critical": 90

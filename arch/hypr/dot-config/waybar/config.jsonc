@@ -30,7 +30,7 @@
         "interval": 10,
         "tooltip": false,
         "exec": "playerctl metadata --format='{{ artist }} - {{ title }}'",
-        "on-click": "alacritty --class cava -e cava",
+        "on-click": "ghostty --class=cava -e cava",
         "max-length": 40
     },
     "clock": {
@@ -71,7 +71,8 @@
         "format-ethernet": " {bandwidthDownBits:>} 󰶡 {bandwidthUpBits:>} 󰶣",
         "tooltip-format-ethernet": "{ifname}: {ipaddr}/{cidr}",
         "format-disconnected": " Disconnected",
-        "interval": 10
+        "interval": 10,
+        "on-click": "ghostty --class=btm -e bandwhich -s"
     },
 
     "cpu": {
@@ -81,12 +82,12 @@
             "warning": 70,
             "critical": 90
         },
-        "on-click": "alacritty -o window.padding.x=20 -o window.padding.y=20 --class btm -e btm"
+        "on-click": "ghostty --class=btm -e btm"
     },
     "memory": {
         "interval": 10,
         "format": "RAM : {:>3}%",
-        "on-click": "alacritty -o window.padding.x=20 -o window.padding.y=20 --class btm -e btm",
+        "on-click": "ghostty --class=btm -e btm",
         "states": {
             "warning": 70,
             "critical": 90
@@ -130,7 +131,7 @@
         "format-connected": "{num_connections} 󰂱",
         "tooltip-format-connected": "{device_enumerate}",
         "tooltip-format-enumerate-connected": "{device_alias}\t{device_address} - {device_battery_percentage}%",
-        "on-click": "alacritty -o window.padding.x=20 -o window.padding.y=20  --class bluetui -e bluetui"
+        "on-click": "ghostty --class=bluetui -e bluetui"
     },
     "tray": {
         "icon-size": 18,
