@@ -12,19 +12,23 @@
 
   programs.git = {
     enable = true;
-    userName = "khalil hadji";
-    userEmail = "h-adji_tech@proton.me";
-    delta = {
-      enable = true;
-      options = {
-        navigate = true;
-        side-by-side = true;
+    settings = {
+      user = {
+        name = "khalil hadji";
+        email = "h-adji_tech@proton.me";
       };
-    };
-    aliases.yolo = "!git add -A && git commit -m \"$(curl --silent --fail https://whatthecommit.com/index.txt)\"";
-    extraConfig = {
+      alias.yolo = "!git add -A && git commit -m \"$(curl --silent --fail https://whatthecommit.com/index.txt)\"";
       merge.conflictstyle = "diff3";
       diff.colorMoved = "default";
+    };
+  };
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      navigate = true;
+      side-by-side = true;
     };
   };
 
