@@ -1,0 +1,309 @@
+:root {
+  --base: #f4f4f2;
+  --surface: #e8e8e4;
+  --surface-hover: #deded8;
+  --overlay: #c8c8c0;
+  --text: #1f2328;
+  --subtext: #5f6368;
+  --accent: #4b6f8f;
+  --green: #5f7460;
+  --yellow: #8a714a;
+  --red: #8f4b4b;
+  --border: #1f2328;
+  --radius: 12px;
+  --shadow: none;
+  --hover-transition:
+    background 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  --hover-tranistion: var(--hover-transition);
+  --group-collapse-transition: opacity 400ms ease-in-out;
+  --group-collapse-tranistion: var(--group-collapse-transition);
+  --notification-icon-size: 48px;
+  --notification-app-icon-size: 20px;
+  --notification-group-icon-size: 32px;
+  --font-size-body: 14px;
+  --font-size-summary: 15px;
+}
+
+@define-color cc-bg #f4f4f2;
+@define-color noti-border-color #1f2328;
+@define-color noti-bg #e8e8e4;
+@define-color noti-bg-opaque #e8e8e4;
+@define-color noti-bg-darker #deded8;
+@define-color noti-bg-hover #deded8;
+@define-color noti-bg-hover-opaque #deded8;
+@define-color noti-bg-focus #deded8;
+@define-color noti-close-bg #8f4b4b;
+@define-color noti-close-bg-hover #4b6f8f;
+@define-color text-color #1f2328;
+@define-color text-color-disabled #5f6368;
+@define-color bg-selected #4b6f8f;
+
+* {
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  text-shadow: none;
+  box-shadow: none;
+}
+
+notificationwindow,
+blankwindow,
+.blank-window,
+.floating-notifications {
+  background: transparent;
+}
+
+.notification-row,
+.notification-row:focus,
+.notification-group,
+.notification-group:focus {
+  background: transparent;
+  outline: none;
+}
+
+.notification-row .notification-background {
+  background: transparent;
+  padding: 8px 12px;
+}
+
+.notification-row .notification-background .notification {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0;
+  box-shadow: var(--shadow);
+  transition: var(--hover-transition);
+}
+
+.notification-row .notification-background .notification.critical {
+  border-color: var(--red);
+}
+
+.notification-row
+  .notification-background
+  .notification
+  .notification-default-action {
+  background: transparent;
+  border: none;
+  border-radius: var(--radius);
+  color: var(--text);
+  margin: 0;
+  padding: 8px;
+  transition: var(--hover-transition);
+}
+
+.notification-row
+  .notification-background
+  .notification
+  .notification-default-action:hover,
+.control-center
+  .control-center-list
+  .notification
+  .notification-default-action:hover,
+.control-center .control-center-list .notification .notification-action:hover {
+  background: var(--surface-hover);
+}
+
+.notification-row
+  .notification-background
+  .notification
+  .notification-default-action:not(:only-child) {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.notification-content,
+.notification-row
+  .notification-background
+  .notification
+  .notification-default-action
+  .notification-content {
+  background: transparent;
+  border-radius: var(--radius);
+  padding: 0;
+}
+
+.summary,
+.notification-row
+  .notification-background
+  .notification
+  .notification-default-action
+  .notification-content
+  .text-box
+  .summary {
+  background: transparent;
+  color: var(--text);
+  font-size: var(--font-size-summary);
+  font-weight: 800;
+}
+
+.time,
+.body,
+.notification-row
+  .notification-background
+  .notification
+  .notification-default-action
+  .notification-content
+  .text-box
+  .time,
+.notification-row
+  .notification-background
+  .notification
+  .notification-default-action
+  .notification-content
+  .text-box
+  .body {
+  background: transparent;
+  color: var(--subtext);
+  font-size: var(--font-size-body);
+}
+
+.close-button {
+  background: var(--border);
+  border: none;
+  border-radius: 999px;
+  color: var(--base);
+  margin: 8px;
+  min-height: 24px;
+  min-width: 24px;
+  padding: 0;
+}
+
+.close-button:hover {
+  background: var(--accent);
+  color: var(--base);
+}
+
+.notification-row
+  .notification-background
+  .notification
+  .notification-alt-actions {
+  background: transparent;
+  border-bottom-left-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+  padding: 6px;
+}
+
+.notification-row
+  .notification-background
+  .notification
+  .notification-action
+  > button {
+  background: var(--surface-hover);
+  border: none;
+  border-radius: 12px;
+  color: var(--text);
+  margin: 4px;
+}
+
+.notification-row
+  .notification-background
+  .notification
+  .notification-action
+  > button:hover {
+  background: var(--accent);
+  color: var(--base);
+}
+
+.control-center {
+  background: var(--base);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  color: var(--text);
+  padding: 12px;
+  box-shadow: none;
+}
+
+.control-center .control-center-list,
+.control-center .control-center-list-placeholder {
+  background: transparent;
+}
+
+.control-center .control-center-list .notification {
+  box-shadow: var(--shadow);
+}
+
+.widget {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  margin: 8px;
+  padding: 10px;
+}
+
+.widget-title > label {
+  color: var(--text);
+  font-size: 1.25rem;
+  margin-right: 8px;
+}
+
+.widget-title > button,
+.widget-buttons-grid flowboxchild > button,
+.widget-menubar > .menu-button-bar > .widget-menubar-container button {
+  background: var(--accent);
+  border: none;
+  border-radius: 12px;
+  color: var(--base);
+  padding: 6px 12px;
+}
+
+.widget-title > button:hover,
+.widget-buttons-grid flowboxchild > button:hover,
+.widget-menubar > .menu-button-bar > .widget-menubar-container button:hover {
+  background: var(--green);
+}
+
+.widget-dnd label {
+  color: var(--text);
+  font-size: 1.05rem;
+  margin-right: 8px;
+}
+
+.widget-dnd switch {
+  background: var(--overlay);
+  border-radius: 999px;
+  margin-left: 8px;
+}
+
+.widget-dnd switch:checked {
+  background: var(--accent);
+}
+
+.widget-dnd switch slider {
+  background: var(--base);
+  border-radius: 999px;
+}
+
+.widget-mpris,
+.widget-mpris .widget-mpris-player {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 0;
+}
+
+.widget-mpris .widget-mpris-player {
+  margin: 8px;
+}
+
+.widget-mpris .widget-mpris-player .mpris-overlay {
+  background: rgba(232, 232, 228, 0.9);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+
+.widget-mpris .widget-mpris-player .mpris-overlay button:hover,
+.widget-mpris .widget-mpris-player .mpris-overlay > box > button:hover {
+  background: var(--surface-hover);
+}
+
+.widget-mpris-title {
+  color: var(--text);
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.widget-mpris-subtitle {
+  color: var(--subtext);
+}

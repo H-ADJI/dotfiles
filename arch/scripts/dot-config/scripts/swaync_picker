@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-options="🔔 Toggle Notification Center\n🧹 Clear All Notifications\n🙈 Close All Notifications"
-selection=$(echo -e "$options" | fuzzel --dmenu --prompt="🔔 SwayNC ❯ " --lines=3 --width=35)
+options="Open Notifications Center\nClear All Notifications"
+selection=$(echo -e "$options" | fuzzel --dmenu --prompt="Notifications Center ❯ " --lines=2 --width=35)
 
 case "$selection" in
-    *"Toggle"*) swaync-client -t ;;
+    *"Open"*) swaync-client -t ;;
     *"Clear"*) swaync-client -C ;;
-    *"Close"*) swaync-client --hide-all ;;
 esac

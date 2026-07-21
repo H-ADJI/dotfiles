@@ -20,3 +20,10 @@
 ```
 
 - agents should not run the test command since they take too long
+
+## Goals
+
+- minimalistic setup
+- light weight in term of ressource usage
+- litle eye candy as posssible
+- stability
