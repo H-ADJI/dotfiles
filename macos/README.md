@@ -25,6 +25,11 @@ Static check:
 mise run check macos
 ```
 
+## Layout
+
+- `hosts/khalils-MacBook-Pro/`: machine identity and imports.
+- `modules/home/`: user packages and app configurations.
+
 ## Ownership
 
 - Lix
