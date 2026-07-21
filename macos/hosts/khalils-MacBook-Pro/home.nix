@@ -15,6 +15,7 @@
     ".zshrc".source = ../../zsh/dot-zshrc;
     "zsh".source = ../../zsh/zsh;
     ".tmux.conf".source = ../../tmux/dot-tmux.conf;
+    ".tmuxp".source = ../../tmux/dot-tmuxp;
   };
 
   xdg.configFile = {
