@@ -35,11 +35,6 @@ install_nix() {
 
     echo "Installing Lix."
     curl -sSf -L https://install.lix.systems/lix | sh -s -- install
-
-    if [[ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
-        # shellcheck disable=SC1091
-        source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-    fi
 }
 
 install_first_tools() {
