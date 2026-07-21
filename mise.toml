@@ -8,6 +8,10 @@ usage = 'arg "<system>" help="Targeted System"'
 depends = [{ task = "build", args = ["{{usage.system}}"] }]
 run = 'podman container run -it --rm "$usage_system"-test:latest'
 
+[tasks.check]
+usage = 'arg "<system>" help="Targeted System"'
+run = 'nix flake check "./$usage_system"'
+
 [tasks.burn]
 description = "Create bootable usb"
 alias = "b"
