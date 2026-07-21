@@ -4,9 +4,10 @@ return {
     opts = {
       ensure_installed = {
         "lua_ls",
-        "nixfmt",
-        "statix",
-        "asm_lsp",
+        -- macOS Cargo builds fail to link Nix libiconv outside a Nix shell.
+        -- "nixfmt",
+        -- "statix",
+        -- "asm_lsp",
         "asmfmt",
         "just-lsp",
         "jq-lsp",
