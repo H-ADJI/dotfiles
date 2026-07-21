@@ -1,14 +1,14 @@
 # macOS Setup
 
-First clean-install goal: get enough tools to continue building dotfiles comfortably.
+Nix-darwin + Home Manager workstation configuration for `khalils-MacBook-Pro`.
 
-Installs:
+Ownership:
 
 - Lix
-- Homebrew
-- Google Chrome
-- Ghostty
-- OpenCode
+- nix-darwin + Home Manager: system, user packages, and dotfiles
+- nix-homebrew: Homebrew installation
+- Homebrew cask: Ghostty
+- Nix: Google Chrome and OpenCode
 
 Run:
 
@@ -17,11 +17,11 @@ cd ~/dotfiles
 bash macos/setup/main.sh
 ```
 
-After bootstrap:
+First run installs Lix when missing, then stops. Restart terminal and run script again. Later runs use `darwin-rebuild`.
+
+Verify:
 
 ```bash
 open -a Ghostty
 opencode
 ```
-
-Then continue with nix-darwin + Home Manager setup.

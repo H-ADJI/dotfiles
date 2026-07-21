@@ -1,50 +1,24 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-load_homebrew() {
-    if command -v brew >/dev/null 2>&1; then
-        return
-    fi
-
-    if [[ -x /opt/homebrew/bin/brew ]]; then
-        eval "$(/opt/homebrew/bin/brew shellenv)"
-        return
-    fi
-
-    if [[ -x /usr/local/bin/brew ]]; then
-        eval "$(/usr/local/bin/brew shellenv)"
-        return
-    fi
+[[ "$(uname -s)" == "Darwin" ]] || {
+    echo "macOS required." >&2
+    exit 1
 }
 
-install_homebrew() {
-    load_homebrew
-    if command -v brew >/dev/null 2>&1; then
-        return
-    fi
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES="$(cd "$SCRIPT_DIR/../.." && pwd)"
+HOST="${HOST:-$(scutil --get LocalHostName)}"
 
-    echo "Installing Homebrew."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    load_homebrew
-}
-
-install_nix() {
-    if command -v nix >/dev/null 2>&1; then
-        return
-    fi
-
-    echo "Installing Lix."
+if ! command -v nix >/dev/null 2>&1; then
+    echo "Installing Lix. Restart terminal, then rerun this script."
     curl -sSf -L https://install.lix.systems/lix | sh -s -- install
-}
+    exit 0
+fi
 
-install_first_tools() {
-    brew install --cask google-chrome
-    brew install --cask ghostty
-    brew install anomalyco/tap/opencode
-}
+FLAKE="$DOTFILES/macos#$HOST"
+if command -v darwin-rebuild >/dev/null 2>&1; then
+    exec sudo darwin-rebuild switch --flake "$FLAKE"
+fi
 
-install_nix
-install_homebrew
-install_first_tools
-
-echo "macOS bootstrap done. Open Ghostty, clone dotfiles if needed, then continue nix-darwin setup."
+exec sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake "$FLAKE"

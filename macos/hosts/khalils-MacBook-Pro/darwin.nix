@@ -2,8 +2,20 @@
 
 {
   nixpkgs.hostPlatform = "aarch64-darwin";
+  nixpkgs.config.allowUnfree = true;
   nix.package = pkgs.lix;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  nix-homebrew = {
+    enable = true;
+    user = "khalil";
+    autoMigrate = true;
+  };
+
+  homebrew = {
+    enable = true;
+    casks = [ "ghostty" ];
+  };
 
   users.users.khalil = {
     home = "/Users/khalil";

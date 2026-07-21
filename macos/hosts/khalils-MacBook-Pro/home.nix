@@ -14,10 +14,12 @@
     gnugrep
     gnutar
     go
+    google-chrome
     hyperfine
     mise
     neovim
     nodejs
+    opencode
     python3
     ripgrep
     rustc
@@ -79,6 +81,7 @@
 
     oh-my-zsh = {
       enable = true;
+      # TODO: Replace OMZ snippets with native Home Manager settings where available.
       plugins = [ "git" "sudo" "eza" "gh" "uv" "ssh" ];
     };
 
@@ -155,6 +158,7 @@
         mkdir -p "$HOME/.zfunc"
         zellij setup --generate-completion zsh >"$HOME/.zfunc/_zellij"
       fi
+      # TODO: Replace manual mise, television, and Zellij shell setup with native modules if added.
       eval "$(mise activate zsh)"
       eval "$(tv init zsh)"
     '';
@@ -219,6 +223,7 @@
         '';
       }
     ];
+    # TODO: Package or replace unavailable tmux-fzf-session-switch plugin.
     extraConfig = ''
       set -ag terminal-overrides ",xterm-256color:RGB"
       set -g detach-on-destroy on
@@ -278,7 +283,7 @@
     settings = {
       theme = "Catppuccin Latte";
       font-family = "JetBrainsMono Nerd Font";
-      font-size = 15;
+      font-size = 20;
       font-style = "Bold";
       font-style-bold = true;
       font-style-italic = false;
@@ -290,13 +295,14 @@
       confirm-close-surface = false;
       window-decoration = "none";
       maximize = false;
-      window-padding-x = 24;
-      window-padding-y = 16;
+      window-padding-x = 180;
+      window-padding-y = 80;
       keybind = [ "ctrl+shift+r=reload_config" ];
     };
   };
 
   home.file = {
+    ".hushlogin".text = "";
     ".tmuxp".source = ../../tmux/dot-tmuxp;
   };
 
