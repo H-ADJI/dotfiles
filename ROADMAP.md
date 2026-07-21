@@ -3,7 +3,7 @@
 ## Status
 
 - **Arch Linux** — implemented in `arch/`
-- **macOS** — planned
+- **macOS** — foundation implemented; desktop, editor, secrets, and migration planned
 - **NixOS** — planned
 
 ---
@@ -39,34 +39,34 @@ Design rule: if macOS and Arch both need `zsh`, `nvim`, `git`, or `starship`, ea
 
 Goal: introduce `macos/` as a complete standalone macOS workstation setup.
 
-### Structure
+### Current Structure
 
-Create:
+Implemented:
 
 ```text
 macos/
 ├── flake.nix
 ├── flake.lock
 ├── hosts/
-│   └── <hostname>/
+│   └── khalils-MacBook-Pro/
 │       ├── darwin.nix
 │       └── home.nix
+├── modules/
+│   └── home/
+│       ├── files.nix
+│       ├── ghostty.nix
+│       ├── git.nix
+│       ├── packages.nix
+│       ├── shell.nix
+│       └── tmux.nix
 ├── setup/
 │   └── main.sh
-├── zsh/
 ├── nvim/
-├── git/
-├── starship/
 ├── tmux/
-├── ghostty/
-├── aerospace/
-├── karabiner/
-├── raycast/
-├── maccy/
-└── ...
+└── README.md
 ```
 
-Copy/adapt from `arch/` only when useful. Do not move files into shared locations.
+Each OS owns its config. Copy/adapt from `arch/` only when useful. Do not add a shared dotfiles directory.
 
 ### Setup
 
@@ -76,12 +76,8 @@ Copy/adapt from `arch/` only when useful. Do not move files into shared location
    - Keep structure simple at first.
    - Prefer one host config before introducing reusable modules.
    - Add abstractions only when duplication becomes painful.
-4. Add package management for:
-   - CLI tools
-   - GUI apps
-   - fonts
-   - development runtimes
-5. Use `nix-homebrew` or plain Homebrew only if needed for apps Nix handles poorly.
+4. Manage user packages and program config through Home Manager.
+5. Use Nix packages first. Use nix-homebrew only for unavailable macOS apps.
 6. Configure macOS defaults:
    - Dock
    - Finder
@@ -99,272 +95,118 @@ Copy/adapt from `arch/` only when useful. Do not move files into shared location
 13. Evaluate kindavim later for modal editing in native text fields.
 14. Defer SketchyBar until the base macOS desktop is stable.
 
-### Clean Install Build Sequence
+### Current Foundation
 
-Start from a clean macOS reset and build in small verified layers.
+Implemented and verified in small layers:
 
-#### Step 1: Manual First Boot
+1. Lix, nix-darwin, Home Manager, and nix-homebrew flake inputs.
+2. One Apple Silicon host: `khalils-MacBook-Pro`.
+3. Nix-darwin: Lix, Homebrew installation ownership, Ghostty cask, keyboard repeat defaults.
+4. Home Manager: user packages, Git/Delta, Zsh, Tmux/Tmuxp, Ghostty config, and raw Neovim Lua config.
+5. Nix packages: Google Chrome, OpenCode, CLI tools, runtimes, and editor dependencies.
+6. `macos/setup/main.sh`: Lix bootstrap and nix-darwin rebuild only. It does not install apps imperatively.
+7. Static check: `mise run check macos`.
 
-Do manually before dotfiles:
-
-1. Finish macOS setup assistant.
-2. Sign in to Apple ID only if needed.
-3. Install system updates.
-4. Open Terminal once.
-5. Set keyboard input source to **English - ABC**.
-6. Confirm network, iCloud/company enrollment, and security tooling are stable.
-
-#### Step 2: Clone Dotfiles
-
-Install Git if macOS prompts for it, then clone repo:
+Bootstrap from a cloned repository:
 
 ```bash
-git clone git@github.com:H-ADJI/dotfiles.git ~/dotfiles
-cd ~/dotfiles
+bash ~/dotfiles/macos/setup/main.sh
 ```
 
-If SSH keys are not available yet, use HTTPS first and switch remote later.
-
-#### Step 3: Create Minimal `macos/` Scaffold
-
-Create only the base skeleton first:
-
-```text
-macos/
-├── flake.nix
-├── hosts/<hostname>/darwin.nix
-├── hosts/<hostname>/home.nix
-├── setup/main.sh
-└── README.md
-```
-
-Do not copy all dotfiles yet. First goal is a working Nix/macOS rebuild.
-
-#### Step 4: Install Lix
-
-Use Lix installer, as recommended by nix-darwin:
+First run installs Lix when absent, then stops. Restart terminal and rerun. Later runs use:
 
 ```bash
-curl -sSf -L https://install.lix.systems/lix | sh -s -- install
+sudo darwin-rebuild switch --flake ~/dotfiles/macos#khalils-MacBook-Pro
 ```
 
-Then restart terminal and verify:
+Do not use Stow for macOS. Home Manager owns user config through native modules, `home.file`, and `xdg.configFile`.
 
-```bash
-nix --version
-```
+### Remaining Build Sequence
 
-For first-boot ergonomics, `macos/setup/main.sh` may be used before full nix-darwin exists. It installs:
+Build and verify each layer before continuing.
 
-- Lix
-- Homebrew
-- Google Chrome
-- Ghostty
-- OpenCode
+#### Step 1: Editor Tools Before Nixvim
 
-This gives a browser, terminal, and agent before the declarative macOS config is complete.
+1. Keep current raw Lua Neovim config under `macos/nvim/`.
+2. Replace Mason-managed LSPs, formatters, linters, Tree-sitter parsers, Deno, and build dependencies with Nix packages where available.
+3. Keep Mason only for tools unavailable in Nixpkgs.
+4. Test LSP startup, formatting, previews, snippets, and parsers on macOS.
+5. Fix macOS browser commands in preview plugins.
 
-#### Step 5: Add Minimal nix-darwin Flake
+#### Step 2: Incremental Nixvim Evaluation
 
-Start with one host only.
+1. Add Nixvim only after external editor tools are declarative.
+2. Translate stable plugins and core options first.
+3. Keep custom callbacks, snippets, queries, and unsupported plugins as Lua escape hatches.
+4. Treat the Nixvim migration as a controlled plugin-version upgrade from `lazy-lock.json` to flake-pinned versions.
+5. Retain raw Lua config if full Nixvim increases maintenance or loses needed behavior.
 
-`flake.nix` should include:
+#### Step 3: Minimal Desktop Defaults
 
-- `nix-darwin`
-- `home-manager`
-- one `darwinConfigurations.<hostname>`
+Add and verify small groups of nix-darwin defaults:
 
-Keep `darwin.nix` minimal:
+1. Dock: auto-hide and minimal behavior.
+2. Finder: show extensions, hidden files, and path bar.
+3. Trackpad: tap-to-click and chosen scroll behavior.
+4. Screenshots: location and format.
+5. Login/session behavior.
 
-- enable flakes
-- use `nix.package = pkgs.lix;`
-- set username/home directory
-- set hostname
-- set keyboard repeat defaults
-- install tiny package set only
+Keep desktop settings low-distraction and Linux-like. Do not add cosmetic tuning.
 
-Keep `home.nix` minimal:
+#### Step 4: Keyboard and Window Management
 
-- `home.stateVersion`
-- shell basics
-- Git basics
-- no app ricing yet
+1. Set macOS input source to **English - ABC**.
+2. Confirm ZMK keyboard pairing and normal HID behavior.
+3. Add Karabiner-Elements through Homebrew cask.
+4. Add only macOS-specific modifier normalization, laptop fallback, and app exceptions.
+5. Do not duplicate ZMK layers, combos, or tap-hold logic in Karabiner.
+6. Grant Input Monitoring, Accessibility, and DriverKit permissions manually.
+7. Add Aerospace from Nixpkgs and deploy raw `aerospace.toml` through Home Manager.
+8. Start Aerospace with focus/move directions, workspaces 1–3, window moves, terminal/browser launch, and simple communication rules.
+9. Grant Accessibility manually. Defer gaps, bars, rounded corners, and complex rules.
 
-#### Step 6: First Rebuild
+#### Step 5: Launcher, Clipboard, and Native Navigation
 
-Run nix-darwin directly first:
+1. Add Raycast through Homebrew cask. Configure account, launcher hotkey, and extensions manually.
+2. Add Maccy from Nixpkgs. Grant Accessibility manually.
+3. Test Raycast Clipboard History and Maccy. Keep one clipboard history workflow.
+4. Trial Homerow from Homebrew cask. Use Shortcat only if Homerow fails daily use.
+5. Trial kindavim only after Karabiner, Aerospace, and native navigation are stable.
+6. Do not add SketchyBar until desktop tools and work apps are stable.
 
-```bash
-nix run nix-darwin -- switch --flake ~/dotfiles/macos#<hostname>
-```
+#### Step 6: Migrate Retained Arch Programs
 
-After first success, use:
+Use one `modules/home/<program>.nix` file per retained program.
 
-```bash
-darwin-rebuild switch --flake ~/dotfiles/macos#<hostname>
-```
+1. Native Home Manager modules: Bat config, Starship config, Mise, Yazi, Taskwarrior.
+2. Raw `xdg.configFile` or `home.file`: selected scripts, OpenCode, Television, Fastfetch, Hunk, JNV, Tabiew, JQP.
+3. Port scripts selectively; adapt clipboard, browser, and path assumptions for macOS.
+4. Do not migrate Hyprland, PipeWire, Fuzzel, SwayNC, Swappy, Linux browser flags, or other Linux-only desktop tooling.
 
-Do not continue until rebuild is clean.
+#### Step 7: Secrets and Encryption
 
-#### Step 7: Add CLI Base
+1. Add `sops-nix` and `age` after core config and before secret-backed apps.
+2. Generate a per-machine `age` identity outside Git with mode `0600`.
+3. Store only SOPS ciphertext under `macos/secrets/` and public recipients in `.sops.yaml`.
+4. Deploy secrets at runtime through `sops-nix`; never use Nix text/source helpers with plaintext secrets.
+5. Migrate Mac SSH, AI/API, and Leetcode secrets one at a time.
+6. Do not migrate shell history.
+7. Keep Arch Transcrypt unchanged until an independent Arch migration is proven.
 
-Add CLI packages gradually:
+#### Step 8: Validate Bootstrap
 
-- `git`
-- `stow`
-- `zsh`
-- `neovim`
-- `tmux`
-- `ripgrep`
-- `fd`
-- `eza`
-- `bat`
-- `jq`
-- `fzf`
-- `zoxide`
-- `starship`
-- `mise`
+1. Test `macos/setup/main.sh` from a clean shell.
+2. Test Lix-missing, first nix-darwin, and repeat `darwin-rebuild` paths.
+3. Confirm Nix packages, Homebrew Ghostty, Home Manager config links, and required manual permissions.
+4. Keep `mise run check macos`.
+5. Add and validate `darwin-rebuild check --flake ./macos#khalils-MacBook-Pro` when useful.
 
-Rebuild and test after each small group.
+#### Step 9: Cleanup and Maintenance
 
-#### Step 8: Add Dotfiles One Package At A Time
-
-Copy/adapt dotfiles from `arch/` into `macos/` one package at a time:
-
-1. `macos/git/`
-2. `macos/zsh/`
-3. `macos/starship/`
-4. `macos/nvim/`
-5. `macos/tmux/`
-6. `macos/ghostty/`
-
-After each package:
-
-```bash
-stow --dotfiles -d ~/dotfiles/macos -t ~ <package>
-```
-
-Then open a new shell/app and verify. Do not bulk-stow first pass.
-
-#### Step 9: Add GUI Apps
-
-Add GUI apps with Nix first when available. Use Homebrew only when needed.
-
-Initial GUI apps:
-
-- Ghostty
-- Raycast
-- Karabiner-Elements
-- Maccy
-- Aerospace
-- Homerow or Shortcat
-
-Keep `nix-homebrew` optional until needed. If company tooling already manages apps, do not fight it.
-
-#### Step 10: Add Keyboard Setup
-
-Configure in this order:
-
-1. macOS input source: **English - ABC**
-2. ZMK keyboard pairs and works normally
-3. nix-darwin repeat settings
-4. Karabiner modifier/fallback rules
-
-Do not port full ZMK layout into Karabiner. Karabiner handles only macOS-specific remaps.
-
-#### Step 11: Add Aerospace
-
-Add `macos/aerospace/` after terminal and keyboard are stable.
-
-First config should include only:
-
-- focus directions
-- move directions
-- workspace 1/2/3
-- move window to workspace 1/2/3
-- terminal launch
-- browser launch
-- communication workspace rules
-
-Match Hyprland keybinds where possible.
-
-Defer gaps, rounded polish, and complex rules until tiling feels correct.
-
-#### Step 12: Add Raycast and Maccy
-
-Use Raycast for:
-
-- app launcher
-- command palette
-- quick actions
-
-Use Maccy for clipboard history unless Raycast clipboard fully replaces it.
-
-#### Step 13: Add Native Keyboard Navigation
-
-After base desktop is stable:
-
-1. Try Homerow.
-2. If Homerow does not fit, try Shortcat.
-3. Trial kindavim for modal editing.
-
-Keep only tools that earn daily use.
-
-#### Step 14: Defer Bar/Ricing
-
-Do not add SketchyBar during initial setup.
-
-Add later only after:
-
-- Aerospace stable
-- Raycast stable
-- Karabiner stable
-- work apps stable
-
-#### Step 15: Add `setup/main.sh`
-
-Only after manual commands are proven, encode them in `macos/setup/main.sh`.
-
-`main.sh` should:
-
-1. verify macOS
-2. verify Nix exists or print install command
-3. run `darwin-rebuild switch --flake`
-4. stow selected macOS dotfiles
-5. avoid destructive actions
-
-Keep first version boring and explicit.
-
-#### Step 16: Add Checks
-
-Add lightweight checks to `mise.toml`:
-
-```bash
-nix flake check ./macos
-```
-
-Optional later:
-
-```bash
-darwin-rebuild check --flake ./macos#<hostname>
-```
-
-#### Step 17: Document Machine-Specific Notes
-
-Add `macos/README.md` with:
-
-- hostname
-- company restrictions found
-- apps installed outside Nix
-- manual steps still required
-- rollback commands
-
-Rollback basics:
-
-```bash
-darwin-rebuild --list-generations
-darwin-rebuild switch --rollback
-```
+1. Remove unused `macos/zsh/`, `macos/ghostty/`, and stale raw configuration trees after replacements are verified.
+2. Keep Darwin config together in host `darwin.nix`; split Home Manager config by program under `modules/home/`.
+3. Remove obsolete Stow assumptions from macOS documentation and scripts.
+4. Review diff, run checks, and commit only verified layers.
 
 ### Desktop Choices
 
@@ -429,22 +271,16 @@ system.keyboard.enableKeyMapping = true;
 
 Do not duplicate ZMK layout logic in Karabiner. Keep Karabiner small and macOS-specific.
 
-### Dotfiles
+### Configuration Ownership
 
-MacOS dotfiles live inside `macos/`, even if duplicate with `arch/`:
+MacOS configuration lives inside `macos/`, even when duplicated from `arch/`.
 
-- `macos/zsh/`
-- `macos/nvim/`
-- `macos/git/`
-- `macos/starship/`
-- `macos/ghostty/`
-- `macos/tmux/`
-- `macos/aerospace/`
-- `macos/karabiner/`
-- `macos/raycast/`
-- `macos/maccy/`
-
-Use `stow --dotfiles` from `macos/` only.
+- Keep nix-darwin state in `hosts/<hostname>/darwin.nix`.
+- Keep Home Manager configuration split by program in `modules/home/`.
+- Use native Home Manager modules when mature.
+- Use `home.file` or `xdg.configFile` for native raw app formats.
+- Keep generated, private, and secret-bearing files outside normal source deployment.
+- Do not use Stow on macOS.
 
 ### Testing
 
@@ -554,7 +390,7 @@ Keep integration minimal.
    - `mise run build arch`
    - `mise run check macos`
    - `mise run check nixos`
-3. Keep `.gitattributes` root-level and make encrypted paths explicit per OS.
+3. Add SOPS recipient policy and make encrypted paths explicit per OS.
 4. Keep `.gitignore` root-level.
 5. Do not introduce shared dotfiles package.
 
@@ -577,16 +413,17 @@ Keep integration minimal.
 | macOS modal editing | kindavim trial after base setup |
 | macOS status bar | SketchyBar deferred |
 | NixOS approach | Flake + Home Manager |
-| Deployment model | Each OS stows/applies only its own directory |
+| Deployment model | Each OS applies only its own configuration tree |
 
 ---
 
 ## Next Actions
 
-1. Create `macos/` scaffold.
-2. Add `macos/setup/main.sh`.
-3. Add simple nix-darwin + Home Manager flake.
-4. Create `nixos/` scaffold.
-5. Add `nixos/flake.nix` and first host.
-6. Update `init.sh` dispatch.
+1. Replace Mason editor tools with Nix packages, then evaluate Nixvim incrementally.
+2. Add minimal macOS desktop defaults.
+3. Add Karabiner, Aerospace, Raycast, Maccy, and navigation tools in stages.
+4. Migrate retained Arch programs through Home Manager or raw XDG deployment.
+5. Add macOS `sops-nix` + `age` secrets.
+6. Validate bootstrap, then clean unused Mac source trees.
+7. Create NixOS scaffold and first host.
 7. Add minimal `mise` checks for macOS and NixOS.

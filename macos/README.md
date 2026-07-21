@@ -45,6 +45,13 @@ mise run check macos
 - Grant requested accessibility, input monitoring, and screen-recording permissions after desktop tools are added.
 - Keep company-managed software outside this configuration unless declarative management is explicitly allowed.
 
+## Planned
+
+- Add `sops-nix` + `age` after core configuration is stable, before SSH, AI, Leetcode, or other secret-backed tools.
+- Keep Mac secrets under `macos/secrets/`; do not reuse Arch Transcrypt paths.
+- Use per-machine `age` identities stored outside Git. Leave Arch Transcrypt unchanged until its own migration.
+- Add Aerospace, Karabiner-Elements, Raycast, and Maccy after secrets handling is in place.
+
 ## Rollback
 
 List generations:
