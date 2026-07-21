@@ -32,6 +32,7 @@ gnome-boxes
 grep
 grim
 helvum
+hyperfine
 hypridle
 hyprlock
 hyprpaper

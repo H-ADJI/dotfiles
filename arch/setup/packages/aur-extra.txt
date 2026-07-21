@@ -7,7 +7,6 @@ leetcode-cli
 localsend-bin
 netcat
 snore-git
-zmk-studio
 spotify-adblock
 sunsetr
 ttf-x2
@@ -15,3 +14,4 @@ vial
 walt
 wayscriber-bin
 wlogout
+zmk-studio
