@@ -14,22 +14,19 @@ chmod 600 "$ssh_private_key"
 ssh-add "$ssh_private_key"
 
 PROJECTS_DIR="$HOME/projects"
-projects=(
-    "dgscrp-dataimpact-scraping"
-    "dgscrp-scraping-cli"
+
+declare -A project_envs=(
+    ["dgscrp-dataimpact-scraping"]="dis.env"
+    ["dgscrp-scraping-cli"]="discli.env"
 )
-for PROJECT in "${projects[@]}"; do
+
+for PROJECT in "${!project_envs[@]}"; do
     [ ! -d "$PROJECTS_DIR/$PROJECT" ] && git clone "git@github.com-niq:niq-enterprise/$PROJECT.git" "$PROJECTS_DIR/$PROJECT"
 done
 
-env_files=(
-    "dis.env"
-    "discli.env"
-)
 DOTS_PATH="$HOME/dotfiles/secrets/"
-for i in "${!env_files[@]}"; do
-    PROJECT="${projects[$i]}"
-    FILE="${env_files[$i]}"
+for PROJECT in "${!project_envs[@]}"; do
+    FILE="${project_envs[$PROJECT]}"
     cp "$DOTS_PATH/$FILE" "$PROJECTS_DIR/$PROJECT/.env"
 done
 

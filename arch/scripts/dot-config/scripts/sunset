@@ -3,11 +3,23 @@
 DEFAULT_LAT=48.8566
 DEFAULT_LON=2.3522
 
-LOC_DATA=$(curl -s ipinfo.io)
+CACHE_DIR="$HOME/.cache"
+CACHE_FILE="$CACHE_DIR/location"
 
-if [ $? -eq 0 ]; then
-    LAT=$(echo $LOC_DATA | jq -r ".loc" | cut -d, -f1)
-    LON=$(echo $LOC_DATA | jq -r ".loc" | cut -d, -f2)
+if [ ! -d "$CACHE_DIR" ]; then
+    mkdir -p "$CACHE_DIR"
+fi
+
+if [ ! -f "$CACHE_FILE" ] || [ ! -s "$CACHE_FILE" ]; then
+    LOC_DATA=$(curl -s --max-time 5 ipinfo.io)
+    if [ $? -eq 0 ] && [ -n "$LOC_DATA" ]; then
+        echo "$LOC_DATA" | jq -r ".loc" > "$CACHE_FILE"
+    fi
+fi
+
+if [ -f "$CACHE_FILE" ] && [ -s "$CACHE_FILE" ]; then
+    LAT=$(cut -d, -f1 "$CACHE_FILE")
+    LON=$(cut -d, -f2 "$CACHE_FILE")
 else
     LAT=$DEFAULT_LAT
     LON=$DEFAULT_LON

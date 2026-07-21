@@ -4,6 +4,7 @@ hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload; notify-send 'Hyprl
 
 hl.bind("SUPER + B", hl.dsp.exec_cmd("google-chrome-stable"))
 local home_dir = os.getenv("HOME")
+local script_dir = home_dir .. "/.config/scripts/"
 hl.bind("SUPER + SPACE", hl.dsp.exec_cmd("ghostty --working-directory=" .. home_dir))
 hl.bind("SUPER + E", hl.dsp.exec_cmd("ghostty -e yazi"))
 hl.bind("SUPER + W", hl.dsp.exec_cmd("ghostty -e walt"))
@@ -13,16 +14,12 @@ hl.bind("SUPER + SHIFT + B", hl.dsp.exec_cmd("ghostty -e bluetui"))
 hl.bind("SUPER + SHIFT + W", hl.dsp.exec_cmd("ghostty -e impala"))
 hl.bind("SUPER + SHIFT + M", hl.dsp.exec_cmd("ghostty -e pulsemixer"))
 hl.bind("SUPER + A", hl.dsp.exec_cmd("wayscriber --active"))
-hl.bind("SUPER + N", hl.dsp.exec_cmd("swaync-client --hide-all"))
-hl.bind("SUPER + SHIFT + N", hl.dsp.exec_cmd("swaync-client -C"))
-hl.bind("SUPER + T", hl.dsp.exec_cmd("swaync-client -t"))
+hl.bind("SUPER + SHIFT + N", hl.dsp.exec_cmd(script_dir .. "swaync_picker"))
 hl.bind("SUPER + SHIFT + X", hl.dsp.exec_cmd("pkill waybar || waybar"))
 
 local wlogout_toggle = "pkill wlogout || wlogout -b 4 -T 400 -B 400"
 hl.bind("SUPER + SHIFT + P", hl.dsp.exec_cmd(wlogout_toggle))
 hl.bind("mouse:275", hl.dsp.exec_cmd(wlogout_toggle))
-
-local script_dir = home_dir .. "/.config/scripts/"
 
 local hypr_screen = script_dir .. "hypr_screen "
 hl.bind("SUPER + C", hl.dsp.exec_cmd(hypr_screen .. "region"))

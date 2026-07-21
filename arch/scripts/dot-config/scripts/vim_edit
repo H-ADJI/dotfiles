@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 file=$(mktemp)
-tmux capture-pane -pS - >$file
-tmux new-window -n:scrollback-edit "$EDITOR '+ normal G $' $file"
+tmux capture-pane -pS - >"$file"
+tmux new-window -n:scrollback-edit "bash -c '\$EDITOR \"+ normal G \$\" \"$file\" ; rm -f \"$file\"'"

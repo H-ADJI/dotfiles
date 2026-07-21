@@ -2,6 +2,10 @@
 REPO_URL="https://gitlab.archlinux.org/archlinux/packaging/packages/docker.git"
 COMMIT_HASH="68ac98186960610ec1c0a9139415cad830141e67"
 TEMP_DIR=$(mktemp -d -t docker-build-XXXXX)
+
+# Cleanup trap
+trap 'rm -rf "$TEMP_DIR"' EXIT
+
 echo "Uninstall docker"
 yay -Rs docker
 if [ ! -d "$TEMP_DIR" ]; then

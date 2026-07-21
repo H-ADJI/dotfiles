@@ -11,4 +11,4 @@ wl-paste >>"$file"
 
 wl-paste >>"$tmp_file"
 
-tmux new-window -n 'aichat output' "$EDITOR $tmp_file"
+tmux new-window -n 'aichat output' "bash -c '\$EDITOR \"$tmp_file\" ; rm -f \"$tmp_file\"'"
