@@ -5,7 +5,6 @@ vim.g.maplocalleader = "\\"
 vim.o.clipboard = "unnamedplus"
 vim.o.number = true
 vim.o.autowriteall = true
-vim.o.undofile = false
 vim.o.expandtab = true
 vim.o.shiftwidth = 4
 vim.o.softtabstop = 4
