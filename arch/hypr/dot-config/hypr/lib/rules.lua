@@ -1,6 +1,13 @@
 hl.window_rule({
-    name = "float window",
-    match = { class = "btm|imv|cava" },
+    name = "custom.floatty",
+    match = { class = "custom.floatty" },
+    float = true,
+    center = true,
+    size = { "monitor_w * 0.8", "monitor_h * 0.8" },
+})
+hl.window_rule({
+    name = "image viewer",
+    match = { class = "imv" },
     float = true,
     center = true,
     size = { "monitor_w * 0.8", "monitor_h * 0.8" },
