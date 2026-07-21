@@ -1,0 +1,6 @@
+# [Created by task 3.4.2 7/20/2026 21:51:46]
+news.version=3.4.2
+hooks.location=~/.config/task/hooks
+
+include no-color.theme
+
