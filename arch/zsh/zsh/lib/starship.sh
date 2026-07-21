@@ -1,1 +1,1 @@
-eval "$(starship init zsh)"
+_evalcache starship init zsh

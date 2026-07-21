@@ -13,9 +13,6 @@ zinit snippet OMZP::eza
 # gh CLI completions https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/gh
 zinit snippet OMZP::gh
 
-# hooks direnv to terminal https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/direnv
-zinit snippet OMZP::direnv
-
 # uv aliases and completions https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/uv
 zinit snippet OMZP::uv
 
@@ -28,6 +25,3 @@ zinit snippet OMZP::docker-compose
 
 # podman aliases and completions https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/podman
 zinit snippet OMZP::podman
-
-# gh cli aliases and completions https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/gh
-zinit snippet OMZP::gh
