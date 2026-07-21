@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+STEP="${1:-5%}"
+ACTION="${2:-up}"
+
+get_master_volume() {
+    wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2}'
+}
+
+case "$ACTION" in
+    up) wpctl set-volume @DEFAULT_AUDIO_SINK@ "$STEP"+ -l 1.0 ;;
+    down) wpctl set-volume @DEFAULT_AUDIO_SINK@ "$STEP"- ;;
+    mute) wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle ;;
+esac
+
+MASTER_VOL=$(get_master_volume)
+streams=$(wpctl status | awk '/^ └─ Streams:/,/^[^ ]/' | awk '/^[[:space:]]+[0-9]+\./ && !/output_|input_|>/' | sed 's/^[[:space:]]*//' | cut -d. -f1)
+
+for id in $streams; do
+    wpctl set-volume "$id" "$MASTER_VOL"
+done
