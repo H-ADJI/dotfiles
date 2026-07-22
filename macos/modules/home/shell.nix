@@ -19,17 +19,18 @@
       findNoDups = true;
     };
     completionInit = ''
-      fpath+=("${pkgs.zsh-completions}/share/zsh/site-functions")
+      fpath=(
+        "${pkgs.zsh-completions}/share/zsh/site-functions"
+        "${pkgs.gh}/share/zsh/site-functions"
+        "${pkgs.uv}/share/zsh/site-functions"
+        "${pkgs.zellij}/share/zsh/site-functions"
+        $fpath
+      )
       autoload -Uz compinit
       compinit -C
       zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
       zstyle ':completion:*' menu select
     '';
-    oh-my-zsh = {
-      enable = true;
-      # TODO: Replace OMZ snippets with native Home Manager settings where available.
-      plugins = [ "git" "sudo" "eza" "gh" "uv" "ssh" ];
-    };
     plugins = [{
       name = "fzf-tab";
       src = pkgs.zsh-fzf-tab;
@@ -54,6 +55,19 @@
       dotconf = "cd ~/.config";
       nvim_shada_clear = "rm ~/.local/state/nvim/shada/main.shada";
       hd = "hunk diff";
+      g = "git";
+      ga = "git add";
+      gaa = "git add --all";
+      gcam = "git commit -am";
+      gco = "git checkout";
+      gd = "git diff";
+      gl = "git pull";
+      gp = "git push";
+      gst = "git status";
+      l = "eza -lah";
+      ls = "eza";
+      ll = "eza -l";
+      la = "eza -la";
     };
     initContent = ''
       if [[ -x /opt/homebrew/bin/brew ]]; then
@@ -78,17 +92,14 @@
       bindkey '^o' forward-word
       bindkey '^p' history-search-backward
       bindkey '^n' history-search-forward
+      bindkey '^[[^[' sudo-command-line
       autoload edit-command-line
       zle -N edit-command-line
       bindkey '^E' edit-command-line
       autoload -Uz select-word-style
       select-word-style bash
       if (( $+commands[batman] )); then eval "$(batman --export-env)"; fi
-      if (( $+commands[zellij] )) && [[ ! -f "$HOME/.zfunc/_zellij" ]]; then
-        mkdir -p "$HOME/.zfunc"
-        zellij setup --generate-completion zsh >"$HOME/.zfunc/_zellij"
-      fi
-      # TODO: Replace manual mise, television, and Zellij shell setup with native modules if added.
+      # TODO: Replace manual Mise and Television shell setup with native modules if added.
       eval "$(mise activate zsh)"
       eval "$(tv init zsh)"
     '';
