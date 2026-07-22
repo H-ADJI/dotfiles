@@ -75,6 +75,8 @@ Avoid: yabai, skhd, Rectangle/Loop, Alfred 5, Hammerspoon (defer until needed).
 - `AppleCursorHiddenWhileTyping` — not working, revisit later (`darwin.nix`)
 - `alt+q = close` — may conflict with Ghostty, test interaction (`aerospace.toml`)
 - Input source → ABC, ZMK Sofle pairing — manual, not urgent
+- Wallpaper config — walt-like tool or nix-darwin native option
+- Try without jankyborders — unnecessary eye candy, remove if unused
 
 ### Step 5: Launcher, Clipboard, Native Navigation [IN PROGRESS]
 
