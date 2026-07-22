@@ -42,7 +42,17 @@ mise run check macos
 
 - Complete macOS setup assistant and system updates.
 - Set input source to English - ABC.
-- Grant requested accessibility, input monitoring, and screen-recording permissions after desktop tools are added.
+- After Karabiner-Elements is installed, open it from `/Applications` and complete its setup prompts.
+- Approve the Karabiner DriverKit extension in **System Settings > General > Login Items & Extensions > Driver Extensions**.
+- Enable Karabiner in **System Settings > Privacy & Security > Input Monitoring** and **Accessibility**.
+- Verify Karabiner services after approval:
+
+  ```bash
+  pgrep -fl karabiner
+  ```
+
+  Expect `karabiner_grabber`, `karabiner_observer`, and `karabiner_console_user_server`.
+- Grant requested accessibility, input monitoring, and screen-recording permissions after other desktop tools are added.
 - Keep company-managed software outside this configuration unless declarative management is explicitly allowed.
 
 ## Planned
