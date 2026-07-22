@@ -17,7 +17,7 @@
 
   homebrew = {
     enable = true;
-    casks = [ "ghostty" ];
+    casks = [ "ghostty" "karabiner-elements" ];
   };
 
   users.users.khalil = {
