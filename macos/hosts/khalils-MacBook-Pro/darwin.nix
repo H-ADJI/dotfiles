@@ -31,6 +31,11 @@
     ApplePressAndHoldEnabled = false;
     InitialKeyRepeat = 15;
     KeyRepeat = 2;
+    "com.apple.swipescrolldirection" = false;
+  };
+  system.defaults.trackpad = {
+    Clicking = true;
+    TrackpadRightClick = true;
   };
   system.keyboard.enableKeyMapping = true;
 
