@@ -8,6 +8,7 @@
 - Encryption via `transcrypt` with argon2 password verification.
 - Files matching patterns in `.gitattributes` are encrypted.
 - stow is used to manage symlinks, .stow-local-ignore is the ignore list for stow.
+- Document every required manual setup step that cannot be declaratively automated in the relevant OS README.
 
 ## Test
 
@@ -27,3 +28,7 @@
 - light weight in term of ressource usage
 - litle eye candy as posssible
 - stability
+
+## Context management
+
+- whenever context is large / near the limit persist current plan and progress into roadmap file
