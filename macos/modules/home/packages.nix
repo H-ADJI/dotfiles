@@ -15,7 +15,6 @@
     google-chrome
     hyperfine
     mise
-    neovim
     nodejs
     opencode
     python3
@@ -25,7 +24,6 @@
     rustc
     stow
     television
-    tree-sitter
     uv
     zellij
   ];

@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
 {
+  home.file.".hushlogin".text = "";
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;

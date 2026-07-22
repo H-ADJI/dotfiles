@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
 {
+  home.file.".tmuxp".source = ../../tmux/dot-tmuxp;
+
   programs.tmux = {
     enable = true;
     terminal = "tmux-256color";

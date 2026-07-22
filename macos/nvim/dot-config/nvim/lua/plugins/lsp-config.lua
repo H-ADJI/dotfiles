@@ -9,44 +9,70 @@ return {
       desc = "[L]anguage [S]ervers [I]nfo",
     },
   },
-  opts = {
-    servers = {
-      gopls = {
-        settings = {
-          gopls = {
-            gofumpt = true,
-            codelenses = {
-              gc_details = false,
-              generate = true,
-              regenerate_cgo = true,
-              run_govulncheck = true,
-              test = true,
-              tidy = true,
-              upgrade_dependency = true,
-              vendor = true,
-            },
-            hints = {
-              assignVariableTypes = true,
-              compositeLiteralFields = true,
-              compositeLiteralTypes = true,
-              constantValues = true,
-              functionTypeParameters = true,
-              parameterNames = true,
-              rangeVariableTypes = true,
-            },
-            analyses = { nilness = true, unusedparams = true, unusedwrite = true, useany = true },
-            usePlaceholders = true,
-            completeUnimported = true,
-            staticcheck = true,
-            directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
-            semanticTokens = true,
+  config = function()
+    vim.lsp.config("gopls", {
+      settings = {
+        gopls = {
+          gofumpt = true,
+          codelenses = {
+            gc_details = false,
+            generate = true,
+            regenerate_cgo = true,
+            run_govulncheck = true,
+            test = true,
+            tidy = true,
+            upgrade_dependency = true,
+            vendor = true,
           },
+          hints = {
+            assignVariableTypes = true,
+            compositeLiteralFields = true,
+            compositeLiteralTypes = true,
+            constantValues = true,
+            functionTypeParameters = true,
+            parameterNames = true,
+            rangeVariableTypes = true,
+          },
+          analyses = { nilness = true, unusedparams = true, unusedwrite = true, useany = true },
+          usePlaceholders = true,
+          completeUnimported = true,
+          staticcheck = true,
+          directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+          semanticTokens = true,
         },
       },
-    },
-  },
-  config = function()
+    })
     vim.lsp.config("harper_ls", { filetypes = { "markdown", "typst" } })
+    vim.lsp.config("ruff", {
+      on_attach = function(client)
+        client.server_capabilities.hoverProvider = false
+      end,
+    })
+
+    for _, server in ipairs({
+      "lua_ls",
+      "asm_lsp",
+      "just",
+      "jq",
+      "gopls",
+      "rust_analyzer",
+      "harper_ls",
+      "tinymist",
+      "clangd",
+      "ruff",
+      "pyright",
+      "bashls",
+      "marksman",
+      "biome",
+      "taplo",
+      "dockerls",
+      "ts_ls",
+      "cssls",
+      "fish_lsp",
+    }) do
+      vim.lsp.enable(server)
+    end
+
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function()
         vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename, { buffer = 0 })
