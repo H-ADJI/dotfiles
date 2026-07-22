@@ -8,6 +8,7 @@
     ../../modules/home/tmux.nix
     ../../modules/home/ghostty.nix
     ../../modules/home/aerospace.nix
+    ../../modules/home/jankyborders.nix
   ];
 
   home.username = "khalil";

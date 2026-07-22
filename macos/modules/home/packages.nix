@@ -26,6 +26,7 @@
     television
     uv
     aerospace
+    jankyborders
     zellij
   ];
 }
