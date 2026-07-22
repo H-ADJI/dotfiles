@@ -7,7 +7,6 @@
     ../../modules/home/shell.nix
     ../../modules/home/tmux.nix
     ../../modules/home/ghostty.nix
-    ../../modules/home/karabiner.nix
     ../../modules/home/aerospace.nix
   ];
 

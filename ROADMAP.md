@@ -14,7 +14,7 @@
 - Root-level shared files only: `README.md`, `AGENTS.md`, `ROADMAP.md`, `.gitattributes`, `.gitignore`, `mise.toml`, `init.sh`.
 - **macOS:** nix-darwin + Home Manager. No stow. Home Manager owns user config through native modules, `home.file`, and `xdg.configFile`.
 - **Packages:** Nix first. Homebrew (via nix-homebrew) only for macOS casks unavailable in Nixpkgs.
-- **macOS keyboard remapping:** Karabiner-Elements (from Homebrew cask). Config deployed via `home.file` as raw `karabiner.json` — not secret, no need to wait for sops-nix.
+- **No key remapping layer.** Native macOS shortcuts accepted as-is (Cmd+C copy, Cmd+V paste, etc.). Aerospace uses Alt for window management (no conflicts) and Cmd for workspace switching. Decision made after Karabiner conflicts with Aerospace and app shortcuts proved unstable.
 
 ### Desktop Choices
 
@@ -22,7 +22,7 @@
 | ----------------------- | ---------------------------------- | ------------------------------------------------------------- |
 | Window manager          | Aerospace                          | i3/Sway/Hyprland muscle memory, no SIP changes needed         |
 | Launcher                | Raycast                            | Practical macOS replacement for fuzzel                        |
-| Keyboard remapping      | Karabiner-Elements                 | Most mature macOS option; needed for Sofle/ZMK split keyboard |
+| Keyboard remapping      | None (native macOS)                | Karabiner conflicts with Aerospace and app shortcuts; native Cmd shortcuts accepted |
 | Clipboard               | Maccy                              | Lightweight cliphist-style workflow                           |
 | Browser Vim motions     | Vimium C                           | Keyboard-driven browser navigation                            |
 | Native app keyboard nav | Homerow (Shortcat fallback)        | Vimium-like in native macOS apps                              |
@@ -33,10 +33,11 @@ Avoid: yabai, skhd, Rectangle/Loop, Alfred 5, Hammerspoon (defer until needed).
 
 ### Keyboard Responsibility Split
 
-- **ZMK (Sofle split):** physical layout, layers, combos, tap-hold behavior. Do not duplicate in Karabiner.
-- **Karabiner-Elements:** macOS-specific remaps only — pc-style shortcuts (Ctrl+C/V/X/A/Z/Shift+Z → Cmd), modifier normalization, laptop keyboard fallback, app exceptions.
+- **ZMK (Sofle split):** physical layout, layers, combos, tap-hold behavior. All custom key logic lives on the keyboard firmware.
 - **nix-darwin:** system keyboard defaults (KeyRepeat, InitialKeyRepeat, ApplePressAndHoldEnabled, enableKeyMapping).
+- **Aerospace:** window management with Alt modifier (no app shortcut conflicts). Cmd used only for workspace switching.
 - **Input source:** English — ABC (neutral Latin, fewer dead-key surprises).
+- **No key remapping layer** (Karabiner removed). Native macOS shortcuts (Cmd+C/V, etc.) accepted to avoid conflicts with Aerospace and apps.
 
 ---
 
@@ -66,20 +67,18 @@ Avoid: yabai, skhd, Rectangle/Loop, Alfred 5, Hammerspoon (defer until needed).
 
 ### Step 4: Keyboard & Window Management [IN PROGRESS]
 
-**Keyboard remapping (active):**
+**Key decision:** Abandoned Karabiner remapping. Native macOS shortcuts accepted (Cmd+C/V, etc.). Too many conflicts with Aerospace and app shortcuts. ZMK handles all custom key logic on the Sofle.
 
 - [ ] Set input source to English — ABC (manual)
 - [ ] Confirm ZMK Sofle pairing and normal HID behavior (manual)
-- [x] Karabiner-Elements installed via Homebrew cask
-- [x] Karabiner config deployed: pc-style shortcuts (C/V/X/A/Z/W/T/L, Shift+Z) + terminal copy/paste (Shift+C/V)
-  - Config: `modules/home/karabiner/karabiner.json` deployed via `home.file`
-- [x] Permissions granted: DriverKit ✅, Input Monitoring ✅, Accessibility ✅
-- [x] Shortcuts verified working in Chrome and Ghostty
 
 **Window management (active):**
 
 - [x] Aerospace installed from Nixpkgs (in `packages.nix`)
-- [x] Config deployed: `aerospace.toml` via `home.file` (focus/move, workspaces 1-10, close, fullscreen, launch terminal/browser/launcher)
+- [x] Config deployed: `aerospace.toml` via `home.file`
+  - Alt for window management (focus, move, layout, close, launch — no conflicts)
+  - Cmd for workspace switching (1-10) and move-to-workspace
+  - Service mode for advanced ops (join-with, flatten, etc.)
 - [ ] Grant Accessibility permission manually
 - [ ] Test and verify keybindings
 - [ ] Defer gaps, bars, rounded corners, complex rules

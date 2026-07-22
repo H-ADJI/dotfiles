@@ -35,9 +35,9 @@ mise run check macos
 - Lix
 - nix-darwin + Home Manager: system, user packages, and dotfiles
 - nix-homebrew: Homebrew installation
-- Homebrew cask: Ghostty and Karabiner-Elements
-- Nix: Google Chrome and OpenCode
-- Home Manager `home.file`: Karabiner-Elements config (pc-style shortcuts)
+- Homebrew cask: Ghostty
+- Nix: Google Chrome, OpenCode, and Aerospace
+- Home Manager `home.file`: Aerospace config (`aerospace.toml`)
 
 ## Manual Steps
 
@@ -48,32 +48,23 @@ mise run check macos
 ### Input Settings
 - Set input source to **English - ABC** (System Settings > Keyboard > Text Input > Input Sources).
 
-### Karabiner-Elements
-Karabiner is installed via Homebrew cask and configured via `home.file` (see `modules/home/karabiner/`). Manual permissions required:
+### Aerospace
+Aerospace is installed from Nixpkgs and configured via `home.file` (see `modules/home/aerospace/`).
 
-1. **Open Karabiner-Elements.app** from `/Applications` and complete its initial setup prompts.
-2. **Approve DriverKit extension** in **System Settings > General > Login Items & Extensions > Driver Extensions**.
-3. **Enable Input Monitoring** in **System Settings > Privacy & Security > Input Monitoring**:
-   - Click **+** → press `Cmd+Shift+G` → type `/Applications/Karabiner-Elements.app` → **Open**
-   - Toggle the switch **ON** (if already listed, toggle OFF and ON again)
-4. **Enable Accessibility** in **System Settings > Privacy & Security > Accessibility** (same process).
-5. **Verify** all services are running:
-
-   ```bash
-   pgrep -fl karabiner
-   ```
-
-   Expect: `karabiner_grabber`, `karabiner_observer`, `karabiner_console_user_server`.
-
-   If only `karabiner_console_user_server` shows, Input Monitoring permission is still missing.
-
-6. **Test shortcuts:**
-   - Chrome: `Ctrl+C` copies, `Ctrl+V` pastes (should work like Linux)
-   - Ghostty: `Ctrl+C` sends SIGINT (unchanged)
-   - To force-reload config after edits: `Karabiner-Elements.app > Menu > Reload` or restart the app.
-
-### Other Desktop Tools
-- Grant accessibility, input monitoring, and screen-recording permissions as prompted when Aerospace, Raycast, Maccy, etc. are added later.
+- On first launch, grant **Accessibility** permission in **System Settings > Privacy & Security > Accessibility**.
+- Reload config after edits: `aerospace reload-config`
+- Keybinding summary:
+  - **Alt** (Option) + H/J/K/L — focus direction (no app conflicts)
+  - **Alt + Shift + H/J/K/L** — move window
+  - **Cmd + 1-0** — switch workspace
+  - **Cmd + Shift + 1-0** — move window to workspace
+  - **Alt + Space** — launch Ghostty
+  - **Alt + B** — launch Chrome
+  - **Alt + D** — launch Spotlight (Raycast later)
+  - **Alt + Q** — close focused window
+  - **Alt + F** — fullscreen
+  - **Alt + Tab** — workspace back-and-forth
+  - **Alt + ;** — service mode (escape to exit)
 
 ## Planned
 
