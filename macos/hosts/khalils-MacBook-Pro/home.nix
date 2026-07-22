@@ -1,6 +1,7 @@
 {
   imports = [
     ../../modules/home/packages.nix
+    ../../modules/home/colima.nix
     ../../modules/home/git.nix
     ../../modules/home/shell.nix
     ../../modules/home/tmux.nix

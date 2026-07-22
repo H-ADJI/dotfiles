@@ -4,7 +4,6 @@
   home.packages = with pkgs; [
     clang
     cargo
-    colima
     curl
     docker
     docker-compose
