@@ -48,7 +48,9 @@
     TrackpadFourFingerVertSwipeGesture = 0;
     TrackpadFourFingerPinchGesture = 0;
     TrackpadTwoFingerFromRightEdgeSwipeGesture = 0;
+    TrackpadPinch = true;
   };
+  system.defaults.CustomUserPreferences."com.apple.AppleMultitouchTrackpad".TrackpadFiveFingerPinchGesture = 0;
   system.defaults.dock = {
     showAppExposeGestureEnabled = false;
     showDesktopGestureEnabled = false;
