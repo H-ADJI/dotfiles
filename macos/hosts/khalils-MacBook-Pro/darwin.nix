@@ -4,6 +4,12 @@
   nixpkgs.hostPlatform = "aarch64-darwin";
   nixpkgs.config.allowUnfree = true;
   nix.package = pkgs.lix;
+  nix.gc = {
+    automatic = true;
+    interval = { Weekday = 0; };  # weekly on Sunday
+    options = "--delete-older-than 14d";
+  };
+
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"

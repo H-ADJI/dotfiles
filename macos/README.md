@@ -56,8 +56,8 @@ Aerospace is installed from Nixpkgs and configured via `home.file` (see `modules
 - Keybinding summary:
   - **Alt** (Option) + H/J/K/L — focus direction (no app conflicts)
   - **Alt + Shift + H/J/K/L** — move window
-  - **Cmd + 1-0** — switch workspace
-  - **Cmd + Shift + 1-0** — move window to workspace
+  - **Alt + 1-0** — switch workspace
+  - **Alt + Shift + 1-0** — move window to workspace
   - **Alt + Space** — launch Ghostty
   - **Alt + B** — launch Chrome
   - **Alt + D** — launch Spotlight (Raycast later)
@@ -72,19 +72,19 @@ Aerospace is installed from Nixpkgs and configured via `home.file` (see `modules
 - Keep Mac secrets under `macos/secrets/`; do not reuse Arch Transcrypt paths.
 - Use per-machine `age` identities stored outside Git. Leave Arch Transcrypt unchanged until its own migration.
 
+## Nix GC & Generations
+
+Automatic GC runs weekly (Sunday), deleting generations older than 30 days. Config in `darwin.nix: nix.gc`.
+
+Manual generation pruning (keeps last 7):
+
+```bash
+sudo nix-env --delete-generations +7 -p /nix/var/nix/profiles/system
+nix-env --delete-generations +7
+nix store gc
+```
+
 ## Rollback
-
-List generations:
-
-```bash
-darwin-rebuild --list-generations
-```
-
-Switch to previous generation:
-
-```bash
-sudo darwin-rebuild switch --rollback
-```
 
 ## Verify
 
