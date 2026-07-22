@@ -68,14 +68,13 @@ Avoid: yabai, skhd, Rectangle/Loop, Alfred 5, Hammerspoon (defer until needed).
 
 **Keyboard remapping (active):**
 
-- [ ] Set input source to English — ABC
-- [ ] Confirm ZMK Sofle pairing and normal HID behavior
+- [ ] Set input source to English — ABC (manual)
+- [ ] Confirm ZMK Sofle pairing and normal HID behavior (manual)
 - [x] Karabiner-Elements installed via Homebrew cask
-- [ ] Karabiner config deployed: pc-style shortcuts in all apps except terminals
-  - Scope: Ctrl+C/V/X/A/Z/Shift+Z → Cmd+C/V/X/A/Z/Shift+Z
-  - Excluded: Ghostty, Terminal.app, iTerm2 (preserve Ctrl+C = SIGINT)
-  - Permissions needed: DriverKit, Input Monitoring, Accessibility
-- [ ] Verify Karabiner services: `karabiner_grabber`, `karabiner_observer`, `karabiner_console_user_server`
+- [x] Karabiner config deployed: pc-style shortcuts (C/V/X/A/Z/W/T/L, Shift+Z) + terminal copy/paste (Shift+C/V)
+  - Config: `modules/home/karabiner/karabiner.json` deployed via `home.file`
+- [x] Permissions granted: DriverKit ✅, Input Monitoring ✅, Accessibility ✅
+- [x] Shortcuts verified working in Chrome and Ghostty
 
 **Window management (next):**
 

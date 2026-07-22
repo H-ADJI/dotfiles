@@ -135,6 +135,102 @@
                     ]
                   }
                 ]
+              },
+              {
+                "description": "Ctrl+W → Cmd+W",
+                "type": "basic",
+                "from": {
+                  "key_code": "w",
+                  "modifiers": { "mandatory": ["control"], "optional": ["caps_lock"] }
+                },
+                "to": [{ "key_code": "w", "modifiers": ["command"] }],
+                "conditions": [
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": [
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^com\\.apple\\.Terminal$",
+                      "^com\\.googlecode\\.iterm2$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Ctrl+T → Cmd+T",
+                "type": "basic",
+                "from": {
+                  "key_code": "t",
+                  "modifiers": { "mandatory": ["control"], "optional": ["caps_lock"] }
+                },
+                "to": [{ "key_code": "t", "modifiers": ["command"] }],
+                "conditions": [
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": [
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^com\\.apple\\.Terminal$",
+                      "^com\\.googlecode\\.iterm2$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Ctrl+L → Cmd+L",
+                "type": "basic",
+                "from": {
+                  "key_code": "l",
+                  "modifiers": { "mandatory": ["control"], "optional": ["caps_lock"] }
+                },
+                "to": [{ "key_code": "l", "modifiers": ["command"] }],
+                "conditions": [
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": [
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^com\\.apple\\.Terminal$",
+                      "^com\\.googlecode\\.iterm2$"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Terminal copy/paste shortcuts (Ghostty only)",
+            "manipulators": [
+              {
+                "description": "Ctrl+Shift+C → Cmd+C (copy in terminal)",
+                "type": "basic",
+                "from": {
+                  "key_code": "c",
+                  "modifiers": { "mandatory": ["control", "shift"], "optional": ["caps_lock"] }
+                },
+                "to": [{ "key_code": "c", "modifiers": ["command"] }],
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com\\.mitchellh\\.ghostty$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Ctrl+Shift+V → Cmd+V (paste in terminal)",
+                "type": "basic",
+                "from": {
+                  "key_code": "v",
+                  "modifiers": { "mandatory": ["control", "shift"], "optional": ["caps_lock"] }
+                },
+                "to": [{ "key_code": "v", "modifiers": ["command"] }],
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com\\.mitchellh\\.ghostty$"
+                    ]
+                  }
+                ]
               }
             ]
           }
