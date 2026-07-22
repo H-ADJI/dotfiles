@@ -68,6 +68,8 @@
       ls = "eza";
       ll = "eza -l";
       la = "eza -la";
+      dc = "docker compose";
+      pc = "podman-compose";
     };
     initContent = ''
       if [[ -x /opt/homebrew/bin/brew ]]; then
