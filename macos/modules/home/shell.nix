@@ -56,6 +56,9 @@
       hd = "hunk diff";
     };
     initContent = ''
+      if [[ -x /opt/homebrew/bin/brew ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+      fi
       export AICHAT_MESSAGES_FILE="$HOME/messages.md"
       export PATH="$PATH:$HOME/.config/scripts"
       export BAT_CONFIG_PATH="$HOME/.config/bat/bat.conf"
