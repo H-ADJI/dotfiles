@@ -14,6 +14,7 @@
       title = "Ghostty";
       cursor-style = "block";
       cursor-style-blink = false;
+      shell-integration-features = "no-cursor";
       macos-option-as-alt = true;
       scrollbar = "never";
       scrollback-limit = 10000;

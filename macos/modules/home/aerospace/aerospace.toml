@@ -8,8 +8,8 @@ enable-normalization-opposite-orientation-for-nested-containers = true
 default-root-container-layout = "tiles"
 default-root-container-orientation = "auto"
 
-gaps.inner.horizontal = 10
-gaps.inner.vertical = 10
+gaps.inner.horizontal = 30
+gaps.inner.vertical = 30
 gaps.outer.left = 30
 gaps.outer.bottom = 30
 gaps.outer.top = 30
@@ -18,6 +18,7 @@ gaps.outer.right = 30
 automatically-unhide-macos-hidden-apps = false
 
 on-focused-monitor-changed = ["move-mouse monitor-lazy-center"]
+on-focus-changed = ["move-mouse window-lazy-center"]
 
 persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 
@@ -77,6 +78,7 @@ alt-tab = "workspace-back-and-forth"
 alt-shift-tab = "move-workspace-to-monitor --wrap-around next"
 
 # Actions
+# TODO: alt+q may conflict with Ghostty quit — test interaction
 alt-q = "close"
 alt-f = "fullscreen"
 alt-shift-r = "reload-config"

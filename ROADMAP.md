@@ -65,32 +65,23 @@ Avoid: yabai, skhd, Rectangle/Loop, Alfred 5, Hammerspoon (defer until needed).
 - [ ] Screenshots: location and format
 - [ ] Login/session behavior
 
-### Step 4: Keyboard & Window Management [IN PROGRESS]
+### Step 4: Keyboard & Window Management [COMPLETED]
 
-**Key decision:** Abandoned Karabiner remapping. Native macOS shortcuts accepted (Cmd+C/V, etc.). Too many conflicts with Aerospace and app shortcuts. ZMK handles all custom key logic on the Sofle.
+**Key decision:** Abandoned Karabiner remapping. Native macOS shortcuts accepted (Cmd+C/V, etc.). Aerospace Alt bindings with no Cmd conflicts. ZMK handles all custom key logic on the Sofle.
 
-- [ ] Set input source to English — ABC (manual)
-- [ ] Confirm ZMK Sofle pairing and normal HID behavior (manual)
+**Done:** Aerospace (Nixpkgs, Alt bindings, gaps 30, service mode, mouse window-centering), jankyborders (12px square, black/Latte), Ghostty (block cursor, no blink, `shell-integration-features = no-cursor` to prevent shell override).
 
-**Window management (active):**
+**Deferred (tracked in config TODOs):**
+- `AppleCursorHiddenWhileTyping` — not working, revisit later (`darwin.nix`)
+- `alt+q = close` — may conflict with Ghostty, test interaction (`aerospace.toml`)
+- Input source → ABC, ZMK Sofle pairing — manual, not urgent
 
-- [x] Aerospace installed from Nixpkgs (in `packages.nix`)
-- [x] Config deployed: `aerospace.toml` via `home.file`
-  - Alt for window management (focus, move, layout, close, launch — no conflicts)
-  - Cmd for workspace switching (1-10) and move-to-workspace
-  - Service mode for advanced ops (join-with, flatten, etc.)
-- [ ] Grant Accessibility permission manually
-- [ ] Test and verify keybindings
-- [ ] Defer gaps, bars, rounded corners, complex rules
+### Step 5: Launcher, Clipboard, Native Navigation [IN PROGRESS]
 
-### Step 5: Launcher, Clipboard, Native Navigation [PLANNED]
-
-- [ ] Raycast: Homebrew cask, manual account/launcher/extensions setup
-- [ ] Maccy: Nixpkgs, Accessibility permission
-- [ ] Test Raycast Clipboard History vs Maccy, keep one
-- [ ] Trial Homerow (Homebrew cask) or Shortcat fallback
-- [ ] Trial kindavim only after Karabiner, Aerospace, navigation are stable
-- [ ] Defer SketchyBar until desktop tools and work apps are stable
+- [ ] Raycast: Homebrew cask, sign in, set Alt+D hotkey, extensions
+- [ ] Maccy: Nixpkgs, Accessibility, compare clipboard vs Raycast
+- [ ] Homerow: Homebrew cask, trial keyboard UI nav
+- [ ] Decide: keep Maccy or Raycast clipboard (disable the other)
 
 ### Step 6: Migrate Retained Arch Programs [PLANNED]
 

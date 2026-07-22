@@ -68,6 +68,7 @@
       TrackpadFiveFingerPinchGesture = 0;
     };
     NSGlobalDomain = {
+      # TODO: AppleCursorHiddenWhileTyping not working properly — revisit later
       AppleCursorHiddenWhileTyping = true;
     };
   };
