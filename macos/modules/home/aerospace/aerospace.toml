@@ -8,12 +8,12 @@ enable-normalization-opposite-orientation-for-nested-containers = true
 default-root-container-layout = "tiles"
 default-root-container-orientation = "auto"
 
-gaps.inner.horizontal = 8
-gaps.inner.vertical = 8
-gaps.outer.left = 8
-gaps.outer.bottom = 8
-gaps.outer.top = 8
-gaps.outer.right = 8
+gaps.inner.horizontal = 10
+gaps.inner.vertical = 10
+gaps.outer.left = 30
+gaps.outer.bottom = 30
+gaps.outer.top = 30
+gaps.outer.right = 30
 
 automatically-unhide-macos-hidden-apps = false
 
@@ -84,8 +84,10 @@ alt-shift-f = "layout floating tiling"
 
 # Launch apps (new window via -n flag)
 alt-space = '''exec-and-forget open -n -b com.mitchellh.ghostty'''
+alt-shift-s = '''exec-and-forget open -b com.apple.systempreferences'''
 alt-b = '''exec-and-forget open -n -b com.google.Chrome'''
 alt-d = '''exec-and-forget open -b com.apple.Spotlight'''
+alt-shift-e = '''exec-and-forget osascript -e 'tell application "System Events" to log out''''
 
 # Enter service mode for advanced ops
 alt-shift-semicolon = "mode service"

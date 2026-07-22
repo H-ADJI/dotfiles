@@ -63,7 +63,14 @@
     TrackpadTwoFingerFromRightEdgeSwipeGesture = 0;
     TrackpadPinch = true;
   };
-  system.defaults.CustomUserPreferences."com.apple.AppleMultitouchTrackpad".TrackpadFiveFingerPinchGesture = 0;
+  system.defaults.CustomUserPreferences = {
+    "com.apple.AppleMultitouchTrackpad" = {
+      TrackpadFiveFingerPinchGesture = 0;
+    };
+    NSGlobalDomain = {
+      AppleCursorHiddenWhileTyping = true;
+    };
+  };
   system.defaults.dock = {
     autohide = true;
     orientation = "bottom";

@@ -1,19 +1,14 @@
 { pkgs, ... }:
 
 {
-  launchd.userAgents.jankyborders = {
+  services.jankyborders = {
     enable = true;
-    command = "${pkgs.jankyborders}/bin/borders";
-    args = [
-      "--width" "8.0"
-      "--active-color" "0xff89b4fa"
-      "--inactive-color" "0xff45475a"
-      "--hidpi" "on"
-    ];
-    serviceConfig = {
-      KeepAlive = true;
-      RunAtLoad = true;
-      ProcessType = "Background";
+    settings = {
+      style = "square";
+      width = 12.0;
+      hidpi = "on";
+      active_color = "0xff000000";
+      inactive_color = "0xffcdd6f4";
     };
   };
 }
