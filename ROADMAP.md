@@ -85,7 +85,14 @@ Avoid: yabai, skhd, Rectangle/Loop, Alfred 5, Hammerspoon (defer until needed).
 - [ ] Homerow: Homebrew cask, trial keyboard UI nav
 - [ ] Decide: keep Maccy or Raycast clipboard (disable the other)
 
-### Step 6: Migrate Retained Arch Programs [PLANNED]
+### Step 6: Chrome Declarative Setup [PLANNED]
+
+- [ ] Add `google-chrome` to Homebrew casks (already in `packages.nix` as nixpkgs)
+- [ ] Extensions: declare via Nix (e.g. `chromium` Home Manager module or custom derivation)
+- [ ] Colorscheme / theme: match Catppuccin Latte system-wide
+- [ ] Settings, bookmarks, passwords strategy — decide Nix-managed vs manual
+
+### Step 7: Migrate Retained Arch Programs [PLANNED]
 
 One `modules/home/<program>.nix` per retained program.
 
@@ -94,7 +101,7 @@ One `modules/home/<program>.nix` per retained program.
 - Adapt clipboard, browser, path assumptions for macOS
 - Do not migrate: Hyprland, PipeWire, Fuzzel, SwayNC, Swappy, Linux browser flags
 
-### Step 7: Secrets & Encryption [PLANNED]
+### Step 8: Secrets & Encryption [PLANNED]
 
 - [ ] Add sops-nix + age after core config and before secret-backed apps
 - [ ] Per-machine age identity outside Git, mode 0600
@@ -104,7 +111,7 @@ One `modules/home/<program>.nix` per retained program.
 - [ ] Do not migrate shell history
 - [ ] Keep Arch Transcrypt unchanged
 
-### Step 8: Validate Bootstrap [PLANNED]
+### Step 9: Validate Bootstrap [PLANNED]
 
 - [ ] Test `macos/setup/main.sh` from clean shell
 - [ ] Test Lix-missing → first darwin-rebuild → repeat paths
@@ -112,7 +119,7 @@ One `modules/home/<program>.nix` per retained program.
 - [ ] Keep `mise run check macos`
 - [ ] Add `darwin-rebuild check` when useful
 
-### Step 9: Cleanup & Maintenance [PLANNED]
+### Step 10: Cleanup & Maintenance [PLANNED]
 
 - [ ] Remove unused `macos/zsh/`, `macos/ghostty/`, stale raw config trees after replacements verified
 - [ ] Remove obsolete stow assumptions from macOS docs/scripts
