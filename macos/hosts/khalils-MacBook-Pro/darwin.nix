@@ -32,6 +32,7 @@
     InitialKeyRepeat = 15;
     KeyRepeat = 2;
     "com.apple.swipescrolldirection" = false;
+    "com.apple.mouse.tapBehavior" = 1;
   };
   system.defaults.trackpad = {
     Clicking = true;
