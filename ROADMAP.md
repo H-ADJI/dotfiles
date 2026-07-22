@@ -76,11 +76,12 @@ Avoid: yabai, skhd, Rectangle/Loop, Alfred 5, Hammerspoon (defer until needed).
 - [x] Permissions granted: DriverKit ✅, Input Monitoring ✅, Accessibility ✅
 - [x] Shortcuts verified working in Chrome and Ghostty
 
-**Window management (next):**
+**Window management (active):**
 
-- [ ] Add Aerospace from Nixpkgs, deploy raw `aerospace.toml` via Home Manager
-- [ ] Basic config: focus/move directions, workspaces 1-3, window moves, terminal/browser launch, simple communication rules
-- [ ] Grant Accessibility manually
+- [x] Aerospace installed from Nixpkgs (in `packages.nix`)
+- [x] Config deployed: `aerospace.toml` via `home.file` (focus/move, workspaces 1-10, close, fullscreen, launch terminal/browser/launcher)
+- [ ] Grant Accessibility permission manually
+- [ ] Test and verify keybindings
 - [ ] Defer gaps, bars, rounded corners, complex rules
 
 ### Step 5: Launcher, Clipboard, Native Navigation [PLANNED]

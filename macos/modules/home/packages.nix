@@ -25,6 +25,7 @@
     stow
     television
     uv
+    aerospace
     zellij
   ];
 }
