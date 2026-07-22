@@ -52,11 +52,18 @@
   };
   system.defaults.CustomUserPreferences."com.apple.AppleMultitouchTrackpad".TrackpadFiveFingerPinchGesture = 0;
   system.defaults.dock = {
+    autohide = true;
+    orientation = "bottom";
+    launchanim = false;
+    minimize-to-application = true;
+    mru-spaces = false;
+    show-recents = false;
     showAppExposeGestureEnabled = false;
     showDesktopGestureEnabled = false;
     showLaunchpadGestureEnabled = false;
     showMissionControlGestureEnabled = false;
   };
+  system.defaults.finder.CreateDesktop = false;
   system.keyboard.enableKeyMapping = true;
 
   system.stateVersion = 6;
