@@ -12,6 +12,7 @@
       font-style-bold-italic = false;
       resize-overlay = "never";
       title = "Ghostty";
+      macos-option-as-alt = true;
       scrollbar = "never";
       scrollback-limit = 10000;
       confirm-close-surface = false;

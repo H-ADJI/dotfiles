@@ -38,6 +38,13 @@
     "com.apple.mouse.tapBehavior" = 1;
     AppleEnableSwipeNavigateWithScrolls = false;
     AppleEnableMouseSwipeNavigateWithScrolls = false;
+    AppleKeyboardUIMode = 2;
+    NSAutomaticCapitalizationEnabled = false;
+    NSAutomaticInlinePredictionEnabled = false;
+    NSAutomaticDashSubstitutionEnabled = false;
+    NSAutomaticPeriodSubstitutionEnabled = false;
+    NSAutomaticQuoteSubstitutionEnabled = false;
+    NSAutomaticSpellingCorrectionEnabled = false;
   };
   system.defaults.trackpad = {
     Clicking = true;
@@ -58,12 +65,22 @@
     minimize-to-application = true;
     mru-spaces = false;
     show-recents = false;
+    static-only = true;
     showAppExposeGestureEnabled = false;
     showDesktopGestureEnabled = false;
     showLaunchpadGestureEnabled = false;
     showMissionControlGestureEnabled = false;
   };
-  system.defaults.finder.CreateDesktop = false;
+  system.defaults.finder = {
+    AppleShowAllFiles = true;
+    AppleShowAllExtensions = true;
+    CreateDesktop = false;
+    FXDefaultSearchScope = "SCcf";
+    FXPreferredViewStyle = "Nlsv";
+    ShowPathbar = true;
+    ShowStatusBar = true;
+    _FXSortFoldersFirst = true;
+  };
   system.keyboard.enableKeyMapping = true;
 
   system.stateVersion = 6;
