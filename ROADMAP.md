@@ -92,6 +92,14 @@ Avoid: yabai, skhd, Rectangle/Loop, Alfred 5, Hammerspoon (defer until needed).
 - [ ] Colorscheme / theme: match Catppuccin Latte system-wide
 - [ ] Settings, bookmarks, passwords strategy — decide Nix-managed vs manual
 
+### Step 6b: PWA Auto-Install [PLANNED]
+
+- [ ] No native Home Manager support for Chrome PWAs on macOS
+- [ ] Activation method TBD after user research online
+  - Candidates: manual Chrome GUI install, custom .app wrapper module, or alternative tooling
+- [ ] PWAs to cover: Spotify, YouTube Music, Teams, Slack
+- [ ] Implement chosen approach once researched
+
 ### Step 7: Migrate Retained Arch Programs [PLANNED]
 
 One `modules/home/<program>.nix` per retained program.
