@@ -40,7 +40,7 @@
   };
 
   system.primaryUser = "khalil";
-  networking.hostName = "khalils-MacBook-Pro";
+  networking.hostName = "macbook";
 
   programs.zsh.enable = true;
 

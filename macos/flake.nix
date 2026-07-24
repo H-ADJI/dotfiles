@@ -22,9 +22,16 @@
     };
   };
 
-  outputs = inputs@{ nix-darwin, home-manager, nix-homebrew, sops-nix, ... }:
+  outputs =
+    inputs@{
+      nix-darwin,
+      home-manager,
+      nix-homebrew,
+      sops-nix,
+      ...
+    }:
     {
-      darwinConfigurations."khalils-MacBook-Pro" = nix-darwin.lib.darwinSystem {
+      darwinConfigurations."macbook" = nix-darwin.lib.darwinSystem {
         specialArgs = { inherit inputs; };
         modules = [
           ./darwin.nix

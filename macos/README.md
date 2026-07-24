@@ -1,10 +1,8 @@
 # macOS Setup
 
-Nix-darwin + Home Manager workstation configuration for `khalils-MacBook-Pro`.
+Nix-darwin + Home Manager workstation configuration.
 
 ## Bootstrap
-
-Clone repository, then run:
 
 ```bash
 git clone git@github.com:H-ADJI/dotfiles.git ~/dotfiles
@@ -16,74 +14,57 @@ First run installs Lix when missing, then stops. Restart terminal and rerun scri
 Manual rebuild:
 
 ```bash
-sudo darwin-rebuild switch --flake ~/dotfiles/macos#khalils-MacBook-Pro
-```
-
-Static check:
-
-```bash
-mise run check macos
+sudo darwin-rebuild switch --flake ~/dotfiles/macos#<hostname>
 ```
 
 ## Layout
 
-- `darwin.nix`: system-level nix-darwin configuration.
-- `home.nix`: user-level Home Manager configuration (imports all modules).
-- `modules/`: per-program modules (flat `.nix` or directory with config files).
+```
+macos/
+├── flake.nix          # inputs + darwinConfigurations
+├── darwin.nix         # system config (nix, defaults, brew)
+├── home.nix           # user config (imports all modules)
+├── modules/           # one file/dir per program
+│   ├── aerospace/     # nix + toml (XDG: ~/.config/aerospace/)
+│   ├── nvim/          # nix + init.lua, lua/ (XDG: ~/.config/nvim/)
+│   ├── secrets/       # nix + secrets.yaml + .sops.yaml
+│   ├── tmux/          # nix + sessions/ (XDG: ~/.config/tmuxp/)
+│   ├── desktoppr/     # nix + wallpaper
+│   ├── opencode.nix
+│   ├── shell.nix
+│   ├── ghostty.nix
+│   ├── packages.nix
+│   └── ...            # flat .nix files
+├── setup/main.sh
+└── flake.lock
+```
 
 ## Ownership
 
-- Lix
-- nix-darwin + Home Manager: system, user packages, and dotfiles
-- nix-homebrew: Homebrew installation
-- Homebrew cask: Ghostty
-- Nix: Google Chrome, OpenCode, and Aerospace
-- Home Manager `home.file`: Aerospace config (`aerospace.toml`)
+| Layer | Tool |
+|-------|------|
+| System | nix-darwin |
+| User packages & dotfiles | Home Manager + `xdg.configFile` |
+| Homebrew | nix-homebrew (casks: Ghostty, Raycast, Homerow) |
+| Secrets | sops-nix + age (stored in `modules/secrets/`) |
 
-## Manual Steps
+## Manual Steps (post-bootstrap)
 
-### System
-- Complete macOS setup assistant and system updates.
-- Keep company-managed software outside this configuration unless declarative management is explicitly allowed.
+- **Accessibility permission**: System Settings → Privacy & Security → Accessibility → grant to Aerospace, Ghostty
+- **Input sources**: Add **English - ABC** and **ABC Azerty** (System Settings → Keyboard → Input Sources)
+- **Raycast hotkey**: Set Cmd+Space in Raycast Preferences → General → Hotkey (also disable Spotlight Cmd+Space)
+- **Desktop widgets**: Right-click desktop → "Edit Widgets" → remove unwanted
+- **Clamshell mode**: Configure "Do not sleep when display is closed" for desktop use
 
-### Input Settings
-- Add keyboard input sources: **English - ABC** (US) and **ABC Azerty** (French)
-  - System Settings > Keyboard > Text Input > Input Sources > Edit > Add
-  - Toggle between layouts via Cmd+Space or Ctrl+Space (configure in Keyboard Shortcuts > Input Sources)
-- Enable **Show Input menu in menu bar** for visual indicator (optional)
+## Keybindings
 
-### Aerospace
-Aerospace is installed from Nixpkgs and configured via `home.file` (see `modules/aerospace/`).
+See `modules/aerospace/aerospace.toml` for the full config.
 
-- On first launch, grant **Accessibility** permission in **System Settings > Privacy & Security > Accessibility**.
-- Reload config after edits: `aerospace reload-config`
-- Keybinding summary:
-  - **Alt** (Option) + H/J/K/L — focus direction (no app conflicts)
-  - **Alt + Shift + H/J/K/L** — move window
-  - **Alt + 1-0** — switch workspace
-  - **Alt + Shift + 1-0** — move window to workspace
-  - **Alt + Space** — launch Ghostty
-  - **Alt + B** — launch Chrome
-  - **Alt + D** — launch Raycast
-  - **Cmd + Space** — Raycast (set manually in Raycast Preferences > General > Hotkey)
-  - **Alt + Q** — close focused window
-  - **Alt + F** — fullscreen
-  - **Alt + Tab** — workspace back-and-forth
-  - **Alt + ;** — service mode (escape to exit)
-
-## Manual Steps
-
-These cannot be automated via Nix and must be done once manually:
-
-- **Desktop widgets**: Right-click desktop → "Edit Widgets" → remove Calendar, Photos, Weather (or any unwanted widgets)
-- **Input sources**: System Settings → Keyboard → Input Sources → add "ABC" and "ABC Azerty" (documented in ROADMAP Step 4)
-- **Clamshell mode**: For desktop use, configure "Do not sleep when display is closed" via System Settings or a MagSafe-triggered profile
-
-## Planned
-
-- Add `sops-nix` + `age` after core configuration is stable, before SSH, AI, Leetcode, or other secret-backed tools.
-- Keep Mac secrets under `macos/secrets/`; do not reuse Arch Transcrypt paths.
-- Use per-machine `age` identities stored outside Git. Leave Arch Transcrypt unchanged until its own migration.
+| Modifier | Scope |
+|----------|-------|
+| Alt (Option) | Aerospace window management (focus, move, resize, layout, launch) |
+| Cmd | Native macOS shortcuts, Raycast launcher |
+| ZMK (Sofle) | Custom layers, combos, tap-hold (on-keyboard, not in dotfiles) |
 
 ## Nix GC & Generations
 

@@ -5,7 +5,7 @@
 | OS             | Status                                                   |
 | -------------- | -------------------------------------------------------- |
 | **Arch Linux** | Implemented in `arch/`                                   |
-| **macOS**      | Ready for rebuild — Step 11 (Restructure) completed |
+| **macOS**      | Base structure stable — restructuring completed      |
 | **NixOS**      | Planned — not started                                    |
 
 ## Core Decisions
@@ -113,7 +113,7 @@ Avoid: yabai, skhd, Rectangle/Loop, Alfred 5, Hammerspoon (defer until needed).
 
 ### Step 7: Migrate Retained Arch Programs [COMPLETED]
 
-One `modules/home/<program>.nix` per retained program.
+One `modules/<program>.nix` (or `modules/<program>/`) per retained program.
 
 - [x] Bat — theme set to Catppuccin Latte via HM `config.theme`
 - [x] Hunk — config.toml via `home.file`
@@ -123,18 +123,18 @@ One `modules/home/<program>.nix` per retained program.
 - [x] OpenCode — HM module with full TUI keybinding config inlined
 - [x] Yazi — HM module with settings + keymap (`wl-copy` → `pbcopy` for macOS)
 - [x] Yazi theme — minimal Catppuccin Latte inline theme (no icon mappings, dropped `syntect_theme`)
-
-- Native Home Manager modules: Bat, Starship, Mise, Yazi, Taskwarrior
-- Raw `xdg.configFile`/`home.file`: selected scripts, OpenCode, Television, Fastfetch, Hunk, JNV, Tabiew, JQP
-- Adapt clipboard, browser, path assumptions for macOS
-- Do not migrate: Hyprland, PipeWire, Fuzzel, SwayNC, Swappy, Linux browser flags
+- [x] Aerospace — `modules/aerospace/` (nix + toml colocated)
+- [x] Tmux — `modules/tmux/` (nix + sessions colocated, dot-* prefix removed)
+- [x] Nvim — `modules/nvim/` (nix + config/ tree colocated)
+- [x] Secrets — `modules/secrets/` (nix + yaml + .sops.yaml colocated)
+- [x] Desktoppr — `modules/desktoppr/` (nix + wallpaper colocated)
 
 ### Step 8: Secrets & Encryption [COMPLETED]
 
 - [x] Add `sops-nix` flake input + import darwin/HM modules
 - [x] Generate age keypair (`age-keygen -o ~/.config/sops/age/keys.txt`)
-- [x] Create `macos/secrets/.sops.yaml` with public key + creation rules
-- [x] Create `macos/modules/home/secrets.nix` declaring secret targets
+- [x] Create `modules/secrets/.sops.yaml` with public key + creation rules
+- [x] Create `modules/secrets/secrets.nix` declaring secret targets (colocated)
 - [x] SSH private key deployed via sops-nix, GitHub auth verified
 - [ ] Future: Save age keys to Bitwarden (manual user action)
 - [ ] Future: Migrate AI/API keys, Leetcode tokens (not needed yet)
@@ -148,10 +148,10 @@ One `modules/home/<program>.nix` per retained program.
 **Rotating age keys (if compromised or periodically):**
 1. Generate a new keypair: `age-keygen -o ~/.config/sops/age/keys.new.txt`
 2. Extract the new public key from the output
-3. Update `macos/secrets/.sops.yaml` — replace the `age` recipient with the new public key
+3. Update `modules/secrets/.sops.yaml` — replace the `age` recipient with the new public key
 4. Re-encrypt all secret files:
    ```
-   SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt sops --rotate -i macos/secrets/secrets.yaml
+   SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt sops --rotate -i modules/secrets/secrets.yaml
    ```
    (uses the **old** key to decrypt, then encrypts with all keys in `.sops.yaml`)
 5. Replace `keys.txt` with `keys.new.txt`
@@ -159,37 +159,69 @@ One `modules/home/<program>.nix` per retained program.
 7. Update the Bitwarden secure note with the new keypair
 8. If the old key is still needed for history, add it as a second recipient in `.sops.yaml` before rotating
 
-### Step 9: Validate Bootstrap [PLANNED]
+### Step 9: Validate Bootstrap [DEFERRED]
 
+Builds succeed on existing machine. Full bootstrap from clean shell not yet tested.
 - [ ] Test `macos/setup/main.sh` from clean shell
 - [ ] Test Lix-missing → first darwin-rebuild → repeat paths
 - [ ] Confirm Nix packages, Homebrew casks, Home Manager config links, manual permissions
-- [ ] Keep `mise run check macos`
-- [ ] Add `darwin-rebuild check` when useful
 
-### Step 10: Cleanup & Maintenance [PLANNED]
+### Step 10: Cleanup & Maintenance [COMPLETED]
 
 - [x] Remove unused `macos/zsh/` stale raw config tree
-- [ ] Remove obsolete stow assumptions from macOS docs/scripts
-- [ ] Review diff, run checks, commit only verified layers
+- [x] Remove `macos/hosts/` (flattened to root)
+- [x] Remove `macos/nvim/` (moved into `modules/nvim/config/`)
+- [x] Remove `macos/secrets/` (moved into `modules/secrets/`)
+- [x] Remove `macos/tmux/` (moved into `modules/tmux/sessions/`)
+- [x] Remove `dot-*` prefix nesting from all config trees
+- [x] All configs use XDG paths (`~/.config/`) where possible
 
 ### Step 11: Restructure macOS Nix Config [COMPLETED]
 
-Flattened `macos/` to a single level with no nested host directories or `dot-*` prefix.
+Flattened `macos/` to a single level — no nested host dirs, no `dot-*` nesting, no home-clutter.
+
+**Resulting tree:**
+
+```
+macos/
+├── flake.nix              # inputs + darwinConfigurations
+├── darwin.nix             # system config (nix, defaults, brew)
+├── home.nix               # user config (imports all modules)
+├── modules/
+│   ├── aerospace/         # aerospace.nix + aerospace.toml
+│   ├── colima.nix
+│   ├── desktoppr/         # desktoppr.nix + coa_macos.png
+│   ├── fastfetch.nix
+│   ├── ghostty.nix
+│   ├── git.nix
+│   ├── hunk.nix
+│   ├── jankyborders.nix
+│   ├── nvim/              # neovim.nix + config/ (init.lua, lua/, after/)
+│   ├── opencode.nix
+│   ├── packages.nix
+│   ├── secrets/           # secrets.nix + secrets.yaml + .sops.yaml
+│   ├── shell.nix
+│   ├── taskwarrior.nix
+│   ├── television.nix
+│   ├── tmux/              # tmux.nix + sessions/ (tmuxp yamls)
+│   └── yazi.nix
+├── setup/main.sh
+├── README.md
+└── flake.lock
+```
 
 **Done:**
-- `hosts/khalils-MacBook-Pro/{darwin,home}.nix` → `macos/{darwin,home}.nix`
-- `modules/home/` → `modules/` (all flat `.nix` files)
-- `aerospace/` — `aerospace.nix` + `aerospace.toml` colocated in `modules/aerospace/`
-- `desktoppr/` — `desktoppr.nix` + `coa_macos.png` colocated in `modules/desktoppr/`
-- `nvim/` — `neovim.nix` + `config/` (nvim tree) colocated in `modules/nvim/`
-- `secrets/` — `secrets.nix` + `secrets.yaml` + `.sops.yaml` colocated in `modules/secrets/`
-- `tmux/` — `tmux.nix` + `sessions/` yamls (was `dot-tmuxp/`, dot-* removed) in `modules/tmux/`
-- Stale `macos/zsh/` tree removed
-- All `home.nix` imports, `flake.nix` paths, `shell.nix` alias, and `README.md` updated
+- `hosts/<name>/` → root (`darwin.nix` + `home.nix`)
+- `modules/home/` → `modules/` (no more nesting)
+- Configs colocated with their `.nix` module files
+- All `dot-*` prefixes removed
+- `~/.aerospace.toml` → `~/.config/aerospace/aerospace.toml` (XDG)
+- `~/.tmuxp/` → `~/.config/tmuxp/` (XDG)
+- Stale `macos/zsh/` removed
+- All paths verified
 
-**Not done (deferred):**
-- Extract inline configs: `television`, `opencode`, `yazi` — still inline in Nix
+**Deferred:**
+- Extract inline configs: `television`, `opencode`, `yazi`
 
 ---
 
