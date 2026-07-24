@@ -23,7 +23,7 @@
 | Window manager          | Aerospace                          | i3/Sway/Hyprland muscle memory, no SIP changes needed         |
 | Launcher                | Raycast                            | Practical macOS replacement for fuzzel                        |
 | Keyboard remapping      | None (native macOS)                | Karabiner conflicts with Aerospace and app shortcuts; native Cmd shortcuts accepted |
-| Clipboard               | Maccy                              | Lightweight cliphist-style workflow                           |
+| Clipboard               | Raycast (deferred)                  | clipcat broken on macOS; using Raycast clipboard history for now |
 | Browser Vim motions     | Vimium C                           | Keyboard-driven browser navigation                            |
 | Native app keyboard nav | Homerow (Shortcat fallback)        | Vimium-like in native macOS apps                              |
 | Modal editing           | kindavim (trial after base stable) | Modal editing in native text fields                           |
