@@ -67,6 +67,12 @@
     "com.apple.AppleMultitouchTrackpad" = {
       TrackpadFiveFingerPinchGesture = 0;
     };
+    "com.apple.symbolichotkeys" = {
+      AppleSymbolicHotKeys = {
+        "64" = { enabled = false; };  # Cmd+Space (Spotlight)
+        "63" = { enabled = false; };  # Alt+Cmd+Space (Finder Spotlight)
+      };
+    };
     NSGlobalDomain = {
       # TODO: AppleCursorHiddenWhileTyping not working properly — revisit later
       AppleCursorHiddenWhileTyping = true;

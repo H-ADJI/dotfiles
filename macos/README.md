@@ -46,7 +46,10 @@ mise run check macos
 - Keep company-managed software outside this configuration unless declarative management is explicitly allowed.
 
 ### Input Settings
-- Set input source to **English - ABC** (System Settings > Keyboard > Text Input > Input Sources).
+- Add keyboard input sources: **English - ABC** (US) and **ABC Azerty** (French)
+  - System Settings > Keyboard > Text Input > Input Sources > Edit > Add
+  - Toggle between layouts via Cmd+Space or Ctrl+Space (configure in Keyboard Shortcuts > Input Sources)
+- Enable **Show Input menu in menu bar** for visual indicator (optional)
 
 ### Aerospace
 Aerospace is installed from Nixpkgs and configured via `home.file` (see `modules/home/aerospace/`).
@@ -60,7 +63,8 @@ Aerospace is installed from Nixpkgs and configured via `home.file` (see `modules
   - **Alt + Shift + 1-0** — move window to workspace
   - **Alt + Space** — launch Ghostty
   - **Alt + B** — launch Chrome
-  - **Alt + D** — launch Spotlight (Raycast later)
+  - **Alt + D** — launch Raycast
+  - **Cmd + Space** — Raycast (set manually in Raycast Preferences > General > Hotkey)
   - **Alt + Q** — close focused window
   - **Alt + F** — fullscreen
   - **Alt + Tab** — workspace back-and-forth

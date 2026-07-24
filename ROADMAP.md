@@ -74,7 +74,7 @@ Avoid: yabai, skhd, Rectangle/Loop, Alfred 5, Hammerspoon (defer until needed).
 **Deferred (tracked in config TODOs):**
 - `AppleCursorHiddenWhileTyping` — not working, revisit later (`darwin.nix`)
 - `alt+q = close` — may conflict with Ghostty, test interaction (`aerospace.toml`)
-- Input source → ABC, ZMK Sofle pairing — manual, not urgent
+- Input source → ABC + ABC Azerty — documented in README manual steps
 - Wallpaper config — walt-like tool or nix-darwin native option
 - Try without jankyborders — unnecessary eye candy, remove if unused
 
@@ -84,6 +84,8 @@ Avoid: yabai, skhd, Rectangle/Loop, Alfred 5, Hammerspoon (defer until needed).
 - [ ] Maccy: Nixpkgs, Accessibility, compare clipboard vs Raycast
 - [ ] Homerow: Homebrew cask, trial keyboard UI nav
 - [ ] Decide: keep Maccy or Raycast clipboard (disable the other)
+- [ ] Experiment: replace Raycast with custom fzf/television script
+      launcher, app/window switcher, clipboard management
 
 ### Step 6: Chrome Declarative Setup [PLANNED]
 
@@ -99,6 +101,16 @@ Avoid: yabai, skhd, Rectangle/Loop, Alfred 5, Hammerspoon (defer until needed).
   - Candidates: manual Chrome GUI install, custom .app wrapper module, or alternative tooling
 - [ ] PWAs to cover: Spotify, YouTube Music, Teams, Slack
 - [ ] Implement chosen approach once researched
+
+### Step 6c: Desktop Polish & Workflow Refinements [PLANNED]
+
+- [ ] Aerospace window rules via `on-window-detected`
+  - Auto-float: System Settings, Raycast Preferences, Finder dialogs
+  - Auto-assign apps to workspaces (Chrome → W, Ghostty → T, etc.)
+- [ ] Resize mode: dedicated H/J/K/L bindings for width/height control
+- [ ] Screenshot tool: configure macOS built-in (`screencapture`) or explore third-party
+  - Set save location, format via `defaults write`
+- [ ] Display / clamshell mode notes in README (manual steps)
 
 ### Step 7: Migrate Retained Arch Programs [PLANNED]
 
