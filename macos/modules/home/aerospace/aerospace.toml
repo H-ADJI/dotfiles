@@ -94,6 +94,9 @@ alt-shift-e = '''exec-and-forget osascript -e 'tell application "System Events" 
 # Enter service mode for advanced ops
 alt-shift-semicolon = "mode service"
 
+# Enter resize mode
+alt-r = "mode resize"
+
 [mode.service.binding]
 esc = ["reload-config", "mode main"]
 r = ["flatten-workspace-tree", "mode main"]
@@ -103,3 +106,11 @@ alt-shift-h = ["join-with left", "mode main"]
 alt-shift-j = ["join-with down", "mode main"]
 alt-shift-k = ["join-with up", "mode main"]
 alt-shift-l = ["join-with right", "mode main"]
+
+[mode.resize.binding]
+h = "resize width -50"
+j = "resize height +50"
+k = "resize height -50"
+l = "resize width +50"
+enter = "mode main"
+esc = "mode main"
