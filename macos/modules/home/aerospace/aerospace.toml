@@ -89,7 +89,6 @@ alt-space = '''exec-and-forget open -n -b com.mitchellh.ghostty'''
 alt-shift-s = '''exec-and-forget open -b com.apple.systempreferences'''
 alt-b = '''exec-and-forget open -n -b com.google.Chrome'''
 alt-d = '''exec-and-forget open -b com.raycast.macos'''
-alt-shift-v = '''exec-and-forget open -a Ghostty --args -e clipcat-menu --finder=fzf'''
 alt-shift-e = '''exec-and-forget osascript -e 'tell application "System Events" to log out''''
 
 # Enter service mode for advanced ops

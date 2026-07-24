@@ -8,14 +8,12 @@
     docker
     docker-compose
     fd
-    fzf
     gh
     gnugrep
     gnutar
     go
     google-chrome
     hyperfine
-    clipcat
     mise
     nodejs
     opencode
