@@ -8,7 +8,6 @@
     ./modules/tmux/tmux.nix
     ./modules/ghostty.nix
     ./modules/aerospace/aerospace.nix
-    ./modules/jankyborders.nix
     ./modules/taskwarrior.nix
     ./modules/hunk.nix
     ./modules/fastfetch.nix

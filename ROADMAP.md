@@ -69,12 +69,10 @@ Avoid: yabai, skhd, Rectangle/Loop, Alfred 5, Hammerspoon (defer until needed).
 
 **Key decision:** Abandoned Karabiner remapping. Native macOS shortcuts accepted (Cmd+C/V, etc.). Aerospace Alt bindings with no Cmd conflicts. ZMK handles all custom key logic on the Sofle.
 
-**Done:** Aerospace (Nixpkgs, Alt bindings, gaps 30, service mode, mouse window-centering), jankyborders (12px square, black/Latte), Ghostty (block cursor, no blink, `shell-integration-features = no-cursor`), JetBrains Nerd Font installed via `nerd-fonts.jetbrains-mono`.
+ **Done:** Aerospace (Nixpkgs, Alt bindings, gaps 30, service mode, mouse window-centering), Ghostty (block cursor, no blink, `shell-integration-features = no-cursor`), JetBrains Nerd Font installed via `nerd-fonts.jetbrains-mono`.
 
 **Deferred (tracked in config TODOs):**
 - `AppleCursorHiddenWhileTyping` — not working, revisit later (`darwin.nix`)
-- Try without jankyborders — unnecessary eye candy, remove if unused
-
 **Resolved:**
 - `alt+q`: tested, no Ghostty conflict — removed binding, using native `Cmd+W`/`Cmd+Q` instead
 - Wallpaper: set via `programs.desktoppr` with `coa_macos.png`
@@ -201,7 +199,6 @@ macos/
 │   ├── ghostty.nix
 │   ├── git.nix
 │   ├── hunk.nix
-│   ├── jankyborders.nix
 │   ├── jnv.nix             # TODO — not yet created
 │   ├── jqp.nix             # TODO — not yet created
 │   ├── mise.nix            # TODO — not yet created

@@ -19,7 +19,7 @@
       scrollbar = "never";
       scrollback-limit = 10000;
       confirm-close-surface = false;
-      window-decoration = "none";
+      window-decoration = true;
       maximize = false;
       window-padding-x = 180;
       window-padding-y = 80;
