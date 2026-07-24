@@ -23,7 +23,7 @@
 
   homebrew = {
     enable = true;
-    casks = [ "ghostty" ];
+    casks = [ "ghostty" "raycast" ];
   };
 
   users.users.khalil = {

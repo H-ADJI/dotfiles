@@ -88,7 +88,7 @@ alt-shift-f = "layout floating tiling"
 alt-space = '''exec-and-forget open -n -b com.mitchellh.ghostty'''
 alt-shift-s = '''exec-and-forget open -b com.apple.systempreferences'''
 alt-b = '''exec-and-forget open -n -b com.google.Chrome'''
-alt-d = '''exec-and-forget open -b com.apple.Spotlight'''
+alt-d = '''exec-and-forget open -b com.raycast.macos'''
 alt-shift-e = '''exec-and-forget osascript -e 'tell application "System Events" to log out''''
 
 # Enter service mode for advanced ops
