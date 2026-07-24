@@ -202,11 +202,15 @@ macos/
 │   ├── git.nix
 │   ├── hunk.nix
 │   ├── jankyborders.nix
+│   ├── jnv.nix             # TODO — not yet created
+│   ├── jqp.nix             # TODO — not yet created
+│   ├── mise.nix            # TODO — not yet created
 │   ├── nvim/              # neovim.nix + config/ (init.lua, lua/, after/)
 │   ├── opencode.nix
 │   ├── packages.nix
 │   ├── secrets/           # secrets.nix + secrets.yaml + .sops.yaml
 │   ├── shell.nix
+│   ├── tabiew.nix          # TODO — not yet created
 │   ├── taskwarrior.nix
 │   ├── television.nix
 │   ├── tmux/              # tmux.nix + sessions/ (tmuxp yamls)
@@ -228,6 +232,14 @@ macos/
 
 **Deferred:**
 - Extract inline configs: `television`, `opencode`, `yazi`
+
+### Step 12: Port Remaining Arch Tools & Fix macOS Issues [IN PROGRESS]
+
+- [x] **Neovim mini.move rebind** — Aerospace `alt-h/j/k/l` intercepts mini.move defaults (`M-h/j/k/l`). Rebound to `<leader>hh/jj/kk/ll` in `modules/nvim/config/lua/plugins/mini.lua`.
+- [ ] **Migrate jnv** — New `modules/jnv.nix` inlining 186-line TOML config from `arch/jnv/`. Add `jnv` to `modules/packages.nix`.
+- [ ] **Migrate jqp** — New `modules/jqp.nix` inlining 2-line Catppuccin Latte theme config from `arch/jqp/`. Add `jqp` to `modules/packages.nix`.
+- [ ] **Migrate tabiew** — New `modules/tabiew.nix` inlining 3-line TOML config from `arch/tabiew/`. Add `tabiew` to `modules/packages.nix`.
+- [ ] **Migrate mise config** — New `modules/mise.nix` porting settings (trusted paths, env_file) from `arch/mise/config.toml`. Skip tools (Nix-managed) and lockfile.
 
 ---
 
