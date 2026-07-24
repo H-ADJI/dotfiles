@@ -57,19 +57,19 @@ Avoid: yabai, skhd, Rectangle/Loop, Alfred 5, Hammerspoon (defer until needed).
 - Keep custom callbacks, snippets, queries, unsupported plugins as Lua escape hatches.
 - Retain raw Lua config if full Nixvim increases maintenance or loses needed behavior.
 
-### Step 3: Desktop Defaults [3 of 5 DONE]
+### Step 3: Desktop Defaults [4 of 5 DONE]
 
 - [x] Dock: auto-hide, minimal behavior
 - [x] Finder: show extensions, hidden files, path bar
 - [x] Trackpad: tap-to-click, scroll behavior
-- [ ] Screenshots: location and format
+- [x] Screenshots: PNG format, `~/Desktop/Screenshots`, no shadow — set via `darwin.nix`
 - [ ] Login/session behavior
 
 ### Step 4: Keyboard & Window Management [COMPLETED]
 
 **Key decision:** Abandoned Karabiner remapping. Native macOS shortcuts accepted (Cmd+C/V, etc.). Aerospace Alt bindings with no Cmd conflicts. ZMK handles all custom key logic on the Sofle.
 
-**Done:** Aerospace (Nixpkgs, Alt bindings, gaps 30, service mode, mouse window-centering), jankyborders (12px square, black/Latte), Ghostty (block cursor, no blink, `shell-integration-features = no-cursor` to prevent shell override).
+**Done:** Aerospace (Nixpkgs, Alt bindings, gaps 30, service mode, mouse window-centering), jankyborders (12px square, black/Latte), Ghostty (block cursor, no blink, `shell-integration-features = no-cursor`), JetBrains Nerd Font installed via `nerd-fonts.jetbrains-mono`.
 
 **Deferred (tracked in config TODOs):**
 - `AppleCursorHiddenWhileTyping` — not working, revisit later (`darwin.nix`)
@@ -80,9 +80,9 @@ Avoid: yabai, skhd, Rectangle/Loop, Alfred 5, Hammerspoon (defer until needed).
 
 ### Step 5: Launcher, Clipboard, Native Navigation [IN PROGRESS]
 
-- [x] Raycast: Homebrew cask, sign in, set Cmd+Space hotkey
-- [ ] Maccy / clipcat: deferred — both need clipboard daemon investigation
-- [ ] Homerow: Homebrew cask, trial keyboard UI nav
+- [x] Raycast: Homebrew cask, sign in, set Cmd+Space hotkey, `alt-d` bound
+- [x] Homerow: Homebrew cask, installed and working
+- [ ] Maccy / clipcat: deferred — using Raycast clipboard history
 - [ ] Experiment: replace Raycast with custom fzf/television script
       launcher, app/window switcher, clipboard management
 
@@ -101,14 +101,12 @@ Avoid: yabai, skhd, Rectangle/Loop, Alfred 5, Hammerspoon (defer until needed).
 - [ ] PWAs to cover: Spotify, YouTube Music, Teams, Slack
 - [ ] Implement chosen approach once researched
 
-### Step 6c: Desktop Polish & Workflow Refinements [PLANNED]
+### Step 6c: Desktop Polish & Workflow Refinements [IN PROGRESS]
 
-- [ ] Aerospace window rules via `on-window-detected`
-  - Auto-float: System Settings, Raycast Preferences, Finder dialogs
-  - Auto-assign apps to workspaces (Chrome → W, Ghostty → T, etc.)
-- [ ] Resize mode: dedicated H/J/K/L bindings for width/height control
-- [ ] Screenshot tool: configure macOS built-in (`screencapture`) or explore third-party
-  - Set save location, format via `defaults write`
+- [x] Resize mode: `alt-r` → H/J/K/L → Enter/Esc (tiled windows)
+- [x] Smart resize: `alt-=` / `alt--` kept alongside
+- [x] Screenshot tool: `screencapture` via Aerospace `alt-c` / `alt-shift-c`, opens in Preview with Markup toolbar (`Cmd+Shift+A`); format/location set via `darwin.nix`
+- [x] Preview float rule via `on-window-detected`
 - [ ] Display / clamshell mode notes in README (manual steps)
 
 ### Step 7: Migrate Retained Arch Programs [COMPLETED]
