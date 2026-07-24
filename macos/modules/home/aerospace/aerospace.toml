@@ -24,6 +24,10 @@ persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 
 key-mapping.preset = "qwerty"
 
+[[on-window-detected]]
+if.app-id = "com.apple.Preview"
+run = "layout floating"
+
 [mode.main.binding]
 # Focus direction (Alt, like Aerospace default — no macOS conflicts)
 alt-h = "focus left"
@@ -90,6 +94,10 @@ alt-shift-s = '''exec-and-forget open -b com.apple.systempreferences'''
 alt-b = '''exec-and-forget open -n -b com.google.Chrome'''
 alt-d = '''exec-and-forget open -b com.raycast.macos'''
 alt-shift-e = '''exec-and-forget osascript -e 'tell application "System Events" to log out''''
+
+# Screenshots (save + open in Preview for annotation)
+alt-c = '''exec-and-forget screencapture /tmp/screenshot.png && open -a Preview /tmp/screenshot.png'''
+alt-shift-c = '''exec-and-forget screencapture -i /tmp/screenshot.png && open -a Preview /tmp/screenshot.png'''
 
 # Enter service mode for advanced ops
 alt-shift-semicolon = "mode service"

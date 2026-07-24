@@ -72,7 +72,15 @@
       AppleSymbolicHotKeys = {
         "64" = { enabled = false; };  # Cmd+Space (Spotlight)
         "63" = { enabled = false; };  # Alt+Cmd+Space (Finder Spotlight)
+        "28" = { enabled = false; };  # Cmd+Shift+3 (full screen)
+        "30" = { enabled = false; };  # Cmd+Shift+4 (region/window)
+        "34" = { enabled = false; };  # Cmd+Shift+5 (toolbar)
       };
+    };
+    "com.apple.screencapture" = {
+      type = "png";
+      location = "~/Desktop/Screenshots";
+      disable-shadow = true;
     };
     NSGlobalDomain = {
       # TODO: AppleCursorHiddenWhileTyping not working properly — revisit later
