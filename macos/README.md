@@ -4,17 +4,18 @@ Nix-darwin + Home Manager workstation configuration.
 
 ## Bootstrap
 
+No clone needed. Two commands:
+
 ```bash
-git clone git@github.com:H-ADJI/dotfiles.git ~/dotfiles
-bash ~/dotfiles/macos/setup/main.sh
+curl -sSf -L https://install.lix.systems/lix | sh -s -- install   # first time only
+# restart terminal
+sudo darwin-rebuild switch --flake github:H-ADJI/dotfiles?dir=macos#macbook
 ```
 
-First run installs Lix when missing, then stops. Restart terminal and rerun script.
-
-Manual rebuild:
+Or use the setup script (same thing):
 
 ```bash
-sudo darwin-rebuild switch --flake ~/dotfiles/macos#<hostname>
+bash <(curl -sSfL https://raw.githubusercontent.com/H-ADJI/dotfiles/main/macos/setup/main.sh)
 ```
 
 ## Layout
@@ -54,7 +55,10 @@ macos/
 - **Input sources**: Add **English - ABC** and **ABC Azerty** (System Settings → Keyboard → Input Sources)
 - **Raycast hotkey**: Set Cmd+Space in Raycast Preferences → General → Hotkey (also disable Spotlight Cmd+Space)
 - **Desktop widgets**: Right-click desktop → "Edit Widgets" → remove unwanted
-- **Clamshell mode**: Configure "Do not sleep when display is closed" for desktop use
+- **Clamshell (lid-closed) mode for desktop use**:
+  1. System Settings → Displays → Advanced → enable **"Prevent automatic sleeping on power adapter when the display is off"**
+  2. Alternatively: `sudo pmset -c sleep 0` (disables sleep on charger)
+  3. Must be connected to a power adapter (clamshell only works while charging)
 
 ## Keybindings
 
@@ -68,13 +72,13 @@ See `modules/aerospace/aerospace.toml` for the full config.
 
 ## Nix GC & Generations
 
-Automatic GC runs weekly (Sunday), deleting generations older than 30 days. Config in `darwin.nix: nix.gc`.
+- **Nix store**: GC runs weekly, deletes unreferenced paths older than 5 days (`darwin.nix: nix.gc`)
+- **Boot entries**: automatic cleanup keeps last 10 system generations (`darwin.nix: system.activationScripts`)
 
-Manual generation pruning (keeps last 7):
+Manual pruning:
 
 ```bash
-sudo nix-env --delete-generations +7 -p /nix/var/nix/profiles/system
-nix-env --delete-generations +7
+sudo nix-env --delete-generations +10 -p /nix/var/nix/profiles/system
 nix store gc
 ```
 

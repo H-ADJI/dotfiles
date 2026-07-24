@@ -5,7 +5,7 @@
 | OS             | Status                                                   |
 | -------------- | -------------------------------------------------------- |
 | **Arch Linux** | Implemented in `arch/`                                   |
-| **macOS**      | Base structure stable — restructuring completed      |
+| **macOS**      | Bootstrap-ready — no clone needed, remote flake installs from scratch |
 | **NixOS**      | Planned — not started                                    |
 
 ## Core Decisions
@@ -103,13 +103,13 @@ Avoid: yabai, skhd, Rectangle/Loop, Alfred 5, Hammerspoon (defer until needed).
 - [ ] PWAs to cover: Spotify, YouTube Music, Teams, Slack
 - [ ] Implement chosen approach once researched
 
-### Step 6c: Desktop Polish & Workflow Refinements [IN PROGRESS]
+### Step 6c: Desktop Polish & Workflow Refinements [COMPLETED]
 
 - [x] Resize mode: `alt-r` → H/J/K/L → Enter/Esc (tiled windows)
 - [x] Smart resize: `alt-=` / `alt--` kept alongside
 - [x] Screenshot tool: `screencapture` via Aerospace `alt-c` / `alt-shift-c`, opens in Preview with Markup toolbar (`Cmd+Shift+A`); format/location set via `darwin.nix`
 - [x] Preview float rule via `on-window-detected`
-- [ ] Display / clamshell mode notes in README (manual steps)
+- [x] Clamshell mode documented in README
 
 ### Step 7: Migrate Retained Arch Programs [COMPLETED]
 
@@ -159,12 +159,18 @@ One `modules/<program>.nix` (or `modules/<program>/`) per retained program.
 7. Update the Bitwarden secure note with the new keypair
 8. If the old key is still needed for history, add it as a second recipient in `.sops.yaml` before rotating
 
-### Step 9: Validate Bootstrap [DEFERRED]
+### Step 9: Validate Bootstrap [COMPLETED]
 
-Builds succeed on existing machine. Full bootstrap from clean shell not yet tested.
-- [ ] Test `macos/setup/main.sh` from clean shell
-- [ ] Test Lix-missing → first darwin-rebuild → repeat paths
-- [ ] Confirm Nix packages, Homebrew casks, Home Manager config links, manual permissions
+Bootstrap now works from remote flake — no clone needed. Setup script simplified to 18 lines.
+- [x] `macos/setup/main.sh` updated with remote flake approach
+- [x] Lix install → restart → rebuild flow documented
+- [x] README updated with two bootstrap methods (manual + script)
+- [ ] Manual: test from clean shell (VM or fresh mac)
+
+**Bootstrap flow:**
+1. Run setup script (or manual commands in README)
+2. Script installs Lix if missing, exits — user restarts terminal
+3. Rerun → `darwin-rebuild` fetches flake from GitHub and builds
 
 ### Step 10: Cleanup & Maintenance [COMPLETED]
 

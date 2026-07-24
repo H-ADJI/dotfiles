@@ -11,8 +11,12 @@
     interval = {
       Weekday = 0;
     }; # weekly on Sunday
-    options = "--delete-older-than 14d";
+    options = "--delete-older-than 5d";
   };
+
+  system.activationScripts.postActivation.text = ''
+    nix-env --delete-generations +10 -p /nix/var/nix/profiles/system 2>/dev/null || true
+  '';
 
   nix.settings.experimental-features = [
     "nix-command"
