@@ -2,11 +2,11 @@
 
 ## Status
 
-| OS             | Status                                                   |
-| -------------- | -------------------------------------------------------- |
-| **Arch Linux** | Implemented in `arch/`                                   |
+| OS             | Status                                                                |
+| -------------- | --------------------------------------------------------------------- |
+| **Arch Linux** | Implemented in `arch/`                                                |
 | **macOS**      | Bootstrap-ready — no clone needed, remote flake installs from scratch |
-| **NixOS**      | Planned — not started                                    |
+| **NixOS**      | Planned — not started                                                 |
 
 ## Core Decisions
 
@@ -18,16 +18,16 @@
 
 ### Desktop Choices
 
-| Role                    | Tool                               | Reasoning                                                     |
-| ----------------------- | ---------------------------------- | ------------------------------------------------------------- |
-| Window manager          | Aerospace                          | i3/Sway/Hyprland muscle memory, no SIP changes needed         |
-| Launcher                | Raycast                            | Practical macOS replacement for fuzzel                        |
+| Role                    | Tool                               | Reasoning                                                                           |
+| ----------------------- | ---------------------------------- | ----------------------------------------------------------------------------------- |
+| Window manager          | Aerospace                          | i3/Sway/Hyprland muscle memory, no SIP changes needed                               |
+| Launcher                | Raycast                            | Practical macOS replacement for fuzzel                                              |
 | Keyboard remapping      | None (native macOS)                | Karabiner conflicts with Aerospace and app shortcuts; native Cmd shortcuts accepted |
-| Clipboard               | Raycast (deferred)                  | clipcat broken on macOS; using Raycast clipboard history for now |
-| Browser Vim motions     | Vimium C                           | Keyboard-driven browser navigation                            |
-| Native app keyboard nav | Homerow (Shortcat fallback)        | Vimium-like in native macOS apps                              |
-| Modal editing           | kindavim (trial after base stable) | Modal editing in native text fields                           |
-| Status bar              | SketchyBar (deferred)              | Waybar equivalent, adds config bulk                           |
+| Clipboard               | Raycast (deferred)                 | clipcat broken on macOS; using Raycast clipboard history for now                    |
+| Browser Vim motions     | Vimium C                           | Keyboard-driven browser navigation                                                  |
+| Native app keyboard nav | Homerow (Shortcat fallback)        | Vimium-like in native macOS apps                                                    |
+| Modal editing           | kindavim (trial after base stable) | Modal editing in native text fields                                                 |
+| Status bar              | SketchyBar (deferred)              | Waybar equivalent, adds config bulk                                                 |
 
 Avoid: yabai, skhd, Rectangle/Loop, Alfred 5, Hammerspoon (defer until needed).
 
@@ -69,11 +69,12 @@ Avoid: yabai, skhd, Rectangle/Loop, Alfred 5, Hammerspoon (defer until needed).
 
 **Key decision:** Abandoned Karabiner remapping. Native macOS shortcuts accepted (Cmd+C/V, etc.). Aerospace Alt bindings with no Cmd conflicts. ZMK handles all custom key logic on the Sofle.
 
- **Done:** Aerospace (Nixpkgs, Alt bindings, gaps 30, service mode, mouse window-centering), Ghostty (block cursor, no blink, `shell-integration-features = no-cursor`), JetBrains Nerd Font installed via `nerd-fonts.jetbrains-mono`.
+**Done:** Aerospace (Nixpkgs, Alt bindings, gaps 30, service mode, mouse window-centering), Ghostty (block cursor, no blink, `shell-integration-features = no-cursor`), JetBrains Nerd Font installed via `nerd-fonts.jetbrains-mono`.
 
 **Deferred (tracked in config TODOs):**
+
 - `AppleCursorHiddenWhileTyping` — not working, revisit later (`darwin.nix`)
-**Resolved:**
+  **Resolved:**
 - `alt+q`: tested, no Ghostty conflict — removed binding, using native `Cmd+W`/`Cmd+Q` instead
 - Wallpaper: set via `programs.desktoppr` with `coa_macos.png`
 - Input source: documented in README manual steps
@@ -138,12 +139,14 @@ One `modules/<program>.nix` (or `modules/<program>/`) per retained program.
 - [ ] Future: Migrate AI/API keys, Leetcode tokens (not needed yet)
 
 **Save age keys to Bitwarden:**
+
 1. Copy public key from `~/.config/sops/age/keys.txt` (the `# public key: age1...` line)
 2. Copy private key (entire file content between `# created:` and `# public key:`)
 3. Create a secure note in Bitwarden named "SOPS Age Key" with both values
 4. Also backup the `keys.txt` file itself as an attachment
 
 **Rotating age keys (if compromised or periodically):**
+
 1. Generate a new keypair: `age-keygen -o ~/.config/sops/age/keys.new.txt`
 2. Extract the new public key from the output
 3. Update `modules/secrets/.sops.yaml` — replace the `age` recipient with the new public key
@@ -160,12 +163,14 @@ One `modules/<program>.nix` (or `modules/<program>/`) per retained program.
 ### Step 9: Validate Bootstrap [COMPLETED]
 
 Bootstrap now works from remote flake — no clone needed. Setup script simplified to 18 lines.
+
 - [x] `macos/setup/main.sh` updated with remote flake approach
 - [x] Lix install → restart → rebuild flow documented
 - [x] README updated with two bootstrap methods (manual + script)
 - [ ] Manual: test from clean shell (VM or fresh mac)
 
 **Bootstrap flow:**
+
 1. Run setup script (or manual commands in README)
 2. Script installs Lix if missing, exits — user restarts terminal
 3. Rerun → `darwin-rebuild` fetches flake from GitHub and builds
@@ -218,6 +223,7 @@ macos/
 ```
 
 **Done:**
+
 - `hosts/<name>/` → root (`darwin.nix` + `home.nix`)
 - `modules/home/` → `modules/` (no more nesting)
 - Configs colocated with their `.nix` module files
@@ -228,6 +234,7 @@ macos/
 - All paths verified
 
 **Deferred:**
+
 - Extract inline configs: `television`, `opencode`, `yazi`
 
 ### Step 12: Port Remaining Arch Tools & Fix macOS Issues [IN PROGRESS]
@@ -239,8 +246,6 @@ macos/
 - [ ] **Migrate mise config** — New `modules/mise.nix` porting settings (trusted paths, env_file) from `arch/mise/config.toml`. Skip tools (Nix-managed) and lockfile.
 
 ---
-
-
 
 ## Phase 2: NixOS [PLANNED]
 
