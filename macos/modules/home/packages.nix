@@ -16,6 +16,7 @@
     google-chrome
     hyperfine
     mise
+    nerd-fonts.jetbrains-mono
     nodejs
     python3
     podman

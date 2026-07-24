@@ -111,7 +111,7 @@ Avoid: yabai, skhd, Rectangle/Loop, Alfred 5, Hammerspoon (defer until needed).
   - Set save location, format via `defaults write`
 - [ ] Display / clamshell mode notes in README (manual steps)
 
-### Step 7: Migrate Retained Arch Programs [IN PROGRESS]
+### Step 7: Migrate Retained Arch Programs [COMPLETED]
 
 One `modules/home/<program>.nix` per retained program.
 
@@ -122,7 +122,7 @@ One `modules/home/<program>.nix` per retained program.
 - [x] Television — HM module with full TOML settings; `eval "$(tv init zsh)"` kept for full shell integration
 - [x] OpenCode — HM module with full TUI keybinding config inlined
 - [x] Yazi — HM module with settings + keymap (`wl-copy` → `pbcopy` for macOS)
-- [ ] Yazi theme — deferred (756-line theme.toml + syntect `.tmTheme` file)
+- [x] Yazi theme — minimal Catppuccin Latte inline theme (no icon mappings, dropped `syntect_theme`)
 
 - Native Home Manager modules: Bat, Starship, Mise, Yazi, Taskwarrior
 - Raw `xdg.configFile`/`home.file`: selected scripts, OpenCode, Television, Fastfetch, Hunk, JNV, Tabiew, JQP
