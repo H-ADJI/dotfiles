@@ -80,10 +80,10 @@ Avoid: yabai, skhd, Rectangle/Loop, Alfred 5, Hammerspoon (defer until needed).
 
 ### Step 5: Launcher, Clipboard, Native Navigation [IN PROGRESS]
 
-- [ ] Raycast: Homebrew cask, sign in, set Alt+D hotkey, extensions
-- [ ] Maccy: Nixpkgs, Accessibility, compare clipboard vs Raycast
+- [x] Raycast: Homebrew cask, sign in, set Cmd+Space hotkey
+- [x] Maccy: replaced with clipcat (CLI daemon + fzf menu, Alt+Shift+D)
+- [ ] clipcat: test daemon, fzf integration, compare vs Raycast clipboard
 - [ ] Homerow: Homebrew cask, trial keyboard UI nav
-- [ ] Decide: keep Maccy or Raycast clipboard (disable the other)
 - [ ] Experiment: replace Raycast with custom fzf/television script
       launcher, app/window switcher, clipboard management
 

@@ -103,5 +103,14 @@
   };
   system.keyboard.enableKeyMapping = true;
 
+  launchd.user.agents.clipcatd = {
+    command = "${pkgs.clipcat}/bin/clipcatd";
+    serviceConfig = {
+      KeepAlive = true;
+      RunAtLoad = true;
+      ProcessType = "Background";
+    };
+  };
+
   system.stateVersion = 6;
 }
