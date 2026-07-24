@@ -1,1 +1,0 @@
-_evalcache fzf --zsh

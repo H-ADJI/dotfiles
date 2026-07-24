@@ -2,7 +2,7 @@
   imports = [ sops-nix.homeManagerModules.sops ];
 
   sops = {
-    defaultSopsFile = ../../secrets/secrets.yaml;
+    defaultSopsFile = ./secrets.yaml;
     age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
 
     secrets.ssh_git = {

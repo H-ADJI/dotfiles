@@ -8,7 +8,9 @@
   nix.settings.warn-dirty = false;
   nix.gc = {
     automatic = true;
-    interval = { Weekday = 0; };  # weekly on Sunday
+    interval = {
+      Weekday = 0;
+    }; # weekly on Sunday
     options = "--delete-older-than 14d";
   };
 
@@ -25,7 +27,11 @@
 
   homebrew = {
     enable = true;
-    casks = [ "ghostty" "raycast" "homerow" ];
+    casks = [
+      "ghostty"
+      "raycast"
+      "homerow"
+    ];
   };
 
   users.users.khalil = {
@@ -76,11 +82,21 @@
     };
     "com.apple.symbolichotkeys" = {
       AppleSymbolicHotKeys = {
-        "64" = { enabled = false; };  # Cmd+Space (Spotlight)
-        "63" = { enabled = false; };  # Alt+Cmd+Space (Finder Spotlight)
-        "28" = { enabled = false; };  # Cmd+Shift+3 (full screen)
-        "30" = { enabled = false; };  # Cmd+Shift+4 (region/window)
-        "34" = { enabled = false; };  # Cmd+Shift+5 (toolbar)
+        "64" = {
+          enabled = false;
+        }; # Cmd+Space (Spotlight)
+        "63" = {
+          enabled = false;
+        }; # Alt+Cmd+Space (Finder Spotlight)
+        "28" = {
+          enabled = false;
+        }; # Cmd+Shift+3 (full screen)
+        "30" = {
+          enabled = false;
+        }; # Cmd+Shift+4 (region/window)
+        "34" = {
+          enabled = false;
+        }; # Cmd+Shift+5 (toolbar)
       };
     };
     "com.apple.screencapture" = {

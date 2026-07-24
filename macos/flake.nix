@@ -27,7 +27,7 @@
       darwinConfigurations."khalils-MacBook-Pro" = nix-darwin.lib.darwinSystem {
         specialArgs = { inherit inputs; };
         modules = [
-          ./hosts/khalils-MacBook-Pro/darwin.nix
+          ./darwin.nix
           nix-homebrew.darwinModules.nix-homebrew
           sops-nix.darwinModules.sops
           home-manager.darwinModules.home-manager
@@ -35,7 +35,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = { inherit inputs sops-nix; };
-            home-manager.users.khalil = import ./hosts/khalils-MacBook-Pro/home.nix;
+            home-manager.users.khalil = import ./home.nix;
           }
         ];
       };

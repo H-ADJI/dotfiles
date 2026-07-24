@@ -27,8 +27,9 @@ mise run check macos
 
 ## Layout
 
-- `hosts/khalils-MacBook-Pro/`: machine identity and imports.
-- `modules/home/`: user packages and app configurations.
+- `darwin.nix`: system-level nix-darwin configuration.
+- `home.nix`: user-level Home Manager configuration (imports all modules).
+- `modules/`: per-program modules (flat `.nix` or directory with config files).
 
 ## Ownership
 
@@ -52,7 +53,7 @@ mise run check macos
 - Enable **Show Input menu in menu bar** for visual indicator (optional)
 
 ### Aerospace
-Aerospace is installed from Nixpkgs and configured via `home.file` (see `modules/home/aerospace/`).
+Aerospace is installed from Nixpkgs and configured via `home.file` (see `modules/aerospace/`).
 
 - On first launch, grant **Accessibility** permission in **System Settings > Privacy & Security > Accessibility**.
 - Reload config after edits: `aerospace reload-config`

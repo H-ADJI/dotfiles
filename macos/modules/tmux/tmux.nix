@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  home.file.".tmuxp".source = ../../tmux/dot-tmuxp;
+  xdg.configFile."tmuxp".source = ./sessions;
 
   programs.tmux = {
     enable = true;

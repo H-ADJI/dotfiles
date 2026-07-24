@@ -51,7 +51,7 @@
       mkdir = "mkdir -pv";
       grep = "grep --color=auto";
       xcurl = "curl -x 127.0.0.1:8000 -k";
-      zshconfig = "nvim ~/dotfiles/macos/hosts/khalils-MacBook-Pro/home.nix";
+      zshconfig = "nvim ~/dotfiles/macos/home.nix";
       zbench = "hyperfine --warmup 5 'zsh -i -c exit'";
       xel = "fc";
       dotconf = "cd ~/.config";
