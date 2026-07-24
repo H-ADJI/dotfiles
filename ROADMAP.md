@@ -131,12 +131,13 @@ One `modules/home/<program>.nix` per retained program.
 
 ### Step 8: Secrets & Encryption [IN PROGRESS]
 
-- [ ] Add `sops-nix` flake input + import darwin/HM modules
-- [ ] Generate age keypair (`age-keygen -o ~/.config/sops/age/keys.txt`)
+- [x] Add `sops-nix` flake input + import darwin/HM modules
+- [x] Generate age keypair (`age-keygen -o ~/.config/sops/age/keys.txt`)
+- [x] Create `macos/secrets/.sops.yaml` with public key + creation rules
+- [x] Create `macos/modules/home/secrets.nix` declaring secret targets
+- [ ] User action: replace placeholder values in `secrets.yaml` with real SSH keys (`sops macos/secrets/secrets.yaml`)
+- [ ] Migrate: AI/API keys, Leetcode tokens
 - [ ] Bootstrap: prompt user to paste age private key from Bitwarden → `~/.config/sops/age/keys.txt` before first `darwin-rebuild`
-- [ ] Create `macos/secrets/.sops.yaml` with public key + creation rules
-- [ ] Create `macos/modules/home/secrets.nix` declaring secret targets
-- [ ] Migrate: SSH, AI/API keys, Leetcode tokens
 - [ ] Do not migrate shell history
 - [ ] Keep Arch Transcrypt unchanged
 

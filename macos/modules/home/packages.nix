@@ -24,7 +24,9 @@
     ripgrep
     rustc
     stow
+    transcrypt
     uv
+    age
     aerospace
     zellij
   ];
