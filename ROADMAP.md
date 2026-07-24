@@ -118,10 +118,11 @@ One `modules/home/<program>.nix` per retained program.
 - [x] Bat — theme set to Catppuccin Latte via HM `config.theme`
 - [x] Hunk — config.toml via `home.file`
 - [x] Taskwarrior — HM module (dropped `include no-color.theme`, distro-specific path)
-- [ ] Yazi — pending (large config, theme + keymap)
-- [ ] Fastfetch — pending (102-line JSONC display config)
-- [ ] Television — pending (shell integration + TOML config)
-- [ ] OpenCode — pending (full TUI keybinding config)
+- [x] Fastfetch — HM module with full display config inlined (ANSI codes via `\x1b`)
+- [x] Television — HM module with full TOML settings; `eval "$(tv init zsh)"` kept for full shell integration
+- [x] OpenCode — HM module with full TUI keybinding config inlined
+- [x] Yazi — HM module with settings + keymap (`wl-copy` → `pbcopy` for macOS)
+- [ ] Yazi theme — deferred (756-line theme.toml + syntect `.tmTheme` file)
 
 - Native Home Manager modules: Bat, Starship, Mise, Yazi, Taskwarrior
 - Raw `xdg.configFile`/`home.file`: selected scripts, OpenCode, Television, Fastfetch, Hunk, JNV, Tabiew, JQP

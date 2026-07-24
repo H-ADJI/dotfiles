@@ -17,14 +17,12 @@
     hyperfine
     mise
     nodejs
-    opencode
     python3
     podman
     podman-compose
     ripgrep
     rustc
     stow
-    television
     uv
     aerospace
     zellij

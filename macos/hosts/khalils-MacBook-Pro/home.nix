@@ -11,6 +11,10 @@
     ../../modules/home/jankyborders.nix
     ../../modules/home/taskwarrior.nix
     ../../modules/home/hunk.nix
+    ../../modules/home/fastfetch.nix
+    ../../modules/home/television.nix
+    ../../modules/home/opencode.nix
+    ../../modules/home/yazi.nix
   ];
 
   home.username = "khalil";
