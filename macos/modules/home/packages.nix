@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     clang
     cargo
+    coreutils
     curl
     docker
     docker-compose
@@ -27,6 +28,7 @@
     transcrypt
     uv
     age
+    sops
     aerospace
     zellij
   ];

@@ -129,17 +129,35 @@ One `modules/home/<program>.nix` per retained program.
 - Adapt clipboard, browser, path assumptions for macOS
 - Do not migrate: Hyprland, PipeWire, Fuzzel, SwayNC, Swappy, Linux browser flags
 
-### Step 8: Secrets & Encryption [IN PROGRESS]
+### Step 8: Secrets & Encryption [COMPLETED]
 
 - [x] Add `sops-nix` flake input + import darwin/HM modules
 - [x] Generate age keypair (`age-keygen -o ~/.config/sops/age/keys.txt`)
 - [x] Create `macos/secrets/.sops.yaml` with public key + creation rules
 - [x] Create `macos/modules/home/secrets.nix` declaring secret targets
-- [ ] User action: replace placeholder values in `secrets.yaml` with real SSH keys (`sops macos/secrets/secrets.yaml`)
-- [ ] Migrate: AI/API keys, Leetcode tokens
-- [ ] Bootstrap: prompt user to paste age private key from Bitwarden → `~/.config/sops/age/keys.txt` before first `darwin-rebuild`
-- [ ] Do not migrate shell history
-- [ ] Keep Arch Transcrypt unchanged
+- [x] SSH private key deployed via sops-nix, GitHub auth verified
+- [ ] Future: Save age keys to Bitwarden (manual user action)
+- [ ] Future: Migrate AI/API keys, Leetcode tokens (not needed yet)
+
+**Save age keys to Bitwarden:**
+1. Copy public key from `~/.config/sops/age/keys.txt` (the `# public key: age1...` line)
+2. Copy private key (entire file content between `# created:` and `# public key:`)
+3. Create a secure note in Bitwarden named "SOPS Age Key" with both values
+4. Also backup the `keys.txt` file itself as an attachment
+
+**Rotating age keys (if compromised or periodically):**
+1. Generate a new keypair: `age-keygen -o ~/.config/sops/age/keys.new.txt`
+2. Extract the new public key from the output
+3. Update `macos/secrets/.sops.yaml` — replace the `age` recipient with the new public key
+4. Re-encrypt all secret files:
+   ```
+   SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt sops --rotate -i macos/secrets/secrets.yaml
+   ```
+   (uses the **old** key to decrypt, then encrypts with all keys in `.sops.yaml`)
+5. Replace `keys.txt` with `keys.new.txt`
+6. Rebuild to deploy updated secrets via sops-nix
+7. Update the Bitwarden secure note with the new keypair
+8. If the old key is still needed for history, add it as a second recipient in `.sops.yaml` before rotating
 
 ### Step 9: Validate Bootstrap [PLANNED]
 
