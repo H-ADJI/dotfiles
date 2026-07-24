@@ -66,10 +66,8 @@
   };
   system.defaults.loginwindow = {
     GuestEnabled = false;
-    RetryCountUntilHint = 0;
-    FastUserSwitchingEnabled = false;
     ShutDownDisabled = false;
-    AutoLoginUser = "";
+    autoLoginUser = "";
   };
   system.defaults.CustomUserPreferences = {
     "com.apple.AppleMultitouchTrackpad" = {

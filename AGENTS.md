@@ -21,6 +21,7 @@
 ```
 
 - agents should not run the test command since they take too long
+- https://searchix.ovh/ can be used to search for nix options 
 
 ## Goals
 

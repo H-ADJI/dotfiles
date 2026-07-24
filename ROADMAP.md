@@ -75,7 +75,7 @@ Avoid: yabai, skhd, Rectangle/Loop, Alfred 5, Hammerspoon (defer until needed).
 - `AppleCursorHiddenWhileTyping` — not working, revisit later (`darwin.nix`)
 - `alt+q = close` — may conflict with Ghostty, test interaction (`aerospace.toml`)
 - Input source → ABC + ABC Azerty — documented in README manual steps
-- Wallpaper config — walt-like tool or nix-darwin native option
+
 - Try without jankyborders — unnecessary eye candy, remove if unused
 
 ### Step 5: Launcher, Clipboard, Native Navigation [IN PROGRESS]
@@ -151,7 +151,44 @@ One `modules/home/<program>.nix` per retained program.
 - [ ] Remove obsolete stow assumptions from macOS docs/scripts
 - [ ] Review diff, run checks, commit only verified layers
 
+### Step 11: Restructure macOS Nix Config [PLANNED]
+
+Flatten `macos/modules/home/` → `macos/modules/`. Each module gets its own directory with `.nix` + config files side by side. Remove `dot-*` nesting, keep flat for easy navigation.
+
+**Modules to colocate into directories:**
+
+```
+macos/modules/
+├── aerospace/       keep     aerospace.nix + aerospace.toml
+├── nvim/            move     macos/nvim/dot-config/nvim/  →  nvim/
+├── tmux/            move     macos/tmux/dot-tmuxp/         →  tmux/
+├── desktoppr/       move     assets/coa_macos.png          →  desktoppr/
+├── television/      extract  inline ~130 lines → config.toml
+├── opencode/        extract  inline ~166 lines → tui.json
+├── yazi/            extract  inline ~128 lines → yazi/keymap/theme.toml
+├── ghostty.nix      keep     inline-only
+├── git.nix          keep     inline-only
+├── shell.nix        keep     inline-only
+├── fastfetch.nix    keep     inline-only
+├── hunk.nix         keep     inline-only
+├── taskwarrior.nix  keep     inline-only
+├── colima.nix       keep     inline-only
+├── jankyborders.nix keep     inline-only
+└── packages.nix     keep     inline-only
+```
+
+**Remove after migration:**
+- `macos/modules/home/` (flattened into `macos/modules/`)
+- `macos/modules/home/assets/` (single asset moved to desktoppr/)
+- `macos/nvim/` (config moved into modules/nvim/)
+- `macos/tmux/` (config moved into modules/tmux/)
+
+**Import changes in `home.nix`:**
+Paths update from `../../modules/home/x.nix` to `../../modules/x/x.nix` (or `../../modules/x.nix` for flat files).
+
 ---
+
+
 
 ## Phase 2: NixOS [PLANNED]
 

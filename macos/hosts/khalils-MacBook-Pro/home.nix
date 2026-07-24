@@ -15,6 +15,7 @@
     ../../modules/home/television.nix
     ../../modules/home/opencode.nix
     ../../modules/home/yazi.nix
+    ../../modules/home/desktoppr.nix
   ];
 
   home.username = "khalil";
