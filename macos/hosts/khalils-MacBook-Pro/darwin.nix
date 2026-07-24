@@ -64,6 +64,13 @@
     TrackpadTwoFingerFromRightEdgeSwipeGesture = 0;
     TrackpadPinch = true;
   };
+  system.defaults.loginwindow = {
+    GuestEnabled = false;
+    RetryCountUntilHint = 0;
+    FastUserSwitchingEnabled = false;
+    ShutDownDisabled = false;
+    AutoLoginUser = "";
+  };
   system.defaults.CustomUserPreferences = {
     "com.apple.AppleMultitouchTrackpad" = {
       TrackpadFiveFingerPinchGesture = 0;

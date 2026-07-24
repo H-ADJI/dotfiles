@@ -57,13 +57,13 @@ Avoid: yabai, skhd, Rectangle/Loop, Alfred 5, Hammerspoon (defer until needed).
 - Keep custom callbacks, snippets, queries, unsupported plugins as Lua escape hatches.
 - Retain raw Lua config if full Nixvim increases maintenance or loses needed behavior.
 
-### Step 3: Desktop Defaults [4 of 5 DONE]
+### Step 3: Desktop Defaults [COMPLETED]
 
 - [x] Dock: auto-hide, minimal behavior
 - [x] Finder: show extensions, hidden files, path bar
 - [x] Trackpad: tap-to-click, scroll behavior
 - [x] Screenshots: PNG format, `~/Desktop/Screenshots`, no shadow — set via `darwin.nix`
-- [ ] Login/session behavior
+- [x] Login/session behavior: guest disabled, no password hints, no fast user switching, shutdown visible, no auto-login
 
 ### Step 4: Keyboard & Window Management [COMPLETED]
 
