@@ -5,6 +5,7 @@
   nixpkgs.config.allowUnfree = true;
 
   nix.package = pkgs.lix;
+  nix.settings.warn-dirty = false;
   nix.gc = {
     automatic = true;
     interval = { Weekday = 0; };  # weekly on Sunday
