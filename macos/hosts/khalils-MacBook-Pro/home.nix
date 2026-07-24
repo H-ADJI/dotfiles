@@ -9,6 +9,8 @@
     ../../modules/home/ghostty.nix
     ../../modules/home/aerospace.nix
     ../../modules/home/jankyborders.nix
+    ../../modules/home/taskwarrior.nix
+    ../../modules/home/hunk.nix
   ];
 
   home.username = "khalil";

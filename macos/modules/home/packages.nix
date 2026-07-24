@@ -9,6 +9,7 @@
     docker-compose
     fd
     gh
+    hunk
     gnugrep
     gnutar
     go

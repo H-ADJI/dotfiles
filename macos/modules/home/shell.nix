@@ -79,7 +79,6 @@
       fi
       export AICHAT_MESSAGES_FILE="$HOME/messages.md"
       export PATH="$PATH:$HOME/.config/scripts"
-      export BAT_CONFIG_PATH="$HOME/.config/bat/bat.conf"
       export DIRENV_LOG_FORMAT=""
       if [[ -n $SSH_CONNECTION ]]; then
         export EDITOR="vim"
@@ -212,6 +211,10 @@
       };
     };
   };
-  programs.bat = { enable = true; extraPackages = [ pkgs.bat-extras.batman ]; };
+  programs.bat = {
+    enable = true;
+    extraPackages = [ pkgs.bat-extras.batman ];
+    config.theme = "Catppuccin Latte";
+  };
   programs.eza = { enable = true; enableZshIntegration = true; };
 }

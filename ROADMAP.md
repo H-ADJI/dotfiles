@@ -111,9 +111,17 @@ Avoid: yabai, skhd, Rectangle/Loop, Alfred 5, Hammerspoon (defer until needed).
   - Set save location, format via `defaults write`
 - [ ] Display / clamshell mode notes in README (manual steps)
 
-### Step 7: Migrate Retained Arch Programs [PLANNED]
+### Step 7: Migrate Retained Arch Programs [IN PROGRESS]
 
 One `modules/home/<program>.nix` per retained program.
+
+- [x] Bat — theme set to Catppuccin Latte via HM `config.theme`
+- [x] Hunk — config.toml via `home.file`
+- [x] Taskwarrior — HM module (dropped `include no-color.theme`, distro-specific path)
+- [ ] Yazi — pending (large config, theme + keymap)
+- [ ] Fastfetch — pending (102-line JSONC display config)
+- [ ] Television — pending (shell integration + TOML config)
+- [ ] OpenCode — pending (full TUI keybinding config)
 
 - Native Home Manager modules: Bat, Starship, Mise, Yazi, Taskwarrior
 - Raw `xdg.configFile`/`home.file`: selected scripts, OpenCode, Television, Fastfetch, Hunk, JNV, Tabiew, JQP
