@@ -73,10 +73,12 @@ Avoid: yabai, skhd, Rectangle/Loop, Alfred 5, Hammerspoon (defer until needed).
 
 **Deferred (tracked in config TODOs):**
 - `AppleCursorHiddenWhileTyping` — not working, revisit later (`darwin.nix`)
-- `alt+q = close` — may conflict with Ghostty, test interaction (`aerospace.toml`)
-- Input source → ABC + ABC Azerty — documented in README manual steps
-
 - Try without jankyborders — unnecessary eye candy, remove if unused
+
+**Resolved:**
+- `alt+q`: tested, no Ghostty conflict — removed binding, using native `Cmd+W`/`Cmd+Q` instead
+- Wallpaper: set via `programs.desktoppr` with `coa_macos.png`
+- Input source: documented in README manual steps
 
 ### Step 5: Launcher, Clipboard, Native Navigation [IN PROGRESS]
 
@@ -127,12 +129,13 @@ One `modules/home/<program>.nix` per retained program.
 - Adapt clipboard, browser, path assumptions for macOS
 - Do not migrate: Hyprland, PipeWire, Fuzzel, SwayNC, Swappy, Linux browser flags
 
-### Step 8: Secrets & Encryption [PLANNED]
+### Step 8: Secrets & Encryption [IN PROGRESS]
 
-- [ ] Add sops-nix + age after core config and before secret-backed apps
-- [ ] Per-machine age identity outside Git, mode 0600
-- [ ] SOPS ciphertext under `macos/secrets/`, public recipients in `.sops.yaml`
-- [ ] Deploy secrets via sops-nix at runtime only
+- [ ] Add `sops-nix` flake input + import darwin/HM modules
+- [ ] Generate age keypair (`age-keygen -o ~/.config/sops/age/keys.txt`)
+- [ ] Bootstrap: prompt user to paste age private key from Bitwarden → `~/.config/sops/age/keys.txt` before first `darwin-rebuild`
+- [ ] Create `macos/secrets/.sops.yaml` with public key + creation rules
+- [ ] Create `macos/modules/home/secrets.nix` declaring secret targets
 - [ ] Migrate: SSH, AI/API keys, Leetcode tokens
 - [ ] Do not migrate shell history
 - [ ] Keep Arch Transcrypt unchanged

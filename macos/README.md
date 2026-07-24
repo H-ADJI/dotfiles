@@ -70,6 +70,14 @@ Aerospace is installed from Nixpkgs and configured via `home.file` (see `modules
   - **Alt + Tab** — workspace back-and-forth
   - **Alt + ;** — service mode (escape to exit)
 
+## Manual Steps
+
+These cannot be automated via Nix and must be done once manually:
+
+- **Desktop widgets**: Right-click desktop → "Edit Widgets" → remove Calendar, Photos, Weather (or any unwanted widgets)
+- **Input sources**: System Settings → Keyboard → Input Sources → add "ABC" and "ABC Azerty" (documented in ROADMAP Step 4)
+- **Clamshell mode**: For desktop use, configure "Do not sleep when display is closed" via System Settings or a MagSafe-triggered profile
+
 ## Planned
 
 - Add `sops-nix` + `age` after core configuration is stable, before SSH, AI, Leetcode, or other secret-backed tools.
