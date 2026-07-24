@@ -82,8 +82,6 @@ alt-tab = "workspace-back-and-forth"
 alt-shift-tab = "move-workspace-to-monitor --wrap-around next"
 
 # Actions
-# TODO: alt+q may conflict with Ghostty quit — test interaction
-alt-q = "close"
 alt-f = "fullscreen"
 alt-shift-r = "reload-config"
 alt-shift-f = "layout floating tiling"
