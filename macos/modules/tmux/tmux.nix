@@ -43,7 +43,6 @@
     tmuxp.enable = true;
 
     plugins = with pkgs.tmuxPlugins; [
-      sensible
       fzf-tmux-url
       {
         plugin = tmux-thumbs;
