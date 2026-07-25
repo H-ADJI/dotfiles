@@ -19,10 +19,6 @@ export HISTDUP=erase
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' menu select
 
-_evalcache mise activate zsh
-if [[ ! -f "$HOME/.zfunc/_mise" ]]; then
-    mise completion zsh >"$HOME/.zfunc/_mise"
-fi
 _evalcache tv init zsh
 _evalcache batman --export-env
 

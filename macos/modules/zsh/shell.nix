@@ -7,9 +7,7 @@
 
   xdg.configFile."zinit/zinit.sh".text = ''
     source ${pkgs.zinit}/share/zinit/zinit.zsh
-
     zinit light "mroth/evalcache"
-
     zinit snippet OMZL::git.zsh
     zinit snippet OMZP::git
     zinit snippet OMZP::sudo
@@ -53,15 +51,16 @@
         "${pkgs.zsh-completions}/share/zsh/site-functions"
         "${pkgs.gh}/share/zsh/site-functions"
         "${pkgs.uv}/share/zsh/site-functions"
-        ~/.zfunc
       )
     '';
 
-    plugins = [{
-      name = "fzf-tab";
-      src = pkgs.zsh-fzf-tab;
-      file = "share/fzf-tab/fzf-tab.plugin.zsh";
-    }];
+    plugins = [
+      {
+        name = "fzf-tab";
+        src = pkgs.zsh-fzf-tab;
+        file = "share/fzf-tab/fzf-tab.plugin.zsh";
+      }
+    ];
 
     shellAliases = {
       gclean = "git clean -f";
@@ -100,9 +99,23 @@
     initContent = builtins.readFile ./zshrc;
   };
 
-  programs.fzf = { enable = true; enableZshIntegration = true; };
-  programs.zoxide = { enable = true; enableZshIntegration = true; options = [ "--cmd" "cd" ]; };
-  programs.direnv = { enable = true; enableZshIntegration = true; silent = true; };
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+    options = [
+      "--cmd"
+      "cd"
+    ];
+  };
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    silent = true;
+  };
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
@@ -111,7 +124,9 @@
       palette = "catppuccin_latte";
       format = "$directory$git_branch$git_status$fill$python$lua$nodejs$golang$rust$package$docker_context$jobs$cmd_duration$line_break$character";
       right_format = "$all";
-      fill = { symbol = " "; };
+      fill = {
+        symbol = " ";
+      };
       directory = {
         style = "bold fg:lavender";
         format = "[$path ]($style)";
@@ -141,24 +156,44 @@
         deleted = ''[✘\($count\)](red)'';
         modified = ''📝[\($count\)](red)'';
         untracked = ''🤷[\($count\)](red)'';
-        format = ''([$untracked$deleted$modified]())'';
+        format = "([$untracked$deleted$modified]())";
       };
       python = {
         style = "yellow bold";
         symbol = " ";
         format = ''[''${symbol}''${pyenv_prefix}(''${version} )(\($virtualenv\) )]($style)'';
       };
-      lua = { symbol = " "; };
-      nodejs = { style = "blue"; symbol = " "; };
-      golang = { style = "blue"; symbol = " "; };
-      rust = { style = "orange"; symbol = " "; };
-      ruby = { style = "blue"; symbol = " "; };
-      package = { symbol = "󰏗 "; };
+      lua = {
+        symbol = " ";
+      };
+      nodejs = {
+        style = "blue";
+        symbol = " ";
+      };
+      golang = {
+        style = "blue";
+        symbol = " ";
+      };
+      rust = {
+        style = "orange";
+        symbol = " ";
+      };
+      ruby = {
+        style = "blue";
+        symbol = " ";
+      };
+      package = {
+        symbol = "󰏗 ";
+      };
       docker_context = {
         symbol = " ";
         style = "fg:#06969A";
         format = "[$symbol]($style) $path";
-        detect_files = [ "docker-compose.yml" "docker-compose.yaml" "Dockerfile" ];
+        detect_files = [
+          "docker-compose.yml"
+          "docker-compose.yaml"
+          "Dockerfile"
+        ];
         detect_extensions = [ "Dockerfile" ];
         disabled = true;
       };
@@ -208,5 +243,8 @@
     extraPackages = [ pkgs.bat-extras.batman ];
     config.theme = "Catppuccin Latte";
   };
-  programs.eza = { enable = true; enableZshIntegration = true; };
+  programs.eza = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 }
