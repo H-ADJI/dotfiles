@@ -14,8 +14,8 @@ RUN pacman -Syyu --noconfirm go vim gum git go-yq
 # Extras (games, browsers, fonts) skipped in container (detected by main.sh).
 # Layer caching: unchanged packages.yml reuses this layer.
 COPY arch/packages.yml /tmp/
-RUN yq -r '.pacman.base[]' /tmp/packages.yml >/tmp/pacman-base.txt \
-    && pacman -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - </tmp/pacman-base.txt
+RUN yq -r '.pacman.base // [] | .[] | select(. != null)' /tmp/packages.yml >/tmp/pacman-base.txt \
+    && if [ -s /tmp/pacman-base.txt ]; then pacman -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - </tmp/pacman-base.txt; fi
 
 RUN useradd --system --create-home ${USER} \
     && echo "${USER} ALL=(ALL:ALL) NOPASSWD:ALL" >/etc/sudoers.d/${USER}
@@ -30,11 +30,11 @@ RUN git clone https://aur.archlinux.org/yay.git /tmp/yay \
     && makepkg -sri --needed --noconfirm \
     && rm -rf /tmp/yay /home/${USER}/.cache
 
-# Pre-install setup-essential AUR packages only (nvim, transcrypt).
+# Pre-install setup-essential AUR packages only.
 # Rest skipped in container (main.sh detects container). script fakes TTY for yay.
 # Layer invalidated only when packages.yml changes.
-RUN yq -r '.aur.base[]' /tmp/packages.yml >/tmp/aur-base.txt \
-    && script -q -c "yay -S --noconfirm --needed --disable-download-timeout - < /tmp/aur-base.txt" /dev/null
+RUN yq -r '.aur.base // [] | .[] | select(. != null)' /tmp/packages.yml >/tmp/aur-base.txt \
+    && if [ -s /tmp/aur-base.txt ]; then script -q -c "yay -S --noconfirm --needed --disable-download-timeout - < /tmp/aur-base.txt" /dev/null; fi
 
 # Switch back to root for COPY (non-root COPY changes ownership ambiguously).
 # COPY . copies the full repo so main.sh can run from local checkout

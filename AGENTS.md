@@ -1,35 +1,22 @@
 # AGENTS
 
-## Setup
+- Simple bootstrap setup for arch, nixos and macos workstations
+- Prefer light weight, free, open source and simple tools.
+- Eye candy is to be avoided, only add it if requested
+- Prefer flat file / directory structures
+- Stability is king
+- init.sh is entry point called remotely using curl to bootstrap system.
 
-- multi-OS set-up for dev workstations.
-- Using shell scripts for easy and quick setup.
-- introduce Nix based approach for nixos and macos.
-- Encryption via `transcrypt` with argon2 password verification.
-- Files matching patterns in `.gitattributes` are encrypted.
-- stow is used to manage symlinks, .stow-local-ignore is the ignore list for stow.
-- Document every required manual setup step that cannot be declaratively automated in the relevant OS README.
+### Arch
 
-## Test
+- Arch linux is configured using stow for dotfiles + shell scripts
+- Manual steps should be documented in the readme files
 
-- podman container for testing the changes
-- using mise tasks for common commands and scripts:
+### Mac
 
-```bash
-    mise run build arch   # or "mise run build ." for root
-    mise run test arch    # runs built container interactively
-```
+- using Nix (Lix) + Nix-darwin
+- https://searchix.ovh/?query={KEYWORD} can be used to search for nix options
 
-- agents should not run the test command since they take too long
-- https://searchix.ovh/ can be used to search for nix options 
+### Nix
 
-## Goals
-
-- minimalistic setup
-- light weight in term of ressource usage
-- litle eye candy as posssible
-- stability
-
-## Context management
-
-- whenever context is large / near the limit persist current plan and progress into roadmap file
+- TODO

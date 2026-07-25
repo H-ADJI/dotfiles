@@ -1,6 +1,5 @@
 pacman:
   base:
-    - argon2
     - bluez
     - deno
     - docker
@@ -122,8 +121,7 @@ pacman:
     - zellij
     - zoxide
 aur:
-  base:
-    -
+  base: []
   extra:
     - argc
     - exercism

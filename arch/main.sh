@@ -19,7 +19,7 @@ bootstrap_system() {
 }
 
 packages() {
-    yq -r ".$1.$2[]" "$DOTFILES/arch/packages.yml"
+    yq -r ".$1.$2 // [] | .[] | select(. != null)" "$DOTFILES/arch/packages.yml"
 }
 
 install_aur_helper() {
@@ -34,10 +34,52 @@ install_aur_helper() {
 }
 
 install_packages() {
-    sudo pacman -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - \
-        < <(packages pacman base) &>/dev/null
-    yay -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - \
-        < <(packages aur base) &>/dev/null
+    local package_file
+    package_file=$(mktemp)
+
+    packages pacman base >"$package_file"
+    if [ -s "$package_file" ]; then
+        log_start "installing base pacman packages"
+        sudo pacman -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - <"$package_file" &>/dev/null
+        log_done "base pacman packages installed"
+    else
+        log_skip "no base pacman packages"
+    fi
+
+    packages aur base >"$package_file"
+    if [ -s "$package_file" ]; then
+        log_start "installing base AUR packages"
+        yay -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - <"$package_file" &>/dev/null
+        log_done "base AUR packages installed"
+    else
+        log_skip "no base AUR packages"
+    fi
+
+    if systemd-detect-virt -c &>/dev/null; then
+        log_skip "container detected, skipping extra packages"
+        rm -f "$package_file"
+        return
+    fi
+
+    packages pacman extra >"$package_file"
+    if [ -s "$package_file" ]; then
+        log_start "installing extra pacman packages"
+        sudo pacman -S --noconfirm --needed --disable-download-timeout - <"$package_file"
+        log_done "extra pacman packages installed"
+    else
+        log_skip "no extra pacman packages"
+    fi
+
+    packages aur extra >"$package_file"
+    if [ -s "$package_file" ]; then
+        log_start "installing extra AUR packages"
+        yay -S --noconfirm --needed --disable-download-timeout - <"$package_file"
+        log_done "extra AUR packages installed"
+    else
+        log_skip "no extra AUR packages"
+    fi
+
+    rm -f "$package_file"
 }
 
 setup_dotfiles() {
@@ -79,21 +121,6 @@ install_devtools() {
     log_done "TPM plugins installed"
 }
 
-install_extras() {
-    if systemd-detect-virt -c &>/dev/null; then
-        log_skip "container detected, skipping extra packages"
-        return
-    fi
-    log_start "installing extra pacman packages"
-    sudo pacman -S --noconfirm --needed --disable-download-timeout - \
-        < <(packages pacman extra)
-    log_done "extra pacman packages installed"
-    log_start "installing extra AUR packages"
-    yay -S --noconfirm --needed --disable-download-timeout - \
-        < <(packages aur extra)
-    log_done "extra AUR packages installed"
-}
-
 setup_system_state() {
     if systemd-detect-virt -c &>/dev/null; then
         log_skip "container detected, skipping"
@@ -126,9 +153,9 @@ log_start "[AUR HELPER]"
 install_aur_helper
 log_done "[AUR HELPER]"
 
-log_start "[CORE PACKAGES]"
+log_start "[PACKAGES]"
 install_packages
-log_done "[CORE PACKAGES]"
+log_done "[PACKAGES]"
 
 log_start "[DOTFILES]"
 setup_dotfiles
@@ -137,10 +164,6 @@ log_done "[DOTFILES]"
 log_start "[SYSTEM STATE]"
 setup_system_state
 log_done "[SYSTEM STATE]"
-
-log_start "[EXTRAS]"
-install_extras
-log_done "[EXTRAS]"
 
 log_start "[DEV TOOLS]"
 install_devtools
