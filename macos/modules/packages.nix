@@ -27,8 +27,6 @@
     stow
     transcrypt
     uv
-    age
-    sops
     aerospace
     zellij
   ];

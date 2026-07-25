@@ -15,11 +15,6 @@
     };
 
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
-
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -27,7 +22,6 @@
       nix-darwin,
       home-manager,
       nix-homebrew,
-      sops-nix,
       ...
     }:
     {
@@ -36,12 +30,11 @@
         modules = [
           ./darwin.nix
           nix-homebrew.darwinModules.nix-homebrew
-          sops-nix.darwinModules.sops
           home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs sops-nix; };
+            home-manager.extraSpecialArgs = { inherit inputs; };
             home-manager.users.khalil = import ./home.nix;
           }
         ];

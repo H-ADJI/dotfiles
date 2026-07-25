@@ -25,9 +25,19 @@ curl -sSfL https://raw.githubusercontent.com/hh9dj/PDE/main/macos/setup/main.sh 
 | System                   | nix-darwin                                      |
 | User packages & dotfiles | Home Manager + `xdg.configFile`                 |
 | Homebrew                 | nix-homebrew (casks: Ghostty, Raycast, Homerow) |
-| Secrets                  | sops-nix + age (stored in `modules/secrets/`)   |
+| Secrets                  | Manual (password manager)                        |
 
 ## Manual Steps (post-bootstrap)
+
+### SSH keys
+
+```bash
+chmod 600 ~/.ssh/personal ~/.ssh/work
+```
+
+Place `~/.ssh/personal` and `~/.ssh/work` private keys from password manager.
+
+### System
 
 - **Accessibility permission**: System Settings → Privacy & Security → Accessibility → grant to Aerospace, Ghostty
 - **Input sources**: Add **English - ABC** and **ABC Azerty** (System Settings → Keyboard → Input Sources)
