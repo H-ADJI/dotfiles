@@ -7,14 +7,15 @@ ARG BRANCH=master
 ARG USER=test-user
 
 # Minimal packages needed before dotfiles repo is available:
-# go (yay build), vim (default editor), gum (UI prompts), git (clone)
-RUN pacman -Syyu --noconfirm go vim gum git
+# go (yay build), vim (default editor), gum (UI prompts), git (clone), go-yq (packages.yml)
+RUN pacman -Syyu --noconfirm go vim gum git go-yq
 
 # Pre-install setup-essential pacman packages only.
 # Extras (games, browsers, fonts) skipped in container (detected by main.sh).
-# Layer caching: unchanged pacman.txt reuses this layer.
-COPY arch/setup/packages/pacman.txt /tmp/
-RUN pacman -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - </tmp/pacman.txt
+# Layer caching: unchanged packages.yml reuses this layer.
+COPY arch/packages.yml /tmp/
+RUN yq -r '.pacman.base[]' /tmp/packages.yml >/tmp/pacman-base.txt \
+    && pacman -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - </tmp/pacman-base.txt
 
 RUN useradd --system --create-home ${USER} \
     && echo "${USER} ALL=(ALL:ALL) NOPASSWD:ALL" >/etc/sudoers.d/${USER}
@@ -31,9 +32,9 @@ RUN git clone https://aur.archlinux.org/yay.git /tmp/yay \
 
 # Pre-install setup-essential AUR packages only (nvim, transcrypt).
 # Rest skipped in container (main.sh detects container). script fakes TTY for yay.
-# Layer invalidated only when aur.txt changes.
-COPY arch/setup/packages/aur.txt /tmp/
-RUN script -q -c "yay -S --noconfirm --needed --disable-download-timeout - < /tmp/aur.txt" /dev/null
+# Layer invalidated only when packages.yml changes.
+RUN yq -r '.aur.base[]' /tmp/packages.yml >/tmp/aur-base.txt \
+    && script -q -c "yay -S --noconfirm --needed --disable-download-timeout - < /tmp/aur-base.txt" /dev/null
 
 # Switch back to root for COPY (non-root COPY changes ownership ambiguously).
 # COPY . copies the full repo so main.sh can run from local checkout
@@ -52,4 +53,4 @@ ENV LC_CTYPE=en_US.UTF-8
 
 # Run setup, then drop into interactive shell.
 # ${BRANCH} is passed as $1 to main.sh (used for git clone --branch).
-CMD ["bash", "-c", "bash /home/test-user/dotfiles/arch/setup/main.sh ${BRANCH} ; exec bash"]
+CMD ["bash", "-c", "bash /home/test-user/dotfiles/arch/main.sh ${BRANCH} ; exec bash"]
