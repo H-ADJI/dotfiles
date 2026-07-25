@@ -8,5 +8,5 @@ windows:
   - window_name: "ssh"
     shell_command_before: ssh homelab
   - window_name: "shell"
-  - window_name: "aichat"
-    shell_command_before: aises
+  - window_name: "AI"
+    shell_command_before: opencode
