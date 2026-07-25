@@ -1,10 +1,8 @@
 venv
 .env
 .direnv/
-ssh/.ssh/known*
-ssh/dot-ssh/known*
+ssh/dot-ssh/*
+!ssh/dot-ssh/*.pub
+!ssh/dot-ssh/config
 task/dot-task/taskchampion*
-aichat/dot-config/aichat/sessions
-aichat/dot-config/aichat/rags
 hunk/dot-config/hunk/state.json
-!aichat/dot-config/aichat/.env

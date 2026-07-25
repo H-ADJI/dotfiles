@@ -1,7 +1,0 @@
-#pattern  filter=crypt diff=crypt merge=crypt
-#
-secrets/*  filter=crypt diff=crypt merge=crypt
-zsh/dot-zsh_history  filter=crypt diff=crypt merge=crypt
-ssh/dot-ssh/*  filter=crypt diff=crypt merge=crypt
-leetcode/dot-leetcode/leetcode.toml filter=crypt diff=crypt merge=crypt
-aichat/dot-config/aichat/config.yaml  filter=crypt diff=crypt merge=crypt
