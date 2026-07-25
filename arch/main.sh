@@ -12,10 +12,14 @@ DOTFILES="$HOME/dotfiles"
 
 bootstrap_system() {
     sudo pacman -Sq --noconfirm --noprogressbar --needed --disable-download-timeout \
-        base-devel git vim go gum &>/dev/null
+        base-devel git vim go gum go-yq &>/dev/null
     if [ ! -d "$DOTFILES" ]; then
         git clone --branch "$BRANCH" https://github.com/H-ADJI/dotfiles "$DOTFILES"
     fi
+}
+
+packages() {
+    yq -r ".$1.$2[]" "$DOTFILES/arch/packages.yml"
 }
 
 install_aur_helper() {
@@ -30,11 +34,10 @@ install_aur_helper() {
 }
 
 install_packages() {
-    local REQ_DIR="$DOTFILES/arch/setup/packages"
     sudo pacman -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - \
-        <"$REQ_DIR/pacman.txt" &>/dev/null
+        < <(packages pacman base) &>/dev/null
     yay -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - \
-        <"$REQ_DIR/aur.txt" &>/dev/null
+        < <(packages aur base) &>/dev/null
 }
 
 setup_dotfiles() {
@@ -43,43 +46,12 @@ setup_dotfiles() {
     git -C "$DOTFILES" remote add origin git@github.com:H-ADJI/dotfiles.git
     log_done "remote switched to SSH"
 
-    local STORED_HASH="4bf69f1718ef5130a05c4d01b363b1ca65ef92081449e24cc1d37fe7a9a07c69"
-
-    local MASTER_PASSWORD COMPUTED_HASH
-    while true; do
-        MASTER_PASSWORD=$(
-            gum input --prompt "Master Password> " --password
-        )
-        COMPUTED_HASH=$(echo -n "$MASTER_PASSWORD" | argon2 "08061999" -r)
-        if [ "$COMPUTED_HASH" = "$STORED_HASH" ]; then
-            log_done "correct password"
-            break
-        else
-            log_error "wrong password, try again"
-        fi
-    done
-
-    log_start "decrypting secrets"
-    (cd "$DOTFILES" && transcrypt --display &>/dev/null) || (cd "$DOTFILES" && transcrypt -y -p "$MASTER_PASSWORD")
-    log_done "secrets decrypted"
-
-    rm -rf "$HOME/.config/hypr"
-    [ ! -f "$HOME/.zsh_history" ] && cp "$DOTFILES/arch/zsh/dot-zsh_history" "$HOME/.zsh_history"
-
     log_start "stowing dotfiles"
+    rm -rf "$HOME/.config/hypr"
     for dir in "$DOTFILES"/arch/*/; do
         stow --dotfiles --adopt -d "$DOTFILES/arch" -t "$HOME" "$(basename "$dir")" 2>/dev/null
     done
     log_done "stowing dotfiles"
-
-    local ssh_private_key="$HOME/.ssh/ssh_git"
-    if [ -z "${SSH_AUTH_SOCK:-}" ]; then
-        log_start "starting SSH agent"
-        eval "$(ssh-agent -s)" &>/dev/null
-        log_done "SSH agent started"
-    fi
-    chmod 600 "$ssh_private_key"
-    ssh-add -l &>/dev/null || ssh-add "$ssh_private_key" &>/dev/null
 
     log_start "cloning projects"
     local projects_dir="$HOME/projects"
@@ -114,11 +86,11 @@ install_extras() {
     fi
     log_start "installing extra pacman packages"
     sudo pacman -S --noconfirm --needed --disable-download-timeout - \
-        <"$DOTFILES/arch/setup/packages/pacman-extra.txt"
+        < <(packages pacman extra)
     log_done "extra pacman packages installed"
     log_start "installing extra AUR packages"
     yay -S --noconfirm --needed --disable-download-timeout - \
-        <"$DOTFILES/arch/setup/packages/aur-extra.txt"
+        < <(packages aur extra)
     log_done "extra AUR packages installed"
 }
 
