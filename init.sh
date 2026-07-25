@@ -11,4 +11,4 @@ echo_os() {
 }
 
 CURRENT_OS="$(echo_os)"
-curl -fsSL "https://hh9dj.github.io/dotfiles/$CURRENT_OS/main.sh" | bash
+curl -fsSL "https://hh9dj.github.io/PDE/$CURRENT_OS/main.sh" | bash

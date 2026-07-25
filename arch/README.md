@@ -10,11 +10,11 @@ hdj
 **Arch Install Configuration**
 
 ```bash
-archinstall --config-url https://hh9dj.github.io/dotfiles/arch/workstation.json
+archinstall --config-url https://hh9dj.github.io/PDE/arch/workstation.json
 ```
 
 **Desktop Environment**
 
 ```bash
-curl -fsSL hh9dj.github.io/dotfiles/init.sh | bash
+curl -fsSL hh9dj.github.io/PDE/init.sh | bash
 ```

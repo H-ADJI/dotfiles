@@ -9,13 +9,13 @@ No clone needed. Two commands:
 ```bash
 curl -sSf -L https://install.lix.systems/lix | sh -s -- install   # first time only
 # restart terminal
-sudo darwin-rebuild switch --flake github:hh9dj/dotfiles?dir=macos#macbook
+sudo darwin-rebuild switch --flake github:hh9dj/PDE?dir=macos#macbook
 ```
 
 Or use the setup script (same thing):
 
 ```bash
-curl -sSfL https://raw.githubusercontent.com/hh9dj/dotfiles/main/macos/setup/main.sh | bash
+curl -sSfL https://raw.githubusercontent.com/hh9dj/PDE/main/macos/setup/main.sh | bash
 ```
 
 ## Layout

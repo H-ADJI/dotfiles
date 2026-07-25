@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-FLAKE="github:hh9dj/dotfiles?dir=macos"
+FLAKE="github:hh9dj/PDE?dir=macos"
 HOST="${HOST:-$(scutil --get LocalHostName 2>/dev/null || echo macbook)}"
 
 if ! command -v nix >/dev/null 2>&1; then

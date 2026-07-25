@@ -14,7 +14,7 @@ bootstrap_system() {
     sudo pacman -Sq --noconfirm --noprogressbar --needed --disable-download-timeout \
         base-devel git vim go gum go-yq &>/dev/null
     if [ ! -d "$DOTFILES" ]; then
-        git clone --branch "$BRANCH" https://github.com/hh9dj/dotfiles "$DOTFILES"
+        git clone --branch "$BRANCH" https://github.com/hh9dj/PDE "$DOTFILES"
     fi
 }
 
@@ -84,8 +84,8 @@ install_packages() {
 
 setup_dotfiles() {
     log_start "switching remote to SSH"
-    git -C "$DOTFILES" remote set-url origin git@github.com:hh9dj/dotfiles.git 2>/dev/null ||
-    git -C "$DOTFILES" remote add origin git@github.com:hh9dj/dotfiles.git
+    git -C "$DOTFILES" remote set-url origin git@github.com:hh9dj/PDE.git 2>/dev/null ||
+    git -C "$DOTFILES" remote add origin git@github.com:hh9dj/PDE.git
     log_done "remote switched to SSH"
 
     log_start "stowing dotfiles"

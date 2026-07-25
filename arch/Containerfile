@@ -6,7 +6,7 @@ LABEL maintainer="hh9dj <https://github.com/hh9dj>"
 ARG BRANCH=master
 ARG USER=test-user
 
-# Minimal packages needed before dotfiles repo is available:
+# Minimal packages needed before PDE repo is available:
 # go (yay build), vim (default editor), gum (UI prompts), git (clone), go-yq (packages.yml)
 RUN pacman -Syyu --noconfirm go vim gum git go-yq
 
