@@ -18,28 +18,6 @@ Or use the setup script (same thing):
 curl -sSfL https://raw.githubusercontent.com/hh9dj/PDE/main/macos/setup/main.sh | bash
 ```
 
-## Layout
-
-```
-macos/
-├── flake.nix          # inputs + darwinConfigurations
-├── darwin.nix         # system config (nix, defaults, brew)
-├── home.nix           # user config (imports all modules)
-├── modules/           # one file/dir per program
-│   ├── aerospace/     # nix + toml (XDG: ~/.config/aerospace/)
-│   ├── nvim/          # nix + init.lua, lua/ (XDG: ~/.config/nvim/)
-│   ├── secrets/       # nix + secrets.yaml + .sops.yaml
-│   ├── tmux/          # nix + sessions/ (XDG: ~/.config/tmuxp/)
-│   ├── desktoppr/     # nix + wallpaper
-│   ├── opencode.nix
-│   ├── shell.nix
-│   ├── ghostty.nix
-│   ├── packages.nix
-│   └── ...            # flat .nix files
-├── setup/main.sh
-└── flake.lock
-```
-
 ## Ownership
 
 | Layer                    | Tool                                            |
