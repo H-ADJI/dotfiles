@@ -14,7 +14,7 @@ bootstrap_system() {
     sudo pacman -Sq --noconfirm --noprogressbar --needed --disable-download-timeout \
         base-devel git vim go gum go-yq &>/dev/null
     if [ ! -d "$DOTFILES" ]; then
-        git clone --branch "$BRANCH" https://github.com/H-ADJI/dotfiles "$DOTFILES"
+        git clone --branch "$BRANCH" https://github.com/hh9dj/dotfiles "$DOTFILES"
     fi
 }
 
@@ -84,8 +84,8 @@ install_packages() {
 
 setup_dotfiles() {
     log_start "switching remote to SSH"
-    git -C "$DOTFILES" remote set-url origin git@github.com:H-ADJI/dotfiles.git 2>/dev/null ||
-    git -C "$DOTFILES" remote add origin git@github.com:H-ADJI/dotfiles.git
+    git -C "$DOTFILES" remote set-url origin git@github.com:hh9dj/dotfiles.git 2>/dev/null ||
+    git -C "$DOTFILES" remote add origin git@github.com:hh9dj/dotfiles.git
     log_done "remote switched to SSH"
 
     log_start "stowing dotfiles"
@@ -100,7 +100,7 @@ setup_dotfiles() {
     mkdir -p "$projects_dir"
     local -a projects=(ccraft homelab neurogenesis secondBrain zmk-config learn_nix)
     for project in "${projects[@]}"; do
-        [ ! -d "$projects_dir/$project" ] && git clone -q --depth 1 "git@github.com:H-ADJI/$project.git" "$projects_dir/$project"
+        [ ! -d "$projects_dir/$project" ] && git clone -q --depth 1 "git@github.com:hh9dj/$project.git" "$projects_dir/$project"
     done
     log_done "projects cloned"
 }

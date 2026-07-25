@@ -1,48 +1,21 @@
-# Dotfiles
+# PDE
 
-> PDE: Personal Desktop Environment
+Being Allergic to software friction (and anything windows related), this project is my medicine.
 
-## Setup
+> PDE stands for Personal Desktop Environment
 
-A single command (actually 2 commands) to set up my machine automagically :D.
+## Platforms
 
-> Current PR for an Arch install from scratch : 11 minutes
+This repository contains (in order of preference) set up scripts for :
 
-**Arch Install Configuration**
-
-```bash
-archinstall --config-url https://h-adji.github.io/dotfiles/arch/workstation.json
-```
-
-**Desktop Environment**
-
-```bash
-curl -fsSL h-adji.github.io/dotfiles/init.sh | bash
-```
-
-## Content
-
-- Dotfiles for my **PDE** (Personalized Development Environment) based on :
-  - Hyprland
-  - Waybar
-  - Alacritty
-  - Neovim
+- [Arch Linux](/arch/README.md)
+- NixOS [**TODO**]
+- [Mac](/macos/README.md)
 
 ## Nerd snipes
 
-### Desktop
-
 ![](./snipes/ns3.png)
-
-### Lock Screen
-
 ![](./snipes/ns2.png)
-
-### Neovim
-
 ![](./snipes/ns5.png)
 ![](./snipes/ns6.png)
-
-### Battlestation
-
 ![](./snipes/ns1.png)

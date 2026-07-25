@@ -1,6 +1,6 @@
-# macOS Setup
+# Mac
 
-Nix-darwin + Home Manager workstation configuration.
+**Nix-darwin** + **Home Manager** workstation configuration.
 
 ## Bootstrap
 
@@ -9,13 +9,13 @@ No clone needed. Two commands:
 ```bash
 curl -sSf -L https://install.lix.systems/lix | sh -s -- install   # first time only
 # restart terminal
-sudo darwin-rebuild switch --flake github:H-ADJI/dotfiles?dir=macos#macbook
+sudo darwin-rebuild switch --flake github:hh9dj/dotfiles?dir=macos#macbook
 ```
 
 Or use the setup script (same thing):
 
 ```bash
-bash <(curl -sSfL https://raw.githubusercontent.com/H-ADJI/dotfiles/main/macos/setup/main.sh)
+curl -sSfL https://raw.githubusercontent.com/hh9dj/dotfiles/main/macos/setup/main.sh | bash
 ```
 
 ## Layout
@@ -42,12 +42,12 @@ macos/
 
 ## Ownership
 
-| Layer | Tool |
-|-------|------|
-| System | nix-darwin |
-| User packages & dotfiles | Home Manager + `xdg.configFile` |
-| Homebrew | nix-homebrew (casks: Ghostty, Raycast, Homerow) |
-| Secrets | sops-nix + age (stored in `modules/secrets/`) |
+| Layer                    | Tool                                            |
+| ------------------------ | ----------------------------------------------- |
+| System                   | nix-darwin                                      |
+| User packages & dotfiles | Home Manager + `xdg.configFile`                 |
+| Homebrew                 | nix-homebrew (casks: Ghostty, Raycast, Homerow) |
+| Secrets                  | sops-nix + age (stored in `modules/secrets/`)   |
 
 ## Manual Steps (post-bootstrap)
 
@@ -60,16 +60,6 @@ macos/
   2. Alternatively: `sudo pmset -c sleep 0` (disables sleep on charger)
   3. Must be connected to a power adapter (clamshell only works while charging)
 
-## Keybindings
-
-See `modules/aerospace/aerospace.toml` for the full config.
-
-| Modifier | Scope |
-|----------|-------|
-| Alt (Option) | Aerospace window management (focus, move, resize, layout, launch) |
-| Cmd | Native macOS shortcuts, Raycast launcher |
-| ZMK (Sofle) | Custom layers, combos, tap-hold (on-keyboard, not in dotfiles) |
-
 ## Nix GC & Generations
 
 - **Nix store**: GC runs weekly, deletes unreferenced paths older than 5 days (`darwin.nix: nix.gc`)
@@ -80,13 +70,4 @@ Manual pruning:
 ```bash
 sudo nix-env --delete-generations +10 -p /nix/var/nix/profiles/system
 nix store gc
-```
-
-## Rollback
-
-## Verify
-
-```bash
-open -a Ghostty
-opencode
 ```

@@ -1,5 +1,5 @@
 FROM archlinux:base-devel
-LABEL maintainer="H-ADJI <https://github.com/H-ADJI>"
+LABEL maintainer="hh9dj <https://github.com/hh9dj>"
 
 # Branch setup scripts clone from; also passed to main.sh for re-clone on test
 # Override via --build-arg BRANCH=other-branch
