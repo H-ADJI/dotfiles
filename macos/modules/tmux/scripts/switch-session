@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+result=$(tmux list-sessions -F "#{session_name}" | fzf --exit-0 --print-query --reverse)
+retval=$?
+
+IFS=$'\n' read -rd '' -a arr <<<"$result"
+query=${arr[0]}
+session=${arr[1]}
+
+if [ $retval -eq 0 ]; then
+    tmux switch-client -t "${session:-$query}"
+elif [ $retval -eq 1 ] && [ -n "$query" ]; then
+    tmux new-session -d -s "$query" && tmux switch-client -t "$query"
+fi

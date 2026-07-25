@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+MSG_DIR="$HOME/.aichat/"
+mkdir -p "$MSG_DIR"
+file="$HOME/.aichat/$(basename "$(pwd)").md"
+touch "$file"
+
+{
+  echo
+  echo "---"
+  echo
+  pbpaste
+} >>"$file"
+
+tmp_file=$(mktemp /tmp/aichat.XXXXXX.md)
+pbpaste >>"$tmp_file"
+"$EDITOR" "$tmp_file"
+rm -f "$tmp_file"

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+file=$(mktemp)
+tmux capture-pane -pS - >"$file"
+"$EDITOR" "+normal G$" "$file"
+rm -f "$file"

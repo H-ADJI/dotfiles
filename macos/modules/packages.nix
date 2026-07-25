@@ -10,6 +10,7 @@
     docker
     docker-compose
     fd
+    fzf
     gh
     gnugrep
     gnutar
