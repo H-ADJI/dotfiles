@@ -1,12 +1,10 @@
 # ROADMAP
 
 - [ ] AppleCursorHiddenWhileTyping — not working, revisit later (`darwin.nix`)
+- [ ] night light for macos
 - [ ] Television `eval "$(tv init zsh)"` shell integration
 - [ ] OpenCode / other default options need to be removed from config
 - [ ] Tmux missing nix plugins / settings
-- [ ] Tmux replace fzf-session
-- [ ] Tmux replace float terminal
-- [ ] Nvim — vim.pack vs lazy.nvim
 - [ ] Test methods for Macos
 - [ ] ZSH -- missing plugins / snippets
 - [ ] Extract inline configs to a file for ease of modification and load them at runtime

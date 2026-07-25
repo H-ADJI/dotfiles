@@ -1,3 +1,90 @@
 #!/usr/bin/env zsh
 
-source ~/zsh/main.sh
+source "$HOME/.config/zinit/zinit.sh"
+
+alias gclean="git clean -f"
+alias lc="leetcode"
+alias e='$EDITOR'
+alias nv="nvim"
+alias nvconfig="cd ~/.config/nvim && nv"
+alias tmuxconf="nv ~/.tmux.conf"
+alias t="tmuxp load -y"
+alias c="clear"
+alias ..="cd .."
+alias mkdir="mkdir -pv"
+alias grep="grep --color=auto"
+alias xcurl="curl -x 127.0.0.1:8000 -k "
+alias zshconfig="cd ~/zsh && nv"
+alias zbench="hyperfine --warmup 5 'zsh -i -c exit'"
+alias xel="fc"
+alias fix_history="rm ~/.zsh_history && cp ~/dotfiles/zsh/.zsh_history ~"
+alias sync_history="cp ~/.zsh_history ~/dotfiles/zsh/dot-zsh_history"
+alias speaker_connect="bluetoothctl 'connect 10:94:97:36:C7:15'"
+alias dotconf="cd ~/.config"
+alias nvim_shada_clear="rm ~/.local/state/nvim/shada/main.shada"
+alias hd="hunk diff"
+
+
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+    export EDITOR="vim"
+else
+    export EDITOR="nvim"
+fi
+export SUDO_EDITOR="nvim"
+export VISUAL="nvim"
+export FCEDIT="nvim"
+
+bindkey -e
+bindkey '^y' autosuggest-accept
+bindkey '^ ' autosuggest-execute
+bindkey '^o' forward-word
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
+autoload edit-command-line
+zle -N edit-command-line
+bindkey "^E" edit-command-line
+autoload -Uz select-word-style
+select-word-style bash
+
+# history
+HISTSIZE=5000
+export SAVEHIST=$HISTSIZE
+HISTFILE=~/.zsh_history
+export HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+
+
+# Extending completions path
+[ ! -d "$HOME/.zfunc" ] && mkdir "$HOME/.zfunc"
+fpath+=~/.zfunc
+autoload -Uz compinit
+compinit
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' menu select
+
+_evalcache mise activate zsh
+if [[ ! -f "$HOME/.zfunc/_mise" ]]; then
+    mise completion zsh >"$HOME/.zfunc/_mise"
+fi
+_evalcache fzf --zsh
+export DIRENV_LOG_FORMAT=""
+_evalcache direnv hook zsh
+_evalcache starship init zsh
+_evalcache tv init zsh
+
+if command -v zoxide >/dev/null 2>&1; then
+    _evalcache zoxide init zsh --cmd cd
+else
+    echo 'zoxide not found, please install it from https://github.com/ajeetdsouza/zoxide'
+fi
+_evalcache batman --export-env
+export BAT_CONFIG_PATH="$HOME/.config/bat/bat.conf"
+
+
+zinit cdreplay -q
