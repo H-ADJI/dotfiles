@@ -1,4 +1,3 @@
-// TODO: plugins
 plugins {
     // WARNING: does not work properly
     zellij-palette location="https://github.com/timonwong/zellij-palette/releases/latest/download/zellij-palette.wasm"
@@ -29,7 +28,6 @@ ui {
 simplified_ui true
 theme "catppuccin-latte"
 default_mode "locked"
-// TODO: default layout
 default_layout "default"
 pane_frames true
 show_startup_tips false

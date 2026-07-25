@@ -4,6 +4,7 @@ return {
   event = "VeryLazy",
   config = function()
     require("mini.files").setup()
+    require("mini.ai").setup()
     require("mini.move").setup({
       mappings = {
         left = "<leader>hh",
@@ -16,7 +17,6 @@ return {
         line_up = "<leader>kk",
       },
     })
-    require("mini.ai").setup()
 
     local hipatterns = require("mini.hipatterns")
     hipatterns.setup({ highlighters = { hex_color = hipatterns.gen_highlighter.hex_color() } })

@@ -3,8 +3,19 @@ return {
   version = "*",
   config = function()
     require("mini.files").setup()
-    require("mini.move").setup()
     require("mini.ai").setup()
+    require("mini.move").setup({
+        mappings = {
+            left = "<leader>hh",
+            right = "<leader>ll",
+            down = "<leader>jj",
+            up = "<leader>kk",
+            line_left = "<leader>hh",
+            line_right = "<leader>ll",
+            line_down = "<leader>jj",
+            line_up = "<leader>kk",
+        },
+    })
 
     local hipatterns = require("mini.hipatterns")
     hipatterns.setup({ highlighters = { hex_color = hipatterns.gen_highlighter.hex_color() } })
