@@ -2,32 +2,32 @@
 
 {
   home.packages = with pkgs; [
-    clang
+    aerospace
     cargo
+    clang
     coreutils
     curl
     docker
     docker-compose
     fd
     gh
-    hunk
     gnugrep
     gnutar
     go
     google-chrome
+    hunk
     hyperfine
     mise
     nerd-fonts.jetbrains-mono
     nodejs
-    python3
     podman
     podman-compose
+    python3
     ripgrep
     rustc
     stow
     transcrypt
+    tree
     uv
-    aerospace
-    zellij
   ];
 }
