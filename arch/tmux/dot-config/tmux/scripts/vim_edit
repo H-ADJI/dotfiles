@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+file=$(mktemp)
+tmux capture-pane -pS - >"$file"
+"$EDITOR" "+normal G$" "$file"
+rm -f "$file"

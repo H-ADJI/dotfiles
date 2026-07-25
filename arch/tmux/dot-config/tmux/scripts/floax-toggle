@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+FLOAT_SESSION="floax-session"
+
+tmux new-session -d -s "$FLOAT_SESSION" 2>/dev/null
+tmux set-option -t "$FLOAT_SESSION" status off
+tmux set-option -t "$FLOAT_SESSION" detach-on-destroy on
+tmux attach-session -t "$FLOAT_SESSION"
