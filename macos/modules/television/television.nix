@@ -1,5 +1,6 @@
 { pkgs, ... }: {
   xdg.configFile."television/config.toml".force = true;
+  xdg.configFile."television/cable".source = ./cable;
 
   programs.television = {
     enable = true;

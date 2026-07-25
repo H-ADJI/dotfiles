@@ -1,0 +1,7 @@
+{ ... }: {
+  xdg.configFile."tabiew/config.toml".text = ''
+    theme = "CatppuccinLatte"
+    show_table_borders = true
+    show_table_row_numbers = true
+  '';
+}

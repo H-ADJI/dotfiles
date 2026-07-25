@@ -37,6 +37,10 @@ chmod 600 ~/.ssh/personal ~/.ssh/work
 
 Place `~/.ssh/personal` and `~/.ssh/work` private keys from password manager.
 
+### Night Shift
+
+System Settings → Displays → Night Shift → set schedule (custom 22:00–07:00 or sunset-to-sunrise).
+
 ### System
 
 - **Accessibility permission**: System Settings → Privacy & Security → Accessibility → grant to Aerospace, Ghostty
