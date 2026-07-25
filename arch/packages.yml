@@ -1,0 +1,10 @@
+pacman:
+  base:
+    -
+  extra:
+    -
+aur:
+  base:
+    -
+  extra:
+    -
