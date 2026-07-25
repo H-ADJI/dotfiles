@@ -26,5 +26,5 @@ hl.bind("SUPER + minus", function()
 end)
 
 local home_dir = os.getenv("HOME")
-local script_dir = home_dir .. "/.config/scripts/"
+local script_dir = home_dir .. "/.config/hypr/scripts/"
 hl.bind("SUPER + SHIFT + Z", hl.dsp.exec_cmd(script_dir .. "sway_zoom"))
