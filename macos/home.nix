@@ -4,7 +4,7 @@
     ./modules/colima.nix
     ./modules/git.nix
     ./modules/nvim/neovim.nix
-    ./modules/shell.nix
+    ./modules/zsh/shell.nix
     ./modules/tmux/tmux.nix
     ./modules/ghostty.nix
     ./modules/aerospace/aerospace.nix

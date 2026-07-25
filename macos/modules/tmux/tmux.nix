@@ -1,6 +1,29 @@
 { pkgs, ... }:
 
 {
+
+  programs.tmux = {
+    enable = true;
+    terminal = "tmux-256color";
+    baseIndex = 1;
+    mouse = true;
+    historyLimit = 1000000;
+    escapeTime = 0;
+    keyMode = "vi";
+    prefix = "C-a";
+    tmuxp.enable = true;
+
+    plugins = with pkgs.tmuxPlugins; [
+      fzf-tmux-url
+      {
+        plugin = tmux-thumbs;
+        extraConfig = "set -g @thumbs-command ' pbcopy '";
+      }
+    ];
+
+    extraConfig = "source-file ~/.config/tmux/tmux.conf";
+  };
+
   xdg.configFile = {
     "tmux/tmux.conf".source = ./tmux.conf;
     "tmux/core.conf".source = ./core.conf;
@@ -31,25 +54,4 @@
 
   xdg.configFile."tmuxp".source = ./sessions;
 
-  programs.tmux = {
-    enable = true;
-    terminal = "tmux-256color";
-    baseIndex = 1;
-    mouse = true;
-    historyLimit = 1000000;
-    escapeTime = 0;
-    keyMode = "vi";
-    prefix = "C-a";
-    tmuxp.enable = true;
-
-    plugins = with pkgs.tmuxPlugins; [
-      fzf-tmux-url
-      {
-        plugin = tmux-thumbs;
-        extraConfig = "set -g @thumbs-command ' pbcopy '";
-      }
-    ];
-
-    extraConfig = "source-file ~/.config/tmux/tmux.conf";
-  };
 }
