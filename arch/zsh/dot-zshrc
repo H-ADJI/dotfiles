@@ -5,8 +5,6 @@ source "$HOME/.config/zinit/zinit.sh"
 alias gclean="git clean -f"
 alias lc="leetcode"
 alias e='$EDITOR'
-alias nv="nvim"
-alias nvconfig="cd ~/.config/nvim && nv"
 alias t="tmuxp load -y"
 alias c="clear"
 alias ..="cd .."
@@ -56,31 +54,26 @@ setopt hist_ignore_dups
 setopt hist_find_no_dups
 
 
-# Extending completions path
-[ ! -d "$HOME/.zfunc" ] && mkdir "$HOME/.zfunc"
-fpath+=~/.zfunc
-autoload -Uz compinit
-compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' menu select
 
-_evalcache mise activate zsh
+# Extending completions path
+[ ! -d "$HOME/.zfunc" ] && mkdir "$HOME/.zfunc"
+fpath+=~/.zfunc
 if [[ ! -f "$HOME/.zfunc/_mise" ]]; then
     mise completion zsh >"$HOME/.zfunc/_mise"
 fi
+_evalcache mise activate zsh
 _evalcache fzf --zsh
 export DIRENV_LOG_FORMAT=""
 _evalcache direnv hook zsh
 _evalcache starship init zsh
 _evalcache tv init zsh
-
-if command -v zoxide >/dev/null 2>&1; then
-    _evalcache zoxide init zsh --cmd cd
-else
-    echo 'zoxide not found, please install it from https://github.com/ajeetdsouza/zoxide'
-fi
+_evalcache zoxide init zsh --cmd cd
 _evalcache batman --export-env
 export BAT_CONFIG_PATH="$HOME/.config/bat/bat.conf"
 
 
+autoload -Uz compinit
+compinit
 zinit cdreplay -q

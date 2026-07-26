@@ -1,29 +1,71 @@
-{ pkgs, ... }:
 let
   esc = builtins.fromJSON ''"\u001b"'';
-in {
+in
+{
   programs.fastfetch = {
     enable = true;
     settings = {
       "$schema" = "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json";
-      logo = { type = "builtin"; };
+      logo = {
+        type = "builtin";
+      };
       modules = [
         "break"
         {
           type = "custom";
           format = "${esc}[90m┌──────────────────────Software──────────────────────┐";
         }
-        { type = "os"; key = "OS"; keyColor = "yellow"; }
-        { type = "kernel"; key = "│ ├ kernel"; keyColor = "yellow"; }
-        { type = "bios"; key = "│ ├ bios"; keyColor = "yellow"; }
-        { type = "packages"; key = "│ ├ packages"; keyColor = "yellow"; }
-        { type = "shell"; key = "└ └ shell  "; keyColor = "yellow"; }
+        {
+          type = "os";
+          key = "OS";
+          keyColor = "yellow";
+        }
+        {
+          type = "kernel";
+          key = "│ ├ kernel";
+          keyColor = "yellow";
+        }
+        {
+          type = "bios";
+          key = "│ ├ bios";
+          keyColor = "yellow";
+        }
+        {
+          type = "packages";
+          key = "│ ├ packages";
+          keyColor = "yellow";
+        }
+        {
+          type = "shell";
+          key = "└ └ shell  ";
+          keyColor = "yellow";
+        }
         "break"
-        { type = "de"; key = " DE"; keyColor = "blue"; }
-        { type = "lm"; key = "│ ├ Display Manager"; keyColor = "blue"; }
-        { type = "wm"; key = "│ ├ Tilling Window Manager"; keyColor = "blue"; }
-        { type = "wmtheme"; key = "│ ├󰉼"; keyColor = "blue"; }
-        { type = "terminal"; key = "└ └ Terminal Emulator"; keyColor = "blue"; }
+        {
+          type = "de";
+          key = " DE";
+          keyColor = "blue";
+        }
+        {
+          type = "lm";
+          key = "│ ├ Display Manager";
+          keyColor = "blue";
+        }
+        {
+          type = "wm";
+          key = "│ ├ Tilling Window Manager";
+          keyColor = "blue";
+        }
+        {
+          type = "wmtheme";
+          key = "│ ├󰉼";
+          keyColor = "blue";
+        }
+        {
+          type = "terminal";
+          key = "└ └ Terminal Emulator";
+          keyColor = "blue";
+        }
         {
           type = "custom";
           format = "${esc}[90m└────────────────────────────────────────────────────┘";
@@ -33,11 +75,31 @@ in {
           type = "custom";
           format = "${esc}[90m┌──────────────────────Hardware──────────────────────┐";
         }
-        { type = "host"; key = " PC"; keyColor = "green"; }
-        { type = "cpu"; key = "│ ├"; keyColor = "green"; }
-        { type = "gpu"; key = "│ ├󰍛"; keyColor = "green"; }
-        { type = "memory"; key = "│ ├󰍛"; keyColor = "green"; }
-        { type = "disk"; key = "└ └"; keyColor = "green"; }
+        {
+          type = "host";
+          key = " PC";
+          keyColor = "green";
+        }
+        {
+          type = "cpu";
+          key = "│ ├";
+          keyColor = "green";
+        }
+        {
+          type = "gpu";
+          key = "│ ├󰍛";
+          keyColor = "green";
+        }
+        {
+          type = "memory";
+          key = "│ ├󰍛";
+          keyColor = "green";
+        }
+        {
+          type = "disk";
+          key = "└ └";
+          keyColor = "green";
+        }
         {
           type = "custom";
           format = "${esc}[90m└────────────────────────────────────────────────────┘";

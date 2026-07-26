@@ -1,9 +1,13 @@
-{ pkgs, ... }: {
+{
   programs.yazi = {
     enable = true;
     shellWrapperName = "y";
     settings = {
-      mgr.ratio = [ 0 1 1 ];
+      mgr.ratio = [
+        0
+        1
+        1
+      ];
       preview = {
         max_height = 900;
         max_width = 1200;
@@ -22,106 +26,269 @@
     ];
     theme = {
       mgr = {
-        cwd = { fg = "#179299"; };
-        hovered = { fg = "#eff1f5"; bg = "#fe640b"; };
-        preview_hovered = { fg = "#eff1f5"; bg = "#4c4f69"; };
-        find_keyword = { fg = "#df8e1d"; italic = true; };
-        find_position = { fg = "#ea76cb"; bg = "reset"; italic = true; };
-        marker_copied = { fg = "#40a02b"; bg = "#40a02b"; };
-        marker_cut = { fg = "#d20f39"; bg = "#d20f39"; };
-        marker_marked = { fg = "#179299"; bg = "#179299"; };
-        marker_selected = { fg = "#fe640b"; bg = "#fe640b"; };
-        count_copied = { fg = "#eff1f5"; bg = "#40a02b"; };
-        count_cut = { fg = "#eff1f5"; bg = "#d20f39"; };
-        count_selected = { fg = "#eff1f5"; bg = "#fe640b"; };
+        cwd = {
+          fg = "#179299";
+        };
+        hovered = {
+          fg = "#eff1f5";
+          bg = "#fe640b";
+        };
+        preview_hovered = {
+          fg = "#eff1f5";
+          bg = "#4c4f69";
+        };
+        find_keyword = {
+          fg = "#df8e1d";
+          italic = true;
+        };
+        find_position = {
+          fg = "#ea76cb";
+          bg = "reset";
+          italic = true;
+        };
+        marker_copied = {
+          fg = "#40a02b";
+          bg = "#40a02b";
+        };
+        marker_cut = {
+          fg = "#d20f39";
+          bg = "#d20f39";
+        };
+        marker_marked = {
+          fg = "#179299";
+          bg = "#179299";
+        };
+        marker_selected = {
+          fg = "#fe640b";
+          bg = "#fe640b";
+        };
+        count_copied = {
+          fg = "#eff1f5";
+          bg = "#40a02b";
+        };
+        count_cut = {
+          fg = "#eff1f5";
+          bg = "#d20f39";
+        };
+        count_selected = {
+          fg = "#eff1f5";
+          bg = "#fe640b";
+        };
         border_symbol = "│";
-        border_style = { fg = "#8c8fa1"; };
+        border_style = {
+          fg = "#8c8fa1";
+        };
       };
       tabs = {
-        active = { fg = "#eff1f5"; bg = "#4c4f69"; bold = true; };
-        inactive = { fg = "#4c4f69"; bg = "#bcc0cc"; };
+        active = {
+          fg = "#eff1f5";
+          bg = "#4c4f69";
+          bold = true;
+        };
+        inactive = {
+          fg = "#4c4f69";
+          bg = "#bcc0cc";
+        };
       };
       mode = {
-        normal_main = { fg = "#eff1f5"; bg = "#fe640b"; bold = true; };
-        normal_alt = { fg = "#fe640b"; bg = "#ccd0da"; };
-        select_main = { fg = "#eff1f5"; bg = "#40a02b"; bold = true; };
-        select_alt = { fg = "#40a02b"; bg = "#ccd0da"; };
-        unset_main = { fg = "#eff1f5"; bg = "#dd7878"; bold = true; };
-        unset_alt = { fg = "#dd7878"; bg = "#ccd0da"; };
+        normal_main = {
+          fg = "#eff1f5";
+          bg = "#fe640b";
+          bold = true;
+        };
+        normal_alt = {
+          fg = "#fe640b";
+          bg = "#ccd0da";
+        };
+        select_main = {
+          fg = "#eff1f5";
+          bg = "#40a02b";
+          bold = true;
+        };
+        select_alt = {
+          fg = "#40a02b";
+          bg = "#ccd0da";
+        };
+        unset_main = {
+          fg = "#eff1f5";
+          bg = "#dd7878";
+          bold = true;
+        };
+        unset_alt = {
+          fg = "#dd7878";
+          bg = "#ccd0da";
+        };
       };
       status = {
-        sep_left = { open = ""; close = ""; };
-        sep_right = { open = ""; close = ""; };
-        progress_label = { fg = "#ffffff"; bold = true; };
-        progress_normal = { fg = "#1e66f5"; bg = "#bcc0cc"; };
-        progress_error = { fg = "#d20f39"; bg = "#bcc0cc"; };
-        perm_type = { fg = "#1e66f5"; };
-        perm_read = { fg = "#df8e1d"; };
-        perm_write = { fg = "#d20f39"; };
-        perm_exec = { fg = "#40a02b"; };
-        perm_sep = { fg = "#8c8fa1"; };
+        sep_left = {
+          open = "";
+          close = "";
+        };
+        sep_right = {
+          open = "";
+          close = "";
+        };
+        progress_label = {
+          fg = "#ffffff";
+          bold = true;
+        };
+        progress_normal = {
+          fg = "#1e66f5";
+          bg = "#bcc0cc";
+        };
+        progress_error = {
+          fg = "#d20f39";
+          bg = "#bcc0cc";
+        };
+        perm_type = {
+          fg = "#1e66f5";
+        };
+        perm_read = {
+          fg = "#df8e1d";
+        };
+        perm_write = {
+          fg = "#d20f39";
+        };
+        perm_exec = {
+          fg = "#40a02b";
+        };
+        perm_sep = {
+          fg = "#8c8fa1";
+        };
       };
       input = {
-        border = { fg = "#fe640b"; };
-        title = {};
-        value = {};
-        selected = { reversed = true; };
+        border = {
+          fg = "#fe640b";
+        };
+        title = { };
+        value = { };
+        selected = {
+          reversed = true;
+        };
       };
       pick = {
-        border = { fg = "#fe640b"; };
-        active = { fg = "#ea76cb"; };
-        inactive = {};
+        border = {
+          fg = "#fe640b";
+        };
+        active = {
+          fg = "#ea76cb";
+        };
+        inactive = { };
       };
       confirm = {
-        border = { fg = "#fe640b"; };
-        title = { fg = "#fe640b"; };
-        content = {};
-        list = {};
-        btn_yes = { reversed = true; };
-        btn_no = {};
+        border = {
+          fg = "#fe640b";
+        };
+        title = {
+          fg = "#fe640b";
+        };
+        content = { };
+        list = { };
+        btn_yes = {
+          reversed = true;
+        };
+        btn_no = { };
       };
       cmp = {
-        border = { fg = "#fe640b"; };
+        border = {
+          fg = "#fe640b";
+        };
       };
       tasks = {
-        border = { fg = "#fe640b"; };
-        title = {};
-        hovered = { underline = true; };
+        border = {
+          fg = "#fe640b";
+        };
+        title = { };
+        hovered = {
+          underline = true;
+        };
       };
       which = {
-        mask = { bg = "#ccd0da"; };
-        cand = { fg = "#179299"; };
-        rest = { fg = "#7c7f93"; };
-        desc = { fg = "#ea76cb"; };
+        mask = {
+          bg = "#ccd0da";
+        };
+        cand = {
+          fg = "#179299";
+        };
+        rest = {
+          fg = "#7c7f93";
+        };
+        desc = {
+          fg = "#ea76cb";
+        };
         separator = "  ";
-        separator_style = { fg = "#acb0be"; };
+        separator_style = {
+          fg = "#acb0be";
+        };
       };
       help = {
-        on = { fg = "#179299"; };
-        run = { fg = "#ea76cb"; };
-        desc = { fg = "#7c7f93"; };
-        hovered = { bg = "#acb0be"; bold = true; };
-        footer = { fg = "#4c4f69"; bg = "#bcc0cc"; };
+        on = {
+          fg = "#179299";
+        };
+        run = {
+          fg = "#ea76cb";
+        };
+        desc = {
+          fg = "#7c7f93";
+        };
+        hovered = {
+          bg = "#acb0be";
+          bold = true;
+        };
+        footer = {
+          fg = "#4c4f69";
+          bg = "#bcc0cc";
+        };
       };
       notify = {
-        title_info = { fg = "#179299"; };
-        title_warn = { fg = "#df8e1d"; };
-        title_error = { fg = "#d20f39"; };
+        title_info = {
+          fg = "#179299";
+        };
+        title_warn = {
+          fg = "#df8e1d";
+        };
+        title_error = {
+          fg = "#d20f39";
+        };
       };
       filetype = {
         rules = [
-          { mime = "image/*"; fg = "#179299"; }
-          { mime = "{audio,video}/*"; fg = "#df8e1d"; }
-          { mime = "application/*zip"; fg = "#ea76cb"; }
-          { mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}"; fg = "#ea76cb"; }
-          { mime = "application/{pdf,doc,rtf}"; fg = "#40a02b"; }
+          {
+            mime = "image/*";
+            fg = "#179299";
+          }
+          {
+            mime = "{audio,video}/*";
+            fg = "#df8e1d";
+          }
+          {
+            mime = "application/*zip";
+            fg = "#ea76cb";
+          }
+          {
+            mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}";
+            fg = "#ea76cb";
+          }
+          {
+            mime = "application/{pdf,doc,rtf}";
+            fg = "#40a02b";
+          }
         ];
       };
       spot = {
-        border = { fg = "#fe640b"; };
-        title = { fg = "#fe640b"; };
-        tbl_cell = { fg = "#fe640b"; reversed = true; };
-        tbl_col = { bold = true; };
+        border = {
+          fg = "#fe640b";
+        };
+        title = {
+          fg = "#fe640b";
+        };
+        tbl_cell = {
+          fg = "#fe640b";
+          reversed = true;
+        };
+        tbl_col = {
+          bold = true;
+        };
       };
     };
   };

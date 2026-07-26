@@ -2,7 +2,14 @@
 
 source "$HOME/.config/zinit/zinit.sh"
 
-bindkey -e
+_evalcache fzf --zsh
+_evalcache direnv hook zsh
+_evalcache starship init zsh
+_evalcache tv init zsh
+_evalcache zoxide init zsh
+_evalcache batman --export-env
+_evalcache mise activate zsh
+
 bindkey '^y' autosuggest-accept
 bindkey '^ ' autosuggest-execute
 bindkey '^o' forward-word
@@ -14,20 +21,8 @@ bindkey "^E" edit-command-line
 autoload -Uz select-word-style
 select-word-style bash
 
-export HISTDUP=erase
-
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-zstyle ':completion:*' menu select
-
-_evalcache tv init zsh
-_evalcache batman --export-env
-
-export AICHAT_MESSAGES_FILE="$HOME/messages.md"
-aises() { aichat -s "$(basename "$(pwd)")"; }
-aichat_hist() { nvim "$HOME/.aichat/$(basename "$(pwd)").md"; }
 
 if [[ -n $SSH_CONNECTION ]]; then
     export EDITOR="vim"
 fi
-
 zinit cdreplay -q
