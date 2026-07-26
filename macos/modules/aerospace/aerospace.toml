@@ -87,7 +87,7 @@ alt-shift-r = "reload-config"
 alt-shift-f = "layout floating tiling"
 
 # Launch apps (new window via -n flag)
-alt-space = '''exec-and-forget open -n -b com.mitchellh.ghostty'''
+alt-space = '''exec-and-forget open -n -b org.alacritty'''
 alt-shift-s = '''exec-and-forget open -b com.apple.systempreferences'''
 alt-b = '''exec-and-forget open -n -b com.google.Chrome'''
 alt-d = '''exec-and-forget open -b com.raycast.macos'''

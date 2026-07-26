@@ -3,6 +3,7 @@
 {
   home.packages = with pkgs; [
     aerospace
+    alacritty
     cargo
     clang
     coreutils

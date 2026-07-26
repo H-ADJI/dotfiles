@@ -1,6 +1,7 @@
 {
   imports = [
     ./modules/aerospace/aerospace.nix
+    ./modules/alacritty/alacritty.nix
     ./modules/colima.nix
     ./modules/desktoppr/desktoppr.nix
     ./modules/fastfetch.nix

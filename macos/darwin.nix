@@ -86,6 +86,12 @@
     };
     "com.apple.symbolichotkeys" = {
       AppleSymbolicHotKeys = {
+        "61" = {
+          enabled = false;
+        }; # Ctrl+Space / select previous input source
+        "60" = {
+          enabled = false;
+        }; # Ctrl+Option+Space / select next input source
         "64" = {
           enabled = false;
         }; # Cmd+Space (Spotlight)
