@@ -85,6 +85,7 @@ alt-shift-tab = "move-workspace-to-monitor --wrap-around next"
 alt-f = "fullscreen"
 alt-shift-r = "reload-config"
 alt-shift-f = "layout floating tiling"
+alt-q = "close"
 
 # Launch apps (new window via -n flag)
 alt-space = '''exec-and-forget open -n -b org.alacritty'''
