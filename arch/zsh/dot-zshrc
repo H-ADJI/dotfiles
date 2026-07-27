@@ -18,8 +18,6 @@ alias dotconf="cd ~/.config"
 alias nvim_shada_clear="rm ~/.local/state/nvim/shada/main.shada"
 alias hd="hunk diff"
 
-
-# Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
     export EDITOR="vim"
 else
@@ -41,7 +39,6 @@ bindkey "^E" edit-command-line
 autoload -Uz select-word-style
 select-word-style bash
 
-# history
 HISTSIZE=5000
 export SAVEHIST=$HISTSIZE
 HISTFILE=~/.zsh_history
@@ -56,8 +53,9 @@ setopt hist_find_no_dups
 
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' menu select
+autoload -Uz compinit
+compinit
 
-# Extending completions path
 [ ! -d "$HOME/.zfunc" ] && mkdir "$HOME/.zfunc"
 fpath+=~/.zfunc
 if [[ ! -f "$HOME/.zfunc/_mise" ]]; then
@@ -73,7 +71,4 @@ _evalcache zoxide init zsh --cmd cd
 _evalcache batman --export-env
 export BAT_CONFIG_PATH="$HOME/.config/bat/bat.conf"
 
-
-autoload -Uz compinit
-compinit
 zinit cdreplay -q
