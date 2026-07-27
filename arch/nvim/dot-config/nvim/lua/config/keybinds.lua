@@ -12,10 +12,6 @@ map("n", "<leader>li", function()
   vim.cmd("Lazy")
 end, { desc = "[L]azy [I]nfo" })
 
-map("n", "<leader>rl", function()
-  vim.cmd("lsp restart")
-end, { desc = "[R]estart [L]SP" })
-
 map("n", "<leader>bb", function()
   local bufs = vim.fn.getbufinfo({ buflisted = 1 })
   if #bufs > 1 then
