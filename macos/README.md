@@ -7,15 +7,8 @@
 No clone needed. Two commands:
 
 ```bash
-curl -sSf -L https://install.lix.systems/lix | sh -s -- install   # first time only
-# restart terminal
-sudo darwin-rebuild switch --flake github:hh9dj/PDE?dir=macos#macbook
-```
-
-Or use the setup script (same thing):
-
-```bash
-curl -sSfL https://raw.githubusercontent.com/hh9dj/PDE/main/macos/setup/main.sh | bash
+curl -sSf -L https://install.lix.systems/lix | sh -s -- install
+sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake github:hh9dj/PDE?dir=macos#macbook
 ```
 
 ## Ownership
@@ -25,7 +18,7 @@ curl -sSfL https://raw.githubusercontent.com/hh9dj/PDE/main/macos/setup/main.sh 
 | System                   | nix-darwin                                      |
 | User packages & dotfiles | Home Manager + `xdg.configFile`                 |
 | Homebrew                 | nix-homebrew (casks: Ghostty, Raycast, Homerow) |
-| Secrets                  | Manual (password manager)                        |
+| Secrets                  | Manual (password manager)                       |
 
 ## Manual Steps (post-bootstrap)
 
