@@ -2,11 +2,20 @@ return {
   "neovim/nvim-lspconfig",
   keys = {
     {
-      "<leader>lsi",
-      function()
-        vim.cmd("LspInfo")
-      end,
-      desc = "[L]anguage [S]ervers [I]nfo",
+      {
+        "<leader>rl",
+        function()
+          vim.cmd("lsp restart")
+        end,
+        desc = "[L]anguage [S]ervers [I]nfo",
+      },
+      {
+        "<leader>lsi",
+        function()
+          vim.cmd("checkhealth vim.lsp")
+        end,
+        desc = "[L]anguage [S]ervers [I]nfo",
+      },
     },
   },
   config = function()
