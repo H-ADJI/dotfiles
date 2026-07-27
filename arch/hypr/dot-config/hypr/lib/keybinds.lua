@@ -5,7 +5,7 @@ hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload; notify-send 'Hyprl
 hl.bind("SUPER + B", hl.dsp.exec_cmd("google-chrome-stable"))
 local home_dir = os.getenv("HOME")
 local script_dir = home_dir .. "/.config/hypr/scripts/"
-hl.bind("SUPER + SPACE", hl.dsp.exec_cmd("ghostty --working-directory=" .. home_dir))
+hl.bind("SUPER + SPACE", hl.dsp.exec_cmd("alacritty"))
 hl.bind("SUPER + E", hl.dsp.exec_cmd("ghostty -e yazi"))
 hl.bind("SUPER + W", hl.dsp.exec_cmd("ghostty -e walt"))
 hl.bind("SUPER + SHIFT + E", hl.dsp.exec_cmd("thunar"))
