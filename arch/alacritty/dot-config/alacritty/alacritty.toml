@@ -10,5 +10,5 @@ startup_mode = "Maximized"
 [scrolling]
 history = 10_000
 [font]
-normal = { style = "bold", family = "JetBrainsMono Nerd Font" }
+normal = { style = "Bold", family = "JetBrainsMono Nerd Font" }
 size = 15.0
