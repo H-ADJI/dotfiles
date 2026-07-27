@@ -1,6 +1,6 @@
 #!/bin/env bash
 set -euo pipefail
-trap 'echo "[FAIL] main.sh line $LINENO" >&2' ERR
+trap 'echo "[FAIL] init.sh line $LINENO" >&2' ERR
 
 log_start() { gum log --message.foreground "#d20f39" "→ $*"; }
 log_done() { gum log --message.foreground "#40a02b" "✓ $*"; }

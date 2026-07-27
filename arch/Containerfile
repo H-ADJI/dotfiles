@@ -1,18 +1,11 @@
 FROM archlinux:base-devel
 LABEL maintainer="hh9dj <https://github.com/hh9dj>"
 
-# Branch setup scripts clone from; also passed to main.sh for re-clone on test
-# Override via --build-arg BRANCH=other-branch
 ARG BRANCH=master
 ARG USER=test-user
 
-# Minimal packages needed before PDE repo is available:
-# go (yay build), vim (default editor), gum (UI prompts), git (clone), go-yq (packages.yml)
 RUN pacman -Syyu --noconfirm go vim gum git go-yq
 
-# Pre-install setup-essential pacman packages only.
-# Extras (games, browsers, fonts) skipped in container (detected by main.sh).
-# Layer caching: unchanged packages.yml reuses this layer.
 COPY arch/packages.yml /tmp/
 RUN yq -r '.pacman.base // [] | .[] | select(. != null)' /tmp/packages.yml >/tmp/pacman-base.txt \
     && if [ -s /tmp/pacman-base.txt ]; then pacman -Sq --noconfirm --noprogressbar --needed --disable-download-timeout - </tmp/pacman-base.txt; fi
@@ -23,22 +16,14 @@ RUN useradd --system --create-home ${USER} \
 USER ${USER}
 WORKDIR /home/${USER}
 
-# yay must be built as non-root (makepkg refuses root).
-# Install here to cache binary across re-builds.
 RUN git clone https://aur.archlinux.org/yay.git /tmp/yay \
     && cd /tmp/yay \
     && makepkg -sri --needed --noconfirm \
     && rm -rf /tmp/yay /home/${USER}/.cache
 
-# Pre-install setup-essential AUR packages only.
-# Rest skipped in container (main.sh detects container). script fakes TTY for yay.
-# Layer invalidated only when packages.yml changes.
 RUN yq -r '.aur.base // [] | .[] | select(. != null)' /tmp/packages.yml >/tmp/aur-base.txt \
     && if [ -s /tmp/aur-base.txt ]; then script -q -c "yay -S --noconfirm --needed --disable-download-timeout - < /tmp/aur-base.txt" /dev/null; fi
 
-# Switch back to root for COPY (non-root COPY changes ownership ambiguously).
-# COPY . copies the full repo so main.sh can run from local checkout
-# instead of re-fetching from remote (previous approach).
 USER root
 COPY . /home/${USER}/dotfiles
 RUN chown -R ${USER}:${USER} /home/${USER}/dotfiles
@@ -51,6 +36,4 @@ ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US.UTF-8
 ENV LC_CTYPE=en_US.UTF-8
 
-# Run setup, then drop into interactive shell.
-# ${BRANCH} is passed as $1 to main.sh (used for git clone --branch).
-CMD ["bash", "-c", "bash /home/test-user/dotfiles/arch/main.sh ${BRANCH} ; exec bash"]
+CMD ["bash", "-c", "bash /home/test-user/dotfiles/arch/init.sh ${BRANCH} ; exec bash"]
