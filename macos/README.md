@@ -11,15 +11,6 @@ curl -sSf -L https://install.lix.systems/lix | sh -s -- install
 sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake github:hh9dj/PDE?dir=macos#macbook
 ```
 
-## Ownership
-
-| Layer                    | Tool                                            |
-| ------------------------ | ----------------------------------------------- |
-| System                   | nix-darwin                                      |
-| User packages & dotfiles | Home Manager + `xdg.configFile`                 |
-| Homebrew                 | nix-homebrew (casks: Ghostty, Raycast, Homerow) |
-| Secrets                  | Manual (password manager)                       |
-
 ## Manual Steps (post-bootstrap)
 
 ### SSH keys
