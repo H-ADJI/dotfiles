@@ -1,9 +1,7 @@
 pacman:
   base:
     - bluez
-    - deno
     - docker
-    - gum
     - hyprpolkitagent
     - imv
     - iwd
@@ -13,39 +11,28 @@ pacman:
     - openssh
     - pipewire
     - stow
-    - tmux
-    - tree-sitter-cli
     - wireplumber
     - xdg-utils
     - zsh
   extra:
     - 7zip
-    - aichat
     - alacritty
     - alsa-tools
     - alsa-utils
     - arch-wiki-docs
     - bandwhich
-    - bat
-    - bat-extras
     - blanket
     - bluetui
     - bluez-utils
-    - bottom
     - brightnessctl
     - caligula
     - cava
     - chromium
     - cliphist
-    - direnv
     - docker-buildx
     - evince
-    - eza
-    - fastfetch
-    - fd
     - feh
     - fuzzel
-    - fzf
     - gcc
     - ghostty
     - git-delta
@@ -53,24 +40,18 @@ pacman:
     - grep
     - grim
     - helvum
-    - hyperfine
     - hypridle
     - hyprlock
     - hyprpaper
     - impala
     - inetutils
     - jack_delay
-    - jnv
-    - jq
-    - just
     - linux-firmware
     - man-db
     - mesa
-    - miller
     - mpv
     - network-manager-applet
     - noto-fonts-emoji
-    - npm
     - obs-studio
     - pamixer
     - pavucontrol
@@ -83,17 +64,14 @@ pacman:
     - python3
     - qt5-wayland
     - qt6-wayland
-    - ripgrep
     - showmethekey
     - slurp
     - solaar
-    - starship
     - swappy
     - swaync
     - tabiew
     - task
     - tealdeer
-    - television
     - termdown
     - thunar
     - tmuxp
@@ -101,11 +79,9 @@ pacman:
     - ttf-jetbrains-mono
     - ttf-jetbrains-mono-nerd
     - ttf-nerd-fonts-symbols
-    - typst
     - ueberzugpp
     - unp
     - unzip
-    - uv
     - vulkan-mesa-layers
     - vulkan-radeon
     - waybar
@@ -116,29 +92,25 @@ pacman:
     - xdg-desktop-portal-hyprland
     - xorg-server-xephyr
     - xorg-server-xvfb
-    - yazi
     - zathura
     - zathura-pdf-poppler
     - zbar
-    - zellij
-    - zoxide
-aur:
-  base: []
-  extra:
-    - argc
-    - exercism
-    - google-chrome
-    - i3
-    - jqp
-    - leetcode-cli
-    - localsend-bin
-    - netcat
-    - snore-git
-    - spotify-adblock
-    - sunsetr
-    - ttf-x2
-    - vial
-    - walt
-    - wayscriber-bin
-    - wlogout
     - zmk-studio
+  aur:
+    base: []
+    extra:
+      - exercism
+      - google-chrome
+      - i3
+      - leetcode-cli
+      - localsend-bin
+      - netcat
+      - snore-git
+      - spotify-adblock
+      - sunsetr
+      - ttf-x2
+      - vial
+      - walt
+      - wayscriber-bin
+      - wlogout
+      - zmk-studio

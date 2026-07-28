@@ -36,4 +36,4 @@ ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US.UTF-8
 ENV LC_CTYPE=en_US.UTF-8
 
-CMD ["bash", "-c", "bash /home/test-user/dotfiles/arch/init.sh ${BRANCH} ; exec bash"]
+CMD ["bash", "-c", "bash /home/test-user/dotfiles/arch/init.sh ${BRANCH} ; exec zsh"]
