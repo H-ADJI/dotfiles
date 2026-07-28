@@ -4,7 +4,8 @@ LABEL maintainer="hh9dj <https://github.com/hh9dj>"
 ARG BRANCH=master
 ARG USER=test-user
 
-RUN pacman -Syyu --noconfirm go vim gum git go-yq
+RUN printf 'Server = https://mirrors.kernel.org/archlinux/$repo/os/$arch\n' >/etc/pacman.d/mirrorlist \
+    && pacman -Syyu --noconfirm go vim gum git go-yq
 
 COPY arch/packages.yml /tmp/
 RUN yq -r '.pacman.base // [] | .[] | select(. != null)' /tmp/packages.yml >/tmp/pacman-base.txt \
