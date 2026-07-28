@@ -137,7 +137,7 @@ setup_system_state() {
     grep -qxF "$(which zsh)" /etc/shells 2>/dev/null || which zsh | sudo tee -a /etc/shells
     xdg-mime default imv.desktop image/jpeg
     xdg-mime default imv.desktop image/png
-    xdg-mime default google-chrome.desktop application/pdf
+    xdg-mime default org.pwmt.zathura.desktop application/pdf
     xdg-mime default google-chrome.desktop x-scheme-handler/https
     xdg-mime default google-chrome.desktop x-scheme-handler/http
     xdg-mime default google-chrome.desktop application/html

@@ -117,6 +117,8 @@ pacman:
     - xorg-server-xephyr
     - xorg-server-xvfb
     - yazi
+    - zathura
+    - zathura-pdf-poppler
     - zbar
     - zellij
     - zoxide
