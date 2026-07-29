@@ -1,7 +1,7 @@
 style: "light"
 mouse: false
 pager: true
-width: 80
+width: 120
 all: false
 showLineNumbers: false
 preserveNewLines: false
