@@ -13,5 +13,5 @@
     "app.editor.external": ["ctrl+e"],
     "tui.input.tab": ["tab", "ctrl+y"],
     "tui.editor.yank": ["alt+y"],
-    "tui.input.newLine": []
+    "tui.input.newLine": ["alt+enter"]
 }

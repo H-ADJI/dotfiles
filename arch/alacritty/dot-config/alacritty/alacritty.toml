@@ -12,3 +12,7 @@ history = 10_000
 [font]
 normal = { style = "Bold", family = "JetBrainsMono Nerd Font" }
 size = 15.0
+[[keyboard.bindings]]
+key = "Enter"
+mods = "Alt"
+chars = "\u001b[13;3u"

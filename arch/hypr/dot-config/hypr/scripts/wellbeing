@@ -19,15 +19,20 @@ SECONDS_FILE="$STATE_DIR/seconds"
 ACTIVITY_FILE="$STATE_DIR/activity"
 ALERT_FILE="$STATE_DIR/alert"
 IDLE_SINCE_FILE="$STATE_DIR/idle_since"
+REMINDER_COUNT_FILE="$STATE_DIR/reminder_count"
+LAST_REMINDER_FILE="$STATE_DIR/last_reminder"
 PID_FILE="$STATE_DIR/wellbeing.pid"
 LOG_FILE="$STATE_DIR/log"
 
-BREAK_SECS="${WELLBEING_BREAK_SECS:-1800}"                 # break after this many active seconds
-LONG_IDLE_SECS="${WELLBEING_LONG_IDLE_SECS:-300}"          # reset session after this many idle seconds
-LOG_MAX_LINES=200                                          # cap daemon log to last N lines
-ALERT_SOUND="/usr/share/sounds/freedesktop/stereo/message-new-instant.oga"  # set empty to disable
+BREAK_SECS=1800                                                            # break after this many active seconds
+LONG_IDLE_SECS=300                                                         # reset session after this many idle seconds
+REMINDER_BASE=300                                                          # first reminder interval after break threshold
+REMINDER_REDUCTION=60                                                      # interval shrinks by this each reminder
+REMINDER_MIN=30                                                            # smallest allowed reminder interval
+LOG_MAX_LINES=200                                                          # cap daemon log to last N lines
+ALERT_SOUND="/usr/share/sounds/freedesktop/stereo/message-new-instant.oga" # set empty to disable
 ICON_IDLE=" 󰒲 "
-ICON_ALERT=" 󰅶 "
+ICON_ALERT=" 󰅶  "
 APP_NAME="Wellbeing"
 
 mkdir -p "$STATE_DIR"
@@ -39,18 +44,20 @@ play_alert_sound() {
 }
 
 ensure_state() {
-    [[ -f "$SECONDS_FILE" ]] || echo 0 > "$SECONDS_FILE"
-    [[ -f "$ACTIVITY_FILE" ]] || echo "active" > "$ACTIVITY_FILE"
-    [[ -f "$ALERT_FILE" ]] || echo 0 > "$ALERT_FILE"
+    [[ -f "$SECONDS_FILE" ]] || echo 0 >"$SECONDS_FILE"
+    [[ -f "$ACTIVITY_FILE" ]] || echo "active" >"$ACTIVITY_FILE"
+    [[ -f "$ALERT_FILE" ]] || echo 0 >"$ALERT_FILE"
+    [[ -f "$REMINDER_COUNT_FILE" ]] || echo 0 >"$REMINDER_COUNT_FILE"
     [[ -f "$IDLE_SINCE_FILE" ]] || rm -f "$IDLE_SINCE_FILE"
+    [[ -f "$LAST_REMINDER_FILE" ]] || rm -f "$LAST_REMINDER_FILE"
 }
 
 log_msg() {
-    printf '%s %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*" >> "$LOG_FILE"
+    printf '%s %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*" >>"$LOG_FILE"
 
     # Cap log size so NVMe writes stay negligible. Only rewrite when over limit.
-    if [[ $(wc -l < "$LOG_FILE" 2>/dev/null || echo 0) -gt $LOG_MAX_LINES ]]; then
-        tail -n "$LOG_MAX_LINES" "$LOG_FILE" > "$LOG_FILE.tmp"
+    if [[ $(wc -l <"$LOG_FILE" 2>/dev/null || echo 0) -gt $LOG_MAX_LINES ]]; then
+        tail -n "$LOG_MAX_LINES" "$LOG_FILE" >"$LOG_FILE.tmp"
         mv "$LOG_FILE.tmp" "$LOG_FILE"
     fi
 }
@@ -72,22 +79,85 @@ epoch_now() {
 
 format_time() {
     local total="$1"
-    local h=$(( total / 3600 ))
-    local m=$(( (total % 3600) / 60 ))
-    local s=$(( total % 60 ))
+    local h=$((total / 3600))
+    local m=$(((total % 3600) / 60))
+    local s=$((total % 60))
 
-    if (( h > 0 )); then
+    if ((h > 0)); then
         printf "%dh %02dm %02ds" "$h" "$m" "$s"
     else
         printf "%dm %02ds" "$m" "$s"
     fi
 }
 
+next_reminder_interval() {
+    local count="${1:-0}"
+    local interval=$((REMINDER_BASE - count * REMINDER_REDUCTION))
+    if ((interval < REMINDER_MIN)); then
+        echo "$REMINDER_MIN"
+    else
+        echo "$interval"
+    fi
+}
+
+compose_reminder_message() {
+    local count="${1:-0}"
+    local seconds="$2"
+
+    case "$count" in
+    0)
+        printf '%s\n%s' \
+            "Time for a break" \
+            "You have been active for $(format_time "$seconds"). Step away for a while."
+        ;;
+    1)
+        printf '%s\n%s' \
+            "Break reminder" \
+            "You have been active for $(format_time "$seconds"). Please take a break."
+        ;;
+    2)
+        printf '%s\n%s' \
+            "Still going" \
+            "You have been active for $(format_time "$seconds"). Step away from the screen."
+        ;;
+    *)
+        printf '%s\n%s' \
+            "⚠️ Take a break now" \
+            "This is reminder #$count. You have been active for $(format_time "$seconds")."
+        ;;
+    esac
+}
+
+send_break_reminder() {
+    local count="$1"
+    local seconds="$2"
+    local title body
+
+    mapfile -t message < <(compose_reminder_message "$count" "$seconds")
+    title="${message[0]}"
+    body="${message[1]}"
+
+    notify-send \
+        -a "$APP_NAME" \
+        -u normal \
+        -i preferences-system-notifications \
+        "$title" \
+        "$body"
+    play_alert_sound
+    log_msg "break reminder #$count sent at $(format_time "$seconds")"
+}
+
+clear_reminder_state() {
+    echo 0 >"$REMINDER_COUNT_FILE"
+    rm -f "$LAST_REMINDER_FILE"
+}
+
 reset_timer() {
-    echo 0 > "$SECONDS_FILE"
-    echo 0 > "$ALERT_FILE"
+    echo 0 >"$SECONDS_FILE"
+    echo 0 >"$ALERT_FILE"
     rm -f "$IDLE_SINCE_FILE"
-    echo "active" > "$ACTIVITY_FILE"
+    clear_reminder_state
+    echo "active" >"$ACTIVITY_FILE"
 }
 
 cmd_daemon() {
@@ -103,23 +173,24 @@ cmd_daemon() {
     seconds=$(cat "$SECONDS_FILE" 2>/dev/null || echo 0)
     alert=$(cat "$ALERT_FILE" 2>/dev/null || echo 0)
 
-    # Reset stale alert latch if the timer is below the threshold.
-    if (( alert == 1 )) && (( seconds < BREAK_SECS )); then
-        echo 0 > "$ALERT_FILE"
+    # Reset stale alert/reminder state if the timer is below the threshold.
+    if ((alert == 1)) && ((seconds < BREAK_SECS)); then
+        echo 0 >"$ALERT_FILE"
+        clear_reminder_state
         alert=0
-        log_msg "alert flag reset because seconds ($seconds) below threshold ($BREAK_SECS)"
+        log_msg "alert/reminder state reset because seconds ($seconds) below threshold ($BREAK_SECS)"
     fi
 
     # Write pidfile
-    echo $$ > "$PID_FILE"
+    echo $$ >"$PID_FILE"
 
     # Clean up pidfile on exit
     trap 'rm -f "$PID_FILE"' EXIT
 
     # Ensure 'active' is the default if something wipes the file
-    echo "active" > "$ACTIVITY_FILE"
+    echo "active" >"$ACTIVITY_FILE"
 
-    log_msg "daemon started (pid $$, break ${BREAK_SECS}s, long-idle ${LONG_IDLE_SECS}s, current seconds $seconds)"
+    log_msg "daemon started (pid $$, break ${BREAK_SECS}s, long-idle ${LONG_IDLE_SECS}s, reminder base ${REMINDER_BASE}s, current seconds $seconds)"
 
     while true; do
         sleep 1
@@ -130,7 +201,7 @@ cmd_daemon() {
         if [[ "$activity" == "idle" ]]; then
             # Record when idle started, if not already recorded.
             if [[ ! -f "$IDLE_SINCE_FILE" ]]; then
-                epoch_now > "$IDLE_SINCE_FILE"
+                epoch_now >"$IDLE_SINCE_FILE"
                 log_msg "idle started"
             fi
             continue
@@ -140,10 +211,10 @@ cmd_daemon() {
         if [[ -f "$IDLE_SINCE_FILE" ]]; then
             local idle_since idle_duration
             idle_since=$(cat "$IDLE_SINCE_FILE")
-            idle_duration=$(( $(epoch_now) - idle_since ))
+            idle_duration=$(($(epoch_now) - idle_since))
             rm -f "$IDLE_SINCE_FILE"
 
-            if (( idle_duration >= LONG_IDLE_SECS )); then
+            if ((idle_duration >= LONG_IDLE_SECS)); then
                 reset_timer
                 log_msg "resumed after long idle ($(format_time "$idle_duration")); session reset"
                 notify-send \
@@ -162,20 +233,41 @@ cmd_daemon() {
         seconds=$(cat "$SECONDS_FILE" 2>/dev/null || echo 0)
         alert=$(cat "$ALERT_FILE" 2>/dev/null || echo 0)
 
-        seconds=$(( seconds + 1 ))
-        echo "$seconds" > "$SECONDS_FILE"
+        seconds=$((seconds + 1))
+        echo "$seconds" >"$SECONDS_FILE"
 
-        if (( alert == 0 )) && (( seconds >= BREAK_SECS )); then
-            echo 1 > "$ALERT_FILE"
-            log_msg "break threshold reached at $seconds seconds; sending notification"
-            notify-send \
-                -a "$APP_NAME" \
-                -u normal \
-                -i preferences-system-notifications \
-                "Time for a break" \
-                "You have been active for $(format_time "$seconds"). Step away for a while."
-            play_alert_sound
-            log_msg "break notification and sound sent"
+        if ((seconds >= BREAK_SECS)); then
+            if ((alert == 0)); then
+                echo 1 >"$ALERT_FILE"
+                clear_reminder_state
+                log_msg "break threshold reached at $seconds seconds"
+            fi
+
+            local reminder_count current_interval last_reminder now elapsed
+            reminder_count=$(cat "$REMINDER_COUNT_FILE" 2>/dev/null || echo 0)
+            current_interval=$(next_reminder_interval "$reminder_count")
+            now=$(epoch_now)
+
+            if [[ -f "$LAST_REMINDER_FILE" ]]; then
+                last_reminder=$(cat "$LAST_REMINDER_FILE")
+                elapsed=$((now - last_reminder))
+            else
+                # First reminder at the break threshold fires immediately.
+                elapsed=$current_interval
+            fi
+
+            if ((elapsed >= current_interval)); then
+                send_break_reminder "$reminder_count" "$seconds"
+                echo "$((reminder_count + 1))" >"$REMINDER_COUNT_FILE"
+                echo "$now" >"$LAST_REMINDER_FILE"
+            fi
+        else
+            # Below threshold: ensure reminder state is clean.
+            if ((alert == 1)); then
+                echo 0 >"$ALERT_FILE"
+                clear_reminder_state
+                log_msg "cleared alert/reminder state below threshold"
+            fi
         fi
     done
 }
@@ -209,10 +301,10 @@ cmd_print() {
         idle_duration=0
         if [[ -f "$IDLE_SINCE_FILE" ]]; then
             idle_since=$(cat "$IDLE_SINCE_FILE")
-            idle_duration=$(( $(epoch_now) - idle_since ))
+            idle_duration=$(($(epoch_now) - idle_since))
         fi
 
-        if (( idle_duration >= LONG_IDLE_SECS )); then
+        if ((idle_duration >= LONG_IDLE_SECS)); then
             idle_class="idle-long"
             tooltip_text="Idle for $(format_time "$idle_duration"). Timer will reset when you return."
         else
@@ -221,12 +313,14 @@ cmd_print() {
         fi
     fi
 
-    local text class tooltip
+    local text class tooltip reminder_count reminder_interval
 
-    if (( alert == 1 )) || (( seconds >= BREAK_SECS )); then
+    if ((alert == 1)) || ((seconds >= BREAK_SECS)); then
+        reminder_count=$(cat "$REMINDER_COUNT_FILE" 2>/dev/null || echo 0)
+        reminder_interval=$(next_reminder_interval "$reminder_count")
         text="${ICON_ALERT}$(format_time "$seconds") break!"
         class="alert"
-        tooltip="Active for $(format_time "$seconds") — time for a coffee break!"
+        tooltip="Active for $(format_time "$seconds"). Reminder #$reminder_count sent. Next reminder in up to $(format_time "$reminder_interval"). Click to reset."
     elif [[ "$activity" == "idle" ]]; then
         text="${ICON_IDLE}"
         class="$idle_class"
@@ -259,21 +353,24 @@ Tracks active computer usage and reminds you to take a break.
   --print    Output Waybar JSON for the current state.
   --reset    Reset elapsed time, alert flag, and idle state.
 
-Environment variables:
-  WELLBEING_BREAK_SECS       Break reminder threshold in seconds (default: 1800).
-  WELLBEING_LONG_IDLE_SECS   Idle duration that resets the session in seconds (default: 300).
+Hardcoded configuration (edit the script to change):
+  BREAK_SECS=1800        Break reminder threshold in seconds.
+  LONG_IDLE_SECS=300     Idle duration that resets the session in seconds.
+  REMINDER_BASE=300      First reminder interval after break threshold.
+  REMINDER_REDUCTION=60  Interval reduction per additional reminder.
+  REMINDER_MIN=30        Smallest reminder interval.
 EOF
 }
 
 case "${1:-}" in
-    --daemon) cmd_daemon ;;
-    --restart) cmd_restart ;;
-    --print)  cmd_print ;;
-    --reset)  cmd_reset ;;
-    -h|--help|help) cmd_help ;;
-    *)
-        echo "Unknown command: ${1:-}" >&2
-        cmd_help >&2
-        exit 1
-        ;;
+--daemon) cmd_daemon ;;
+--restart) cmd_restart ;;
+--print) cmd_print ;;
+--reset) cmd_reset ;;
+-h | --help | help) cmd_help ;;
+*)
+    echo "Unknown command: ${1:-}" >&2
+    cmd_help >&2
+    exit 1
+    ;;
 esac
