@@ -1,0 +1,13 @@
+{
+    "lastChangelogVersion": "0.80.3",
+    "theme": "light",
+    "defaultProvider": "github-copilot",
+    "defaultModel": "gemini-3-flash-preview",
+    "defaultThinkingLevel": "medium",
+    "compaction": {
+        "enabled": true
+    },
+    "extensions": [
+        "/home/khalil/.local/share/mise/installs/pi/0.80.3/pi/examples/extensions/plan-mode"
+    ]
+}
