@@ -7,6 +7,7 @@
     ./modules/fastfetch.nix
     ./modules/ghostty.nix
     ./modules/git.nix
+    ./modules/glow/glow.nix
     ./modules/hunk/hunk.nix
     ./modules/jnv/jnv.nix
     ./modules/jqp/jqp.nix

@@ -13,6 +13,7 @@
     fd
     fzf
     gh
+    glow
     gnugrep
     gnutar
     go
@@ -26,6 +27,7 @@
     podman-compose
     python3
     ripgrep
+    usage
     rustc
     stow
     transcrypt
