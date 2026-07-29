@@ -19,6 +19,6 @@
         "messages_page_up": "pageup,ctrl+alt+b",
         "messages_page_down": "pagedown,ctrl+alt+f",
         "messages_copy": "<leader>y",
-        "input_newline": "alt+return"
+        "input_newline": "shift+return"
     }
 }
