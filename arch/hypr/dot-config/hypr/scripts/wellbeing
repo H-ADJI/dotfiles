@@ -1,19 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# -----------------------------------------------------------------------------
-# Wellbeing widget daemon for Waybar.
-#
-# Tracks active (non-idle) computer usage and reminds you to take a break
-# after WELLBEING_BREAK_SECS seconds.
-#
-# Modes:
-#   --daemon   Start the background tracker (idempotent via pidfile).
-#   --restart  Restart the background tracker, preserving timer state.
-#   --print    Output Waybar JSON for the current timer state.
-#   --reset    Reset elapsed time, alert flag, and idle state.
-# -----------------------------------------------------------------------------
-
 STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/hypr/wellbeing"
 SECONDS_FILE="$STATE_DIR/seconds"
 ACTIVITY_FILE="$STATE_DIR/activity"
@@ -24,13 +11,13 @@ LAST_REMINDER_FILE="$STATE_DIR/last_reminder"
 PID_FILE="$STATE_DIR/wellbeing.pid"
 LOG_FILE="$STATE_DIR/log"
 
-BREAK_SECS=1800                                                            # break after this many active seconds
-LONG_IDLE_SECS=300                                                         # reset session after this many idle seconds
-REMINDER_BASE=300                                                          # first reminder interval after break threshold
-REMINDER_REDUCTION=60                                                      # interval shrinks by this each reminder
-REMINDER_MIN=30                                                            # smallest allowed reminder interval
-LOG_MAX_LINES=200                                                          # cap daemon log to last N lines
-ALERT_SOUND="/usr/share/sounds/freedesktop/stereo/message-new-instant.oga" # set empty to disable
+BREAK_SECS=1800
+LONG_IDLE_SECS=300
+REMINDER_BASE=300
+REMINDER_REDUCTION=60
+REMINDER_MIN=90
+LOG_MAX_LINES=200
+ALERT_SOUND="/usr/share/sounds/freedesktop/stereo/message-new-instant.oga"
 ICON_IDLE=" 󰒲 "
 ICON_ALERT=" 󰅶  "
 APP_NAME="Wellbeing"
@@ -54,8 +41,6 @@ ensure_state() {
 
 log_msg() {
     printf '%s %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*" >>"$LOG_FILE"
-
-    # Cap log size so NVMe writes stay negligible. Only rewrite when over limit.
     if [[ $(wc -l <"$LOG_FILE" 2>/dev/null || echo 0) -gt $LOG_MAX_LINES ]]; then
         tail -n "$LOG_MAX_LINES" "$LOG_FILE" >"$LOG_FILE.tmp"
         mv "$LOG_FILE.tmp" "$LOG_FILE"
