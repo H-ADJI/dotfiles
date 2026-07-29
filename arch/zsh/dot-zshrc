@@ -26,6 +26,7 @@ fi
 export SUDO_EDITOR="nvim"
 export VISUAL="nvim"
 export FCEDIT="nvim"
+export PI_SKIP_VERSION_CHECK=1
 
 bindkey -e
 bindkey '^y' autosuggest-accept
