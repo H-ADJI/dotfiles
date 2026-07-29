@@ -30,12 +30,12 @@
     "tmux/keybindings.conf".source = ./keybindings.conf;
     "tmux/floax.conf".source = ./floax.conf;
     "tmux/fzf-sessions.conf".source = ./fzf-sessions.conf;
-    "tmux/aichat.conf".source = ./aichat.conf;
+    "tmux/md_preview.conf".source = ./md_preview.conf;
     "tmux/vim_edit.conf".source = ./vim_edit.conf;
     "tmux/status.conf".source = ./status.conf;
 
-    "tmux/scripts/aichat" = {
-      source = ./scripts/aichat;
+    "tmux/scripts/md_preview" = {
+      source = ./scripts/md_preview;
       executable = true;
     };
     "tmux/scripts/vim_edit" = {

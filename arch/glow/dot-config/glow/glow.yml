@@ -1,6 +1,6 @@
 style: "light"
 mouse: false
-pager: true
+pager: false
 width: 120
 all: false
 showLineNumbers: false

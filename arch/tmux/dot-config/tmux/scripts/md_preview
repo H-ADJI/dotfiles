@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+tmp_file=$(mktemp /tmp/md_preview.XXXXXX.md)
+trap 'rm -f "$tmp_file"' EXIT
+
+wl-paste >"$tmp_file"
+glow -p "$tmp_file"
