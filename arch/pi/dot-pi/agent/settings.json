@@ -2,8 +2,8 @@
   "lastChangelogVersion": "0.80.3",
   "theme": "catppuccin-latte",
   "defaultProvider": "github-copilot",
-  "defaultModel": "gpt-5.3-codex",
-  "defaultThinkingLevel": "low",
+  "defaultModel": "gpt-5-mini",
+  "defaultThinkingLevel": "medium",
   "compaction": {
     "enabled": true
   },
