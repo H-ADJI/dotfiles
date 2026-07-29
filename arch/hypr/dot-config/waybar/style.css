@@ -58,6 +58,7 @@ window#waybar {
 #custom-music,
 #custom-mouse,
 #custom-power,
+#custom-wellbeing,
 #workspaces,
 #window,
 #idle_inhibitor,
@@ -162,6 +163,40 @@ window#waybar {
   margin-right: 10px;
   font-size: 20px;
   font-weight: bold;
+}
+
+#custom-wellbeing {
+  color: @text;
+  background-color: #e6e9ed;
+  border-radius: 6px;
+  padding: 0.3rem 0.5rem;
+}
+
+#custom-wellbeing.idle {
+  color: #df8e1d;
+  background-color: #fff3d6;
+}
+
+#custom-wellbeing.idle-long {
+  color: #fe640b;
+  background-color: #ffe8d6;
+}
+
+#custom-wellbeing.alert {
+  color: #d20f39;
+  background-color: #ffe2e6;
+  animation-name: blink-wellbeing;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blink-wellbeing {
+  70% {
+    color: @text;
+  }
+  to {
+    color: #d20f39;
+  }
 }
 
 /* Animations */

@@ -53,6 +53,7 @@
     },
 
     "modules-right": [
+        "custom/wellbeing",
         "network",
         "cpu",
         "memory",
@@ -136,6 +137,14 @@
     "tray": {
         "icon-size": 18,
         "spacing": 20
+    },
+    "custom/wellbeing": {
+        "format": "{}",
+        "interval": 2,
+        "return-type": "json",
+        "exec": "$HOME/.config/hypr/scripts/wellbeing --print",
+        "on-click": "$HOME/.config/hypr/scripts/wellbeing --reset",
+        "tooltip": true
     },
     "custom/power": {
         "format": "⏻",

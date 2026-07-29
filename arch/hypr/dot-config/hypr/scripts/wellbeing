@@ -1,0 +1,266 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# -----------------------------------------------------------------------------
+# Wellbeing widget daemon for Waybar.
+#
+# Tracks active (non-idle) computer usage and reminds you to take a break
+# after WELLBEING_BREAK_SECS seconds.
+#
+# Modes:
+#   --daemon   Start the background tracker (idempotent via pidfile).
+#   --restart  Restart the background tracker, preserving timer state.
+#   --print    Output Waybar JSON for the current timer state.
+#   --reset    Reset elapsed time, alert flag, and idle state.
+# -----------------------------------------------------------------------------
+
+STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/hypr/wellbeing"
+SECONDS_FILE="$STATE_DIR/seconds"
+ACTIVITY_FILE="$STATE_DIR/activity"
+ALERT_FILE="$STATE_DIR/alert"
+IDLE_SINCE_FILE="$STATE_DIR/idle_since"
+PID_FILE="$STATE_DIR/wellbeing.pid"
+LOG_FILE="$STATE_DIR/log"
+
+BREAK_SECS="${WELLBEING_BREAK_SECS:-1800}"                 # break after this many active seconds
+LONG_IDLE_SECS="${WELLBEING_LONG_IDLE_SECS:-300}"          # reset session after this many idle seconds
+ICON_IDLE=" 󰒲 "
+ICON_ALERT=" 󰅶 "
+APP_NAME="Wellbeing"
+
+mkdir -p "$STATE_DIR"
+
+ensure_state() {
+    [[ -f "$SECONDS_FILE" ]] || echo 0 > "$SECONDS_FILE"
+    [[ -f "$ACTIVITY_FILE" ]] || echo "active" > "$ACTIVITY_FILE"
+    [[ -f "$ALERT_FILE" ]] || echo 0 > "$ALERT_FILE"
+    [[ -f "$IDLE_SINCE_FILE" ]] || rm -f "$IDLE_SINCE_FILE"
+}
+
+log_msg() {
+    printf '%s %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*" >> "$LOG_FILE"
+}
+
+daemon_running() {
+    if [[ -f "$PID_FILE" ]]; then
+        local pid
+        pid=$(cat "$PID_FILE")
+        if [[ -n "$pid" ]] && kill -0 "$pid" 2>/dev/null; then
+            return 0
+        fi
+    fi
+    return 1
+}
+
+epoch_now() {
+    date +%s
+}
+
+format_time() {
+    local total="$1"
+    local h=$(( total / 3600 ))
+    local m=$(( (total % 3600) / 60 ))
+    local s=$(( total % 60 ))
+
+    if (( h > 0 )); then
+        printf "%dh %02dm %02ds" "$h" "$m" "$s"
+    else
+        printf "%dm %02ds" "$m" "$s"
+    fi
+}
+
+reset_timer() {
+    echo 0 > "$SECONDS_FILE"
+    echo 0 > "$ALERT_FILE"
+    rm -f "$IDLE_SINCE_FILE"
+    echo "active" > "$ACTIVITY_FILE"
+}
+
+cmd_daemon() {
+    if daemon_running; then
+        echo "wellbeing daemon already running (pid $(cat "$PID_FILE"))" >&2
+        log_msg "daemon already running (pid $(cat "$PID_FILE"))"
+        exit 0
+    fi
+
+    ensure_state
+
+    local seconds alert
+    seconds=$(cat "$SECONDS_FILE" 2>/dev/null || echo 0)
+    alert=$(cat "$ALERT_FILE" 2>/dev/null || echo 0)
+
+    # Reset stale alert latch if the timer is below the threshold.
+    if (( alert == 1 )) && (( seconds < BREAK_SECS )); then
+        echo 0 > "$ALERT_FILE"
+        alert=0
+        log_msg "alert flag reset because seconds ($seconds) below threshold ($BREAK_SECS)"
+    fi
+
+    # Write pidfile
+    echo $$ > "$PID_FILE"
+
+    # Clean up pidfile on exit
+    trap 'rm -f "$PID_FILE"' EXIT
+
+    # Ensure 'active' is the default if something wipes the file
+    echo "active" > "$ACTIVITY_FILE"
+
+    log_msg "daemon started (pid $$, break ${BREAK_SECS}s, long-idle ${LONG_IDLE_SECS}s, current seconds $seconds)"
+
+    while true; do
+        sleep 1
+
+        local activity
+        activity=$(cat "$ACTIVITY_FILE" 2>/dev/null || echo "active")
+
+        if [[ "$activity" == "idle" ]]; then
+            # Record when idle started, if not already recorded.
+            if [[ ! -f "$IDLE_SINCE_FILE" ]]; then
+                epoch_now > "$IDLE_SINCE_FILE"
+                log_msg "idle started"
+            fi
+            continue
+        fi
+
+        # Returning from idle.
+        if [[ -f "$IDLE_SINCE_FILE" ]]; then
+            local idle_since idle_duration
+            idle_since=$(cat "$IDLE_SINCE_FILE")
+            idle_duration=$(( $(epoch_now) - idle_since ))
+            rm -f "$IDLE_SINCE_FILE"
+
+            if (( idle_duration >= LONG_IDLE_SECS )); then
+                reset_timer
+                log_msg "resumed after long idle ($(format_time "$idle_duration")); session reset"
+                notify-send \
+                    -a "$APP_NAME" \
+                    -u normal \
+                    -i preferences-system-notifications \
+                    "Work session reset" \
+                    "Idle for $(format_time "$idle_duration"). Starting a fresh session."
+                continue
+            else
+                log_msg "resumed after short idle ($(format_time "$idle_duration")); timer resumed"
+            fi
+        fi
+
+        seconds=$(cat "$SECONDS_FILE" 2>/dev/null || echo 0)
+        alert=$(cat "$ALERT_FILE" 2>/dev/null || echo 0)
+
+        seconds=$(( seconds + 1 ))
+        echo "$seconds" > "$SECONDS_FILE"
+
+        if (( alert == 0 )) && (( seconds >= BREAK_SECS )); then
+            echo 1 > "$ALERT_FILE"
+            log_msg "break threshold reached at $seconds seconds; sending notification"
+            if notify-send \
+                -a "$APP_NAME" \
+                -u normal \
+                -i preferences-system-notifications \
+                "Time for a break" \
+                "You have been active for $(format_time "$seconds"). Step away for a while."; then
+                log_msg "notification sent successfully"
+            else
+                log_msg "notification failed (exit code $?)"
+            fi
+        fi
+    done
+}
+
+cmd_restart() {
+    log_msg "restart requested"
+    if daemon_running; then
+        local pid
+        pid=$(cat "$PID_FILE")
+        log_msg "stopping existing daemon (pid $pid)"
+        kill "$pid" 2>/dev/null || true
+        rm -f "$PID_FILE"
+        sleep 0.2
+    fi
+    cmd_daemon
+}
+
+cmd_print() {
+    ensure_state
+
+    local seconds alert activity idle_class tooltip_text
+    seconds=$(cat "$SECONDS_FILE" 2>/dev/null || echo 0)
+    alert=$(cat "$ALERT_FILE" 2>/dev/null || echo 0)
+    activity=$(cat "$ACTIVITY_FILE" 2>/dev/null || echo "active")
+    idle_class=""
+    tooltip_text=""
+
+    # Compute idle class and tooltip while idle.
+    if [[ "$activity" == "idle" ]]; then
+        local idle_since idle_duration
+        idle_duration=0
+        if [[ -f "$IDLE_SINCE_FILE" ]]; then
+            idle_since=$(cat "$IDLE_SINCE_FILE")
+            idle_duration=$(( $(epoch_now) - idle_since ))
+        fi
+
+        if (( idle_duration >= LONG_IDLE_SECS )); then
+            idle_class="idle-long"
+            tooltip_text="Idle for $(format_time "$idle_duration"). Timer will reset when you return."
+        else
+            idle_class="idle"
+            tooltip_text="Idle for $(format_time "$idle_duration"). Timer will resume when you return."
+        fi
+    fi
+
+    local text class tooltip
+
+    if (( alert == 1 )) || (( seconds >= BREAK_SECS )); then
+        text="${ICON_ALERT}$(format_time "$seconds") break!"
+        class="alert"
+        tooltip="Active for $(format_time "$seconds") — time for a coffee break!"
+    elif [[ "$activity" == "idle" ]]; then
+        text="${ICON_IDLE}"
+        class="$idle_class"
+        tooltip="$tooltip_text"
+    else
+        text="$(format_time "$seconds")"
+        class=""
+        tooltip="Active time this session. Click to reset. Break reminder at $(format_time "$BREAK_SECS")."
+    fi
+
+    # Waybar expects a single line of JSON
+    printf '{"text":"%s","class":"%s","tooltip":"%s"}\n' "$text" "$class" "$tooltip"
+}
+
+cmd_reset() {
+    ensure_state
+    reset_timer
+    log_msg "timer reset"
+    echo "wellbeing timer reset"
+}
+
+cmd_help() {
+    cat <<EOF
+Usage: $0 [--daemon|--restart|--print|--reset]
+
+Tracks active computer usage and reminds you to take a break.
+
+  --daemon   Start the background tracker.
+  --restart  Restart the background tracker, preserving timer state.
+  --print    Output Waybar JSON for the current state.
+  --reset    Reset elapsed time, alert flag, and idle state.
+
+Environment variables:
+  WELLBEING_BREAK_SECS       Break reminder threshold in seconds (default: 1800).
+  WELLBEING_LONG_IDLE_SECS   Idle duration that resets the session in seconds (default: 300).
+EOF
+}
+
+case "${1:-}" in
+    --daemon) cmd_daemon ;;
+    --restart) cmd_restart ;;
+    --print)  cmd_print ;;
+    --reset)  cmd_reset ;;
+    -h|--help|help) cmd_help ;;
+    *)
+        echo "Unknown command: ${1:-}" >&2
+        cmd_help >&2
+        exit 1
+        ;;
+esac
