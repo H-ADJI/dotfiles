@@ -25,11 +25,18 @@ LOG_FILE="$STATE_DIR/log"
 BREAK_SECS="${WELLBEING_BREAK_SECS:-1800}"                 # break after this many active seconds
 LONG_IDLE_SECS="${WELLBEING_LONG_IDLE_SECS:-300}"          # reset session after this many idle seconds
 LOG_MAX_LINES=200                                          # cap daemon log to last N lines
+ALERT_SOUND="/usr/share/sounds/freedesktop/stereo/message-new-instant.oga"  # set empty to disable
 ICON_IDLE=" 󰒲 "
 ICON_ALERT=" 󰅶 "
 APP_NAME="Wellbeing"
 
 mkdir -p "$STATE_DIR"
+
+play_alert_sound() {
+    if [[ -n "$ALERT_SOUND" ]] && [[ -f "$ALERT_SOUND" ]]; then
+        paplay "$ALERT_SOUND" 2>/dev/null || true
+    fi
+}
 
 ensure_state() {
     [[ -f "$SECONDS_FILE" ]] || echo 0 > "$SECONDS_FILE"
@@ -145,6 +152,7 @@ cmd_daemon() {
                     -i preferences-system-notifications \
                     "Work session reset" \
                     "Idle for $(format_time "$idle_duration"). Starting a fresh session."
+                play_alert_sound
                 continue
             else
                 log_msg "resumed after short idle ($(format_time "$idle_duration")); timer resumed"
@@ -160,16 +168,14 @@ cmd_daemon() {
         if (( alert == 0 )) && (( seconds >= BREAK_SECS )); then
             echo 1 > "$ALERT_FILE"
             log_msg "break threshold reached at $seconds seconds; sending notification"
-            if notify-send \
+            notify-send \
                 -a "$APP_NAME" \
                 -u normal \
                 -i preferences-system-notifications \
                 "Time for a break" \
-                "You have been active for $(format_time "$seconds"). Step away for a while."; then
-                log_msg "notification sent successfully"
-            else
-                log_msg "notification failed (exit code $?)"
-            fi
+                "You have been active for $(format_time "$seconds"). Step away for a while."
+            play_alert_sound
+            log_msg "break notification and sound sent"
         fi
     done
 }
