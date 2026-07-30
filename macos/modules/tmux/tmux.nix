@@ -1,18 +1,10 @@
 { pkgs, ... }:
 
 {
-
   programs.tmux = {
     enable = true;
-    terminal = "tmux-256color";
-    baseIndex = 1;
-    mouse = true;
-    historyLimit = 1000000;
-    escapeTime = 0;
-    keyMode = "vi";
-    prefix = "C-a";
+    # Core settings are sourced from ~/.config/tmux/core.conf
     tmuxp.enable = true;
-
     plugins = with pkgs.tmuxPlugins; [
       fzf-tmux-url
       {
@@ -20,8 +12,6 @@
         extraConfig = "set -g @thumbs-command ' pbcopy '";
       }
     ];
-
-    extraConfig = "source-file ~/.config/tmux/tmux.conf";
   };
 
   xdg.configFile = {
