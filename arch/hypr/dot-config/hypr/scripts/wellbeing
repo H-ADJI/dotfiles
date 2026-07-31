@@ -11,16 +11,35 @@ LAST_REMINDER_FILE="$STATE_DIR/last_reminder"
 PID_FILE="$STATE_DIR/wellbeing.pid"
 LOG_FILE="$STATE_DIR/log"
 
-BREAK_SECS=1800
-LONG_IDLE_SECS=300
-REMINDER_BASE=300
-REMINDER_REDUCTION=60
-REMINDER_MIN=90
-LOG_MAX_LINES=200
-ALERT_SOUND="/usr/share/sounds/freedesktop/stereo/message-new-instant.oga"
-ICON_IDLE=" 󰒲 "
-ICON_ALERT=" 󰅶  "
-APP_NAME="Wellbeing"
+CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/wellbeing.yml"
+
+# Read a value from CONFIG_FILE using yq. Falls back to $2 if the file or key is missing.
+read_config() {
+    if [[ ! -f "$CONFIG_FILE" ]]; then
+        echo "$2"
+        return
+    fi
+
+    local value
+    value=$(yq "$1" "$CONFIG_FILE" 2>/dev/null || true)
+
+    if [[ -z "$value" || "$value" == "null" || "$value" == "~" ]]; then
+        echo "$2"
+    else
+        echo "$value"
+    fi
+}
+
+BREAK_SECS=$(read_config '.timers.break_secs' '3600')
+LONG_IDLE_SECS=$(read_config '.timers.long_idle_secs' '300')
+REMINDER_BASE=$(read_config '.reminders.base' '300')
+REMINDER_REDUCTION=$(read_config '.reminders.reduction' '30')
+REMINDER_MIN=$(read_config '.reminders.min' '30')
+LOG_MAX_LINES=$(read_config '.log.max_lines' '200')
+ALERT_SOUND=$(read_config '.notifications.alert_sound' '/usr/share/sounds/freedesktop/stereo/message-new-instant.oga')
+APP_NAME=$(read_config '.notifications.app_name' 'Wellbeing')
+ICON_IDLE=$(read_config '.icons.idle' ' 󰒲 ')
+ICON_ALERT=$(read_config '.icons.alert' ' 󰅶  ')
 
 mkdir -p "$STATE_DIR"
 
@@ -338,12 +357,9 @@ Tracks active computer usage and reminds you to take a break.
   --print    Output Waybar JSON for the current state.
   --reset    Reset elapsed time, alert flag, and idle state.
 
-Hardcoded configuration (edit the script to change):
-  BREAK_SECS=1800        Break reminder threshold in seconds.
-  LONG_IDLE_SECS=300     Idle duration that resets the session in seconds.
-  REMINDER_BASE=300      First reminder interval after break threshold.
-  REMINDER_REDUCTION=60  Interval reduction per additional reminder.
-  REMINDER_MIN=30        Smallest reminder interval.
+Configuration is read from:
+  $CONFIG_FILE
+Edit that YAML file to change timers, reminder schedule, sounds, and icons.
 EOF
 }
 
