@@ -6,10 +6,12 @@
 }:
 
 let
-  nvim_conf = "${nixosModules}/nvim/config";
+  nvim_lazy_conf = "${nixosModules}/nvim/config";
+  nvim_pack_conf = "${nixosModules}/nvim/packconfig";
 in
 {
-  xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink nvim_conf;
+  xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink nvim_lazy_conf;
+  xdg.configFile."nvimpack".source = config.lib.file.mkOutOfStoreSymlink nvim_pack_conf;
 
   home.packages = with pkgs; [
     neovim
