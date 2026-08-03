@@ -60,14 +60,9 @@ return {
 
     for _, server in ipairs({
       "lua_ls",
-      "asm_lsp",
       "just",
-      "jq",
-      "gopls",
-      "rust_analyzer",
       "harper_ls",
       "tinymist",
-      "clangd",
       "ruff",
       "pyright",
       "bashls",
@@ -77,7 +72,6 @@ return {
       "dockerls",
       "ts_ls",
       "cssls",
-      "fish_lsp",
     }) do
       vim.lsp.enable(server)
     end

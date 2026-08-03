@@ -2,6 +2,7 @@
   imports = [
     ./modules/ssh
     ./modules/alacritty
+    ./modules/nvim
     ./modules/zsh
     ./modules/tmux
     ./modules/packages.nix

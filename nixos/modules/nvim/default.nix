@@ -9,7 +9,7 @@
     tree-sitter
     deno
     typst
-
+    gcc
     lua-language-server
     asm-lsp
     just-lsp
