@@ -1,8 +1,15 @@
-{ pkgs, ... }:
 {
-  # TODO: mkOutOfStoreSymlink instead of xdg.configFile
-  # https://nixos-and-flakes.thiscute.world/best-practices/accelerating-dotfiles-debugging
-  xdg.configFile."nvim".source = ./config;
+  config,
+  pkgs,
+  nixosModules,
+  ...
+}:
+
+let
+  nvim_conf = "${nixosModules}/nvim/config";
+in
+{
+  xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink nvim_conf;
 
   home.packages = with pkgs; [
     neovim
