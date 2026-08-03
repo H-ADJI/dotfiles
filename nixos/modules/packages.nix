@@ -2,6 +2,7 @@
 
 {
   home.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
     alacritty
     google-chrome
     neovim

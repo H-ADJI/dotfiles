@@ -78,6 +78,7 @@
       dotconf = "cd ~/.config";
       nvim_shada_clear = "rm ~/.local/state/nvim/shada/main.shada";
       hd = "hunk diff";
+      nb = "sudo nixos-rebuild switch --flake ./nixos#nixos";
     };
 
     initContent = builtins.readFile ./zshrc;
