@@ -26,7 +26,7 @@ in
     fish-lsp
     gcc
     gnumake
-    go-tools
+    gotools
     gofumpt
     golines
     gopls

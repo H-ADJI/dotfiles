@@ -1,5 +1,6 @@
 return {
   "neovim/nvim-lspconfig",
+  lazy = false,
   keys = {
     {
       "<leader>rl",
@@ -17,45 +18,6 @@ return {
     },
   },
   config = function()
-    vim.lsp.config("gopls", {
-      settings = {
-        gopls = {
-          gofumpt = true,
-          codelenses = {
-            gc_details = false,
-            generate = true,
-            regenerate_cgo = true,
-            run_govulncheck = true,
-            test = true,
-            tidy = true,
-            upgrade_dependency = true,
-            vendor = true,
-          },
-          hints = {
-            assignVariableTypes = true,
-            compositeLiteralFields = true,
-            compositeLiteralTypes = true,
-            constantValues = true,
-            functionTypeParameters = true,
-            parameterNames = true,
-            rangeVariableTypes = true,
-          },
-          analyses = { nilness = true, unusedparams = true, unusedwrite = true, useany = true },
-          usePlaceholders = true,
-          completeUnimported = true,
-          staticcheck = true,
-          directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
-          semanticTokens = true,
-        },
-      },
-    })
-    vim.lsp.config("harper_ls", { filetypes = { "markdown", "typst" } })
-    vim.lsp.config("ruff", {
-      on_attach = function(client)
-        client.server_capabilities.hoverProvider = false
-      end,
-    })
-
     for _, server in ipairs({
       "lua_ls",
       "just",
@@ -65,11 +27,10 @@ return {
       "pyright",
       "bashls",
       "marksman",
+      "gopls",
       "biome",
       "taplo",
       "dockerls",
-      "ts_ls",
-      "cssls",
     }) do
       vim.lsp.enable(server)
     end

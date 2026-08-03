@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     alacritty
+    go
     google-chrome
     neovim
     fuzzel
