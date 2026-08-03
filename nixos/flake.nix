@@ -10,24 +10,30 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = inputs@{ self, nixpkgs, home-manager, ... }: {
-    # NOTE: 'nixos' is the default hostname
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      modules = [ 
-      ./configuration.nix 
-	{ programs.hyprland.enable = true;}
-	{ programs.zsh.enable = true;}
-	{ services.displayManager.ly.enable = true;}
-	{ nixpkgs.config.allowUnfree = true ;}
- home-manager.nixosModules.home-manager
-      {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      home-manager,
+      ...
+    }:
+    {
+      # NOTE: 'nixos' is the default hostname
+      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+        modules = [
+          ./configuration.nix
+          { programs.hyprland.enable = true; }
+          { programs.zsh.enable = true; }
+          { services.displayManager.ly.enable = true; }
+          { nixpkgs.config.allowUnfree = true; }
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
 
-        home-manager.users.khalil = import ./home.nix;
-      }
-      ];
+            home-manager.users.khalil = import ./home.nix;
+          }
+        ];
+      };
     };
-  };
 }
-

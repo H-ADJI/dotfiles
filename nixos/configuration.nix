@@ -19,6 +19,11 @@
     "flakes"
     "nix-command"
   ];
+
+  programs.hyprland.enable = true;
+  programs.zsh.enable = true;
+  services.displayManager.ly.enable = true;
+  nixpkgs.config.allowUnfree = true;
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

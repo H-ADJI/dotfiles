@@ -11,7 +11,7 @@ startup_mode = "Maximized"
 history = 10_000
 [font]
 normal = { style = "Regular", family = "JetBrainsMono Nerd Font" }
-size = 20
+size = 16
 
 [[keyboard.bindings]]
 key = "Enter"
