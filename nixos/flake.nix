@@ -16,6 +16,7 @@
       modules = [ 
       ./configuration.nix 
 	{ programs.hyprland.enable = true;}
+	{ programs.zsh.enable = true;}
 	{ services.displayManager.ly.enable = true;}
 	{ nixpkgs.config.allowUnfree = true ;}
  home-manager.nixosModules.home-manager

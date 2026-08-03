@@ -30,6 +30,7 @@ nix.settings.experimental-features = [ "flakes" "nix-command"];
   users.users.khalil = {
      isNormalUser = true;
      extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+     shell = pkgs.zsh;
      packages = with pkgs; [
      ];
      };

@@ -1,8 +1,11 @@
 {
   imports = [
     ./modules/ssh
+    ./modules/alacritty
+    ./modules/zsh
     ./modules/packages.nix
     ./modules/git.nix
+    ./modules/starship.nix
   ];
 
   home.username = "khalil";
