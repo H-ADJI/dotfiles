@@ -15,11 +15,11 @@ sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake github:hh9dj/PDE
 
 ### SSH keys
 
+Place `~/.ssh/personal` and `~/.ssh/work` private keys from password manager.
+
 ```bash
 chmod 600 ~/.ssh/personal ~/.ssh/work
 ```
-
-Place `~/.ssh/personal` and `~/.ssh/work` private keys from password manager.
 
 ### Night Shift
 
