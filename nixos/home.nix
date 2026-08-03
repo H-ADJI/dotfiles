@@ -6,6 +6,7 @@
     ./modules/zsh
     ./modules/tmux
     ./modules/packages.nix
+    ./modules/taskwarrior.nix
     ./modules/git.nix
     ./modules/starship.nix
   ];
