@@ -35,6 +35,7 @@ in
     kdlfmt
     lua-language-server
     markdownlint-cli2
+    nil
     marksman
     nixfmt
     prettierd

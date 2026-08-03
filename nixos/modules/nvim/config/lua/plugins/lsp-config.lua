@@ -24,6 +24,7 @@ return {
       "harper_ls",
       "tinymist",
       "ruff",
+      "nil_ls",
       "pyright",
       "bashls",
       "marksman",
