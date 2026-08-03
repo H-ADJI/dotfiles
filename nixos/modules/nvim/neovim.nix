@@ -1,4 +1,5 @@
 { pkgs, ... }:
+
 {
   # TODO: mkOutOfStoreSymlink instead of xdg.configFile
   # https://nixos-and-flakes.thiscute.world/best-practices/accelerating-dotfiles-debugging
