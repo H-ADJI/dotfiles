@@ -12,5 +12,7 @@
     gnugrep
     hyperfine
     ripgrep
+    bluetui
+    pulsemixer
   ];
 }

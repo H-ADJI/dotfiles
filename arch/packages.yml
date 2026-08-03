@@ -53,7 +53,6 @@ pacman:
     - network-manager-applet
     - noto-fonts-emoji
     - obs-studio
-    - pamixer
     - pavucontrol
     - playerctl
     - podman
