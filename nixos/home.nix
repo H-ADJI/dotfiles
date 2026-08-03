@@ -8,6 +8,8 @@
     users.khalil = {
       imports = [
         ./modules/ssh
+        ./modules/hypr
+        ./modules/sunsetr
         ./modules/alacritty
         ./modules/nvim
         ./modules/zsh
