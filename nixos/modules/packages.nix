@@ -15,5 +15,6 @@
     ripgrep
     bluetui
     pulsemixer
+    opencode
   ];
 }
