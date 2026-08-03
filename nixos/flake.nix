@@ -22,16 +22,29 @@
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         modules = [
           ./configuration.nix
-          { programs.hyprland.enable = true; }
-          { programs.zsh.enable = true; }
-          { services.displayManager.ly.enable = true; }
-          { nixpkgs.config.allowUnfree = true; }
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.khalil = {
+                imports = [
+                  ./modules/ssh
+                  ./modules/alacritty
+                  ./modules/nvim
+                  ./modules/zsh
+                  ./modules/tmux
+                  ./modules/packages.nix
+                  ./modules/taskwarrior.nix
+                  ./modules/git.nix
+                  ./modules/starship.nix
+                ];
 
-            home-manager.users.khalil = import ./home.nix;
+                home.username = "khalil";
+                home.homeDirectory = "/home/khalil";
+                home.stateVersion = "25.11";
+              };
+            };
           }
         ];
       };
