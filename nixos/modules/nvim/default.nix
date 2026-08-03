@@ -14,48 +14,46 @@ in
   xdg.configFile."nvimpack".source = config.lib.file.mkOutOfStoreSymlink nvim_pack_conf;
 
   home.packages = with pkgs; [
-    neovim
-    tree-sitter
-    deno
-    typst
-    gcc
-    lua-language-server
     asm-lsp
-    just-lsp
-    jq-lsp
-    gopls
-    rust-analyzer
-    harper
-    tinymist
-    clang-tools
-    ruff
-    pyright
-    bash-language-server
-    marksman
-    biome
-    taplo
-    dockerfile-language-server
-    typescript-language-server
-    vscode-langservers-extracted
-    fish-lsp
-
     asmfmt
-    iferr
+    bash-language-server
+    beautysh
+    biome
+    clang-tools
+    deno
+    dockerfile-language-server
+    dockerfmt
+    fish-lsp
+    gcc
+    gnumake
     go-tools
     gofumpt
     golines
-    prettypst
-    prettierd
-    dockerfmt
-    shfmt
-    stylua
-    beautysh
+    gopls
+    harper
+    iferr
+    jq-lsp
+    just-lsp
     kdlfmt
-    nixfmt
-
+    lua-language-server
     markdownlint-cli2
+    marksman
+    nixfmt
+    prettierd
+    prettypst
+    pyright
+    ruff
+    rust-analyzer
     shellcheck
+    shfmt
     statix
+    stylua
+    taplo
+    tinymist
+    tree-sitter
     typescript-go
+    typescript-language-server
+    typst
+    vscode-langservers-extracted
   ];
 }
