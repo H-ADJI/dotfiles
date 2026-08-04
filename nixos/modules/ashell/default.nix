@@ -1,9 +1,9 @@
 { config, nixosModules, ... }:
 let
-  ashell_conf = "${nixosModules}/ashell/ashell.toml";
+  ashell_conf = "${nixosModules}/ashell/config.toml";
 in
 {
-  xdg.configFile."ashell/ashell.toml".source = config.lib.file.mkOutOfStoreSymlink ashell_conf;
+  xdg.configFile."ashell/config.toml".source = config.lib.file.mkOutOfStoreSymlink ashell_conf;
   programs.ashell = {
     enable = true;
     systemd = {
