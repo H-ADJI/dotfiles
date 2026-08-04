@@ -10,6 +10,7 @@
         ./modules/ssh
         ./modules/hyprland
         ./modules/ashell
+        ./modules/yazi
         ./modules/sunsetr
         ./modules/alacritty
         ./modules/nvim
@@ -21,6 +22,7 @@
         ./modules/starship.nix
         ./modules/systemd.nix
         ./modules/nh.nix
+        ./modules/ghostty.nix
       ];
       home.username = "khalil";
       home.homeDirectory = "/home/khalil";
