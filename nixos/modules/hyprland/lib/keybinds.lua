@@ -7,18 +7,19 @@ hl.bind("SUPER + Q", hl.dsp.window.close("activewindow"))
 hl.bind("mouse:276", hl.dsp.window.close("activewindow"))
 hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload; notify-send 'Hyprland Reloaded'"))
 
+hl.bind("SUPER + D", hl.dsp.exec_cmd(vars.launcher))
+hl.bind("SUPER + SPACE", hl.dsp.exec_cmd(vars.terminal))
 hl.bind("SUPER + B", hl.dsp.exec_cmd(vars.browser))
-hl.bind("SUPER + SPACE", hl.dsp.exec_cmd("alacritty"))
-hl.bind("SUPER + E", hl.dsp.exec_cmd("ghostty -e yazi"))
-hl.bind("SUPER + W", hl.dsp.exec_cmd("ghostty -e walt"))
-hl.bind("SUPER + SHIFT + E", hl.dsp.exec_cmd("thunar"))
-hl.bind("SUPER + D", hl.dsp.exec_cmd("fuzzel"))
-hl.bind("SUPER + SHIFT + B", hl.dsp.exec_cmd("ghostty -e bluetui"))
-hl.bind("SUPER + SHIFT + W", hl.dsp.exec_cmd("ghostty -e impala"))
-hl.bind("SUPER + SHIFT + M", hl.dsp.exec_cmd("ghostty -e pulsemixer"))
+
+hl.bind("SUPER + E", hl.dsp.exec_cmd(vars.file_picker))
+hl.bind("SUPER + SHIFT + E", hl.dsp.exec_cmd(vars.file_picker_alt))
+
 hl.bind("SUPER + A", hl.dsp.exec_cmd("wayscriber --active"))
+hl.bind("SUPER + W", hl.dsp.exec_cmd(vars.terminal_alt .. "-e walt"))
+hl.bind("SUPER + SHIFT + B", hl.dsp.exec_cmd(vars.terminal_alt("-e bluetui")))
+hl.bind("SUPER + SHIFT + W", hl.dsp.exec_cmd(vars.terminal_alt .. "-e impala"))
+hl.bind("SUPER + SHIFT + M", hl.dsp.exec_cmd(vars.terminal_alt .. "-e pulsemixer"))
 hl.bind("SUPER + SHIFT + N", hl.dsp.exec_cmd(script_dir .. "swaync_picker"))
-hl.bind("SUPER + SHIFT + X", hl.dsp.exec_cmd("pkill waybar || waybar"))
 
 local wlogout_toggle = "pkill wlogout || wlogout -b 4 -T 400 -B 400"
 hl.bind("SUPER + SHIFT + P", hl.dsp.exec_cmd(wlogout_toggle))
