@@ -16,6 +16,7 @@
         ./modules/sunsetr
         ./modules/alacritty
         ./modules/nvim
+        ./modules/zathura
         ./modules/zsh
         ./modules/tmux
         ./modules/packages.nix
@@ -28,7 +29,7 @@
       ];
       home.username = "khalil";
       home.homeDirectory = "/home/khalil";
-      home.stateVersion = "25.11";
+      home.stateVersion = "26.05";
     };
   };
 }

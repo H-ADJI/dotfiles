@@ -19,5 +19,7 @@
     bluetui
     pulsemixer
     opencode
+    mpv
+    nautilus
   ];
 }
