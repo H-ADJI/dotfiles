@@ -18,6 +18,7 @@
         ./modules/taskwarrior.nix
         ./modules/git.nix
         ./modules/starship.nix
+        ./modules/nh.nix
       ];
       home.username = "khalil";
       home.homeDirectory = "/home/khalil";
