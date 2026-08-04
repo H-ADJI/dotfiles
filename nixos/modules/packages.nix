@@ -7,6 +7,7 @@
     sunsetr
     go
     google-chrome
+    brave
     neovim
     fuzzel
     tree
