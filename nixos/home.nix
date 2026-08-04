@@ -24,6 +24,7 @@
         ./modules/systemd.nix
         ./modules/nh.nix
         ./modules/ghostty.nix
+        ./modules/brave
       ];
       home.username = "khalil";
       home.homeDirectory = "/home/khalil";
