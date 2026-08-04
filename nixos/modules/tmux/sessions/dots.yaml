@@ -1,3 +1,4 @@
+# TODO: rename pde - dotfiles
 session_name: Dotfiles
 suppress_history: true
 start_directory: ~/dotfiles/
