@@ -6,7 +6,10 @@ in
   xdg.configFile."ashell/ashell.toml".source = config.lib.file.mkOutOfStoreSymlink ashell_conf;
   programs.ashell = {
     enable = true;
-    systemd.enable = true;
+    systemd = {
+      enable = true;
+      target = "hyprland-session.target";
+    };
   };
 
 }
