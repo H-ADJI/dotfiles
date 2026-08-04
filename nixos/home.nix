@@ -8,7 +8,7 @@
     users.khalil = {
       imports = [
         ./modules/ssh
-        ./modules/hypr
+        ./modules/hyprland
         ./modules/ashell
         ./modules/sunsetr
         ./modules/alacritty
@@ -19,6 +19,7 @@
         ./modules/taskwarrior.nix
         ./modules/git.nix
         ./modules/starship.nix
+        ./modules/systemd.nix
         ./modules/nh.nix
       ];
       home.username = "khalil";
