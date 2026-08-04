@@ -20,6 +20,7 @@
         ./modules/zsh
         ./modules/tmux
         ./modules/packages.nix
+        ./modules/fastfetch.nix
         ./modules/taskwarrior.nix
         ./modules/git.nix
         ./modules/starship.nix
