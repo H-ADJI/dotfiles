@@ -7,6 +7,7 @@
     alacritty
     sunsetr
     go
+    wl-clipboard
     google-chrome
     brave
     neovim
