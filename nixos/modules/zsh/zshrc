@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 
 # TODO: zsh lsp-config : shuck / zshcs
+# optimize startup time
 source "$HOME/.config/zinit/zinit.sh"
 
 _evalcache fzf --zsh
