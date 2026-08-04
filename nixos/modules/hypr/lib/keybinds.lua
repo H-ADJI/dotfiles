@@ -1,10 +1,13 @@
+local helpers = require("lib.helpers")
+local vars = require("lib.vars")
+
+local script_dir = vars.script_dir
+
 hl.bind("SUPER + Q", hl.dsp.window.close("activewindow"))
 hl.bind("mouse:276", hl.dsp.window.close("activewindow"))
 hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload; notify-send 'Hyprland Reloaded'"))
 
-hl.bind("SUPER + B", hl.dsp.exec_cmd("google-chrome-stable"))
-local home_dir = os.getenv("HOME")
-local script_dir = home_dir .. "/.config/hypr/scripts/"
+hl.bind("SUPER + B", hl.dsp.exec_cmd(vars.browser))
 hl.bind("SUPER + SPACE", hl.dsp.exec_cmd("alacritty"))
 hl.bind("SUPER + E", hl.dsp.exec_cmd("ghostty -e yazi"))
 hl.bind("SUPER + W", hl.dsp.exec_cmd("ghostty -e walt"))
@@ -112,35 +115,16 @@ hl.bind("SUPER+ mouse:272", hl.dsp.window.drag(), { mouse = true }) -- ALT + LMB
 --
 hl.bind("SUPER + R", hl.dsp.submap("resize"))
 
-hl.define_submap("resize", function()
-    local offset = 40
-    hl.bind("L", hl.dsp.window.resize({ x = offset, y = 0, relative = true }), { repeating = true })
-    hl.bind("H", hl.dsp.window.resize({ x = -offset, y = 0, relative = true }), { repeating = true })
-    hl.bind("K", hl.dsp.window.resize({ x = 0, y = offset, relative = true }), { repeating = true })
-    hl.bind("J", hl.dsp.window.resize({ x = 0, y = -offset, relative = true }), { repeating = true })
+hl.define_submap("resize", helpers.setup_resize_binds)
 
-    -- Use `reset` to go back to the global submap
-    hl.bind("escape", hl.dsp.submap("reset"))
+hl.bind("SUPER + SHIFT + TAB", helpers.cycle_layout)
+
+hl.bind("SUPER + Z", helpers.zoom)
+hl.bind("SUPER + KP_ADD", function()
+    helpers.zoom(0.5)
+end)
+hl.bind("SUPER + minus", function()
+    helpers.zoom(-0.5)
 end)
 
-hl.bind("SUPER + SHIFT + TAB", function()
-    local layouts = { "scrolling", "dwindle", "master", "monocle" }
-    local next_layout = "dwindle"
-
-    local workspace = hl.get_active_special_workspace() or hl.get_active_workspace()
-    if not workspace then
-        return
-    end
-    local current_layout = workspace.tiled_layout
-
-    for i = 1, #layouts do
-        if layouts[i] == current_layout then
-            local next_layout_idx = (i % #layouts) + 1
-            next_layout = layouts[next_layout_idx]
-            hl.exec_cmd(string.format("notify-send  -t 2000 -a 'Layout_Switcher' 'Layout: %s' ", next_layout))
-            break
-        end
-    end
-
-    hl.workspace_rule({ workspace = workspace.name, layout = next_layout })
-end)
+hl.bind("SUPER + SHIFT + Z", hl.dsp.exec_cmd(script_dir .. "sway_zoom"))
