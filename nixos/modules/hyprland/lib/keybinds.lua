@@ -16,7 +16,7 @@ hl.bind("SUPER + SHIFT + E", hl.dsp.exec_cmd(vars.file_picker_alt))
 
 hl.bind("SUPER + A", hl.dsp.exec_cmd("wayscriber --active"))
 hl.bind("SUPER + W", hl.dsp.exec_cmd(vars.terminal_alt .. "-e walt"))
-hl.bind("SUPER + SHIFT + B", hl.dsp.exec_cmd(vars.terminal_alt("-e bluetui")))
+hl.bind("SUPER + SHIFT + B", hl.dsp.exec_cmd(vars.terminal_alt .. "-e bluetui"))
 hl.bind("SUPER + SHIFT + W", hl.dsp.exec_cmd(vars.terminal_alt .. "-e impala"))
 hl.bind("SUPER + SHIFT + M", hl.dsp.exec_cmd(vars.terminal_alt .. "-e pulsemixer"))
 hl.bind("SUPER + SHIFT + N", hl.dsp.exec_cmd(script_dir .. "swaync_picker"))

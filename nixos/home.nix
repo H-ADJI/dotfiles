@@ -8,6 +8,7 @@
     users.khalil = {
       imports = [
         ./modules/ssh
+        ./modules/hyprpaper
         ./modules/hyprland
         ./modules/ashell
         ./modules/yazi

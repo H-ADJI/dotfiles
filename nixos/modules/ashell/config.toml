@@ -1,13 +1,13 @@
 log_level = "warn"
-# language = "en-US"        # UI language; defaults to $LC_MESSAGES / $LANG
-# region   = "it-IT"        # date format + unit system; defaults to $LC_TIME / $LANG
-# outputs = "All"            # "All" (default), "Active", or { Targets = ["eDP-1"] }
-position = "Top" # "Top" (default) or "Bottom"
+language = "en-US" # UI language; defaults to $LC_MESSAGES / $LANG
+region = "fr-FR"   # date format + unit system; defaults to $LC_TIME / $LANG
+outputs = "All"
+position = "Top"   # "Top" (default) or "Bottom"
 # layer = "Bottom"           # "Bottom" (default), "Top", or "Overlay"
-# enable_esc_key = false     # Pressing Escape closes open menus
+enable_esc_key = true # Pressing Escape closes open menus
 
 [modules]
-left = [["appLauncher", "Updates", "Workspaces"]]
+left = [["Workspaces"]]
 center = ["WindowTitle"]
 right = ["SystemInfo", "MediaPlayer", ["Tray", "Tempo", "Privacy", "Settings"]]
 
@@ -15,7 +15,6 @@ right = ["SystemInfo", "MediaPlayer", ["Tray", "Tempo", "Privacy", "Settings"]]
 # left = [ "Workspaces" ]
 # center = [ "WindowTitle" ]
 # right = [ [ "Tempo", "Privacy", "Settings" ] ]
-
 [updates]
 check_cmd = "checkupdates; paru -Qua"
 update_cmd = 'alacritty -e bash -c "paru; echo Done - Press enter to exit; read" &'
@@ -35,22 +34,19 @@ enable_workspace_filling = false # (default)
 name = "appLauncher"
 icon = "󱗼"
 command = "walker"
-# listen_cmd = "some-command"  # yields JSON lines: {"text": "...", "alt": "..."}
-# icons = { "regex" = "icon" } # map regex on `alt` to icon
-# alert = "regex"              # show alert dot when `alt` matches regex
-# type = "Button"              # (default) "Button" or "Text"
 
 [window_title]
-mode = "Title"                    # "Title" (default), "Class", "InitialTitle", "InitialClass"
-truncate_title_after_length = 150 # (default) 0 means no truncation; capped at 2048
-
-[keyboard_layout]
-# labels = { "English (US)" = "EN", "Italian" = "IT" }  # (default: {}) map layout names to short labels
+mode = "InitialClass"
+truncate_title_after_length = 50
 
 [system_info]
-indicators = ["Cpu", "Memory", "Temperature"]
-# indicators = [ "Cpu", "Memory", "MemorySwap", "Temperature", "IpAddress", "DownloadSpeed", "UploadSpeed" ]
-# indicators = [ { Disk = { Disk = "/dev/sda1", Name = "Root" } } ]
+# indicators = [
+#   { Disk = { Disk = "/dev/nvme0n1p1", Name = "Root" } },
+#   "Cpu",
+#   "Memory",
+#   "Temperature",
+# ]
+indicators = ["Cpu", "Memory", "Temperature", "DownloadSpeed", "UploadSpeed"]
 interval = 5
 
 [system_info.cpu]
