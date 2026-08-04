@@ -1,8 +1,12 @@
 {
   programs.nh = {
     enable = true;
-    clean.enable = true;
-    clean.extraArgs = "--keep-since 4d --keep 3";
+    clean = {
+      enable = true;
+      dates = "daily";
+      extraArgs = "--keep-since 7d --keep 2";
+    };
     flake = "/home/khalil/dotfiles/nixos"; # sets NH_OS_FLAKE variable for you
+    osFlake = "/home/khalil/dotfiles/nixos"; # sets NH_OS_FLAKE variable for you
   };
 }
