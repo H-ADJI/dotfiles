@@ -5,7 +5,6 @@
     nerd-fonts.jetbrains-mono
     alacritty
     sunsetr
-    waybar
     go
     google-chrome
     neovim

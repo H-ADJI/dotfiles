@@ -9,6 +9,7 @@
       imports = [
         ./modules/ssh
         ./modules/hypr
+        ./modules/ashell
         ./modules/sunsetr
         ./modules/alacritty
         ./modules/nvim
