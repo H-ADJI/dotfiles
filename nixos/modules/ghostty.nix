@@ -1,11 +1,10 @@
 {
   programs.ghostty = {
     enable = true;
-    package = null;
     settings = {
       theme = "Catppuccin Latte";
       font-family = "JetBrainsMono Nerd Font";
-      font-size = 20;
+      font-size = 16;
       font-style = "Bold";
       font-style-bold = true;
       font-style-italic = false;
