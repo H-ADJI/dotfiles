@@ -8,8 +8,17 @@ enable_esc_key = true # Pressing Escape closes open menus
 
 [modules]
 left = [["Workspaces"]]
-center = ["WindowTitle"]
-right = ["SystemInfo", "MediaPlayer", ["Tray", "Tempo", "Privacy", "Settings"]]
+center = ["WindowTitle", "MediaPlayer"]
+right = [
+  "SystemInfo",
+  [
+    "Tray",
+    "Tempo",
+    "Notifications",
+    "Privacy",
+    "Settings",
+  ],
+]
 
 # Default module layout:
 # left = [ "Workspaces" ]
@@ -36,7 +45,7 @@ icon = "󱗼"
 command = "walker"
 
 [window_title]
-mode = "InitialClass"
+mode = "Class"
 truncate_title_after_length = 50
 
 [system_info]
@@ -161,22 +170,22 @@ enabled = true # (default)
 style = "Islands"
 # font_name = "Sans"           # (default: None) custom font family
 scale_factor = 1.3
-# opacity = 1.0                # (default) range: 0.0 to 1.0
+opacity = 0.4
 primary_color = "#eff1f5"
 success_color = "#40a02b"
 warning_color = "#df8e1d"
 danger_color = "#d20f39"
 text_color = "#eff1f5"
-workspace_colors = ["#eff1f5", "#e6e9ed"]
-special_workspace_colors = ["#9ece6a"]
+workspace_colors = ["#eff1f5"]
+special_workspace_colors = ["#d20f39"]
 
 [appearance.menu]
-# opacity = 1.0   # (default) menu background opacity
-# backdrop = 0.0   # (default) backdrop blur amount
+opacity = 0.6  # (default) menu background opacity
+backdrop = 0.1 # (default) backdrop blur amount
 
 [appearance.background_color]
 base = "#00000f"
-weak = "#4c4f69"
+weak = "#00000f"
 strong = "#00000f"
 # weakest = "#000000"    # (default: None)
 # weaker = "#000000"     # (default: None)
