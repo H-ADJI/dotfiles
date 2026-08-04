@@ -9,6 +9,7 @@
       imports = [
         ./modules/ssh
         ./modules/xdg
+        ./modules/television
         ./modules/hyprpaper
         ./modules/hyprland
         ./modules/ashell

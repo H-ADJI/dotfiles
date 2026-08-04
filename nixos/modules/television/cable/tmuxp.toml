@@ -1,0 +1,12 @@
+[metadata]
+name = "tmuxp"
+description = "a channel to list tmux sessions"
+requirements = ["tmux", "tmuxp"]
+[source]
+command = ["tmuxp ls --json | jq -r '.workspaces[].name'"]
+[keybindings]
+enter = "actions:launch"
+[actions.launch]
+description = "launch the session"
+command = "tmuxp load -y {}"
+mode = "execute"

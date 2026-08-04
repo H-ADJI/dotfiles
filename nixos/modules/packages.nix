@@ -2,6 +2,7 @@
 
 {
   home.packages = with pkgs; [
+    # TODO: package : shuck / zshcs
     nerd-fonts.jetbrains-mono
     glow
     alacritty

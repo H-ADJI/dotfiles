@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 
+# TODO: zsh lsp-config : shuck / zshcs
 source "$HOME/.config/zinit/zinit.sh"
 
 _evalcache fzf --zsh
@@ -8,7 +9,6 @@ _evalcache starship init zsh
 _evalcache tv init zsh
 _evalcache zoxide init zsh
 _evalcache batman --export-env
-_evalcache mise activate zsh
 
 bindkey '^y' autosuggest-accept
 bindkey '^ ' autosuggest-execute

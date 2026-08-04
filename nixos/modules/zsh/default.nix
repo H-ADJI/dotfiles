@@ -44,7 +44,6 @@
       findNoDups = true;
     };
 
-    # TODO: mise completion to be added
     completionInit = ''
       fpath+=(
         "${pkgs.zsh-completions}/share/zsh/site-functions"
@@ -79,6 +78,7 @@
       nvim_shada_clear = "rm ~/.local/state/nvim/shada/main.shada";
       hd = "hunk diff";
       nb = "sudo nixos-rebuild switch --flake ~/dotfiles/nixos#nixos";
+      nh_clean = "nh clean all --keep-since 7d --keep 5";
     };
 
     initContent = builtins.readFile ./zshrc;
