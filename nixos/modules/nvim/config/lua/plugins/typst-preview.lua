@@ -1,4 +1,5 @@
 return {
+  -- TODO: tinymist dependency
   "chomosuke/typst-preview.nvim",
   ft = "typst",
   version = "1.*",
@@ -11,5 +12,5 @@ return {
       desc = "Typst Preview Toggle",
     },
   },
-  opts = { open_cmd = "open -a 'Google Chrome' %s" },
+  opts = { open_cmd = "brave %s --new-window" },
 }

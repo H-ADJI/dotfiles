@@ -18,5 +18,5 @@ return {
       desc = "Markdown Preview Toggle",
     },
   },
-  opts = { app = { "open", "-a", "Google Chrome" }, theme = "light" },
+  opts = { app = "browser", theme = "light" },
 }
