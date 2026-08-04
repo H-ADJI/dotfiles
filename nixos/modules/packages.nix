@@ -8,6 +8,7 @@
     sunsetr
     go
     wl-clipboard
+    cliphist
     google-chrome
     brave
     neovim

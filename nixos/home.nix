@@ -17,6 +17,7 @@
         ./modules/alacritty
         ./modules/nvim
         ./modules/zathura
+        ./modules/glow
         ./modules/zsh
         ./modules/tmux
         ./modules/packages.nix
