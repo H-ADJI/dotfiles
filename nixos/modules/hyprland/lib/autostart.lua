@@ -1,15 +1,8 @@
 hl.on("hyprland.start", function()
     -- TODO: migrate to systemd services
-    hl.exec_cmd("swaync")
-    hl.exec_cmd("hypridle")
-    hl.exec_cmd("wl-paste --type text --watch cliphist store")
-    hl.exec_cmd("wl-paste --type image --watch cliphist store")
 end)
 
 hl.on("config.reloaded", function()
-    hl.exec_cmd("pkill swaync; swaync")
-    hl.exec_cmd("pkill hypridle; hypridle")
-    hl.exec_cmd("systemctl --user restart sunsetr")
     -- hl.exec_cmd("$HOME/.config/hypr/scripts/wellbeing --restart")
     -- hl.exec_cmd("sleep 3; bluetoothctl connect 10:94:97:36:C7:15")
 end)

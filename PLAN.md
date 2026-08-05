@@ -68,12 +68,13 @@ commit/stage. Only mark a step done after the user confirms it works.
       (`[include] files = ["conf/"]`), sections moved to `conf/*.toml`,
       symlink `noctalia/conf`. Settings GUI overrides removed
       (`settings.toml` deleted, keybinds now declarative).
-- [ ] 5. `home.nix`: remove `./modules/hyprpaper` and `./modules/sunsetr`
+- [x] 5. `home.nix`: remove `./modules/hyprpaper` and `./modules/sunsetr`
       imports (disabled, not deleted)
-- [ ] 6. `packages.nix`: remove `fuzzel`, `cliphist` (keep `wl-clipboard`)
-- [ ] 7. `hyprland/lib/autostart.lua`: remove swaync / hypridle / cliphist
-      spawns and their reload handlers
-- [ ] 8. `hyprland/lib/keybinds.lua`: XF86 volume/brightness -> `noctalia msg`
+- [x] 6. `packages.nix`: remove `cliphist`, `sunsetr` (keep `fuzzel` for
+      custom menus, keep `wl-clipboard`)
+- [x] 7. `hyprland/lib/autostart.lua`: remove swaync / hypridle / cliphist /
+      sunsetr spawns and reload handlers
+- [x] 8. `hyprland/lib/keybinds.lua`: XF86 volume/brightness -> `noctalia msg`
       IPC (only this; rest manual)
 
 ## Manual, user later

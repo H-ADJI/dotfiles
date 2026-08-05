@@ -43,10 +43,9 @@ hl.bind("SUPER + SHIFT + A", hl.dsp.exec_cmd(emulator_picker))
 local pkill_picker = script_dir .. "pkill"
 hl.bind("SUPER + SHIFT + D", hl.dsp.exec_cmd(pkill_picker))
 
-local volume_streams = script_dir .. "volume_streams "
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(volume_streams .. "5% up"), { repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(volume_streams .. "5% down"), { repeating = true })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true })
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("noctalia msg volume-up"), { repeating = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("noctalia msg volume-down"), { repeating = true })
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd("noctalia msg volume-mute"), { locked = true })
 
 local source_volume = "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%"
 hl.bind("SUPER + XF86AudioRaiseVolume", hl.dsp.exec_cmd(source_volume .. "+"), { repeating = true })
@@ -60,8 +59,8 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 hl.bind("CTRL + XF86AudioNext", hl.dsp.exec_cmd("playerctl position 5+"), { repeating = true })
 hl.bind("CTRL + XF86AudioPrev", hl.dsp.exec_cmd("playerctl position 5-"), { repeating = true })
 
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"), { repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"), { repeating = true })
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("noctalia msg brightness-up"), { repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("noctalia msg brightness-down"), { repeating = true })
 
 local cliphist_fuzzel_list = "cliphist list | fuzzel -d -w 90 -l 5 -p '❯ ' --placeholder "
 hl.bind("SUPER + V", hl.dsp.exec_cmd(cliphist_fuzzel_list .. "'Copy from clipboard history' | cliphist decode | wl-copy"))

@@ -18,7 +18,6 @@
         ./modules/yazi
         ./modules/raffi
         ./modules/fuzzel
-        ./modules/sunsetr
         ./modules/alacritty
         ./modules/nvim
         ./modules/zathura
