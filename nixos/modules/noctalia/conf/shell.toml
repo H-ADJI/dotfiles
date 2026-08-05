@@ -2,3 +2,8 @@
 launch_apps_as_systemd_services = true
 setup_wizard_enabled = false
 telemetry_enabled = false
+
+[shell.screenshot]
+directory = "~/Pictures/Screenshots"
+save_to_file = true
+remember_last_region = true
