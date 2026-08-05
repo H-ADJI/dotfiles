@@ -1,3 +1,4 @@
 [nightlight]
 enabled = true
-temperature_night = 4000
+# force = true
+temperature_night = 4500
