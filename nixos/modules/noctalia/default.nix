@@ -1,5 +1,6 @@
 { config, nixosModules, ... }:
 {
+  # TODO: plugins check :)
   programs.noctalia = {
     enable = true;
     systemd.enable = true;

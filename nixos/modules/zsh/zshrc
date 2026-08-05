@@ -3,6 +3,7 @@
 # TODO: zsh lsp-config : shuck / zshcs
 # optimize startup time
 # nix rebuild keybind
+# systemd service to save zsh hist
 source "$HOME/.config/zinit/zinit.sh"
 
 _evalcache fzf --zsh
