@@ -2,6 +2,10 @@
 launch_apps_as_systemd_services = true
 setup_wizard_enabled = false
 telemetry_enabled = false
+clipboard_auto_paste = "off"
+
+[shell.launcher]
+auto_paste = "auto"
 
 [shell.screenshot]
 directory = "~/Pictures/Screenshots"
