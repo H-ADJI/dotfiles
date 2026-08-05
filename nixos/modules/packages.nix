@@ -23,6 +23,7 @@
     ripgrep
     bluetui
     pulsemixer
+    libnotify
     opencode
     mpv
     nautilus

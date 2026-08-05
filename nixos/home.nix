@@ -1,3 +1,4 @@
+{ inputs, ... }:
 {
   home-manager = {
     useGlobalPkgs = true;
@@ -7,12 +8,13 @@
     };
     users.khalil = {
       imports = [
+        inputs.noctalia.homeModules.default
         ./modules/ssh
         ./modules/xdg
+        ./modules/noctalia
         ./modules/television
         ./modules/hyprpaper
         ./modules/hyprland
-        ./modules/ashell
         ./modules/yazi
         ./modules/raffi
         ./modules/fuzzel
