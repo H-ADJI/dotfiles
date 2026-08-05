@@ -32,7 +32,8 @@ commit/stage. Only mark a step done after the user confirms it works.
 
 - Config lives in `nixos/modules/noctalia/`, TOML format.
 - `config.toml` symlinked via `config.lib.file.mkOutOfStoreSymlink` so inotify
-  hot reload works without rebuild.
+  hot reload works without rebuild. Split by concern into `conf/*.toml`,
+  entrypoint includes them with `[include] files = ["conf/"]`.
 - Drop `programs.noctalia.settings` (home-module would write the same
   `~/.config/noctalia/config.toml` path — conflict with symlink).
 - Keep `programs.noctalia.systemd.enable = true`. Service is lifecycle only
@@ -43,48 +44,31 @@ commit/stage. Only mark a step done after the user confirms it works.
   cliphist, sunsetr.
 - Unused modules stay on disk, only disabled in imports. Nothing deleted.
 - Keep ly display manager (greeter deferred).
-- Hyprland keybinds mostly set manually by user later; plan only swaps
-  volume/brightness to `noctalia msg` IPC.
+- Hyprland keybinds rebind to `noctalia msg` IPC (launcher, clipboard, session,
+  control-center, screenshots, mic, media, window-switcher). Keep playerctl
+  for seek binds only. Keep fuzzel installed for custom menus (no keybind).
 - No persistent workspaces. No app theming.
-- Theme palette generated from wallpaper (`theme.source = "wallpaper"`).
+- Theme palette generated from wallpaper (`theme.source = "wallpaper"`), light.
 - Simple idle/lock: lock 5min, screen-off 8min, suspend 10min.
 - Bar / dock / launcher keep Noctalia defaults.
 
 ## Steps
 
-- [x] 0. Research complete: v5 docs read, current setup audited
-- [x] 1. `flake.nix`: noctalia input -> `cachix` branch, remove nixpkgs
-      follows, add `nixConfig` cachix substituter, run
-      `nix flake lock --update-input noctalia`
-- [x] 2. `configuration.nix`: add `services.upower.enable` and
-      `services.power-profiles-daemon.enable` (battery + power widget)
-- [x] 3. `modules/noctalia/default.nix`: rewrite — drop `settings`, keep
-      `enable` + `systemd.enable`, symlink `noctalia/config.toml`
-      (via absolute path for hot reload)
-- [x] 4. `modules/noctalia/noctalia.toml`: new TOML — theme wallpaper,
-      wallpaper dir/path, notification daemon, nightlight, location Paris,
-      idle behaviors, `launch_apps_as_systemd_services`, telemetry off
-- [x] 4b. Split config by concern: `noctalia.toml` = entrypoint
-      (`[include] files = ["conf/"]`), sections moved to `conf/*.toml`,
-      symlink `noctalia/conf`. Settings GUI overrides removed
-      (`settings.toml` deleted, keybinds now declarative).
-- [x] 5. `home.nix`: remove `./modules/hyprpaper` and `./modules/sunsetr`
-      imports (disabled, not deleted)
-- [x] 6. `packages.nix`: remove `cliphist`, `sunsetr` (keep `fuzzel` for
-      custom menus, keep `wl-clipboard`)
-- [x] 7. `hyprland/lib/autostart.lua`: remove swaync / hypridle / cliphist /
-      sunsetr spawns and reload handlers
-- [x] 8. `hyprland/lib/keybinds.lua`: XF86 volume/brightness -> `noctalia msg`
-      IPC (only this; rest manual)
-
-## Manual, user later
-
-Rebind to noctalia IPC once removed tools are gone:
-- SUPER+D launcher -> `noctalia msg panel-toggle launcher`
-- SUPER+V / SUPER+X clipboard -> `noctalia msg panel-toggle clipboard`
-- SUPER+SHIFT+N swaync_picker -> drop (history lives in control center)
-- SUPER+SHIFT+P wlogout -> `noctalia msg panel-toggle session`
-- Optionally keep fuzzel installed until launcher rebind is tested.
+- [x] 0-8 + 4b. Noctalia shell setup complete: flake + cachix, upower/ppd,
+      module + TOML config (split into `conf/`), imports cleaned, packages
+      cleaned, autostart cleaned, XF86 volume/brightness -> noctalia IPC.
+- [ ] 9. `hyprland/lib/keybinds.lua`: full rebind to noctalia IPC
+      (launcher / clipboard / session / control-center audio+notifications /
+      screenshots / mic / media / window-switcher). Drop dead binds
+      (cliphist, wlogout, swaync_picker, hypr_screen, audio_picker).
+      Keep TODO binds for unimplemented scripts. Keep playerctl for seek.
+      Add `[shell.screenshot]` output policy to `conf/shell.toml`,
+      remove `vars.launcher`, add `playerctl` package.
+- [ ] 10. Cursor theme: Hyprland shows its built-in icon because no
+      hyprcursor/XCursor theme is installed. Add `home.pointerCursor`
+      (catppuccin-cursors.latteLight, 24) in `modules/xdg/default.nix`
+      and `cursor.default_theme_name` in `hyprland/lib/conf.lua`.
+      Verify with `hyprctl cursor` (no more Hyprland icon).
 
 ## Verify after each step
 
@@ -92,3 +76,4 @@ Rebind to noctalia IPC once removed tools are gone:
 - `noctalia config validate`
 - `journalctl --user -u noctalia -b`
 - IPC smoke: `noctalia msg panel-toggle launcher`
+- Cursor: `hyprctl cursor` shows the theme, not the Hyprland icon
