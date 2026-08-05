@@ -25,6 +25,7 @@ hl.config({
     cursor = {
         inactive_timeout = 3,
         zoom_factor = 1,
+        default_theme_name = "catppuccin-latte-light-cursors",
     },
     group = {
         insert_after_current = false,

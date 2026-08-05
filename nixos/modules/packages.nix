@@ -25,5 +25,6 @@
     opencode
     mpv
     nautilus
+    playerctl
   ];
 }

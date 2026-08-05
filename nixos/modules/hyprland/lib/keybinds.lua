@@ -2,13 +2,14 @@ local helpers = require("lib.helpers")
 local vars = require("lib.vars")
 
 local script_dir = vars.script_dir
+local nctl = "noctalia msg "
 
 hl.bind("SUPER + Q", hl.dsp.window.close("activewindow"))
 hl.bind("mouse:276", hl.dsp.window.close("activewindow"))
--- TODO: notification deamon
+
 hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload; notify-send 'Hyprland Reloaded'"))
 
-hl.bind("SUPER + D", hl.dsp.exec_cmd(vars.launcher))
+hl.bind("SUPER + D", hl.dsp.exec_cmd(nctl .. "panel-toggle launcher"))
 hl.bind("SUPER + SPACE", hl.dsp.exec_cmd(vars.terminal))
 hl.bind("SUPER + B", hl.dsp.exec_cmd(vars.browser))
 
@@ -20,51 +21,48 @@ hl.bind("SUPER + A", hl.dsp.exec_cmd("wayscriber --active"))
 hl.bind("SUPER + W", hl.dsp.exec_cmd(vars.terminal_alt .. "-e walt"))
 hl.bind("SUPER + SHIFT + B", hl.dsp.exec_cmd(vars.terminal_alt .. "-e bluetui"))
 hl.bind("SUPER + SHIFT + W", hl.dsp.exec_cmd(vars.terminal_alt .. "-e impala"))
-hl.bind("SUPER + SHIFT + M", hl.dsp.exec_cmd(vars.terminal_alt .. "-e pulsemixer"))
--- TODO: scripts ?
-hl.bind("SUPER + SHIFT + N", hl.dsp.exec_cmd(script_dir .. "swaync_picker"))
+hl.bind("SUPER + SHIFT + M", hl.dsp.exec_cmd(nctl .. "panel-toggle control-center audio"))
 
-local wlogout_toggle = "pkill wlogout || wlogout -b 4 -T 400 -B 400"
-hl.bind("SUPER + SHIFT + P", hl.dsp.exec_cmd(wlogout_toggle))
-hl.bind("mouse:275", hl.dsp.exec_cmd(wlogout_toggle))
+-- TODO: script not implemented
+hl.bind("SUPER + SHIFT + A", hl.dsp.exec_cmd(script_dir .. "emulator"))
+-- TODO: script not implemented
+hl.bind("SUPER + SHIFT + D", hl.dsp.exec_cmd(script_dir .. "pkill"))
 
--- TODO: screenshot alt hyprshot satty flameshot ...
-local hypr_screen = script_dir .. "hypr_screen "
-hl.bind("SUPER + C", hl.dsp.exec_cmd(hypr_screen .. "region"))
-hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd(hypr_screen .. "display"), { locked = true })
+hl.bind("SUPER + SHIFT + N", hl.dsp.exec_cmd(nctl .. "panel-toggle control-center notifications"))
 
-local audio_picker = script_dir .. "audio_picker "
-hl.bind("SUPER + I", hl.dsp.exec_cmd(audio_picker .. "source"))
-hl.bind("SUPER + O", hl.dsp.exec_cmd(audio_picker .. "sink"))
+local session_toggle = nctl .. "panel-toggle session"
+hl.bind("SUPER + SHIFT + P", hl.dsp.exec_cmd(session_toggle))
+hl.bind("mouse:275", hl.dsp.exec_cmd(session_toggle))
 
-local emulator_picker = script_dir .. "emulator"
-hl.bind("SUPER + SHIFT + A", hl.dsp.exec_cmd(emulator_picker))
+hl.bind("SUPER + C", hl.dsp.exec_cmd(nctl .. "screenshot-region"))
+hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd(nctl .. "screenshot-fullscreen"), { locked = true })
 
-local pkill_picker = script_dir .. "pkill"
-hl.bind("SUPER + SHIFT + D", hl.dsp.exec_cmd(pkill_picker))
+hl.bind("SUPER + I", hl.dsp.exec_cmd(nctl .. "panel-toggle control-center audio"))
+hl.bind("SUPER + O", hl.dsp.exec_cmd(nctl .. "panel-toggle control-center audio"))
 
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("noctalia msg volume-up"), { repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("noctalia msg volume-down"), { repeating = true })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("noctalia msg volume-mute"), { locked = true })
+-- TODO: script not implemented (sway_zoom; zoom also on SUPER+Z / KP_ADD / minus)
+hl.bind("SUPER + SHIFT + Z", hl.dsp.exec_cmd(script_dir .. "sway_zoom"))
 
-local source_volume = "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%"
-hl.bind("SUPER + XF86AudioRaiseVolume", hl.dsp.exec_cmd(source_volume .. "+"), { repeating = true })
-hl.bind("SUPER + XF86AudioLowerVolume", hl.dsp.exec_cmd(source_volume .. "-"), { repeating = true })
-hl.bind("SUPER + XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), { locked = true })
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(nctl .. "volume-up"), { repeating = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(nctl .. "volume-down"), { repeating = true })
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd(nctl .. "volume-mute"), { locked = true })
 
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
+hl.bind("SUPER + XF86AudioRaiseVolume", hl.dsp.exec_cmd(nctl .. "mic-volume-up"), { repeating = true })
+hl.bind("SUPER + XF86AudioLowerVolume", hl.dsp.exec_cmd(nctl .. "mic-volume-down"), { repeating = true })
+hl.bind("SUPER + XF86AudioMute", hl.dsp.exec_cmd(nctl .. "mic-mute"), { locked = true })
+
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd(nctl .. "media toggle"), { locked = true })
+hl.bind("XF86AudioPause", hl.dsp.exec_cmd(nctl .. "media toggle"), { locked = true })
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd(nctl .. "media next"), { locked = true })
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd(nctl .. "media previous"), { locked = true })
 hl.bind("CTRL + XF86AudioNext", hl.dsp.exec_cmd("playerctl position 5+"), { repeating = true })
 hl.bind("CTRL + XF86AudioPrev", hl.dsp.exec_cmd("playerctl position 5-"), { repeating = true })
 
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("noctalia msg brightness-up"), { repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("noctalia msg brightness-down"), { repeating = true })
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(nctl .. "brightness-up"), { repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(nctl .. "brightness-down"), { repeating = true })
 
-local cliphist_fuzzel_list = "cliphist list | fuzzel -d -w 90 -l 5 -p '❯ ' --placeholder "
-hl.bind("SUPER + V", hl.dsp.exec_cmd(cliphist_fuzzel_list .. "'Copy from clipboard history' | cliphist decode | wl-copy"))
-hl.bind("SUPER + X", hl.dsp.exec_cmd(cliphist_fuzzel_list .. "'Delete from clipboard history' | cliphist delete"))
+hl.bind("SUPER + V", hl.dsp.exec_cmd(nctl .. "panel-toggle clipboard"))
+hl.bind("ALT + TAB", hl.dsp.exec_cmd(nctl .. "window-switcher"))
 
 hl.bind("SUPER + H", hl.dsp.focus({ direction = "l" }))
 hl.bind("SUPER + L", hl.dsp.focus({ direction = "r" }))

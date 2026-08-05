@@ -7,6 +7,5 @@ M.terminal = "alacritty"
 M.terminal_alt = "ghostty "
 M.file_picker = M.terminal_alt .. "-e yazi"
 M.file_picker_alt = "nautilus"
-M.launcher = "fuzzel"
 
 return M
