@@ -1,0 +1,43 @@
+[theme]
+mode = "dark"
+source = "wallpaper"
+
+[wallpaper]
+enabled = true
+directory = "~/.config/walls"
+
+[wallpaper.default]
+path = "~/.config/walls/coa_nixos.png"
+
+[notification]
+enable_daemon = true
+
+[nightlight]
+enabled = true
+temperature_night = 4000
+
+[location]
+address = "Paris, France"
+
+[idle]
+pre_action_fade_seconds = 2.0
+
+[idle.behavior.lock]
+timeout = 300
+action = "lock"
+enabled = true
+
+[idle.behavior.screen-off]
+timeout = 480
+action = "screen_off"
+enabled = true
+
+[idle.behavior.suspend]
+timeout = 600
+action = "lock_and_suspend"
+enabled = true
+
+[shell]
+launch_apps_as_systemd_services = true
+setup_wizard_enabled = false
+telemetry_enabled = false

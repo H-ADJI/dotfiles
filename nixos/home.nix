@@ -10,10 +10,10 @@
       imports = [
         inputs.noctalia.homeModules.default
         ./modules/ssh
+        ./modules/assets
         ./modules/xdg
         ./modules/noctalia
         ./modules/television
-        ./modules/hyprpaper
         ./modules/hyprland
         ./modules/yazi
         ./modules/raffi

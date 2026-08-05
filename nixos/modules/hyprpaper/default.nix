@@ -1,11 +1,7 @@
-{ config, nixosModules, ... }:
-let
-  wallpaper_dir = "${nixosModules}/hyprpaper/walls";
-in
+{ config, ... }:
 {
-  xdg.configFile."walls".source = config.lib.file.mkOutOfStoreSymlink wallpaper_dir;
   services.hyprpaper = {
-    enable = true;
+    enable = false;
     systemdTarget = "hyprland-session.target";
     settings = {
       splash = false;

@@ -56,12 +56,12 @@ commit/stage. Only mark a step done after the user confirms it works.
 - [x] 1. `flake.nix`: noctalia input -> `cachix` branch, remove nixpkgs
       follows, add `nixConfig` cachix substituter, run
       `nix flake lock --update-input noctalia`
-- [ ] 2. `configuration.nix`: add `services.upower.enable` and
+- [x] 2. `configuration.nix`: add `services.upower.enable` and
       `services.power-profiles-daemon.enable` (battery + power widget)
-- [ ] 3. `modules/noctalia/default.nix`: rewrite — drop `settings`, keep
-      `enable` + `systemd.enable`, symlink `noctalia/config.toml` and
-      `noctalia/walls` (reuse `hyprpaper/walls`)
-- [ ] 4. `modules/noctalia/noctalia.toml`: new TOML — theme wallpaper,
+- [x] 3. `modules/noctalia/default.nix`: rewrite — drop `settings`, keep
+      `enable` + `systemd.enable`, symlink `noctalia/config.toml`
+      (via absolute path for hot reload)
+- [x] 4. `modules/noctalia/noctalia.toml`: new TOML — theme wallpaper,
       wallpaper dir/path, notification daemon, nightlight, location Paris,
       idle behaviors, `launch_apps_as_systemd_services`, telemetry off
 - [ ] 5. `home.nix`: remove `./modules/hyprpaper` and `./modules/sunsetr`
