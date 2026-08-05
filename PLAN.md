@@ -64,7 +64,7 @@ commit/stage. Only mark a step done after the user confirms it works.
       Keep TODO binds for unimplemented scripts. Keep playerctl for seek.
       Add `[shell.screenshot]` output policy to `conf/shell.toml`,
       remove `vars.launcher`, add `playerctl` package.
-- [ ] 10. Cursor theme: Hyprland shows its built-in icon because no
+- [x] 10. Cursor theme: Hyprland shows its built-in icon because no
       hyprcursor/XCursor theme is installed. Add `home.pointerCursor`
       (catppuccin-cursors.latteLight, 24, `enable = true`) in
       `modules/xdg/default.nix` (installs theme into
@@ -76,7 +76,7 @@ commit/stage. Only mark a step done after the user confirms it works.
       sets `enable_hyprcursor = true`; `lib/env.lua` was removed (all vars
       migrated to systemd.nix). Verify with `hyprctl cursor` (no more Hyprland
       icon).
-- [ ] 11. Shake-to-find cursor (macOS style): add `hypr-dynamic-cursors`
+- [x] 11. Shake-to-find cursor (macOS style): add `hypr-dynamic-cursors`
       plugin (`hyprland.plugins = [ pkgs.hyprlandPlugins.hypr-dynamic-cursors ]`
       in `modules/hyprland/default.nix`; HM generates `hl.plugin.load` for lua
       config). Configure in `modules/hyprland/lib/conf.lua` inside
@@ -92,4 +92,6 @@ commit/stage. Only mark a step done after the user confirms it works.
 - `noctalia config validate`
 - `journalctl --user -u noctalia -b`
 - IPC smoke: `noctalia msg panel-toggle launcher`
-- Cursor: `hyprctl cursor` shows the theme, not the Hyprland icon
+- Cursor: `hyprctl getoption cursor:enable_hyprcursor` (true) + visible
+  catppuccin cursor, not the Hyprland icon. Shake-to-find: `hyprctl plugin
+  list` shows dynamic-cursors.
