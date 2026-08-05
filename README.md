@@ -9,7 +9,7 @@ Being Allergic to software friction (and anything windows related), this project
 This repository contains (in order of preference) set up scripts for :
 
 - [Arch Linux](/arch/README.md)
-- NixOS [**TODO**]
+- [NixOS ](/nixos/README.md)
 - [Mac](/macos/README.md)
 
 ## Nerd snipes

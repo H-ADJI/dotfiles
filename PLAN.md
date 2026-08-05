@@ -57,13 +57,6 @@ commit/stage. Only mark a step done after the user confirms it works.
 - [x] 0-8 + 4b. Noctalia shell setup complete: flake + cachix, upower/ppd,
       module + TOML config (split into `conf/`), imports cleaned, packages
       cleaned, autostart cleaned, XF86 volume/brightness -> noctalia IPC.
-- [ ] 9. `hyprland/lib/keybinds.lua`: full rebind to noctalia IPC
-      (launcher / clipboard / session / control-center audio+notifications /
-      screenshots / mic / media / window-switcher). Drop dead binds
-      (cliphist, wlogout, swaync_picker, hypr_screen, audio_picker).
-      Keep TODO binds for unimplemented scripts. Keep playerctl for seek.
-      Add `[shell.screenshot]` output policy to `conf/shell.toml`,
-      remove `vars.launcher`, add `playerctl` package.
 - [x] 10. Cursor theme: Hyprland shows its built-in icon because no
       hyprcursor/XCursor theme is installed. Add `home.pointerCursor`
       (catppuccin-cursors.latteLight, 24, `enable = true`) in
@@ -74,8 +67,9 @@ commit/stage. Only mark a step done after the user confirms it works.
       up because `systemd.variables = ["--all"]`. `cursor.default_theme_name`
       does not exist in Hyprland 0.56, so `modules/hyprland/lib/conf.lua` only
       sets `enable_hyprcursor = true`; `lib/env.lua` was removed (all vars
-      migrated to systemd.nix). Verify with `hyprctl cursor` (no more Hyprland
-      icon).
+      migrated to systemd.nix). Verify with
+      `hyprctl getoption cursor:enable_hyprcursor` (true) + visible catppuccin
+      cursor, not the Hyprland icon.
 - [x] 11. Shake-to-find cursor (macOS style): add `hypr-dynamic-cursors`
       plugin (`hyprland.plugins = [ pkgs.hyprlandPlugins.hypr-dynamic-cursors ]`
       in `modules/hyprland/default.nix`; HM generates `hl.plugin.load` for lua
@@ -85,6 +79,19 @@ commit/stage. Only mark a step done after the user confirms it works.
       2s), hyprcursor enabled for hi-res magnification (catppuccin theme is
       SVG-based). Verify: `hyprctl plugin list` shows dynamic-cursors loaded;
       shaking the mouse magnifies the cursor.
+- [x] 12. Auto-paste: `conf/shell.toml` sets
+      `clipboard_auto_paste = "off"` (clipboard history copies only, no
+      synthesized paste) and `[shell.launcher] auto_paste = "auto"` (keep
+      auto-paste for emoji / calculator / copy-mode dmenu). Both use the same
+      value set (`off` | `auto` | `ctrl_v` | `ctrl_shift_v` | `shift_insert`);
+      paste is injected via Wayland virtual-keyboard protocol.
+- [ ] 9. `hyprland/lib/keybinds.lua`: full rebind to noctalia IPC
+      (launcher / clipboard / session / control-center audio+notifications /
+      screenshots / mic / media / window-switcher). Drop dead binds
+      (cliphist, wlogout, swaync_picker, hypr_screen, audio_picker).
+      Keep TODO binds for unimplemented scripts. Keep playerctl for seek.
+      Add `[shell.screenshot]` output policy to `conf/shell.toml`,
+      remove `vars.launcher`, add `playerctl` package.
 
 ## Verify after each step
 
