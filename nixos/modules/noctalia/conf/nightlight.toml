@@ -1,0 +1,3 @@
+[nightlight]
+enabled = true
+temperature_night = 4000

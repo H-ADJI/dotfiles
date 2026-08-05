@@ -64,6 +64,10 @@ commit/stage. Only mark a step done after the user confirms it works.
 - [x] 4. `modules/noctalia/noctalia.toml`: new TOML — theme wallpaper,
       wallpaper dir/path, notification daemon, nightlight, location Paris,
       idle behaviors, `launch_apps_as_systemd_services`, telemetry off
+- [x] 4b. Split config by concern: `noctalia.toml` = entrypoint
+      (`[include] files = ["conf/"]`), sections moved to `conf/*.toml`,
+      symlink `noctalia/conf`. Settings GUI overrides removed
+      (`settings.toml` deleted, keybinds now declarative).
 - [ ] 5. `home.nix`: remove `./modules/hyprpaper` and `./modules/sunsetr`
       imports (disabled, not deleted)
 - [ ] 6. `packages.nix`: remove `fuzzel`, `cliphist` (keep `wl-clipboard`)
