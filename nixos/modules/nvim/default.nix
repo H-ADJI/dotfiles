@@ -34,6 +34,7 @@ in
     just-lsp
     kdlfmt
     lua-language-server
+    yaml-language-server
     markdownlint-cli2
     nil
     marksman

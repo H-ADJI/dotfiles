@@ -14,6 +14,7 @@
         ./modules/hyprland
         ./modules/ashell
         ./modules/yazi
+        ./modules/raffi
         ./modules/sunsetr
         ./modules/alacritty
         ./modules/nvim

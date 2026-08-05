@@ -1,4 +1,5 @@
 version: 1
+$schema: ~/.config/raffi/raffi-schema.json
 launchers:
   firefox:
     binary: firefox
@@ -6,9 +7,9 @@ launchers:
     description: Firefox Web Browser
 
   terminal:
-    binary: kitty
-    icon: kitty
-    description: Kitty Terminal
+    binary: alacritty
+    icon: alacritty
+    description: alacritty Terminal
 
   file_manager:
     binary: nautilus
