@@ -8,5 +8,5 @@ let
   raffi_conf = "${nixosModules}/raffi/raffi.yaml";
 in
 {
-  xdg.configFile."raffi/raffi.yml".source = config.lib.file.mkOutOfStoreSymlink raffi_conf;
+  xdg.configFile."raffi/raffi.yaml".source = config.lib.file.mkOutOfStoreSymlink raffi_conf;
 }

@@ -1,17 +1,5 @@
+# TODO: migrate custom launcher from fuzzel to custom raffi configs
 version: 1
 $schema: /home/khalil/.config/raffi/raffi-schema.json
-launchers:
-  firefox:
-    binary: firefox
-    icon: firefox
-    description: Firefox Web Browser
-
-  terminal:
-    binary: alacritty
-    icon: alacritty
-    description: alacritty Terminal
-
-  file_manager:
-    binary: nautilus
-    icon: folder
-    description: File Manager
+general:
+  ui_type: fuzzel
