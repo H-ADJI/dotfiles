@@ -1,5 +1,5 @@
 version: 1
-$schema: ~/.config/raffi/raffi-schema.json
+$schema: /home/khalil/.config/raffi/raffi-schema.json
 launchers:
   firefox:
     binary: firefox
