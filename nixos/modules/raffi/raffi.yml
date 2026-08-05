@@ -1,0 +1,16 @@
+version: 1
+launchers:
+  firefox:
+    binary: firefox
+    icon: firefox
+    description: Firefox Web Browser
+
+  terminal:
+    binary: kitty
+    icon: kitty
+    description: Kitty Terminal
+
+  file_manager:
+    binary: nautilus
+    icon: folder
+    description: File Manager

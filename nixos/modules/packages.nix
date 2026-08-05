@@ -7,6 +7,7 @@
     glow
     alacritty
     sunsetr
+    raffi
     go
     wl-clipboard
     cliphist
