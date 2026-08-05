@@ -8,9 +8,8 @@
     enable = true;
     name = "catppuccin-latte-light-cursors";
     package = pkgs.catppuccin-cursors.latteLight;
-    size = 24;
-    # hyprcursor.enable = true;
-    # hyprcursor.size = 24;
+    hyprcursor.enable = true;
+    hyprcursor.size = 30;
   };
 
   wayland.windowManager.hyprland = {
@@ -34,6 +33,7 @@
     xwayland.enable = true;
     configType = "lua";
     enable = true;
+    plugins = [ pkgs.hyprlandPlugins.hypr-dynamic-cursors ];
     systemd = {
       variables = [ "--all" ];
       enable = true;

@@ -65,3 +65,31 @@ hl.config({
         enabled = true,
     },
 })
+
+if hl.plugin.dynamic_cursors then
+    hl.config({
+        plugin = {
+            dynamic_cursors = {
+                enabled = true,
+                mode = "none",
+                shake = {
+                    enabled = true,
+                    threshold = 4.0,
+                    base = 2.0,
+                    speed = 4.0,
+                    influence = 0.0,
+                    limit = 2.0,
+                    timeout = 2000,
+                    effects = false,
+                    ipc = false,
+                },
+                hyprcursor = {
+                    enabled = true,
+                    nearest = 1,
+                    resolution = -1,
+                    fallback = "clientside",
+                },
+            },
+        },
+    })
+end

@@ -76,6 +76,15 @@ commit/stage. Only mark a step done after the user confirms it works.
       sets `enable_hyprcursor = true`; `lib/env.lua` was removed (all vars
       migrated to systemd.nix). Verify with `hyprctl cursor` (no more Hyprland
       icon).
+- [ ] 11. Shake-to-find cursor (macOS style): add `hypr-dynamic-cursors`
+      plugin (`hyprland.plugins = [ pkgs.hyprlandPlugins.hypr-dynamic-cursors ]`
+      in `modules/hyprland/default.nix`; HM generates `hl.plugin.load` for lua
+      config). Configure in `modules/hyprland/lib/conf.lua` inside
+      `if hl.plugin.dynamic_cursors` guard: `mode = "none"` (only shake-to-find,
+      no tilt/rotate), default shake settings (threshold 6.0, base 4x, timeout
+      2s), hyprcursor enabled for hi-res magnification (catppuccin theme is
+      SVG-based). Verify: `hyprctl plugin list` shows dynamic-cursors loaded;
+      shaking the mouse magnifies the cursor.
 
 ## Verify after each step
 

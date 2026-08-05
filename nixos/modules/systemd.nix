@@ -9,10 +9,6 @@
     MOZ_ENABLE_WAYLAND = 1;
     OZONE_PLATFORM = "wayland";
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
-    XCURSOR_SIZE = 24;
-    XCURSOR_THEME = "catppuccin-latte-light-cursors";
-    HYPRCURSOR_THEME = "catppuccin-latte-light-cursors";
-    HYPRCURSOR_SIZE = 44;
     EDITOR = "nvim";
   };
 }
