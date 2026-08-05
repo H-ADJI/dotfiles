@@ -52,8 +52,8 @@ commit/stage. Only mark a step done after the user confirms it works.
 
 ## Steps
 
-- [ ] 0. Research complete: v5 docs read, current setup audited
-- [ ] 1. `flake.nix`: noctalia input -> `cachix` branch, remove nixpkgs
+- [x] 0. Research complete: v5 docs read, current setup audited
+- [x] 1. `flake.nix`: noctalia input -> `cachix` branch, remove nixpkgs
       follows, add `nixConfig` cachix substituter, run
       `nix flake lock --update-input noctalia`
 - [ ] 2. `configuration.nix`: add `services.upower.enable` and
