@@ -85,6 +85,20 @@ commit/stage. Only mark a step done after the user confirms it works.
       auto-paste for emoji / calculator / copy-mode dmenu). Both use the same
       value set (`off` | `auto` | `ctrl_v` | `ctrl_shift_v` | `shift_insert`);
       paste is injected via Wayland virtual-keyboard protocol.
+- [ ] 13. Screenshot annotation via Satty: `programs.satty` HM module in
+      `modules/satty.nix` (writes `~/.config/satty/config.toml`); settings:
+      fullscreen off, round corners 12, no decoration, `copy-command =
+      "wl-copy"`, initial tool brush, enter=copy / esc=exit, `early-exit =
+      ["all"]`, `output-filename =
+      "~/Pictures/Screenshots/screenshot_%Y%m%d_%H%M%S-annotated.png"`
+      (original name + `-annotated`). `conf/shell.toml` enables
+      `pipe_to_command = true` with `pipe_command = "satty -f -"` — Noctalia
+      pipes the captured PNG to satty on stdin; raw shot still saved to
+      `~/Pictures/Screenshots` + Noctalia clipboard panel. satty's own toasts
+      kept. Image preview in screenshot notification not possible via config
+      (dropped; `notification-thumbnail` needs satty 0.22+, pinned is 0.21.1).
+      `modules/xdg/default.nix`: `image/*` default app -> `satty.desktop`
+      (satty ships `image/png;image/jpeg` MimeTypes).
 - [ ] 9. `hyprland/lib/keybinds.lua`: full rebind to noctalia IPC
       (launcher / clipboard / session / control-center audio+notifications /
       screenshots / mic / media / window-switcher). Drop dead binds

@@ -32,6 +32,7 @@
         ./modules/systemd.nix
         ./modules/nh.nix
         ./modules/ghostty.nix
+        ./modules/satty.nix
       ];
       home.username = "khalil";
       home.homeDirectory = "/home/khalil";
