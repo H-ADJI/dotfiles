@@ -1,4 +1,18 @@
 {
+  pkgs,
+  ...
+}:
+{
+
+  home.pointerCursor = {
+    enable = true;
+    name = "catppuccin-latte-light-cursors";
+    package = pkgs.catppuccin-cursors.latteLight;
+    size = 24;
+    # hyprcursor.enable = true;
+    # hyprcursor.size = 24;
+  };
+
   wayland.windowManager.hyprland = {
     extraLuaFiles = {
       "lib.vars" = {
@@ -7,7 +21,6 @@
       };
       "lib.conf" = ./lib/conf.lua;
       "lib.autostart" = ./lib/autostart.lua;
-      "lib.env" = ./lib/env.lua;
       "lib.keybinds" = ./lib/keybinds.lua;
       "lib.monitors" = ./lib/monitors.lua;
       "lib.rules" = ./lib/rules.lua;

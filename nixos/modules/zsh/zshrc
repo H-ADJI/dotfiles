@@ -2,6 +2,7 @@
 
 # TODO: zsh lsp-config : shuck / zshcs
 # optimize startup time
+# nix rebuild keybind
 source "$HOME/.config/zinit/zinit.sh"
 
 _evalcache fzf --zsh

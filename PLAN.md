@@ -66,9 +66,16 @@ commit/stage. Only mark a step done after the user confirms it works.
       remove `vars.launcher`, add `playerctl` package.
 - [ ] 10. Cursor theme: Hyprland shows its built-in icon because no
       hyprcursor/XCursor theme is installed. Add `home.pointerCursor`
-      (catppuccin-cursors.latteLight, 24) in `modules/xdg/default.nix`
-      and `cursor.default_theme_name` in `hyprland/lib/conf.lua`.
-      Verify with `hyprctl cursor` (no more Hyprland icon).
+      (catppuccin-cursors.latteLight, 24, `enable = true`) in
+      `modules/xdg/default.nix` (installs theme into
+      `~/.local/share/icons/`, a hyprcursor search path). Select it via user
+      session env vars in `modules/systemd.nix` (`HYPRCURSOR_THEME`,
+      `HYPRCURSOR_SIZE`, plus `XCURSOR_THEME` fallback) — Hyprland picks these
+      up because `systemd.variables = ["--all"]`. `cursor.default_theme_name`
+      does not exist in Hyprland 0.56, so `modules/hyprland/lib/conf.lua` only
+      sets `enable_hyprcursor = true`; `lib/env.lua` was removed (all vars
+      migrated to systemd.nix). Verify with `hyprctl cursor` (no more Hyprland
+      icon).
 
 ## Verify after each step
 
