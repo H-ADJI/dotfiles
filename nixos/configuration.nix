@@ -14,6 +14,8 @@
   boot.loader.efi.canTouchEfiVariables = true;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
+  services.upower.enable = true;
+  services.power-profiles-daemon.enable = true;
   networking.hostName = "nixos"; # Define your hostname.
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Paris";
