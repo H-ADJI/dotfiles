@@ -23,6 +23,8 @@
         ./modules/zathura
         ./modules/glow
         ./modules/gtk
+        ./modules/pulsemixer
+        ./modules/wayscriber
         ./modules/zsh
         ./modules/tmux
         ./modules/packages.nix

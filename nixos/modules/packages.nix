@@ -29,6 +29,5 @@
     wayscriber
     bluetui
     impala
-    pulsemixer
   ];
 }

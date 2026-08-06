@@ -1,0 +1,20 @@
+version: 1
+$schema: /home/khalil/.config/raffi/raffi-schema.json
+general:
+  ui_type: fuzzel
+launchers:
+  bluetui:
+    binary: ghostty
+    description: Bluetooth (bluetui)
+    icon: preferences-system-bluetooth
+    args: ["-e", "bluetui"]
+  impala:
+    binary: ghostty
+    description: Wi-Fi (impala)
+    icon: network-wireless
+    args: ["-e", "impala"]
+  pulsemixer:
+    binary: ghostty
+    description: Audio mixer (pulsemixer)
+    icon: multimedia-volume-control
+    args: ["-e", "pulsemixer"]
