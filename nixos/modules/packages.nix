@@ -27,5 +27,9 @@
     nautilus
     playerctl
     papirus-icon-theme
+    wayscriber
+    bluetui
+    impala
+    pulsemixer
   ];
 }

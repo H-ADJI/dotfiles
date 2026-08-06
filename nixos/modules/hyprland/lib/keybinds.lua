@@ -15,13 +15,7 @@ hl.bind("SUPER + B", hl.dsp.exec_cmd(vars.browser))
 hl.bind("SUPER + E", hl.dsp.exec_cmd(vars.file_picker))
 hl.bind("SUPER + SHIFT + E", hl.dsp.exec_cmd(vars.file_picker_alt))
 
--- pulsemixer
 -- hl.bind("SUPER + A", hl.dsp.exec_cmd("wayscriber --active"))
--- walt
--- bluetui
--- impala
--- pulsemixer
--- wayscriber
 local session_toggle = nctl .. "panel-toggle session"
 hl.bind("SUPER + SHIFT + P", hl.dsp.exec_cmd(session_toggle))
 hl.bind("mouse:275", hl.dsp.exec_cmd(session_toggle))
