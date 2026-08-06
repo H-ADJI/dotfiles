@@ -16,8 +16,11 @@
   hardware.bluetooth.powerOnBoot = true;
   services.upower.enable = true;
   services.power-profiles-daemon.enable = true;
-  networking.hostName = "nixos"; # Define your hostname.
-  networking.networkmanager.enable = true;
+  networking.hostName = "nixos";
+  networking.networkmanager = {
+    enable = true;
+    wifi.backend = "iwd";
+  };
   time.timeZone = "Europe/Paris";
   # Select internationalisation properties.
   # i18n.defaultLocale = "en_US.UTF-8";
