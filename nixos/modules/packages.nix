@@ -26,5 +26,6 @@
     mpv
     nautilus
     playerctl
+    papirus-icon-theme
   ];
 }

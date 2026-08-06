@@ -8,6 +8,8 @@ hl.bind("mouse:276", hl.dsp.window.close("activewindow"))
 hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload; notify-send -a 'Hyprland' 'Hyprland Reloaded'"))
 
 hl.bind("SUPER + D", hl.dsp.exec_cmd(nctl .. "panel-toggle launcher"))
+-- TODO: pick a key to open the noctalia actions menu
+-- hl.bind("SUPER + X", hl.dsp.exec_cmd("raffi -c ~/.config/raffi/raffi.yaml"))
 hl.bind("SUPER + SPACE", hl.dsp.exec_cmd(vars.terminal))
 hl.bind("SUPER + B", hl.dsp.exec_cmd(vars.browser))
 hl.bind("SUPER + E", hl.dsp.exec_cmd(vars.file_picker))

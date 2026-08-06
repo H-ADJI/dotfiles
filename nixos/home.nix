@@ -22,6 +22,7 @@
         ./modules/nvim
         ./modules/zathura
         ./modules/glow
+        ./modules/gtk
         ./modules/zsh
         ./modules/tmux
         ./modules/packages.nix

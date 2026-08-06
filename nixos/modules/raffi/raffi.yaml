@@ -1,5 +1,0 @@
-# TODO: migrate custom launcher from fuzzel to custom raffi configs
-version: 1
-$schema: /home/khalil/.config/raffi/raffi-schema.json
-general:
-  ui_type: fuzzel

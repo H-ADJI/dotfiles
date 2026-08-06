@@ -2,52 +2,65 @@ version: 1
 $schema: /home/khalil/.config/raffi/raffi-schema.json
 general:
   ui_type: fuzzel
+  # no_icons: true
 launchers:
   app_launcher:
     binary: noctalia
     description: app launcher
+    icon: system-run
     args: ["msg", "panel-toggle", "launcher"]
   idle_inhibitor:
     binary: noctalia
     description: Idle Toggle
+    icon: appointment-soon
     args: ["msg", "caffeine-toggle"]
   audio_center:
     binary: noctalia
     description: Audio (Control Center)
+    icon: audio-volume-high
     args: ["msg", "panel-toggle", "control-center", "audio"]
   notification_center:
     binary: noctalia
     description: Notifications (Control Center)
+    icon: preferences-system-notifications
     args: ["msg", "panel-toggle", "control-center", "notifications"]
   clear_active_notifications:
     binary: noctalia
     description: Clear visible notifications
+    icon: edit-clear-all
     args: ["msg", "notification-clear-active"]
   clear_history:
     binary: noctalia
     description: Clear notification history
+    icon: user-trash
     args: ["msg", "notification-clear-history"]
   dnd_toggle:
     binary: noctalia
     description: Do not disturb (toggle)
+    icon: notification-disabled
     args: ["msg", "notification-dnd-toggle"]
   session_center:
     binary: noctalia
     description: Session / Power
+    icon: system-shutdown
     args: ["msg", "panel-toggle", "session"]
   screenshot:
     binary: noctalia
     description: Screenshot (fullscreen)
+    icon: camera-photo
     args: ["msg", "screenshot-fullscreen"]
   screenshot_region:
     binary: noctalia
     description: Screenshot (region)
+    icon: image-crop
     args: ["msg", "screenshot-region"]
   clipboard:
     binary: noctalia
     description: Clipboard history
+    icon: edit-paste
     args: ["msg", "panel-toggle", "clipboard"]
   control_center:
     binary: noctalia
     description: control center
+    icon: preferences-system
     args: ["msg", "panel-toggle", "control-center"]
