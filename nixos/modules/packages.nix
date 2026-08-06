@@ -19,7 +19,6 @@
     gnugrep
     hyperfine
     ripgrep
-    bluetui
     pulsemixer
     libnotify
     opencode
