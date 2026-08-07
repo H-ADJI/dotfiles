@@ -28,4 +28,48 @@ function M.setup_resize_binds()
     hl.bind("escape", hl.dsp.submap("reset"))
 end
 
+local layout_overrides = {
+    ["SUPER + TAB"] = {
+        default = {
+            action = hl.dsp.window.cycle_next({ tiled = false }),
+            opts = { description = "Cycle through floating windows" },
+        },
+        monocle = {
+            action = hl.dsp.layout("cyclenext"),
+            opts = { description = "Cycle workspaces" },
+        },
+    },
+}
+
+local layout_bind_state = {}
+
+local function current_layout()
+    local ws = hl.get_active_workspace()
+    return ws and ws.tiled_layout or "default"
+end
+
+local function update_layout_binds()
+    local layout = current_layout()
+    for key, variants in pairs(layout_overrides) do
+        local want = variants[layout] and layout or "default"
+        if layout_bind_state[key] ~= want then
+            hl.unbind(key)
+            local v = variants[want]
+            hl.bind(key, v.action, v.opts)
+            layout_bind_state[key] = want
+        end
+    end
+end
+
+function M.setup_layout_binds()
+    for key, variants in pairs(layout_overrides) do
+        local v = variants.default
+        hl.bind(key, v.action, v.opts)
+        layout_bind_state[key] = "default"
+    end
+    hl.on("workspace.active", update_layout_binds)
+    hl.on("config.props_refreshed", update_layout_binds)
+    update_layout_binds()
+end
+
 return M

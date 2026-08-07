@@ -58,8 +58,6 @@ hl.bind("SUPER + left", hl.dsp.focus({ direction = "l" }), { description = "Focu
 hl.bind("SUPER + right", hl.dsp.focus({ direction = "r" }), { description = "Focus right" })
 hl.bind("SUPER + up", hl.dsp.focus({ direction = "u" }), { description = "Focus up" })
 hl.bind("SUPER + down", hl.dsp.focus({ direction = "d" }), { description = "Focus down" })
-hl.bind("SUPER + TAB", hl.dsp.window.cycle_next({ tiled = false }), { description = "Cycle through floating windows" })
-hl.bind("SUPER + CTRL + TAB", hl.dsp.layout("cyclenext"), { description = "Cycle workspaces" })
 
 -- 8. Workspaces
 hl.bind("SUPER + 1", hl.dsp.focus({ workspace = 1 }), { description = "Go to workspace 1" })
@@ -118,3 +116,5 @@ end, { description = "Zoom in" })
 hl.bind("SUPER + minus", function()
     helpers.zoom(-0.5)
 end, { description = "Zoom out" })
+
+helpers.setup_layout_binds()

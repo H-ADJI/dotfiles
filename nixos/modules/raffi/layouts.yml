@@ -1,0 +1,38 @@
+version: 1
+$schema: /home/khalil/.config/raffi/raffi-schema.json
+general:
+  ui_type: fuzzel
+  no_icons: true
+launchers:
+  layout_scrolling:
+    binary: hyprctl
+    description: Layout Scrolling
+    args:
+      [
+        "eval",
+        'local w = hl.get_active_special_workspace() or hl.get_active_workspace(); if w then hl.workspace_rule({ workspace = w.name, layout = "scrolling" }) end',
+      ]
+  layout_dwindle:
+    binary: hyprctl
+    description: Layout Dwindle
+    args:
+      [
+        "eval",
+        'local w = hl.get_active_special_workspace() or hl.get_active_workspace(); if w then hl.workspace_rule({ workspace = w.name, layout = "dwindle" }) end',
+      ]
+  layout_master:
+    binary: hyprctl
+    description: Layout Master
+    args:
+      [
+        "eval",
+        'local w = hl.get_active_special_workspace() or hl.get_active_workspace(); if w then hl.workspace_rule({ workspace = w.name, layout = "master" }) end',
+      ]
+  layout_monocle:
+    binary: hyprctl
+    description: Layout Monocle
+    args:
+      [
+        "eval",
+        'local w = hl.get_active_special_workspace() or hl.get_active_workspace(); if w then hl.workspace_rule({ workspace = w.name, layout = "monocle" }) end',
+      ]
