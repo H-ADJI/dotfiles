@@ -1,6 +1,14 @@
 [bar.default]
 start = ["launcher", "wallpaper", "workspaces", "special-workspaces"]
-
+center = ["clock"]
+end = [
+  "media",
+  "tray",
+  "notifications",
+  "brightness",
+  "battery",
+  "session",
+]
 [widget.special-workspaces]
 hide_inactive = false
 active_style = "ghost"
