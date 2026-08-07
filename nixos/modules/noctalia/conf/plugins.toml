@@ -1,3 +1,7 @@
 [plugins]
-enabled = ["jamesfeeder/special-workspaces", "k4n4t4/hypr-submap", "apex077/eyecare", "blackbartblues/keymap"]
+enabled = [
+  "jamesfeeder/special-workspaces",
+  "k4n4t4/hypr-submap",
+  "apex077/eyecare",
+]
 auto_update = false
