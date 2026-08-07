@@ -33,6 +33,11 @@ launchers:
     description: Do not disturb (toggle)
     icon: notification-disabled
     args: ["msg", "notification-dnd-toggle"]
+  config_reload:
+    binary: noctalia
+    description: Reload config
+    icon: view-refresh
+    args: ["msg", "config-reload"]
   session_center:
     binary: noctalia
     description: Session / Power

@@ -1,5 +1,6 @@
 [wallpaper]
 enabled = true
 directory = "~/.config/walls"
-default.path = "~/.config/walls/coa_nixos.png"
-last.path = "~/.config/walls/coa_nixos.png"
+
+[wallpaper.default]
+path = "~/.config/walls/coa_nixos.png"

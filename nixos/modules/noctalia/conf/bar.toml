@@ -2,7 +2,7 @@
 thickness = 35
 scale = 1.2
 font_weight = 600
-start = ["launcher", "wallpaper", "workspaces", "special-workspaces"]
+start = ["launcher", "wallpaper", "workspaces", "special-workspaces", "privacy"]
 center = ["notifications", "clock", "caffeine"]
 end = [
   "hypr-submap",
@@ -13,6 +13,9 @@ end = [
   "battery",
   "session",
 ]
+[widget.privacy]
+type = "privacy"
+icon_spacing = 6
 
 [widget.clock]
 capsule = true
