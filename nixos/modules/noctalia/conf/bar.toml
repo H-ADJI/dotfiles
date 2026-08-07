@@ -1,4 +1,7 @@
 [bar.default]
+thickness = 35
+scale = 1.2
+font_weight = 600
 start = ["launcher", "wallpaper", "workspaces", "special-workspaces"]
 center = ["clock"]
 end = [
@@ -10,5 +13,9 @@ end = [
   "session",
 ]
 [widget.special-workspaces]
-hide_inactive = false
-active_style = "ghost"
+type = "jamesfeeder/special-workspaces:special-workspaces"
+# hide_inactive = true
+active_style = "fill"
+# inactive_style = "ghost"
+capsule_min_width = 80
+# capsule_padding = 60

@@ -64,6 +64,11 @@ launchers:
     description: control center
     icon: preferences-system
     args: ["msg", "panel-toggle", "control-center"]
+  screen_time:
+    binary: noctalia
+    description: Screen time (Control Center)
+    icon: hourglass
+    args: ["msg", "panel-toggle", "control-center", "screen-time"]
   bar_hide:
     binary: noctalia
     description: Toggle Bar
