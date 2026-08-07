@@ -4,11 +4,6 @@ general:
   ui_type: fuzzel
   # no_icons: true
 launchers:
-  app_launcher:
-    binary: noctalia
-    description: app launcher
-    icon: system-run
-    args: ["msg", "panel-toggle", "launcher"]
   idle_inhibitor:
     binary: noctalia
     description: Idle Toggle
@@ -77,5 +72,5 @@ launchers:
   settings:
     binary: noctalia
     description: Settings
-    icon: system-settings
+    icon: system-run
     args: ["msg", "settings-toggle"]
