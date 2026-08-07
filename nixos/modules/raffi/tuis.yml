@@ -18,3 +18,8 @@ launchers:
     description: Audio mixer (pulsemixer)
     icon: multimedia-volume-control
     args: ["-e", "pulsemixer"]
+  yazi:
+    binary: ghostty
+    description: File manager (yazi)
+    icon: yazi
+    args: ["-e", "yazi"]

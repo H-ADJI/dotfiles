@@ -8,16 +8,13 @@ hl.bind("mouse:276", hl.dsp.window.close("activewindow"))
 hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload; notify-send -a 'Hyprland' 'Hyprland Reloaded'"))
 
 hl.bind("SUPER + D", hl.dsp.exec_cmd(nctl .. "panel-toggle launcher"))
--- TODO: pick a key to open the noctalia actions menu
--- hl.bind("SUPER + X", hl.dsp.exec_cmd("raffi -c ~/.config/raffi/raffi.yaml"))
--- TODO: pick a key to open the TUIs menu
--- hl.bind("SUPER + T", hl.dsp.exec_cmd("raffi -c ~/.config/raffi/tuis.yaml"))
+hl.bind("SUPER + X", hl.dsp.exec_cmd("raffi -c ~/.config/raffi/raffi.yaml"))
+hl.bind("SUPER + T", hl.dsp.exec_cmd("raffi -c ~/.config/raffi/tuis.yaml"))
 hl.bind("SUPER + SPACE", hl.dsp.exec_cmd(vars.terminal))
 hl.bind("SUPER + B", hl.dsp.exec_cmd(vars.browser))
 hl.bind("SUPER + E", hl.dsp.exec_cmd(vars.file_picker))
 hl.bind("SUPER + SHIFT + E", hl.dsp.exec_cmd(vars.file_picker_alt))
 
--- hl.bind("SUPER + A", hl.dsp.exec_cmd("wayscriber --active"))
 local session_toggle = nctl .. "panel-toggle session"
 hl.bind("SUPER + SHIFT + P", hl.dsp.exec_cmd(session_toggle))
 hl.bind("mouse:275", hl.dsp.exec_cmd(session_toggle))

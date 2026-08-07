@@ -64,3 +64,8 @@ launchers:
     description: control center
     icon: preferences-system
     args: ["msg", "panel-toggle", "control-center"]
+  bar_hide:
+    binary: noctalia
+    description: Toggle Bar
+    icon: io.elementary.wingpanel
+    args: ["msg", "bar-toggle"]

@@ -3,6 +3,7 @@ launch_apps_as_systemd_services = true
 setup_wizard_enabled = false
 telemetry_enabled = false
 clipboard_auto_paste = "off"
+screen_time = true
 
 [shell.launcher]
 auto_paste = "auto"
@@ -11,5 +12,5 @@ auto_paste = "auto"
 directory = "~/Pictures/Screenshots"
 save_to_file = true
 remember_last_region = true
-pipe_to_command = true                                     
-pipe_command = 'satty -f - -o "$NOCTALIA_SCREENSHOT_PATH"' 
+pipe_to_command = true
+pipe_command = 'satty -f - -o "$NOCTALIA_SCREENSHOT_PATH"'
