@@ -1,5 +1,7 @@
 # Arch BTW
 
+> Living on the edge of technology, with Arch linux you are a beta tester
+
 Arch workstation configuration using :
 
 - **archinstall** : system configuration and disk partitioning

@@ -1,5 +1,7 @@
 # NixOS
 
+> if Arch and Debian had a baby it would be called NixOS
+
 **Flakes** + **Home Manager** workstation configuration.
 
 ## Manual Steps
