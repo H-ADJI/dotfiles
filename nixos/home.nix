@@ -25,6 +25,11 @@
         ./modules/gtk
         ./modules/pulsemixer
         ./modules/wayscriber
+        ./modules/hunk
+        ./modules/jnv
+        ./modules/jqp
+        ./modules/tabiew
+        ./modules/opencode
         ./modules/zsh
         ./modules/tmux
         ./modules/packages.nix

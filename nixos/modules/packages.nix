@@ -30,5 +30,9 @@
     bluetui
     impala
     socat
+    hunk
+    jnv
+    jqp
+    tabiew
   ];
 }
