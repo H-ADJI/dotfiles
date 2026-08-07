@@ -17,6 +17,7 @@ hl.bind(
 hl.bind("SUPER + D", hl.dsp.exec_cmd(nctl .. "panel-toggle launcher"), { description = "Open app launcher" })
 hl.bind("SUPER + X", hl.dsp.exec_cmd("raffi -c ~/.config/raffi/noctalia.yml"), { description = "Open raffi noctalia launcher" })
 hl.bind("SUPER + T", hl.dsp.exec_cmd("raffi -c ~/.config/raffi/tuis.yml"), { description = "Open raffi TUI launcher" })
+hl.bind("SUPER + SHIFT + TAB", hl.dsp.exec_cmd("raffi -c ~/.config/raffi/layouts.yml"), { description = "Open layout switcher" })
 hl.bind("SUPER + SPACE", hl.dsp.exec_cmd(vars.terminal), { description = "Open terminal" })
 hl.bind("SUPER + B", hl.dsp.exec_cmd(vars.browser), { description = "Open browser" })
 hl.bind("SUPER + E", hl.dsp.exec_cmd(vars.file_picker), { description = "Open file picker" })
@@ -108,7 +109,6 @@ hl.bind("SUPER + R", hl.dsp.submap("RESIZE"), { description = "Enter resize mode
 hl.define_submap("RESIZE", helpers.setup_resize_binds)
 
 -- 13. Layout and zoom
-hl.bind("SUPER + SHIFT + TAB", hl.dsp.exec_cmd("raffi -c ~/.config/raffi/layouts.yml"), { description = "Open layout switcher" })
 hl.bind("SUPER + Z", helpers.zoom, { description = "Zoom in" })
 hl.bind("SUPER + KP_ADD", function()
     helpers.zoom(0.5)
