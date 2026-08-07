@@ -2,6 +2,18 @@
 enabled = [
   "jamesfeeder/special-workspaces",
   "k4n4t4/hypr-submap",
-  "apex077/eyecare",
+  "thepunkoff/pomodoro",
 ]
 auto_update = false
+
+
+[plugin_settings."thepunkoff/pomodoro"]
+work-duration = 30
+short-break-duration = 2
+long-break-duration = 20
+sessions-before-long-break = 3
+auto-start-work = false
+auto-start-breaks = false
+panel_open_near_click = false
+panel_placement = "floating"
+panel_position = "center"

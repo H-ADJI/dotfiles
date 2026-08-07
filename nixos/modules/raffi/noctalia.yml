@@ -74,3 +74,8 @@ launchers:
     description: Settings
     icon: system-run
     args: ["msg", "settings-toggle"]
+  pomodoro:
+    binary: noctalia
+    description: Pomodoro Timer
+    icon: clock
+    args: ["msg", "panel-toggle", "thepunkoff/pomodoro:panel"]

@@ -6,7 +6,7 @@ start = ["launcher", "wallpaper", "workspaces", "special-workspaces"]
 center = ["clock"]
 end = [
   "hypr-submap",
-  "eyecare-widget",
+  "pomodoro-widget",
   "media",
   "tray",
   "notifications",
@@ -18,7 +18,7 @@ end = [
 [widget.clock]
 capsule = true
 capsule_fill = "primary"
-capsule_opacity = 0.2
+capsule_opacity = 0.3
 capsule_padding = 30
 color = "primary"
 
@@ -31,7 +31,7 @@ prefix = " : "
 capsule = true
 capsule_border = "secondary"
 capsule_fill = "tertiary"
-capsule_opacity = 0.5
+capsule_opacity = 0.4
 capsule_padding = 25
 hide_when_default = true
 
@@ -40,14 +40,12 @@ type = "jamesfeeder/special-workspaces:special-workspaces"
 active_style = "fill"
 capsule_min_width = 80
 
-[widget.eyecare-widget]
-type = "apex077/eyecare:eyecare-widget"
+[widget.pomodoro-widget]
+type = "thepunkoff/pomodoro:widget"
 capsule = true
-capsule_border = "secondary"
-capsule_fill = "secondary"
-capsule_opacity = 0.50
-capsule_padding = 16
+capsule_opacity = 0.3
+capsule_padding = 25
 color = "tertiary"
 icon_color = "primary"
-active_duration_minutes = 30
-break_duration_seconds = 60
+capsule_border = "primary"
+capsule_fill = "primary"
