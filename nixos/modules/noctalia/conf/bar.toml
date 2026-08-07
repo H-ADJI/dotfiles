@@ -1,0 +1,6 @@
+[bar.default]
+start = ["launcher", "wallpaper", "workspaces", "special-workspaces"]
+
+[widget.special-workspaces]
+hide_inactive = false
+active_style = "ghost"

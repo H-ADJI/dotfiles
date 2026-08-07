@@ -1,0 +1,3 @@
+[plugins]
+enabled = ["jamesfeeder/special-workspaces"]
+auto_update = false
