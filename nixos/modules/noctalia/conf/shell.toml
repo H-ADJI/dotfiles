@@ -3,7 +3,7 @@ launch_apps_as_systemd_services = true
 setup_wizard_enabled = false
 telemetry_enabled = false
 clipboard_auto_paste = "off"
-screen_time = true
+screen_time_enabled = true
 
 [shell.launcher]
 auto_paste = "auto"
