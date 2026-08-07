@@ -74,3 +74,8 @@ launchers:
     description: Toggle Bar
     icon: io.elementary.wingpanel
     args: ["msg", "bar-toggle"]
+  settings:
+    binary: noctalia
+    description: Settings
+    icon: system-settings
+    args: ["msg", "settings-toggle"]

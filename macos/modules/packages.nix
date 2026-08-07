@@ -27,11 +27,11 @@
     podman-compose
     python3
     ripgrep
-    usage
     rustc
     stow
     transcrypt
     tree
+    usage
     uv
   ];
 }

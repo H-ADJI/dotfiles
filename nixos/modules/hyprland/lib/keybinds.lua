@@ -89,9 +89,9 @@ hl.bind("SUPER + SHIFT + F", hl.dsp.window.float())
 
 hl.bind("SUPER+ mouse:272", hl.dsp.window.drag(), { mouse = true }) -- ALT + LMB: Move a window by dragging more than 10px.
 --
-hl.bind("SUPER + R", hl.dsp.submap("resize"))
+hl.bind("SUPER + R", hl.dsp.submap("RESIZE"))
 
-hl.define_submap("resize", helpers.setup_resize_binds)
+hl.define_submap("RESIZE", helpers.setup_resize_binds)
 
 hl.bind("SUPER + SHIFT + TAB", helpers.cycle_layout)
 

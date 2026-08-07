@@ -5,6 +5,8 @@ font_weight = 600
 start = ["launcher", "wallpaper", "workspaces", "special-workspaces"]
 center = ["clock"]
 end = [
+  "hypr-submap",
+  "eyecare-widget",
   "media",
   "tray",
   "notifications",
@@ -12,10 +14,40 @@ end = [
   "battery",
   "session",
 ]
+
+[widget.clock]
+capsule = true
+capsule_fill = "primary"
+capsule_opacity = 0.2
+capsule_padding = 30
+color = "primary"
+
+[widget.clock.actions]
+left = "panel-toggle control-center"
+
+[widget.hypr-submap]
+type = "k4n4t4/hypr-submap:hypr-submap"
+prefix = " : "
+capsule = true
+capsule_border = "secondary"
+capsule_fill = "tertiary"
+capsule_opacity = 0.5
+capsule_padding = 25
+hide_when_default = true
+
 [widget.special-workspaces]
 type = "jamesfeeder/special-workspaces:special-workspaces"
-# hide_inactive = true
 active_style = "fill"
-# inactive_style = "ghost"
 capsule_min_width = 80
-# capsule_padding = 60
+
+[widget.eyecare-widget]
+type = "apex077/eyecare:eyecare-widget"
+capsule = true
+capsule_border = "secondary"
+capsule_fill = "secondary"
+capsule_opacity = 0.50
+capsule_padding = 16
+color = "tertiary"
+icon_color = "primary"
+active_duration_minutes = 30
+break_duration_seconds = 60
