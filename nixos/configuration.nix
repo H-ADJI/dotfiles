@@ -32,13 +32,17 @@
 
   users.users.khalil = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [
+      "wheel"
+      "audio"
+    ];
     shell = pkgs.zsh;
     packages = with pkgs; [ ];
   };
   services.pipewire = {
     enable = true;
     pulse.enable = true;
+    jack.enable = true;
   };
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
