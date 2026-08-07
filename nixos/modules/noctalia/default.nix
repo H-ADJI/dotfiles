@@ -1,4 +1,8 @@
-{ config, nixosModules, ... }:
+{
+  config,
+  nixosModules,
+  ...
+}:
 {
   # TODO: plugins check :)
   programs.noctalia = {
@@ -10,4 +14,5 @@
     config.lib.file.mkOutOfStoreSymlink "${nixosModules}/noctalia/noctalia.toml";
   xdg.configFile."noctalia/conf".source =
     config.lib.file.mkOutOfStoreSymlink "${nixosModules}/noctalia/conf";
+
 }

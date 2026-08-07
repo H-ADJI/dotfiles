@@ -29,5 +29,6 @@
     wayscriber
     bluetui
     impala
+    socat
   ];
 }
