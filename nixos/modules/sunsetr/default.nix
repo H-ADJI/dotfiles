@@ -1,15 +1,8 @@
 {
-  config,
   pkgs,
-  nixosModules,
   ...
-}:
-let
-  # TODO: home manager module
-  sunsetr = "${nixosModules}/sunsetr/sunsetr.toml";
-in
-{
-  xdg.configFile."sunsetr/sunsetr.toml".source = config.lib.file.mkOutOfStoreSymlink sunsetr;
+}: {
+  xdg.configFile."sunsetr/sunsetr.toml".source = ./sunsetr.toml;
 
   systemd.user.services.sunsetr = {
     Unit = {
