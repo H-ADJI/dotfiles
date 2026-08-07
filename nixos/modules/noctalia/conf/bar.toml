@@ -3,13 +3,12 @@ thickness = 35
 scale = 1.2
 font_weight = 600
 start = ["launcher", "wallpaper", "workspaces", "special-workspaces"]
-center = ["clock"]
+center = ["notifications", "clock", "caffeine"]
 end = [
   "hypr-submap",
   "pomodoro-widget",
   "media",
   "tray",
-  "notifications",
   "brightness",
   "battery",
   "session",

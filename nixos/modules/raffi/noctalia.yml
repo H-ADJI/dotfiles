@@ -2,7 +2,6 @@ version: 1
 $schema: /home/khalil/.config/raffi/raffi-schema.json
 general:
   ui_type: fuzzel
-  # no_icons: true
 launchers:
   idle_inhibitor:
     binary: noctalia

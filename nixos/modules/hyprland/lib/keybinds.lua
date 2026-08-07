@@ -110,7 +110,7 @@ hl.bind("SUPER + R", hl.dsp.submap("RESIZE"), { description = "Enter resize mode
 hl.define_submap("RESIZE", helpers.setup_resize_binds)
 
 -- 13. Layout and zoom
-hl.bind("SUPER + SHIFT + TAB", helpers.cycle_layout, { description = "Cycle layout" })
+hl.bind("SUPER + SHIFT + TAB", hl.dsp.exec_cmd("raffi -c ~/.config/raffi/layouts.yml"), { description = "Open layout switcher" })
 hl.bind("SUPER + Z", helpers.zoom, { description = "Zoom in" })
 hl.bind("SUPER + KP_ADD", function()
     helpers.zoom(0.5)

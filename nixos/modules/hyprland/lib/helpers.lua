@@ -28,26 +28,4 @@ function M.setup_resize_binds()
     hl.bind("escape", hl.dsp.submap("reset"))
 end
 
-function M.cycle_layout()
-    local layouts = { "scrolling", "dwindle", "master", "monocle" }
-    local next_layout = "dwindle"
-
-    local workspace = hl.get_active_special_workspace() or hl.get_active_workspace()
-    if not workspace then
-        return
-    end
-    local current_layout = workspace.tiled_layout
-
-    for i = 1, #layouts do
-        if layouts[i] == current_layout then
-            local next_layout_idx = (i % #layouts) + 1
-            next_layout = layouts[next_layout_idx]
-            hl.exec_cmd(string.format("notify-send  -t 2000 -a 'Layout_Switcher' 'Layout: %s' ", next_layout))
-            break
-        end
-    end
-
-    hl.workspace_rule({ workspace = workspace.name, layout = next_layout })
-end
-
 return M
