@@ -9,38 +9,38 @@
     users.khalil = {
       imports = [
         inputs.noctalia.homeModules.default
-        ./modules/ssh
-        ./modules/assets
-        ./modules/xdg
-        ./modules/noctalia
-        ./modules/television
-        ./modules/hyprland
-        ./modules/yazi
-        ./modules/raffi
-        ./modules/fuzzel
         ./modules/alacritty
-        ./modules/nvim
-        ./modules/zathura
+        ./modules/assets
+        ./modules/fastfetch
+        ./modules/fuzzel
+        ./modules/ghostty
+        ./modules/git
         ./modules/glow
         ./modules/gtk
-        ./modules/pulsemixer
-        ./modules/wayscriber
         ./modules/hunk
+        ./modules/hyprland
         ./modules/jnv
         ./modules/jqp
-        ./modules/tabiew
+        ./modules/nh
+        ./modules/noctalia
+        ./modules/nvim
         ./modules/opencode
-        ./modules/zsh
+        ./modules/packages
+        ./modules/pulsemixer
+        ./modules/raffi
+        ./modules/satty
+        ./modules/ssh
+        ./modules/starship
+        ./modules/systemd
+        ./modules/tabiew
+        ./modules/taskwarrior
+        ./modules/television
         ./modules/tmux
-        ./modules/packages.nix
-        ./modules/fastfetch.nix
-        ./modules/taskwarrior.nix
-        ./modules/git.nix
-        ./modules/starship.nix
-        ./modules/systemd.nix
-        ./modules/nh.nix
-        ./modules/ghostty.nix
-        ./modules/satty.nix
+        ./modules/wayscriber
+        ./modules/xdg
+        ./modules/yazi
+        ./modules/zathura
+        ./modules/zsh
       ];
       home.username = "khalil";
       home.homeDirectory = "/home/khalil";
