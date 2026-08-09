@@ -22,14 +22,6 @@
     wifi.backend = "iwd";
   };
   time.timeZone = "Europe/Paris";
-  # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
-
   users.users.khalil = {
     isNormalUser = true;
     extraGroups = [
@@ -37,14 +29,12 @@
       "audio"
     ];
     shell = pkgs.zsh;
-    packages = with pkgs; [ ];
   };
   services.pipewire = {
     enable = true;
     pulse.enable = true;
     jack.enable = true;
   };
-  # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
     vim
     curl
