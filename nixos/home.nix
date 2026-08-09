@@ -5,6 +5,7 @@
     useUserPackages = true;
     extraSpecialArgs = {
       nixosModules = "/home/khalil/dotfiles/nixos/modules";
+      inherit inputs;
     };
     users.khalil = {
       imports = [

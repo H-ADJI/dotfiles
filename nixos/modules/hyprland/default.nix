@@ -4,10 +4,7 @@
 }:
 {
   xdg.configFile."hypr/xdph.conf".source = ./xdph.conf;
-  xdg.configFile."hypr/share-picker.sh" = {
-    source = ./share-picker.sh;
-    executable = true;
-  };
+  xdg.configFile."hyprland-preview-share-picker/config.yaml".source = ./share-picker.yaml;
 
   home.pointerCursor = {
     enable = true;
