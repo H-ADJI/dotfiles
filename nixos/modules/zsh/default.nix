@@ -36,7 +36,6 @@
       fpath+=(
         "${pkgs.zsh-completions}/share/zsh/site-functions"
         "${pkgs.gh}/share/zsh/site-functions"
-        "${pkgs.uv}/share/zsh/site-functions"
       )
       zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
       zstyle ':completion:*' menu select
@@ -52,6 +51,21 @@
 
     shellAliases = {
       gclean = "git clean -f";
+      ga = "git add";
+      gaa = "git add --all";
+      gst = "git status";
+      gss = "git status --short";
+      gc = "git commit -v";
+      gcam = "git commit -a -m";
+      gcmsg = "git commit -m";
+      gl = "git pull";
+      gp = "git push";
+      ggl = "git pull origin $(current_branch)";
+      ggp = "git push origin $(current_branch)";
+      glgg = "git log --graph --oneline --decorate";
+      gd = "git diff";
+      gds = "git diff --staged";
+      grh = "git reset --hard";
       lc = "leetcode";
       e = "$EDITOR";
       t = "tmuxp load -y";
