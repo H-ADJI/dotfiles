@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 
 {
   home.packages = with pkgs; [
@@ -35,6 +35,5 @@
     jqp
     tabiew
     slurp
-    inputs.hyprland-preview-share-picker.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }

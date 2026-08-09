@@ -17,10 +17,6 @@
     musnix = {
       url = "github:musnix/musnix";
     };
-    hyprland-preview-share-picker = {
-      url = "github:WhySoBad/hyprland-preview-share-picker";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
   outputs =
     {

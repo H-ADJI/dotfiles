@@ -21,22 +21,6 @@
         "type": "github"
       }
     },
-    "hyprland-preview-share-picker": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1782052593,
-        "narHash": "sha256-g7LF8CKQ4hWvbWbaZmBb0yXqi3WbE5jT6T/sWrAR7gQ=",
-        "owner": "WhySoBad",
-        "repo": "hyprland-preview-share-picker",
-        "rev": "e2f30ff85486e557018523da45ccbc846e3a499c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "WhySoBad",
-        "repo": "hyprland-preview-share-picker",
-        "type": "github"
-      }
-    },
     "musnix": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -122,7 +106,6 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
-        "hyprland-preview-share-picker": "hyprland-preview-share-picker",
         "musnix": "musnix",
         "nixpkgs": "nixpkgs_2",
         "noctalia": "noctalia"
