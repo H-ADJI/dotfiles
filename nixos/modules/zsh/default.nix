@@ -51,21 +51,17 @@
 
     shellAliases = {
       gclean = "git clean -f";
+      grs = "git restore";
       ga = "git add";
       gaa = "git add --all";
       gst = "git status";
       gss = "git status --short";
-      gc = "git commit -v";
       gcam = "git commit -a -m";
       gcmsg = "git commit -m";
       gl = "git pull";
       gp = "git push";
-      ggl = "git pull origin $(current_branch)";
-      ggp = "git push origin $(current_branch)";
-      glgg = "git log --graph --oneline --decorate";
       gd = "git diff";
       gds = "git diff --staged";
-      grh = "git reset --hard";
       lc = "leetcode";
       e = "$EDITOR";
       t = "tmuxp load -y";
