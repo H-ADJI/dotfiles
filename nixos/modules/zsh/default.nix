@@ -1,21 +1,10 @@
 { pkgs, ... }:
-
 {
   home.packages = with pkgs; [ zinit ];
 
   xdg.configFile."zinit/zinit.sh".text = ''
     source ${pkgs.zinit}/share/zinit/zinit.zsh
     zinit light "mroth/evalcache"
-    zinit snippet OMZL::git.zsh
-    zinit snippet OMZP::git
-    zinit snippet OMZP::sudo
-    zinit snippet OMZP::eza
-    zinit snippet OMZP::gh
-    zinit snippet OMZP::uv
-    zinit snippet OMZP::ssh
-    zinit snippet OMZP::docker
-    zinit snippet OMZP::docker-compose
-    zinit snippet OMZP::podman
   '';
 
   home.sessionVariables = {
@@ -35,7 +24,6 @@
     history = {
       size = 5000;
       save = 5000;
-      path = "$HOME/.zsh_history";
       append = true;
       share = true;
       ignoreDups = true;

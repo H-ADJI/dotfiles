@@ -10,7 +10,7 @@ _evalcache fzf --zsh
 _evalcache direnv hook zsh
 _evalcache starship init zsh
 _evalcache tv init zsh
-_evalcache zoxide init zsh
+_evalcache zoxide init zsh --cmd cd
 _evalcache batman --export-env
 
 bindkey '^y' autosuggest-accept
@@ -28,4 +28,3 @@ select-word-style bash
 if [[ -n $SSH_CONNECTION ]]; then
     export EDITOR="vim"
 fi
-zinit cdreplay -q

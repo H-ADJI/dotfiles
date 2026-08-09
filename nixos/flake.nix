@@ -38,7 +38,6 @@
             musnix.kernel.realtime = true;
           }
         ];
-
       };
     };
 }
