@@ -3,6 +3,11 @@
   ...
 }:
 {
+  xdg.configFile."hypr/xdph.conf".source = ./xdph.conf;
+  xdg.configFile."hypr/share-picker.sh" = {
+    source = ./share-picker.sh;
+    executable = true;
+  };
 
   home.pointerCursor = {
     enable = true;

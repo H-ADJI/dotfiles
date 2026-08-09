@@ -34,5 +34,7 @@
     jnv
     jqp
     tabiew
+    slurp
+    jq
   ];
 }
