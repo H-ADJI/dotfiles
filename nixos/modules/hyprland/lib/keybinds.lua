@@ -71,7 +71,7 @@ hl.bind("SUPER + 7", hl.dsp.focus({ workspace = 7 }), { description = "Go to wor
 hl.bind("SUPER + 8", hl.dsp.focus({ workspace = 8 }), { description = "Go to workspace 8" })
 hl.bind("SUPER + 9", hl.dsp.focus({ workspace = 9 }), { description = "Go to workspace 9" })
 hl.bind("SUPER + 0", hl.dsp.focus({ workspace = 10 }), { description = "Go to workspace 10" })
-hl.bind("SUPER + S", hl.dsp.workspace.toggle_special("magic"), { description = "Toggle magic workspace" })
+hl.bind("SUPER + S", hl.dsp.workspace.toggle_special("scratch"), { description = "Toggle magic workspace" })
 hl.bind("SUPER + mouse_down", hl.dsp.focus({ workspace = "e-1" }), { description = "Previous workspace" })
 hl.bind("SUPER + mouse_up", hl.dsp.focus({ workspace = "e+1" }), { description = "Next workspace" })
 
