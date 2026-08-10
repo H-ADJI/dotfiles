@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-url=$(tmux capture-pane -p -J -S - \
-    | grep -oE 'https?://[^[:space:]]+' \
-    | sed 's/[.,;:!?()"'"'"']*$//' \
-    | sort -u \
-    | fzf --exit-0 --reverse) || true
+# TODO: verify implementation
+url=$(tmux capture-pane -p -J -S - | grep -oE 'https?://[^[:space:]]+' | sed 's/[.,;:!?()"'"'"']*$//' | sort -u | fzf --exit-0 --reverse) || true
 
 if [ -n "$url" ]; then
     xdg-open "$url"
