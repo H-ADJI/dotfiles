@@ -10,38 +10,37 @@
     users.khalil = {
       imports = [
         inputs.noctalia.homeModules.default
-        ./modules/alacritty
-        ./modules/assets
-        ./modules/herdr
-        ./modules/fastfetch
-        ./modules/fuzzel
-        ./modules/ghostty
-        ./modules/git
-        ./modules/glow
-        ./modules/gtk
-        ./modules/hunk
-        ./modules/hyprland
-        ./modules/jnv
-        ./modules/jqp
-        ./modules/nh
-        ./modules/noctalia
-        ./modules/nvim
-        ./modules/opencode
-        ./modules/pulsemixer
-        ./modules/raffi
-        ./modules/satty
-        ./modules/ssh
-        ./modules/starship
-        ./modules/systemd
-        ./modules/tabiew
-        ./modules/taskwarrior
-        ./modules/television
-        ./modules/tmux
-        ./modules/wayscriber
-        ./modules/xdg
-        ./modules/yazi
-        ./modules/zathura
-        ./modules/zsh
+        ./alacritty
+        ./assets
+        ./fastfetch
+        ./fuzzel
+        ./ghostty
+        ./git
+        ./glow
+        ./gtk
+        ./hunk
+        ./hyprland
+        ./jnv
+        ./jqp
+        ./nh
+        ./noctalia
+        ./nvim
+        ./opencode
+        ./pulsemixer
+        ./raffi
+        ./satty
+        ./ssh
+        ./starship
+        ./systemd
+        ./tabiew
+        ./taskwarrior
+        ./television
+        ./tmux
+        ./wayscriber
+        ./xdg
+        ./yazi
+        ./zathura
+        ./zsh
       ];
       home.username = "khalil";
       home.homeDirectory = "/home/khalil";
