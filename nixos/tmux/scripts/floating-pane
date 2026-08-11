@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+FLOAT_SESSION="floax-session"
+
+if [ -z "${FLOAX_POPUP-}" ]; then
+    if [ "$(tmux display-message -p '#{session_name}')" = "$FLOAT_SESSION" ]; then
+        tmux detach-client
+        exit 0
+    fi
+    pane_path="$(tmux display-message -p '#{pane_current_path}')"
+    tmux display-popup \
+        -w 90% -h 90% \
+        -T "Floating Terminal" \
+        -S fg=#5b8cf0 \
+        -b heavy \
+        -E \
+        -d "$pane_path" \
+        -e "FLOAX_PATH=$pane_path" \
+        -e "FLOAX_POPUP=1" \
+        "$(realpath "$0")"
+    exit 0
+fi
+
+tmux new-session -d -s "$FLOAT_SESSION" 2>/dev/null || true
+tmux set-option -t "$FLOAT_SESSION" status off
+tmux set-option -t "$FLOAT_SESSION" detach-on-destroy on
+tmux attach-session -t "$FLOAT_SESSION"

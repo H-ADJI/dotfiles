@@ -17,8 +17,8 @@
       source = ./scripts/vim_edit;
       executable = true;
     };
-    "tmux/scripts/floax-toggle" = {
-      source = ./scripts/floax-toggle;
+    "tmux/scripts/floating-pane" = {
+      source = ./scripts/floating-pane;
       executable = true;
     };
     "tmux/scripts/switch-session" = {
