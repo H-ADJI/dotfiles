@@ -14,7 +14,7 @@ run = '''o=$(tmux capture-pane -J -p -S -2000 | xre \
         printf '%s\n' "$o"'''
 
 [[source.command]]
-name = "Files"
+name = "File Paths"
 run = '''o=$(tmux capture-pane -J -p -S -2000 | xre -e '(?:~/|\.\.?/|/)[\w./~-]+'); printf '%s\n' "$o"'''
 
 [ui.preview_panel]

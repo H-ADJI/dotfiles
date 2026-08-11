@@ -11,7 +11,7 @@
     "tmux/keybindings.conf".source = ./keybindings.conf;
     "tmux/floax.conf".source = ./floax.conf;
     "tmux/fzf-sessions.conf".source = ./fzf-sessions.conf;
-    "tmux/fzf-url.conf".source = ./fzf-url.conf;
+    "tmux/fzf-patterns.conf".source = ./fzf-patterns.conf;
     "tmux/md_preview.conf".source = ./md_preview.conf;
     "tmux/vim_edit.conf".source = ./vim_edit.conf;
     "tmux/status.conf".source = ./status.conf;
