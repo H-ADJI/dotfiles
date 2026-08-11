@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 {
   home-manager = {
     useGlobalPkgs = true;
@@ -12,6 +12,7 @@
         inputs.noctalia.homeModules.default
         ./modules/alacritty
         ./modules/assets
+        ./modules/herdr
         ./modules/fastfetch
         ./modules/fuzzel
         ./modules/ghostty
@@ -26,7 +27,6 @@
         ./modules/noctalia
         ./modules/nvim
         ./modules/opencode
-        ./modules/packages
         ./modules/pulsemixer
         ./modules/raffi
         ./modules/satty
@@ -46,6 +46,41 @@
       home.username = "khalil";
       home.homeDirectory = "/home/khalil";
       home.stateVersion = "26.05";
+      home.packages = with pkgs; [
+        # TODO: package : shuck / zshcs
+        nerd-fonts.jetbrains-mono
+        glow
+        alacritty
+        raffi
+        go
+        wl-clipboard
+        google-chrome
+        brave
+        neovim
+        fuzzel
+        tree
+        fd
+        fzf
+        gnugrep
+        hyperfine
+        ripgrep
+        pulsemixer
+        libnotify
+        opencode
+        mpv
+        nautilus
+        playerctl
+        papirus-icon-theme
+        wayscriber
+        bluetui
+        impala
+        socat
+        hunk
+        jnv
+        jqp
+        tabiew
+        slurp
+      ];
     };
   };
 }
