@@ -1,5 +1,3 @@
-{ pkgs, ... }:
-
 {
   programs.tmux = {
     enable = true;
@@ -32,10 +30,6 @@
     };
     "tmux/scripts/switch-session" = {
       source = ./scripts/switch-session;
-      executable = true;
-    };
-    "tmux/scripts/fzf-url" = {
-      source = ./scripts/fzf-url;
       executable = true;
     };
   };
