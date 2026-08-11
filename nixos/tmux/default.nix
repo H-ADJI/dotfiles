@@ -7,14 +7,7 @@
 
   xdg.configFile = {
     "tmux/tmux.conf".source = ./tmux.conf;
-    "tmux/core.conf".source = ./core.conf;
-    "tmux/keybindings.conf".source = ./keybindings.conf;
-    "tmux/floax.conf".source = ./floax.conf;
-    "tmux/fzf-sessions.conf".source = ./fzf-sessions.conf;
-    "tmux/fzf-patterns.conf".source = ./fzf-patterns.conf;
-    "tmux/md_preview.conf".source = ./md_preview.conf;
-    "tmux/vim_edit.conf".source = ./vim_edit.conf;
-    "tmux/status.conf".source = ./status.conf;
+    "tmux/status-bar.conf".source = ./status-bar.conf;
 
     "tmux/scripts/md_preview" = {
       source = ./scripts/md_preview;

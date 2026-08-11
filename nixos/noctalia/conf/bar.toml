@@ -18,6 +18,7 @@ type = "privacy"
 icon_spacing = 6
 
 [widget.clock]
+format = "{:%d/%m} - {:%H:%M}"
 capsule = true
 capsule_fill = "primary"
 capsule_opacity = 0.3
