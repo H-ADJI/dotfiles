@@ -1,7 +1,7 @@
 # TODO: rename pde - dotfiles
 session_name: Dotfiles
 suppress_history: true
-start_directory: ~/dotfiles/
+start_directory: ~/PDE/
 windows:
   - window_name: "editor"
     shell_command_before: nvim
