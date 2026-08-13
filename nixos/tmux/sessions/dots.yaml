@@ -3,9 +3,9 @@ session_name: Dotfiles
 suppress_history: true
 start_directory: ~/dotfiles/
 windows:
-  - window_name: "src"
+  - window_name: "editor"
     shell_command_before: nvim
     focus: true
-  - window_name: "shell"
-  - window_name: "AI"
-    shell_command_before: opencode
+  - window_name: "shell-prompt"
+  - window_name: "coding-agent"
+    shell_command_before: pi

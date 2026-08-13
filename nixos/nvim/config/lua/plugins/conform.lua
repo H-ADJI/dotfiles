@@ -22,6 +22,7 @@ return {
       lua = { "stylua" },
       python = { "ruff_format", "ruff_organize_imports", "ruff_fix" },
       go = { "gofumpt", "golines", "goimports" },
+      -- TODO: nixfmt settings
       nix = { "nixfmt" },
       c = { "clang_format" },
       asm = { "asmfmt" },
