@@ -44,6 +44,7 @@ in
         ./starship
         ./share-picker
         ./systemd
+        ./pi-agent
         ./tabiew
         ./taskwarrior
         ./television
