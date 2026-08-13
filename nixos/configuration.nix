@@ -6,22 +6,29 @@
     "nix-command"
   ];
 
+  nixpkgs.config.allowUnfree = true;
+
   programs.hyprland.enable = true;
   programs.zsh.enable = true;
+
   services.displayManager.ly.enable = true;
-  nixpkgs.config.allowUnfree = true;
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
   services.upower.enable = true;
   services.power-profiles-daemon.enable = true;
+
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+
   networking.hostName = "nixos";
   networking.networkmanager = {
     enable = true;
     wifi.backend = "iwd";
   };
+
   time.timeZone = "Europe/Paris";
+
   users.users.khalil = {
     isNormalUser = true;
     extraGroups = [
@@ -30,16 +37,13 @@
     ];
     shell = pkgs.zsh;
   };
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
-    jack.enable = true;
-  };
+
   environment.systemPackages = with pkgs; [
     vim
     curl
     neovim
     wget
   ];
+
   system.stateVersion = "26.05";
 }

@@ -31,12 +31,9 @@
         modules = [
           ./configuration.nix
           ./home.nix
+          ./audio.nix
           home-manager.nixosModules.home-manager
           inputs.musnix.nixosModules.musnix
-          {
-            musnix.enable = true;
-            musnix.kernel.realtime = true;
-          }
         ];
       };
     };
