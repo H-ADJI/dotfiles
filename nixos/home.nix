@@ -15,7 +15,7 @@ in
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = {
-      nixosModules = "/home/khalil/dotfiles/nixos";
+      nixosModules = "/home/khalil/PDE/nixos";
       inherit inputs;
     };
     users.khalil = {

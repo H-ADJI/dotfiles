@@ -75,7 +75,7 @@
       dotconf = "cd ~/.config";
       nvim_shada_clear = "rm ~/.local/state/nvim/shada/main.shada";
       hd = "hunk diff";
-      nix_switch = "sudo nixos-rebuild switch --flake ~/dotfiles/nixos#nixos";
+      nix_switch = "sudo nixos-rebuild switch --flake ~/PDE/nixos#nixos";
       nh_clean = "nh clean all --keep-since 7d --keep 5";
       nh_switch = "nh os switch --accept-flake-config";
     };
