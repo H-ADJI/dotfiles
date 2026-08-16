@@ -11,3 +11,11 @@ Add **flakes** + **nix-commands** experimental features into `/etc/nixos/configu
 ```nix
   nix.settings.experimental-features = [ "flakes" "nix-command" ];
 ```
+
+Add user password
+
+```bash
+nixos-enter --root / -c 'passwd khalil'
+```
+CLone repo
+git clone 
