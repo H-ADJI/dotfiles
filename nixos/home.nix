@@ -94,7 +94,6 @@ in
         wayscriber
         wl-clipboard
         xre
-        localsend
       ];
     };
   };

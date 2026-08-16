@@ -9,6 +9,7 @@
   nixpkgs.config.allowUnfree = true;
 
   programs.hyprland.enable = true;
+  programs.localsend.enable = true;
   programs.zsh.enable = true;
 
   services.displayManager.ly.enable = true;
