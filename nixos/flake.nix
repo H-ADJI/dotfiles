@@ -23,6 +23,7 @@
       nixpkgs,
       home-manager,
       noctalia,
+      musnix,
       ...
     }@inputs:
     {
@@ -33,7 +34,7 @@
           ./home.nix
           ./audio.nix
           home-manager.nixosModules.home-manager
-          inputs.musnix.nixosModules.musnix
+          musnix.nixosModules.musnix
         ];
       };
     };
