@@ -27,6 +27,7 @@ hl.bind("SUPER + SHIFT + E", hl.dsp.exec_cmd(vars.file_picker_alt), { descriptio
 local session_toggle = nctl .. "panel-toggle session"
 hl.bind("SUPER + SHIFT + P", hl.dsp.exec_cmd(session_toggle), { description = "Open session menu" })
 hl.bind("mouse:275", hl.dsp.exec_cmd(session_toggle), { description = "Open session menu" })
+
 hl.bind("SUPER + C", hl.dsp.exec_cmd(nctl .. "screenshot-region"), { description = "Screenshot region" })
 hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd(nctl .. "screenshot-fullscreen"), { locked = true, description = "Screenshot fullscreen" })
 hl.bind("SUPER + V", hl.dsp.exec_cmd(nctl .. "panel-toggle clipboard"), { description = "Open clipboard history" })
