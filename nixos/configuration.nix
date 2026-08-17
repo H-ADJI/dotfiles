@@ -14,7 +14,6 @@
 
   services.displayManager.ly.enable = true;
   services.upower.enable = true;
-  services.power-profiles-daemon.enable = true;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -32,10 +31,7 @@
 
   users.users.khalil = {
     isNormalUser = true;
-    extraGroups = [
-      "wheel"
-      "audio"
-    ];
+    extraGroups = [ "wheel" ];
     shell = pkgs.zsh;
   };
 

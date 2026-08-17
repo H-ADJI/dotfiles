@@ -94,6 +94,7 @@ in
         wayscriber
         wl-clipboard
         xre
+        ardour
       ];
     };
   };
