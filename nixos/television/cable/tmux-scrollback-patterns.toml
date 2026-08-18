@@ -17,6 +17,10 @@ run = '''o=$(tmux capture-pane -J -p -S -2000 | xre \
 name = "File Paths"
 run = '''o=$(tmux capture-pane -J -p -S -2000 | xre -e '(?:~/|\.\.?/|/)[\w./~-]+'); printf '%s\n' "$o"'''
 
+[[source.command]]
+name = "OAuth Codes"
+run = '''tmux capture-pane -J -p -S -2000 | xre -e '\b[A-Z0-9]{4}-[A-Z0-9]{4}\b' '''
+
 [ui.preview_panel]
 hidden = true
 
