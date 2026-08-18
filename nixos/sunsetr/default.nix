@@ -1,7 +1,8 @@
 {
   pkgs,
   ...
-}: {
+}:
+{
   xdg.configFile."sunsetr/sunsetr.toml".source = ./sunsetr.toml;
 
   systemd.user.services.sunsetr = {

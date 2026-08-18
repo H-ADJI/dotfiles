@@ -21,10 +21,6 @@
       source = ./scripts/floating-pane;
       executable = true;
     };
-    "tmux/scripts/switch-session" = {
-      source = ./scripts/switch-session;
-      executable = true;
-    };
   };
 
   xdg.configFile."tmuxp".source = ./sessions;

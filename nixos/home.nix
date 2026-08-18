@@ -23,6 +23,7 @@ in
         inputs.noctalia.homeModules.default
         ./alacritty
         ./assets
+        ./direnv
         ./fastfetch
         ./fuzzel
         ./ghostty
@@ -37,14 +38,14 @@ in
         ./noctalia
         ./nvim
         ./opencode
+        ./pi-agent
         ./pulsemixer
         ./raffi
         ./satty
+        ./share-picker
         ./ssh
         ./starship
-        ./share-picker
         ./systemd
-        ./pi-agent
         ./tabiew
         ./taskwarrior
         ./television
@@ -61,14 +62,15 @@ in
       home.packages = with pkgs; [
         # TODO: package : shuck / zshcs
         alacritty
+        ardour
         bluetui
         brave
+        devenv
         fd
         fuzzel
         fzf
         glow
         gnugrep
-        go
         google-chrome
         hunk
         hyperfine
@@ -81,7 +83,6 @@ in
         nautilus
         neovim
         nerd-fonts.jetbrains-mono
-        opencode
         papirus-icon-theme
         playerctl
         pulsemixer
@@ -94,8 +95,6 @@ in
         wayscriber
         wl-clipboard
         xre
-        ardour
-        devenv
       ];
     };
   };

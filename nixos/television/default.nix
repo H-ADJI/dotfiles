@@ -23,7 +23,9 @@
           separator_close = "";
           hidden = false;
         };
-        results_panel = { border_type = "rounded"; };
+        results_panel = {
+          border_type = "rounded";
+        };
         preview_panel = {
           size = 50;
           scrollbar = true;
@@ -79,9 +81,20 @@
       shell_integration = {
         fallback_channel = "files";
         channel_triggers = {
-          alias = [ "alias" "unalias" ];
-          env = [ "export" "unset" ];
-          dirs = [ "cd" "ls" "rmdir" "z" ];
+          alias = [
+            "alias"
+            "unalias"
+          ];
+          env = [
+            "export"
+            "unset"
+          ];
+          dirs = [
+            "cd"
+            "ls"
+            "rmdir"
+            "z"
+          ];
           files = [
             "cat"
             "less"
@@ -104,9 +117,17 @@
             "gunzip"
             "xz"
           ];
-          "git-diff" = [ "git add" "git restore" ];
+          "git-diff" = [
+            "git add"
+            "git restore"
+          ];
           "git-reflog" = [ "git checkout" ];
-          spiders = [ "scrapy crawl" "pls checker generate" "pls zone open" "pls" ];
+          spiders = [
+            "scrapy crawl"
+            "pls checker generate"
+            "pls zone open"
+            "pls"
+          ];
           channels = [ "tv" ];
           "git-branch" = [
             "git branch"
@@ -117,9 +138,17 @@
             "git switch"
             "gsw"
           ];
-          "git-log" = [ "git log" "git show" ];
+          "git-log" = [
+            "git log"
+            "git show"
+          ];
           "docker-images" = [ "docker run" ];
-          "git-repos" = [ "nvim" "code" "hx" "git clone" ];
+          "git-repos" = [
+            "nvim"
+            "code"
+            "hx"
+            "git clone"
+          ];
         };
         keybindings = {
           smart_autocomplete = "ctrl-f";
