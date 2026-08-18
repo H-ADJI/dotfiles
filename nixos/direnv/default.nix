@@ -4,9 +4,9 @@
     enable = true;
     silent = true;
     config = {
-      # whitelist = {
-      #   prefix = [ "~/PDE/" ];
-      # };
+      whitelist = {
+        # prefix = [ "~/PDE/" ];
+      };
     };
   };
 }

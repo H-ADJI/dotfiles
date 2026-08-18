@@ -12,7 +12,6 @@ _evalcache starship init zsh
 _evalcache tv init zsh
 _evalcache zoxide init zsh --cmd cd
 _evalcache batman --export-env
-_evalcache devenv hook zsh
 
 bindkey '^y' autosuggest-accept
 bindkey '^ ' autosuggest-execute
