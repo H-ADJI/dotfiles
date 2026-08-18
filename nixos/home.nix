@@ -95,6 +95,7 @@ in
         wl-clipboard
         xre
         ardour
+        devenv
       ];
     };
   };
