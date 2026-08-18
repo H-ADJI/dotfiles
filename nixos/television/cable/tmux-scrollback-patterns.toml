@@ -6,20 +6,26 @@ requirements = ["tmux", "xre", "wl-copy"]
 [source]
 [[source.command]]
 name = "URLs"
-run = '''o=$(tmux capture-pane -J -p -S -2000 | xre \
-        -e '(https?|ftp|file):/?//[-A-Za-z0-9+&@#/%?=~_|!:,.;]*[-A-Za-z0-9+&@#/%=~_|]' \
-        -e 'git@([^:]+):(.+)\.git' -r 'https://$1/$2' \
-        -e '(www\.\S+)' -r 'http://$1' \
-        -e '(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(?::\d{1,5})?(?:/[^\s]+)*)' -r 'http://$1'); \
-        printf '%s\n' "$o"'''
+run = '''
+    o=$(tmux capture-pane -J -p -S -2000 | xre \
+    -e '(https?|ftp|file):/?//[-A-Za-z0-9+&@#/%?=~_|!:,.;]*[-A-Za-z0-9+&@#/%=~_|]' \
+    -e 'git@([^:]+):(.+)\.git' -r 'https://$1/$2' \
+    -e '(www\.\S+)' -r 'http://$1' \
+    -e '(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(?::\d{1,5})?(?:/[^\s]+)*)' -r 'http://$1'); \
+    printf '%s\n' "$o" 
+'''
 
 [[source.command]]
 name = "File Paths"
-run = '''o=$(tmux capture-pane -J -p -S -2000 | xre -e '(?:~/|\.\.?/|/)[\w./~-]+'); printf '%s\n' "$o"'''
+run = '''
+o=$(tmux capture-pane -J -p -S -2000 | xre -e '(?:~/|\.\.?/|/)[\w./~-]+'); printf '%s\n' "$o"
+'''
 
 [[source.command]]
 name = "OAuth Codes"
-run = '''tmux capture-pane -J -p -S -2000 | xre -e '\b[A-Z0-9]{4}-[A-Z0-9]{4}\b' '''
+run = '''
+o=$(tmux capture-pane -J -p -S -2000 | xre -e '\b[A-Z0-9]{4}-[A-Z0-9]{4}\b'); printf '%s\n' "$o"
+'''
 
 [ui.preview_panel]
 hidden = true
