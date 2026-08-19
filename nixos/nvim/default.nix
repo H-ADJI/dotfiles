@@ -12,6 +12,7 @@ in
   xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink nvim_lazy_conf;
 
   home.packages = with pkgs; [
+    neovim
     clang-tools
     deno
     gcc

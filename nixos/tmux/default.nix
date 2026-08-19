@@ -1,7 +1,10 @@
+{ pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    xre
+  ];
   programs.tmux = {
     enable = true;
-    # Core settings are sourced from ~/.config/tmux/core.conf
     tmuxp.enable = true;
   };
 

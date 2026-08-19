@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 {
   xdg.configFile."hypr/xdph.conf".source = ./xdph.conf;
 

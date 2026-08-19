@@ -1,4 +1,6 @@
+{ pkgs, ... }:
 {
+  home.packages = with pkgs; [ wayscriber ];
   xdg.desktopEntries.wayscriber = {
     name = "Wayscriber";
     genericName = "Screen Annotation";

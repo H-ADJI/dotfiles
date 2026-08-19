@@ -33,6 +33,7 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ];
     shell = pkgs.zsh;
+    packages = [ pkgs.ardour ];
   };
 
   environment.systemPackages = with pkgs; [

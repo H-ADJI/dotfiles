@@ -1,4 +1,10 @@
+{ pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    brave
+    nautilus
+    mpv
+  ];
   xdg = {
     enable = true;
     mime = {
