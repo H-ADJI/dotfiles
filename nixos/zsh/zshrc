@@ -18,6 +18,7 @@ bindkey '^ ' autosuggest-execute
 bindkey '^o' forward-word
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
+bindkey "^[c" undefined-key
 autoload edit-command-line
 zle -N edit-command-line
 bindkey "^E" edit-command-line

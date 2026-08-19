@@ -32,7 +32,6 @@
         ./satty
         ./share-picker
         ./ssh
-        ./nox
         ./starship
         ./systemd
         ./tabiew
