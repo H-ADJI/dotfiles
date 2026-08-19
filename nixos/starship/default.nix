@@ -5,10 +5,15 @@
     settings = {
       command_timeout = 1000;
       palette = "catppuccin_latte";
-      format = "$directory$git_branch$git_status$fill$python$lua$nodejs$golang$rust$package$docker_context$jobs$cmd_duration$line_break$character";
+      format = " $directory$git_branch$git_status $fill  $python$lua$nodejs$golang$rust$package$docker_context$jobs$cmd_duration$line_break$character";
       right_format = "$all";
+      nix_shell = {
+        disabled = false;
+        format = "[nix-shell]($style)";
+      };
       fill = {
-        symbol = " ";
+        symbol = "─";
+        style = "fg:crust";
       };
       directory = {
         style = "bold fg:lavender";
