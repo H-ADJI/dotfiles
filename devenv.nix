@@ -4,11 +4,15 @@
   languages = {
     nix = {
       enable = true;
-      lsp.package = pkgs.nil; # NOTE: default is nixd
+      lsp.package = pkgs.nixd; # NOTE: default is nixd
     };
   };
   packages = with pkgs; [
     nixfmt
+    lua-language-server
+    stylua
+    yaml-language-server
+    yamlfmt
   ];
   enterShell = ''
     nixfmt --version

@@ -25,6 +25,7 @@ return {
       "tinymist",
       "ruff",
       "nil_ls",
+      "nixd",
       "yamlls",
       "pyright",
       "bashls",
