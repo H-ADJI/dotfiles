@@ -1,0 +1,3 @@
+use_cache = true
+auto_refresh_cache = true
+cache_duration = "14days"

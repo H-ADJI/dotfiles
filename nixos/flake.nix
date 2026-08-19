@@ -17,6 +17,10 @@
     musnix = {
       url = "github:musnix/musnix";
     };
+    nox = {
+      url = "github:madsbv/nix-options-search";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     {
