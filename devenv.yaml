@@ -1,8 +1,0 @@
-# yaml-language-server: $schema=https://devenv.sh/devenv.schema.json
-# See https://devenv.sh/reference/yaml-options/
-inputs:
-  treefmt-nix:
-    url: github:numtide/treefmt-nix
-    inputs:
-      nixpkgs:
-        follows: nixpkgs

@@ -3,9 +3,8 @@ suppress_history: true
 start_directory: ~/PDE/
 windows:
   - window_name: "editor"
-    shell_command_before: devenv shell -- nvim
+    shell_command_before: nvim
     focus: true
   - window_name: "shell-prompt"
-    shell_command_before: devenv shell
   - window_name: "coding-agent"
-    shell_command_before: devenv shell -- pi
+    shell_command_before: pi
