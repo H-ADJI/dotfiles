@@ -1,14 +1,12 @@
+{ pkgs, lib, ... }:
 {
   musnix.enable = true;
   musnix.kernel.realtime = true;
 
+  services.power-profiles-daemon.enable = lib.mkForce false;
   services.pipewire = {
-    enable = true;
-    pulse.enable = true;
     jack.enable = true;
-    alsa.enable = true;
     alsa.support32Bit = true;
-    wireplumber.enable = true;
 
     extraConfig.pipewire."92-low-latency" = {
       "context.properties" = {
@@ -35,8 +33,6 @@
     };
   };
 
-  users.users.khalil.extraGroups = [ "audio" ];
-  security.rtkit.enable = true;
   security.pam.loginLimits = [
     {
       domain = "@audio";
@@ -51,7 +47,10 @@
     "usbcore.autosuspend=-1"
   ];
 
-  services.power-profiles-daemon.enable = false;
-  programs.gamemode.enable = true;
+  users.users.khalil = {
+    extraGroups = [ "audio" ];
+    packages = [ pkgs.ardour ];
+  };
 
+  programs.gamemode.enable = true;
 }

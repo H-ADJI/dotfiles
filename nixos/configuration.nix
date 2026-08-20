@@ -1,6 +1,8 @@
 { pkgs, ... }:
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [
+    ./hardware-configuration.nix
+  ];
   nix.settings.experimental-features = [
     "flakes"
     "nix-command"
@@ -14,6 +16,15 @@
 
   services.displayManager.ly.enable = true;
   services.upower.enable = true;
+  services.power-profiles-daemon.enable = true;
+
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+    alsa.enable = true;
+    wireplumber.enable = true;
+  };
+  security.rtkit.enable = true;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -33,12 +44,12 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ];
     shell = pkgs.zsh;
-    packages = [ pkgs.ardour ];
   };
 
   environment.systemPackages = with pkgs; [
     vim
     curl
+    git
     neovim
     wget
   ];
