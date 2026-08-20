@@ -1,6 +1,5 @@
 {
   description = "PDE dev shell";
-
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
   outputs =
@@ -19,9 +18,7 @@
           yaml-language-server
           yamlfmt
         ];
-        shellHook = ''
-          nixfmt --version
-        '';
+        shellHook = "";
       };
     };
 }
