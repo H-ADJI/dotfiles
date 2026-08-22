@@ -6,6 +6,11 @@
       pkgs.nodejs
       pkgs.bun
     ];
+    settings = {
+      packages = [
+        "npm:@narumitw/pi-plan-mode"
+      ];
+    };
     keybindings = {
       "tui.editor.cursorLeft" = [
         "left"
