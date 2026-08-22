@@ -8,7 +8,7 @@
     clean = {
       enable = true;
       dates = "daily";
-      extraArgs = "--keep-since 7d --keep 5";
+      extraArgs = "--keep 5";
     };
     flake = nixosModules;
     osFlake = nixosModules;
