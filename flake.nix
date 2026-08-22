@@ -10,15 +10,7 @@
     {
       devShells.x86_64-linux = {
         default = pkgs.mkShell {
-          packages = with pkgs; [
-            nixd
-            nixfmt
-            statix
-            lua-language-server
-            stylua
-            yaml-language-server
-            yamlfmt
-          ];
+          packages = with pkgs; [ ];
           shellHook = "";
         };
         # alternative shell profile : nix develop .#special

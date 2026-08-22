@@ -1,6 +1,11 @@
+{ pkgs, ... }:
 {
   programs.pi-coding-agent = {
     enable = true;
+    extra-packages = [
+      pkgs.nodejs
+      pkgs.bun
+    ];
     keybindings = {
       "tui.editor.cursorLeft" = [
         "left"
