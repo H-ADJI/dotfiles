@@ -12,8 +12,9 @@ in
   xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink nvim_lazy_conf;
   programs.neovim = {
     enable = true;
+    sideloadInitLua = true;
     defaultEditor = true;
-    extra-packages = with pkgs; [
+    extraPackages = with pkgs; [
       clang-tools
       deno
       gcc

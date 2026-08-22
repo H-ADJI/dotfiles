@@ -2,7 +2,7 @@
 {
   programs.pi-coding-agent = {
     enable = true;
-    extra-packages = [
+    extraPackages = [
       pkgs.nodejs
       pkgs.bun
     ];

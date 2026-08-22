@@ -23,7 +23,7 @@ vim.o.undofile = true
 vim.opt.fillchars:append({ eob = " " })
 vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.wo.foldmethod = "expr"
-vim.wo.foldlevel = 4
+vim.wo.foldlevel = 6
 -- vim.diagnostic.config({
 -- virtual_lines = true,
 -- virtual_text = true,
