@@ -45,7 +45,7 @@
           {
             # audio recording specialisation: nh_switch --specialisation=audio
             specialisation.audio.configuration = {
-              imports = [ ./audio.nix ];
+              imports = [ ./audio-station.nix ];
             };
           }
         ];

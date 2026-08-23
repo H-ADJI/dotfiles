@@ -49,8 +49,14 @@
 
   users.users.khalil = {
     extraGroups = [ "audio" ];
-    packages = [ pkgs.ardour ];
+    packages = [ pkgs.ardour pkgs.guitarix pkgs.calf ];
   };
 
   programs.gamemode.enable = true;
+
+  # desktop: GNOME Wayland replaces Hyprland + ly
+  programs.hyprland.enable = lib.mkForce false;
+  services.displayManager.ly.enable = lib.mkForce false;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
 }
