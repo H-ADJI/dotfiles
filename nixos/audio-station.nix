@@ -3,6 +3,9 @@
   musnix.enable = true;
   musnix.kernel.realtime = true;
 
+  services.displayManager.ly.enable = lib.mkForce false;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
   services.power-profiles-daemon.enable = lib.mkForce false;
   services.pipewire = {
     jack.enable = true;
@@ -49,14 +52,18 @@
 
   users.users.khalil = {
     extraGroups = [ "audio" ];
-    packages = [ pkgs.ardour pkgs.guitarix pkgs.calf ];
+    packages = with pkgs; [
+      ardour
+      guitarix
+      calf
+      vim
+      curl
+      git
+      neovim
+      wget
+    ];
   };
-
-  programs.gamemode.enable = true;
-
-  # desktop: GNOME Wayland replaces Hyprland + ly
-  programs.hyprland.enable = lib.mkForce false;
-  services.displayManager.ly.enable = lib.mkForce false;
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
+  programs = {
+    gamemode.enable = true;
+  };
 }
