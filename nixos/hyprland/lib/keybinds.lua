@@ -1,6 +1,5 @@
 local helpers = require("lib.helpers")
 local vars = require("lib.vars")
-local nctl = "noctalia msg "
 
 -- 1. Windows
 hl.bind("SUPER + Q", hl.dsp.window.close("activewindow"), { description = "Close active window" })
@@ -14,45 +13,44 @@ hl.bind(
 )
 
 -- 3. Launchers
--- TODO: raffi cmd
-hl.bind("SUPER + D", hl.dsp.exec_cmd(nctl .. "panel-toggle launcher"), { description = "Open app launcher" })
-hl.bind("SUPER + X", hl.dsp.exec_cmd("raffi -c ~/.config/raffi/noctalia.yml"), { description = "Open raffi noctalia launcher" })
-hl.bind("SUPER + T", hl.dsp.exec_cmd("raffi -c ~/.config/raffi/tuis.yml"), { description = "Open raffi TUI launcher" })
-hl.bind("SUPER + SHIFT + TAB", hl.dsp.exec_cmd("raffi -c ~/.config/raffi/layouts.yml"), { description = "Open layout switcher" })
+hl.bind("SUPER + D", hl.dsp.exec_cmd(vars.nctl .. "panel-toggle launcher"), { description = "Open app launcher" })
+hl.bind("SUPER + X", hl.dsp.exec_cmd(vars.raffi .. "noctalia.yml"), { description = "Open raffi noctalia launcher" })
+hl.bind("SUPER + T", hl.dsp.exec_cmd(vars.raffi .. "tuis.yml"), { description = "Open raffi TUI launcher" })
+hl.bind("SUPER + SHIFT + TAB", hl.dsp.exec_cmd(vars.raffi .. "layouts.yml"), { description = "Open layout switcher" })
 hl.bind("SUPER + SPACE", hl.dsp.exec_cmd(vars.terminal), { description = "Open terminal" })
 hl.bind("SUPER + B", hl.dsp.exec_cmd(vars.browser), { description = "Open browser" })
 hl.bind("SUPER + E", hl.dsp.exec_cmd(vars.file_picker), { description = "Open file picker" })
 hl.bind("SUPER + SHIFT + E", hl.dsp.exec_cmd(vars.file_picker_alt), { description = "Open alternative file picker" })
 
 -- 4. Session, screenshots, clipboard
-local session_toggle = nctl .. "panel-toggle session"
+local session_toggle = vars.nctl .. "panel-toggle session"
 hl.bind("SUPER + SHIFT + P", hl.dsp.exec_cmd(session_toggle), { description = "Open session menu" })
 hl.bind("mouse:275", hl.dsp.exec_cmd(session_toggle), { description = "Open session menu" })
 
-hl.bind("SUPER + C", hl.dsp.exec_cmd(nctl .. "screenshot-region"), { description = "Screenshot region" })
-hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd(nctl .. "screenshot-fullscreen"), { locked = true, description = "Screenshot fullscreen" })
-hl.bind("SUPER + V", hl.dsp.exec_cmd(nctl .. "panel-toggle clipboard"), { description = "Open clipboard history" })
+hl.bind("SUPER + C", hl.dsp.exec_cmd(vars.nctl .. "screenshot-region"), { description = "Screenshot region" })
+hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd(vars.nctl .. "screenshot-fullscreen"), { locked = true, description = "Screenshot fullscreen" })
+hl.bind("SUPER + V", hl.dsp.exec_cmd(vars.nctl .. "panel-toggle clipboard"), { description = "Open clipboard history" })
 
 -- 5. Audio
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(nctl .. "volume-up"), { repeating = true, description = "Volume up" })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(nctl .. "volume-down"), { repeating = true, description = "Volume down" })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd(nctl .. "volume-mute"), { locked = true, description = "Mute audio" })
-hl.bind("SUPER + XF86AudioRaiseVolume", hl.dsp.exec_cmd(nctl .. "mic-volume-up"), { repeating = true, description = "Mic volume up" })
-hl.bind("SUPER + XF86AudioLowerVolume", hl.dsp.exec_cmd(nctl .. "mic-volume-down"), { repeating = true, description = "Mic volume down" })
-hl.bind("SUPER + XF86AudioMute", hl.dsp.exec_cmd(nctl .. "mic-mute"), { locked = true, description = "Mute mic" })
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd(nctl .. "media toggle"), { locked = true, description = "Play/pause media" })
-hl.bind("XF86AudioPause", hl.dsp.exec_cmd(nctl .. "media toggle"), { locked = true, description = "Play/pause media" })
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd(nctl .. "media next"), { locked = true, description = "Next track" })
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd(nctl .. "media previous"), { locked = true, description = "Previous track" })
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(vars.nctl .. "volume-up"), { repeating = true, description = "Volume up" })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(vars.nctl .. "volume-down"), { repeating = true, description = "Volume down" })
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd(vars.nctl .. "volume-mute"), { locked = true, description = "Mute audio" })
+hl.bind("SUPER + XF86AudioRaiseVolume", hl.dsp.exec_cmd(vars.nctl .. "mic-volume-up"), { repeating = true, description = "Mic volume up" })
+hl.bind("SUPER + XF86AudioLowerVolume", hl.dsp.exec_cmd(vars.nctl .. "mic-volume-down"), { repeating = true, description = "Mic volume down" })
+hl.bind("SUPER + XF86AudioMute", hl.dsp.exec_cmd(vars.nctl .. "mic-mute"), { locked = true, description = "Mute mic" })
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd(vars.nctl .. "media toggle"), { locked = true, description = "Play/pause media" })
+hl.bind("XF86AudioPause", hl.dsp.exec_cmd(vars.nctl .. "media toggle"), { locked = true, description = "Play/pause media" })
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd(vars.nctl .. "media next"), { locked = true, description = "Next track" })
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd(vars.nctl .. "media previous"), { locked = true, description = "Previous track" })
 hl.bind("CTRL + XF86AudioNext", hl.dsp.exec_cmd("playerctl position 5+"), { repeating = true, description = "Seek forward 5 seconds" })
 hl.bind("CTRL + XF86AudioPrev", hl.dsp.exec_cmd("playerctl position 5-"), { repeating = true, description = "Seek back 5 seconds" })
 
 -- 6. Brightness
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(nctl .. "brightness-up"), { repeating = true, description = "Brightness up" })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(nctl .. "brightness-down"), { repeating = true, description = "Brightness down" })
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(vars.nctl .. "brightness-up"), { repeating = true, description = "Brightness up" })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(vars.nctl .. "brightness-down"), { repeating = true, description = "Brightness down" })
 
 -- 7. Focus
-hl.bind("ALT + TAB", hl.dsp.exec_cmd(nctl .. "window-switcher"), { description = "Open window switcher" })
+hl.bind("ALT + TAB", hl.dsp.exec_cmd(vars.nctl .. "window-switcher"), { description = "Open window switcher" })
 hl.bind("SUPER + H", hl.dsp.focus({ direction = "l" }), { description = "Focus left" })
 hl.bind("SUPER + L", hl.dsp.focus({ direction = "r" }), { description = "Focus right" })
 hl.bind("SUPER + K", hl.dsp.focus({ direction = "u" }), { description = "Focus up" })
