@@ -346,13 +346,6 @@ return {
       end,
       desc = "Buffers",
     },
-    {
-      "<leader>cs",
-      function()
-        Snacks.scratch.select()
-      end,
-      desc = "[C]hoose [S]cratch Buffer",
-    },
   },
   init = function()
     vim.api.nvim_create_autocmd("User", {

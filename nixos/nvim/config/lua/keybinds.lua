@@ -58,11 +58,22 @@ map("n", "<leader>pd", function()
   vim.diagnostic.jump({ count = -1 })
 end, { desc = "[P]revious [D]iagnostic" })
 
-map("n", "<leader>pp", function()
+map("n", "<leader>cp", function()
   local file_path = vim.fn.fnamemodify(vim.fn.expand("%"), ":~:.")
   vim.notify(file_path)
   vim.fn.setreg("+", file_path)
 end, { desc = "Copy current file path" })
+
+map("n", "<leader>cl", function()
+  local file_path = vim.fn.fnamemodify(vim.fn.expand("%"), ":~:.")
+  if file_path == "" then
+    vim.notify("[No file opened]", vim.log.levels.ERROR)
+    return
+  end
+  local copy = string.format("@%s line:%d", file_path, vim.fn.line("."))
+  vim.fn.setreg("+", copy)
+  vim.notify("Copied " .. copy)
+end, { desc = "[P]ath + [L]ine for pi" })
 
 map("n", "<leader>fx", function()
   local file_path = vim.fn.expand("%:p")

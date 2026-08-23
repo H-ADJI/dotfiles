@@ -18,6 +18,7 @@
       # skills : review - annotations
       # skills : refactor - improve
       # skills : token efficiency
+      # skills : docs
       # max iterations
       # notifications
       # user questions : https://pi.dev/packages/@juicesharp/rpiv-ask-user-question
