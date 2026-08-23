@@ -42,12 +42,6 @@
           ./home.nix
           home-manager.nixosModules.home-manager
           musnix.nixosModules.musnix
-          {
-            # audio recording specialisation: nh_switch --specialisation=audio
-            specialisation.audio.configuration = {
-              imports = [ ./audio-station.nix ];
-            };
-          }
         ];
       };
     };
