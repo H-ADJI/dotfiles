@@ -10,32 +10,46 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  programs.hyprland.enable = true;
-  programs.localsend.enable = true;
-  programs.zsh.enable = true;
+  programs = {
+    hyprland.enable = true;
+    localsend.enable = true;
+    zsh.enable = true;
+  };
 
-  services.displayManager.ly.enable = true;
-  services.upower.enable = true;
-  services.power-profiles-daemon.enable = true;
-
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
-    alsa.enable = true;
-    wireplumber.enable = true;
+  services = {
+    displayManager.ly.enable = true;
+    upower.enable = true;
+    power-profiles-daemon.enable = true;
+    pipewire = {
+      enable = true;
+      pulse.enable = true;
+      alsa.enable = true;
+      wireplumber.enable = true;
+    };
   };
   security.rtkit.enable = true;
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot = {
+    loader = {
+      efi.canTouchEfiVariables = true;
+      systemd-boot.enable = true;
+      timeout = 10;
+    };
+  };
 
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
+  hardware = {
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
+  };
 
-  networking.hostName = "nixos";
-  networking.networkmanager = {
-    enable = true;
-    wifi.backend = "iwd";
+  networking = {
+    hostName = "nixos";
+    networkmanager = {
+      enable = true;
+      wifi.backend = "iwd";
+    };
   };
 
   time.timeZone = "Europe/Paris";
