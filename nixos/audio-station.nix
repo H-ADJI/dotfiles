@@ -1,38 +1,40 @@
 { pkgs, lib, ... }:
 {
-  musnix.enable = true;
-  musnix.kernel.realtime = true;
+  musnix = {
+    enable = true;
+    kernel.realtime = true;
+  };
 
-  services.displayManager.ly.enable = lib.mkForce false;
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
-  services.power-profiles-daemon.enable = lib.mkForce false;
-  services.pipewire = {
-    jack.enable = true;
-    alsa.support32Bit = true;
+  services = {
+    desktopManager.gnome.enable = true;
+    power-profiles-daemon.enable = lib.mkForce false;
+    pipewire = {
+      jack.enable = true;
+      alsa.support32Bit = true;
 
-    extraConfig.pipewire."92-low-latency" = {
-      "context.properties" = {
-        "default.clock.rate" = 48000;
-        "default.clock.quantum" = 128;
-        "default.clock.min-quantum" = 32;
-        "default.clock.max-quantum" = 512;
+      extraConfig.pipewire."92-low-latency" = {
+        "context.properties" = {
+          "default.clock.rate" = 48000;
+          "default.clock.quantum" = 128;
+          "default.clock.min-quantum" = 32;
+          "default.clock.max-quantum" = 512;
+        };
       };
-    };
-    wireplumber.extraConfig."99-disable-suspend" = {
-      "monitor.alsa.rules" = [
-        {
-          matches = [
-            { "node.name" = "~alsa_input.*"; }
-            { "node.name" = "~alsa_output.*"; }
-          ];
-          actions = {
-            update-props = {
-              "session.suspend-timeout-seconds" = 0;
+      wireplumber.extraConfig."99-disable-suspend" = {
+        "monitor.alsa.rules" = [
+          {
+            matches = [
+              { "node.name" = "~alsa_input.*"; }
+              { "node.name" = "~alsa_output.*"; }
+            ];
+            actions = {
+              update-props = {
+                "session.suspend-timeout-seconds" = 0;
+              };
             };
-          };
-        }
-      ];
+          }
+        ];
+      };
     };
   };
 
