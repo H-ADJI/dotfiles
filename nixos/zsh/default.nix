@@ -50,6 +50,7 @@
     ];
 
     shellAliases = {
+      gsw = "git switch";
       gclean = "git clean -f";
       grs = "git restore";
       ga = "git add";
