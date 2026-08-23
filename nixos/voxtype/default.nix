@@ -1,0 +1,3 @@
+{
+  services.voxtype.enable = true;
+}

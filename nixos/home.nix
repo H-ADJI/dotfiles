@@ -10,6 +10,7 @@
     users.khalil = {
       imports = [
         ./alacritty
+        ./voxtype
         ./assets
         ./direnv
         ./fastfetch

@@ -14,6 +14,7 @@ hl.bind(
 )
 
 -- 3. Launchers
+-- TODO: raffi cmd
 hl.bind("SUPER + D", hl.dsp.exec_cmd(nctl .. "panel-toggle launcher"), { description = "Open app launcher" })
 hl.bind("SUPER + X", hl.dsp.exec_cmd("raffi -c ~/.config/raffi/noctalia.yml"), { description = "Open raffi noctalia launcher" })
 hl.bind("SUPER + T", hl.dsp.exec_cmd("raffi -c ~/.config/raffi/tuis.yml"), { description = "Open raffi TUI launcher" })
@@ -105,11 +106,10 @@ hl.bind("SUPER + SHIFT + F", hl.dsp.window.float(), { description = "Toggle floa
 
 -- 12. Resize
 hl.bind("SUPER+ mouse:272", hl.dsp.window.drag(), { mouse = true, description = "Move window by dragging" }) -- ALT + LMB: Move a window by dragging more than 10px.
-hl.bind("SUPER + R", hl.dsp.submap("RESIZE"), { description = "Enter resize mode" })
+hl.bind("SUPER + R", hl.dsp.submap(vars.submap.resize), { description = "Enter resize mode" })
+hl.define_submap(vars.submap.resize, helpers.setup_resize_binds)
 
-hl.define_submap("RESIZE", helpers.setup_resize_binds)
-
--- 13. Layout and zoom
+-- 13. Zoom
 hl.bind("SUPER + Z", helpers.zoom, { description = "Zoom in" })
 hl.bind("SUPER + KP_ADD", function()
     helpers.zoom(0.5)
@@ -118,4 +118,12 @@ hl.bind("SUPER + minus", function()
     helpers.zoom(-0.5)
 end, { description = "Zoom out" })
 
+-- 14. Layouts
 helpers.setup_layout_binds()
+
+-- 15. Transcribing
+hl.bind("SUPER + O", helpers.start_transcribing, { description = "Start transcribing" })
+hl.define_submap(vars.submap.transcribing, function()
+    hl.bind("SUPER + O", helpers.stop_transcribing, { description = "Stop transcribing" })
+    hl.bind("escape", helpers.stop_transcribing, { description = "Stop transcribing" })
+end)

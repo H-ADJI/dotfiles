@@ -1,5 +1,7 @@
 local M = {}
 
+local vars = require("lib.vars")
+
 local MAX_ZOOM = 3
 local MIN_ZOOM = 1
 local ZOOM_TOGGLE_FACTOR = 1.5
@@ -26,6 +28,16 @@ function M.setup_resize_binds()
     hl.bind("K", hl.dsp.window.resize({ x = 0, y = offset, relative = true }), { repeating = true })
     hl.bind("J", hl.dsp.window.resize({ x = 0, y = -offset, relative = true }), { repeating = true })
     hl.bind("escape", hl.dsp.submap("reset"))
+end
+
+function M.start_transcribing()
+    hl.exec_cmd("voxtype record toggle")
+    hl.dispatch(hl.dsp.submap(vars.submap.transcribing))
+end
+
+function M.stop_transcribing()
+    hl.exec_cmd("voxtype record toggle")
+    hl.dispatch(hl.dsp.submap("reset"))
 end
 
 local layout_overrides = {
