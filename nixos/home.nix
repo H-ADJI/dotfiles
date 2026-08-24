@@ -1,10 +1,10 @@
-{ inputs, pkgs, ... }:
+{ config, inputs, pkgs, ... }:
 {
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = {
-      nixosModules = "/home/khalil/PDE/nixos";
+      nixosModules = "${config.home-manager.users.khalil.home.homeDirectory}/PDE/nixos";
       inherit inputs;
     };
     users.khalil = {

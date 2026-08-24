@@ -9,13 +9,32 @@
       pkgs.nodejs
     ];
     settings = {
+      packages = [
+        # TODO: add my own ask - todos - plan extension packages inspired by opencode
+        # TODO: auto-copy after response / open reponse in reader
+        # "npm:@narumitw/pi-plan-mode"
+        # "npm:@zenspc/pi-workflow"
+        # "npm:@juicesharp/rpiv-ask-user-question"
+        "npm:@narumitw/pi-tool"
+        "npm:pi-zentui"
+        {
+          "source" = "npm:@zenspc/pi-devtools";
+          "extensions" = [ "extensions/context-command.ts" ];
+        }
+      ];
       /*
-        status-line / footer
-          https://pi.dev/packages/pi-powerline-footer
-          https://pi.dev/packages/@narumitw/pi-statusline
-          https://pi.dev/packages/@narumitw/pi-starship
-          https://pi.dev/packages/@nicknisi/pi-statusline
-          https://pi.dev/packages/@zenspc/pi-devtools
+        plan / task / goals
+          plan-mode
+          https://pi.dev/packages/@agent-plan/pi-adapter
+          https://pi.dev/packages/@bacnh85/pi-plan
+          https://pi.dev/packages/@janvitos/pi-plan-build
+          https://pi.dev/packages/pi-codex-goal
+          https://pi.dev/packages/@mjasnikovs/pi-task
+          https://pi.dev/packages/@tintinweb/pi-tasks
+          https://pi.dev/packages/pi-crew
+          https://pi.dev/packages/@agimon-ai/doompi-task
+          https://pi.dev/packages/@agimon-ai/doompi-plan
+          https://pi.dev/packages/@noice-tech/pi-cutover
 
         TUI
           https://pi.dev/packages/pi-open-tui
@@ -36,6 +55,7 @@
         context / token efficiency
           context inspection
           last message popup viewer
+          https://pi.dev/packages/@zenspc/pi-devtools
           https://pi.dev/packages/pi-lean-ctx
           https://pi.dev/packages/@mrclrchtr/supi-context
           https://pi.dev/packages/@hypabolic/pi-hypa
@@ -67,19 +87,6 @@
           https://pi.dev/packages/bestony-pi-preset
           https://pi.dev/packages/@agimon-ai/doompi
 
-        plan / task / goals
-          plan-mode
-          https://pi.dev/packages/@agent-plan/pi-adapter
-          https://pi.dev/packages/@bacnh85/pi-plan
-          https://pi.dev/packages/@janvitos/pi-plan-build
-          https://pi.dev/packages/pi-codex-goal
-          https://pi.dev/packages/@mjasnikovs/pi-task
-          https://pi.dev/packages/@tintinweb/pi-tasks
-          https://pi.dev/packages/pi-crew
-          https://pi.dev/packages/@agimon-ai/doompi-task
-          https://pi.dev/packages/@agimon-ai/doompi-plan
-          https://pi.dev/packages/@noice-tech/pi-cutover
-
         teams / agents
           https://pi.dev/packages/zob-harness
           https://pi.dev/packages/@hypercarrier/pi-team-bright
@@ -97,9 +104,8 @@
           https://pi.dev/packages/@danypops/pi-tickets
 
         ask user / questions
-          user questions : https://pi.dev/packages/@juicesharp/rpiv-ask-user-question
-          https://pi.dev/packages/pi-ask-user
           https://pi.dev/packages/@juicesharp/rpiv-ask-user-question
+          https://pi.dev/packages/pi-ask-user
           https://pi.dev/packages/@zhushanwen/pi-ask-user
           https://pi.dev/packages/@mrclrchtr/supi-ask-user
 
@@ -187,15 +193,6 @@
           notifications
       */
 
-      packages = [
-        "npm:@narumitw/pi-plan-mode"
-        "npm:@narumitw/pi-tool"
-        "npm:pi-zentui"
-        {
-          "source" = "npm:@zenspc/pi-devtools";
-          "extensions" = [ "extensions/context-command.ts" ];
-        }
-      ];
     };
     keybindings = {
       "tui.editor.cursorLeft" = [

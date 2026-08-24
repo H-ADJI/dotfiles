@@ -17,5 +17,21 @@ Add user password
 ```bash
 nixos-enter --root / -c 'passwd khalil'
 ```
-CLone repo
-git clone 
+
+Clone repo
+
+```bash
+git clone https://github.com/hh9dj/PDE
+```
+
+Copy hardware-config.nix
+
+```bash
+sudo cp /etc/nixos/hardware-configuration.nix ~/PDE/nixos/
+```
+
+Apply configuration
+
+```bash
+sudo nixos-rebuild switch --flake ~/PDE/nixos#nixos
+```
