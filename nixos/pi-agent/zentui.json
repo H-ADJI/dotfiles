@@ -1,0 +1,50 @@
+{
+    "components": {
+        "editor": {
+            "style": "minimalist",
+            "colorSource": "terminal",
+            "viewportIndicators": false,
+            "styles": {
+                "minimalist": {
+                    "pathDisplay": "full",
+                    "contextFormat": "percent-total"
+                }
+            }
+        },
+        "userMessages": {
+            "style": "labeled",
+            "colorSource": "terminal"
+        },
+        "workingLine": {
+            "enabled": true,
+            "spinner": "pinwheel",
+            "textIntervalMs": 40,
+            "colorSource": "terminal",
+            "messages": {
+                "custom": false
+            }
+        },
+        "footer": {
+            "colorSource": "terminal",
+            "styles": {
+                "starship": {
+                    "segments": {
+                        "cwd": false,
+                        "sessionName": false,
+                        "gitBranch": false,
+                        "gitStatus": false,
+                        "gitMetrics": true,
+                        "context": false,
+                        "tokens": false,
+                        "cost": false,
+                        "sessionDuration": true,
+                        "packageVersion": true
+                    }
+                }
+            }
+        },
+        "selectorBorders": {
+            "colorSource": "terminal"
+        }
+    }
+}

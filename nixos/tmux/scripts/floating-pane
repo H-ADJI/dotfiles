@@ -10,7 +10,7 @@ if [ -z "${FLOAX_POPUP-}" ]; then
     fi
     pane_path="$(tmux display-message -p '#{pane_current_path}')"
     tmux display-popup \
-        -w 90% -h 90% \
+        -w 80% -h 80% \
         -T "Floating Terminal" \
         -S fg=#5b8cf0 \
         -b heavy \
