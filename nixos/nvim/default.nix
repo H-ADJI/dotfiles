@@ -15,6 +15,7 @@ in
     sideloadInitLua = true;
     defaultEditor = true;
     extraPackages = with pkgs; [
+      biome
       clang-tools
       deno
       gcc
@@ -24,6 +25,7 @@ in
       nixd
       nixfmt
       nodejs
+      prettierd
       statix
       stylua
       taplo
