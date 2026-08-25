@@ -51,14 +51,6 @@
           https://pi.dev/packages/@agimon-ai/doompi-plan
           https://pi.dev/packages/@noice-tech/pi-cutover
 
-        TUI
-          https://pi.dev/packages/pi-open-tui
-          https://pi.dev/packages/@agimon-ai/doompi-ui
-          https://pi.dev/packages/killeros
-          https://pi.dev/packages/pi-compact-tui
-          https://pi.dev/packages/pi-cockpit
-          https://pi.dev/packages/@zenspc/pi-spinner
-
         rendering / preview
           https://pi.dev/packages/@xynogen/pix-pretty
           https://pi.dev/packages/pi-markdown-preview
