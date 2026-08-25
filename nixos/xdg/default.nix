@@ -19,7 +19,7 @@
         "application/pdf" = "org.pwmt.zathura.desktop";
         "image/png" = "satty.desktop";
         "x-scheme-handler/mailto" = "brave.desktop";
-        "x-scheme-handler/terminal" = "org.alacritty.Alacritty.desktop";
+        "x-scheme-handler/terminal" = "com.mitchellh.ghostty.desktop";
         "inode/directory" = "org.gnome.Nautilus.desktop";
         "video/*" = "io.mpv.Mpv.desktop";
         "audio/*" = "io.mpv.Mpv.desktop";
