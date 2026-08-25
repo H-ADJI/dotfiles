@@ -11,4 +11,5 @@
 - Implement PLAN.md one step at a time; never batch steps.
 - Only mark a PLAN.md step done after the user confirms it was applied and works.
 - Never run `nh os switch`, `nixos-rebuild`, or any config apply yourself; the user applies changes manually.
-- Never stage or commit files unless explicitly asked.
+- only do simple test no compilcated evaluations and tests
+- Never stage or commit or edit git history

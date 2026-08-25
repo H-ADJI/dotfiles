@@ -10,7 +10,7 @@
 
   xdg.configFile = {
     "tmux/tmux.conf".source = ./tmux.conf;
-    "tmux/status-bar.conf".source = ./status-bar.conf;
+    # "tmux/status-bar.conf".source = ./status-bar.conf;
 
     "tmux/scripts/md_preview" = {
       source = ./scripts/md_preview;
