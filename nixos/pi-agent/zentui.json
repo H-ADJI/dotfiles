@@ -39,6 +39,11 @@
                         "cost": false,
                         "sessionDuration": true,
                         "packageVersion": true
+                    },
+                    "extensionStatuses": {
+                        "colorModes": {
+                            "caveman": "original"
+                        }
                     }
                 }
             }

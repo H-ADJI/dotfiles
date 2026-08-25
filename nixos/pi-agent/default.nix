@@ -1,7 +1,15 @@
 { pkgs, config, ... }:
 {
-  # zentui.json is read by pi-zentui from the pi agent config dir
   home.file."${config.programs.pi-coding-agent.configDir}/zentui.json".source = ./zentui.json;
+
+  xdg.configFile."ponytail/config.json".text = builtins.toJSON {
+    defaultMode = "full";
+  };
+
+  xdg.configFile."pi/agent/caveman.json".text = builtins.toJSON {
+    defaultLevel = "lite";
+    showStatus = true;
+  };
 
   programs.pi-coding-agent = {
     enable = true;
@@ -9,6 +17,9 @@
       pkgs.nodejs
     ];
     settings = {
+      defaultProvider = "deepseek";
+      defaultModel = "deepseek-v4-flash";
+      defaultThinkingLevel = "low";
       packages = [
         # TODO: add my own ask - todos - plan extension packages inspired by opencode
         # TODO: auto-copy after response / open reponse in reader
@@ -16,7 +27,9 @@
         # "npm:@zenspc/pi-workflow"
         # "npm:@juicesharp/rpiv-ask-user-question"
         "npm:@narumitw/pi-tool"
-        "npm:pi-zentui"
+        "npm:pi-zentui@0.20.2"
+        "git:github.com/jonjonrankin/pi-caveman"
+        "git:github.com/DietrichGebert/ponytail"
         {
           "source" = "npm:@zenspc/pi-devtools";
           "extensions" = [ "extensions/context-command.ts" ];
