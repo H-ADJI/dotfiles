@@ -20,6 +20,8 @@
       defaultProvider = "deepseek";
       defaultModel = "deepseek-v4-flash";
       defaultThinkingLevel = "low";
+      tuiMode = "fullscreen";
+
       packages = [
         # TODO: add my own ask - todos - plan extension packages inspired by opencode
         # TODO: auto-copy after response / open reponse in reader
