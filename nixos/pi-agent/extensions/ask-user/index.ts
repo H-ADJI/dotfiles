@@ -19,7 +19,10 @@
  *     https://github.com/anomalyco/opencode               (its `question` tool)
  */
 
+// TODO: add recommended field
+//  TODO: fix free-form text display
 import type {
+    AgentToolUpdateCallback, // type of the `onUpdate` progress callback
     ExtensionAPI, // the `pi` object pi gives every extension
     ExtensionContext, // the `ctx` object passed to tools/events
 } from "@earendil-works/pi-coding-agent";
@@ -33,8 +36,6 @@ import {
     wrapTextWithAnsi, // wrap text to a width without breaking color codes
 } from "@earendil-works/pi-tui";
 
-// Schemas + types defined in ./schemas.ts. The schema is a value
-// (`AskUserParamsSchema`), the TS shape is a type (`AskUserParams`).
 import {
     AskUserParamsSchema,
     type AskUserParams,
@@ -71,47 +72,35 @@ interface UiResult {
 // the extension loads. Here we tell pi "there is a tool called ask_user".
 export default function initExtension(pi: ExtensionAPI) {
     pi.registerTool({
-        // Identity + model-facing text.
         name: "ask_user",
         label: "Ask User",
         description:
             "Ask the user one or more questions and return their answers. Use to clarify ambiguous requirements, get preferences, or let the user decide trade-offs. Answers are arrays of selected labels.",
-        // promptSnippet / promptGuidelines are injected into the system prompt
-        // so the model knows when to call this tool. See extensions.md.
         promptSnippet:
             "ask_user — ask the user questions to clarify decisions and trade-offs",
         promptGuidelines: [
-            "Use ask_user when a decision materially changes implementation and only the user can choose.",
-            "Use ask_user for ambiguous requirements, preferences, or trade-offs; do not ask for facts you can inspect yourself.",
+            "Use ask_user for ambiguous requirements, and to know preferences, or trade-offs; do not ask for facts you can inspect yourself.",
             "In ask_user, set option descriptions to explain trade-offs or consequences concisely.",
         ],
-        // The schema the LLM must respect when calling.
         parameters: AskUserParamsSchema,
-        // Run tools one at a time (no parallel sibling tool calls) so a form
-        // never races with another tool. See extensions.md -> Custom Tools.
         executionMode: "sequential",
 
         // ─── execute() ──────────────────────────────────────────────────
         // This is what runs when the model calls the tool. It is `async`, so
         // it can `await` the form until the user answers.
-        async execute(
-            _toolCallId, // id of this specific call (not needed here)
-            params: AskUserParams, // the validated args from the LLM
-            signal, // AbortSignal: fires if the user cancels the whole turn
-            onUpdate, // callback to stream progress into the TUI tool row
-            ctx, // everything about the current session + UI
-        ) {
+        execute: async (
+            _toolCallId: string,
+            params: AskUserParams,
+            signal: AbortSignal | undefined,
+            onUpdate: AgentToolUpdateCallback | undefined,
+            ctx: ExtensionContext,
+        ) => {
             // This tool needs the interactive TUI (custom UI + keyboard).
             if (ctx.mode !== "tui") {
                 throw new Error(
                     "ask_user requires an interactive TUI session.",
                 );
             }
-
-            if (params.questions.length === 0) {
-                throw new Error("ask_user requires at least one question.");
-            }
-
             // Clean up the LLM input into our internal UiQuestion shape.
             // `raw` is a discriminated union, so `raw.type` tells us which
             // variant it is and TypeScript narrows the fields for us.
