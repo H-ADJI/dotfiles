@@ -15,6 +15,7 @@ Activate when: using an API, CLI, configurations, or schema you are not 100% sur
 1. Identify the tool/library and the **installed version** (e.g. `pip show`, `npm ls`, `nix flake show`, `--version`)
 2. Pick a source below and read the exact signature, option, or schema
 3. Confirm the answer matches the _installed_ version, not latest online
+4. Verify with a minimal repro (`--help`, a one-liner, or a tiny test), then apply the answer to the task
 
 ## Options
 
@@ -65,3 +66,4 @@ Curl the website / use search engines if available.
 - **Source code is ground truth**: when docs are ambiguous, read the installed package's source for the exact signature/schema.
 - When dealing with websites / repos sometimes we get blocked / rate limited - mention it in your output and don't abuse the servers.
 - When no source available / couldn't figure out the correct APIs / references, mention it in the response.
+- When looking inside a source repo or file, don't read the whole content into the agent context — use grep and other CLIs to parse the text.
