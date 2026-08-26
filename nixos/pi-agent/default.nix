@@ -1,40 +1,20 @@
-{ pkgs, config, lib, nixosModules, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  nixosModules,
+  ...
+}:
 let
   piPackage = config.programs.pi-coding-agent.package;
-  piAgentDir = "${nixosModules}/pi-agent";
-  piTsconfig = builtins.toJSON {
-    compilerOptions = {
-      target = "ES2023";
-      module = "ESNext";
-      moduleResolution = "Bundler";
-      noEmit = true;
-      strict = true;
-      skipLibCheck = true;
-      paths = {
-        "@earendil-works/pi-coding-agent" = [ "${piPackage}/lib/node_modules/pi-monorepo/dist/index.d.ts" ];
-        "@earendil-works/pi-tui" = [ "${piPackage}/lib/node_modules/pi-monorepo/node_modules/@earendil-works/pi-tui/dist/index.d.ts" ];
-        typebox = [ "${piPackage}/lib/node_modules/pi-monorepo/node_modules/typebox/build/index.d.mts" ];
-      };
-    };
-  };
-  piTsconfigPkg = builtins.toJSON {
-    name = "pi-tsconfig";
-    version = "1.0.0";
-    private = true;
-  };
+  piAgentModule = "${nixosModules}/pi-agent";
+  tsconfigFiles = import ./pi-ts-config.nix { inherit lib piPackage piAgentModule; };
 in
 {
-  home.file."${piAgentDir}/node_modules/pi-tsconfig/package.json" = lib.mkIf (piPackage != null) {
-    text = piTsconfigPkg;
+  home.file = tsconfigFiles // {
+    "${config.programs.pi-coding-agent.configDir}/zentui.json".source = ./zentui.json;
+    "${config.programs.pi-coding-agent.configDir}/extensions".source = ./extensions;
   };
-
-  home.file."${piAgentDir}/node_modules/pi-tsconfig/tsconfig.json" = lib.mkIf (piPackage != null) {
-    text = piTsconfig;
-  };
-
-  home.file."${config.programs.pi-coding-agent.configDir}/zentui.json".source = ./zentui.json;
-  home.file."${config.programs.pi-coding-agent.configDir}/extensions/ask-user.ts".source = ./extensions/ask-user.ts;
-
   xdg.configFile."ponytail/config.json".text = builtins.toJSON {
     defaultMode = "full";
   };
