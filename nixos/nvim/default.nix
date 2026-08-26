@@ -22,6 +22,7 @@ in
       gnumake
       marksman
       harper
+      typescript-go
       lua-language-server
       neovim
       nixd

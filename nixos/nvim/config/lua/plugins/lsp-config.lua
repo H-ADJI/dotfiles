@@ -27,6 +27,7 @@ return {
       "nil_ls",
       "nixd",
       "yamlls",
+      "tsgo",
       "pyright",
       "bashls",
       "marksman",

@@ -1,0 +1,4 @@
+{
+  "extends": "pi-tsconfig",
+  "include": ["extensions"]
+}

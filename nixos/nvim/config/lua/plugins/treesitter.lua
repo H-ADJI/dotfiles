@@ -8,6 +8,7 @@ return {
       "c",
       "go",
       "json",
+      "typescript",
       "lua",
       "markdown",
       "markdown_inline",
