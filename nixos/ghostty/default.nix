@@ -4,6 +4,7 @@
     settings = {
       theme = "Catppuccin Latte";
       font-family = "JetBrainsMono Nerd Font";
+      font-feature = "-liga,-calt";
       font-size = 16;
       font-style = "Bold";
       font-style-bold = true;
