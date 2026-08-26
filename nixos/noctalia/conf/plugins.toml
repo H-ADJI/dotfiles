@@ -17,3 +17,11 @@ auto-start-breaks = false
 panel_open_near_click = false
 panel_placement = "floating"
 panel_position = "center"
+use-bundled-alarm-sound = true
+bypass-noctalia-sound-globals = true
+
+
+[notification.filter.pomodoro]
+match = "noctalia"
+match_content = "Pomodoro Timer"
+play_sound = false
