@@ -65,6 +65,7 @@
         socat
         tree
         wl-clipboard
+        htmlq
       ];
     };
   };

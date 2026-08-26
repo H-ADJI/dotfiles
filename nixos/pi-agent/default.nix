@@ -51,18 +51,9 @@
           https://pi.dev/packages/@agimon-ai/doompi-plan
           https://pi.dev/packages/@noice-tech/pi-cutover
 
-        rendering / preview
-          https://pi.dev/packages/@xynogen/pix-pretty
-          https://pi.dev/packages/pi-markdown-preview
-          https://pi.dev/packages/pi-spark
-          https://pi.dev/packages/@geminixiang/pi-diff
-          https://pi.dev/packages/@geminixiang/pi-mermaid
-          https://pi.dev/packages/@heyhuynhgiabuu/pi-pretty
-
         context / token efficiency
           context inspection
           last message popup viewer
-          https://pi.dev/packages/@zenspc/pi-devtools
           https://pi.dev/packages/pi-lean-ctx
           https://pi.dev/packages/@mrclrchtr/supi-context
           https://pi.dev/packages/@hypabolic/pi-hypa
@@ -79,9 +70,6 @@
           skills : refactor - improve
           skills : token efficiency
           skills : docs
-          https://pi.dev/packages/bigpowers
-          https://pi.dev/packages/@juicesharp/rpiv-pi
-          https://pi.dev/packages/gentle-pi
           https://pi.dev/packages/@howaboua/pi-stuff
           https://pi.dev/packages/mitsupi
           https://pi.dev/packages/@shanepadgett/tau-agent
@@ -113,6 +101,7 @@
         ask user / questions
           https://pi.dev/packages/@juicesharp/rpiv-ask-user-question
           https://pi.dev/packages/pi-ask-user
+          https://github.com/IgorWarzocha/howaboua-pi-stuff/tree/main/packages/pi-ask
           https://pi.dev/packages/@zhushanwen/pi-ask-user
           https://pi.dev/packages/@mrclrchtr/supi-ask-user
 
@@ -168,19 +157,11 @@
           https://pi.dev/packages/@juanibiapina/pi-extension-settings
           https://pi.dev/packages/@jachy/pi-git-sync
 
-        runtime / data
-          https://pi.dev/packages/@xynogen/pix-runtime
-          https://pi.dev/packages/@xynogen/pix-data
-          https://pi.dev/packages/ultra-fabric
-
         tools
           https://pi.dev/packages/bladebro
           https://pi.dev/packages/@aliou/pi-processes
           https://pi.dev/packages/@juicesharp/rpiv-args
           https://pi.dev/packages/@4fu/pi-bin-hints
-
-        integrations / chat
-          https://pi.dev/packages/@whonixnetworks/pi-mattermost
 
         security / sandbox
           https://pi.dev/packages/pi-sandbox
