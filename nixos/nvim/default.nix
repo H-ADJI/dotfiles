@@ -20,6 +20,8 @@ in
       deno
       gcc
       gnumake
+      marksman
+      harper
       lua-language-server
       neovim
       nixd

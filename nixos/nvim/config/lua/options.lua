@@ -20,6 +20,7 @@ vim.o.cursorline = true
 vim.o.scrolloff = 20
 vim.o.confirm = true
 vim.o.undofile = true
+vim.o.autoread = true
 vim.opt.fillchars:append({ eob = " " })
 vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.wo.foldmethod = "expr"
