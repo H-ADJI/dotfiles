@@ -12,10 +12,10 @@ import type {
     ExtensionContext,
 } from "@earendil-works/pi-coding-agent";
 import {
-    Editor,
-    type EditorTheme,
+    CURSOR_MARKER,
     Key,
     matchesKey,
+    parseKey,
     visibleWidth,
     wrapTextWithAnsi,
 } from "@earendil-works/pi-tui";
@@ -98,11 +98,13 @@ export default function askUser(pi: ExtensionAPI) {
             _toolCallId,
             params: AskUserParams,
             signal,
-            _onUpdate,
+            onUpdate,
             ctx,
         ) {
             if (ctx.mode !== "tui") {
-                throw new Error("ask_user requires an interactive TUI session.");
+                throw new Error(
+                    "ask_user requires an interactive TUI session.",
+                );
             }
 
             if (params.questions.length === 0) {
@@ -127,7 +129,18 @@ export default function askUser(pi: ExtensionAPI) {
                 }
             }
 
-            const result = await askInTui(ctx, questions, signal);
+            onUpdate?.({
+                content: [{ type: "text", text: "Waiting for user input..." }],
+                details: { waiting: true },
+            });
+
+            ctx.ui.setWorkingVisible?.(false);
+            let result: UiResult | null;
+            try {
+                result = await askInTui(ctx, questions, signal);
+            } finally {
+                ctx.ui.setWorkingVisible?.(true);
+            }
 
             if (!result) {
                 return {
@@ -165,7 +178,7 @@ function askInTui(
     questions: UiQuestion[],
     signal: AbortSignal | undefined,
 ): Promise<UiResult | null> {
-    return ctx.ui.custom<UiResult | null>((tui, theme, _keybindings, done) => {
+    return ctx.ui.custom<UiResult | null>((tui, theme, keybindings, done) => {
         let finished = false;
         const finish = (value: UiResult | null) => {
             if (finished) return;
@@ -186,20 +199,28 @@ function askInTui(
         const answers: string[][] = questions.map(() => []);
         let editing = false;
         let editingQuestion = -1;
-        let reviewFocus = 0;
+        let draft = "";
         let cachedLines: string[] | undefined;
 
-        const editorTheme: EditorTheme = {
-            borderColor: (s) => theme.fg("accent", s),
-            selectList: {
-                selectedPrefix: (t) => theme.fg("accent", t),
-                selectedText: (t) => theme.fg("accent", t),
-                description: (t) => theme.fg("muted", t),
-                scrollInfo: (t) => theme.fg("dim", t),
-                noMatch: (t) => theme.fg("warning", t),
-            },
-        };
-        const editor = new Editor(tui, editorTheme);
+        const kb = (
+            action: Parameters<typeof keybindings.matches>[1],
+            data: string,
+        ) => keybindings.matches(data, action);
+        const isUp = (data: string) => kb("tui.select.up", data);
+        const isDown = (data: string) => kb("tui.select.down", data);
+        const isConfirm = (data: string) => kb("tui.select.confirm", data);
+        const isCancel = (data: string) => kb("tui.select.cancel", data);
+        const isNext = (data: string) =>
+            kb("tui.input.tab", data) || kb("tui.editor.cursorRight", data);
+        const isPrev = (data: string) =>
+            kb("tui.editor.cursorLeft", data) ||
+            matchesKey(data, Key.shift("tab"));
+
+        if (questions[0]?.options.length === 0) {
+            editing = true;
+            editingQuestion = 0;
+            draft = answers[0]?.[0] ?? "";
+        }
 
         function refresh() {
             cachedLines = undefined;
@@ -211,14 +232,27 @@ function askInTui(
         }
 
         function advance() {
-            if (tab < questions.length - 1) {
-                tab += 1;
-            } else {
-                tab = questions.length; // review
+            goToTab(tab < questions.length - 1 ? tab + 1 : questions.length);
+        }
+
+        function goToTab(nextTab: number) {
+            tab = nextTab;
+            if (tab === questions.length) {
+                editing = false;
+                editingQuestion = -1;
+                draft = "";
+                refresh();
+                return;
             }
-            optionFocus[tab === questions.length ? questions.length - 1 : tab] =
-                0;
-            reviewFocus = 0;
+
+            const question = questions[tab];
+            if (question?.options.length === 0) {
+                beginEditing(tab, answers[tab]?.[0] ?? "");
+                return;
+            }
+            editing = false;
+            editingQuestion = -1;
+            draft = "";
             refresh();
         }
 
@@ -242,14 +276,14 @@ function askInTui(
             refresh();
         }
 
-        editor.onSubmit = (value) => {
+        function submitDraft() {
             if (editingQuestion < 0) return;
             const questionIndex = editingQuestion;
             const question = questions[questionIndex];
-            const trimmed = value.trim();
+            const trimmed = draft.trim();
             editing = false;
             editingQuestion = -1;
-            editor.setText("");
+            draft = "";
 
             if (!question) {
                 refresh();
@@ -277,26 +311,43 @@ function askInTui(
                 saveAnswer(questionIndex, [trimmed]);
                 advance();
             }
-        };
+        }
 
         function beginEditing(questionIndex: number, initial: string) {
             editing = true;
             editingQuestion = questionIndex;
-            editor.setText(initial);
+            draft = initial;
             refresh();
         }
 
         function handleInput(data: string) {
             if (editing) {
-                if (matchesKey(data, Key.escape)) {
+                if (isCancel(data)) {
                     editing = false;
                     editingQuestion = -1;
-                    editor.setText("");
+                    draft = "";
                     refresh();
                     return;
                 }
-                editor.handleInput(data);
-                refresh();
+                if (isConfirm(data)) {
+                    submitDraft();
+                    return;
+                }
+                if (matchesKey(data, Key.backspace)) {
+                    draft = draft.slice(0, -1);
+                    refresh();
+                    return;
+                }
+                const key = parseKey(data);
+                if (key === "space" || data === "space") {
+                    draft += " ";
+                    refresh();
+                    return;
+                }
+                if (key && key.length === 1) {
+                    draft += key;
+                    refresh();
+                }
                 return;
             }
 
@@ -309,23 +360,8 @@ function askInTui(
         }
 
         function handleReviewInput(data: string) {
-            const rows = questions.length + 1; // questions + submit
-
-            if (matchesKey(data, Key.up)) {
-                reviewFocus = Math.max(0, reviewFocus - 1);
-                refresh();
-                return;
-            }
-            if (matchesKey(data, Key.down)) {
-                reviewFocus = Math.min(rows - 1, reviewFocus + 1);
-                refresh();
-                return;
-            }
-            if (matchesKey(data, Key.enter)) {
-                if (reviewFocus < questions.length) {
-                    tab = reviewFocus;
-                    refresh();
-                } else if (allAnswered()) {
+            if (isConfirm(data)) {
+                if (allAnswered()) {
                     finish({
                         answers: buildAnswers(questions, answers),
                         cancelled: false,
@@ -333,21 +369,16 @@ function askInTui(
                 }
                 return;
             }
-            if (matchesKey(data, Key.escape)) {
+            if (isCancel(data)) {
                 finish(null);
                 return;
             }
-            if (
-                matchesKey(data, Key.left) ||
-                matchesKey(data, Key.shift("tab"))
-            ) {
-                tab = questions.length - 1;
-                refresh();
+            if (isPrev(data)) {
+                goToTab(questions.length - 1);
                 return;
             }
-            if (matchesKey(data, Key.right) || matchesKey(data, Key.tab)) {
-                tab = 0;
-                refresh();
+            if (isNext(data)) {
+                goToTab(0);
             }
         }
 
@@ -355,28 +386,21 @@ function askInTui(
             const question = questions[tab];
             if (!question) return;
 
-            if (matchesKey(data, Key.tab) || matchesKey(data, Key.right)) {
-                tab = (tab + 1) % totalTabs;
-                reviewFocus = 0;
-                refresh();
+            if (isNext(data)) {
+                goToTab((tab + 1) % totalTabs);
                 return;
             }
-            if (
-                matchesKey(data, Key.shift("tab")) ||
-                matchesKey(data, Key.left)
-            ) {
-                tab = (tab - 1 + totalTabs) % totalTabs;
-                reviewFocus = 0;
-                refresh();
+            if (isPrev(data)) {
+                goToTab((tab - 1 + totalTabs) % totalTabs);
                 return;
             }
 
             if (question.options.length === 0) {
-                if (matchesKey(data, Key.enter)) {
+                if (isConfirm(data)) {
                     beginEditing(tab, answers[tab]?.[0] ?? "");
                     return;
                 }
-                if (matchesKey(data, Key.escape)) {
+                if (isCancel(data)) {
                     finish(null);
                 }
                 return;
@@ -385,12 +409,12 @@ function askInTui(
             const options = currentOptions(question);
             const focus = optionFocus[tab] ?? 0;
 
-            if (matchesKey(data, Key.up)) {
+            if (isUp(data)) {
                 optionFocus[tab] = Math.max(0, focus - 1);
                 refresh();
                 return;
             }
-            if (matchesKey(data, Key.down)) {
+            if (isDown(data)) {
                 optionFocus[tab] = Math.min(options.length - 1, focus + 1);
                 refresh();
                 return;
@@ -404,7 +428,7 @@ function askInTui(
                     }
                     return;
                 }
-                if (matchesKey(data, Key.enter)) {
+                if (isConfirm(data)) {
                     const option = options[focus];
                     if (option?.isOther) {
                         beginEditing(tab, "");
@@ -416,7 +440,7 @@ function askInTui(
                     return;
                 }
             } else {
-                if (matchesKey(data, Key.enter)) {
+                if (isConfirm(data)) {
                     const option = options[focus];
                     if (option?.isOther) {
                         beginEditing(tab, "");
@@ -430,7 +454,7 @@ function askInTui(
                 }
             }
 
-            if (matchesKey(data, Key.escape)) {
+            if (isCancel(data)) {
                 finish(null);
             }
         }
@@ -444,6 +468,11 @@ function askInTui(
                 question: question.prompt,
                 values: answers[index] ?? [],
             }));
+        }
+
+        function renderDraft() {
+            const cursor = `${CURSOR_MARKER}\x1b[7m \x1b[0m`;
+            return theme.fg("text", `${draft}${cursor}`);
         }
 
         function render(width: number): string[] {
@@ -510,7 +539,12 @@ function askInTui(
             if (tab === questions.length) {
                 renderReview(addWrapped, addWrappedWithPrefix, renderWidth);
             } else {
-                renderQuestion(tab, addWrapped, addWrappedWithPrefix, renderWidth);
+                renderQuestion(
+                    tab,
+                    addWrapped,
+                    addWrappedWithPrefix,
+                    renderWidth,
+                );
             }
 
             lines.push("");
@@ -524,18 +558,18 @@ function askInTui(
             questionIndex: number,
             add: (text: string) => void,
             addWithPrefix: (prefix: string, text: string) => void,
-            width: number,
+            _: number,
         ) {
             const question = questions[questionIndex]!;
+            const isEditingQuestion =
+                editing && editingQuestion === questionIndex;
             addWithPrefix(" ", theme.fg("text", question.prompt));
             add("");
 
             if (question.options.length === 0) {
-                if (editing && editingQuestion === questionIndex) {
+                if (isEditingQuestion) {
                     addWithPrefix(" ", theme.fg("muted", "Your answer:"));
-                    for (const line of editor.render(Math.max(1, width - 2))) {
-                        addWithPrefix(" ", line);
-                    }
+                    addWithPrefix(" ", renderDraft());
                     add("");
                     addWithPrefix(
                         " ",
@@ -567,9 +601,11 @@ function askInTui(
                       ? theme.fg("accent", ">")
                       : " ";
                 const prefix = ` ${marker} `;
-                const label = `${index + 1}. ${option.label}${isOther && editing ? " ✎" : ""}`;
+                const label = `${index + 1}. ${option.label}${isOther && isEditingQuestion ? " ✎" : ""}`;
                 const color =
-                    focused || (isOther && editing) ? "accent" : "text";
+                    focused || (isOther && isEditingQuestion)
+                        ? "accent"
+                        : "text";
                 addWithPrefix(prefix, theme.fg(color, label));
                 if (option.description) {
                     addWithPrefix(
@@ -578,6 +614,12 @@ function askInTui(
                     );
                 }
             });
+
+            if (isEditingQuestion) {
+                add("");
+                addWithPrefix(" ", theme.fg("muted", "Your answer:"));
+                addWithPrefix(" ", renderDraft());
+            }
 
             add("");
             const help = question.multiple
@@ -591,31 +633,23 @@ function askInTui(
             addWithPrefix: (prefix: string, text: string) => void,
             _width: number,
         ) {
-            addWithPrefix(
-                " ",
-                theme.fg("accent", theme.bold("Review answers")),
-            );
+            addWithPrefix(" ", theme.fg("accent", theme.bold("Review")));
             add("");
 
             questions.forEach((question, index) => {
-                const focused = index === reviewFocus;
-                const prefix = focused ? theme.fg("accent", "> ") : "  ";
                 const values =
                     (answers[index] ?? []).join(", ") ||
                     theme.fg("warning", "unanswered");
                 addWithPrefix(
-                    prefix,
+                    " ",
                     theme.fg("muted", `${question.header}: `) +
                         theme.fg("text", values),
                 );
             });
 
-            const submitFocused = reviewFocus === questions.length;
-            const submitPrefix = submitFocused
-                ? theme.fg("accent", "> ")
-                : "  ";
+            add("");
             const submitText = allAnswered()
-                ? theme.fg("success", "Submit")
+                ? theme.fg("success", "> Submit")
                 : theme.fg(
                       "warning",
                       `Unanswered: ${questions
@@ -623,12 +657,12 @@ function askInTui(
                           .map((q) => q.header)
                           .join(", ")}`,
                   );
-            addWithPrefix(submitPrefix, submitText);
+            addWithPrefix(" ", submitText);
 
             add("");
             addWithPrefix(
                 " ",
-                theme.fg("dim", "↑↓ select • Enter edit/submit • Esc cancel"),
+                theme.fg("dim", "Enter submit • Tab/←→ back • Esc cancel"),
             );
         }
 
