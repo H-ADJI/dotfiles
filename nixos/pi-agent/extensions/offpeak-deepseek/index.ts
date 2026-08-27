@@ -46,6 +46,8 @@ export default function (pi: ExtensionAPI) {
     };
 
     pi.on("session_start", (_event, ctx) => refreshStatus(ctx));
+    // TODO: on turn_end price per turn
+    // TODO: on turn_end copy msg to clipboard
     pi.on("turn_end", (_event, ctx) => refreshStatus(ctx));
     pi.on("model_select", (_event, ctx) => refreshStatus(ctx));
 }
