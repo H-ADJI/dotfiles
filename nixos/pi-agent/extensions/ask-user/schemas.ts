@@ -4,77 +4,60 @@
  * Schemas describe what the LLM is allowed to pass to this tool. pi uses them
  * to (a) validate the call and (b) tell the model what arguments exist.
  *
+ * The schema mirrors the UI data model on purpose: each question is just a
+ * `multiple` boolean + `options` array. `options: []` = free-text answer.
+ *
  * Learn Typebox: https://github.com/sinclairzx81/typebox
- * - `Type.Object({...})`  = a JSON object
- * - `Type.Optional(...)`  = the field may be omitted
- * - `Type.Literal(...)`   = an exact string value (used as a discriminator)
- * - `Type.Unsafe(...)`    = write a raw JSON Schema keyword
+ * - `Type.Object({...})` = a JSON object
+ * - `Type.Optional(...)` = the field may be omitted
+ * - `Type.Boolean(...)`  = true/false
  */
 
 import { Type, type Static } from "typebox";
 
 // One option in a choice question.
 export const OptionSchema = Type.Object({
-    label: Type.String({ description: "Short display label" }),
-    description: Type.Optional(
-        Type.String({ description: "Explanation of this choice" }),
-    ),
-});
-
-// Fields shared by every question type.
-const ChoiceBase = {
-    header: Type.String({
-        description: "Very short question label",
-        maxLength: 30,
+    label: Type.String({
+        description: "Short display label",
+        maxLength: 100,
     }),
-    question: Type.String({ description: "Complete question to ask" }),
-    custom: Type.Optional(
-        Type.Boolean({
-            description: "Allow a free-form custom answer",
+    description: Type.Optional(
+        Type.String({
+            description: "Explanation of this choice",
+            maxLength: 300,
         }),
     ),
-};
-
-// Each question is ONE of: single choice, multiple choice, or free text.
-// A `type` literal discriminates the variants so `oneOf` matches exactly one.
-export const SingleChoiceSchema = Type.Object({
-    ...ChoiceBase,
-    type: Type.Literal("single", { description: "Pick one of the options" }),
-    options: Type.Array(OptionSchema, {
-        description: "Available choices",
-        minItems: 2,
+    recommended: Type.Boolean({
+        description:
+            "true if this is the option the model recommends the user choose",
     }),
 });
 
-export const MultipleChoiceSchema = Type.Object({
-    ...ChoiceBase,
-    type: Type.Literal("multiple", { description: "Pick any of the options" }),
+// A single question. It mirrors UiQuestion in index.ts.
+export const QuestionSchema = Type.Object({
+    question: Type.String({
+        description: "Complete question to ask",
+        maxLength: 1000,
+        minLength: 1,
+    }),
+    header: Type.String({
+        description: "Very short label",
+        maxLength: 30,
+    }),
+    // true = multiple choice, false = single choice. Irrelevant when
+    // `options` is empty (free-text question).
+    multiple: Type.Boolean({
+        description: "true = multiple choice, false = single choice",
+    }),
+    // choices; an empty array means the user types a free-form answer.
     options: Type.Array(OptionSchema, {
-        description: "Available choices",
-        minItems: 2,
+        description: "Available choices; empty = free-text answer",
+    }),
+    // required so the LLM must explicitly allow/deny custom answers.
+    custom: Type.Boolean({
+        description: "Allow a typed custom answer",
     }),
 });
-
-export const FreeTextSchema = Type.Object({
-    ...ChoiceBase,
-    type: Type.Literal("text", { description: "Free-form answer" }),
-});
-
-// TypeScript types derived from the schemas above.
-export type SingleChoiceQuestion = Static<typeof SingleChoiceSchema>;
-export type MultipleChoiceQuestion = Static<typeof MultipleChoiceSchema>;
-export type FreeTextQuestion = Static<typeof FreeTextSchema>;
-export type Question =
-    | SingleChoiceQuestion
-    | MultipleChoiceQuestion
-    | FreeTextQuestion;
-export type Option = Static<typeof OptionSchema>;
-
-const QuestionSchema = Type.Union([
-    SingleChoiceSchema,
-    MultipleChoiceSchema,
-    FreeTextSchema,
-]);
 
 // The top-level shape the LLM sends: `{ questions: [...] }`.
 export const AskUserParamsSchema = Type.Object({
@@ -85,5 +68,6 @@ export const AskUserParamsSchema = Type.Object({
     }),
 });
 
-// `Static<typeof ...>` turns a Typebox schema back into a TypeScript type.
+// TypeScript types derived from the schemas.
 export type AskUserParams = Static<typeof AskUserParamsSchema>;
+export type Option = Static<typeof OptionSchema>;
