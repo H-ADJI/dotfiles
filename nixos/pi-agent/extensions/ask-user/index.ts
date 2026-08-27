@@ -60,7 +60,7 @@ export default function initExtension(pi: ExtensionAPI) {
         execute: async (
             _toolCallId: string,
             params: AskUserParams,
-            signal: AbortSignal | undefined,
+            signal: AbortSignal,
             onUpdate: AgentToolUpdateCallback | undefined,
             ctx: ExtensionContext,
         ) => {

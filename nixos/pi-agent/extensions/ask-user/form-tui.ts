@@ -50,6 +50,30 @@ export interface UiResult {
 
 type RenderOption = Option & { isOther?: boolean };
 
+// ─── Pure helpers (no form state) ────────────────────────────────────────
+
+function isAnswered(answers: string[][], index: number): boolean {
+    return answers[index].length > 0;
+}
+
+function allAnswered(
+    questions: UiQuestion[],
+    answers: string[][],
+): boolean {
+    return questions.every((_, index) => isAnswered(answers, index));
+}
+
+function buildAnswers(
+    questions: UiQuestion[],
+    answers: string[][],
+): Answer[] {
+    return questions.map((question, index) => ({
+        header: question.header,
+        question: question.questionText,
+        values: answers[index] ?? [],
+    }));
+}
+
 /**
  * Opens the form and resolves to the user's answers (or null if cancelled).
  *
@@ -64,7 +88,7 @@ type RenderOption = Option & { isOther?: boolean };
 export function runForm(
     ctx: ExtensionContext,
     questions: UiQuestion[],
-    signal: AbortSignal | undefined,
+    signal: AbortSignal,
 ): Promise<UiResult | null> {
     return ctx.ui.custom<UiResult | null>((tui, theme, keybindings, done) => {
         // `finished` guard: done() must only be called once.
@@ -110,10 +134,10 @@ export function runForm(
             matchesKey(data, Key.shift("tab"));
 
         // If the very first question is free-form, start typing immediately.
-        if (questions[0]?.options.length === 0) {
+        if (questions[0].options.length === 0) {
             editing = true;
             editingQuestion = 0;
-            draft = answers[0]?.[0] ?? "";
+            draft = answers[0][0] ?? "";
         }
 
         // ─── Small helpers ──────────────────────────────────────────────
@@ -124,13 +148,14 @@ export function runForm(
             tui.requestRender();
         }
 
-        // True once every question has at least one answer.
-        function allAnswered() {
-            return questions.every((_, index) => answers[index]!.length > 0);
+        // Stop editing and clear the draft.
+        function leaveEditing() {
+            editing = false;
+            editingQuestion = -1;
+            draft = "";
         }
 
         // After answering the current question, move on (or to review).
-        // make circulare using modulo
         function advance() {
             goToTab(tab < questions.length - 1 ? tab + 1 : questions.length);
         }
@@ -139,21 +164,24 @@ export function runForm(
         function goToTab(nextTab: number) {
             tab = nextTab;
             if (tab === questions.length) {
-                editing = false;
-                editingQuestion = -1;
-                draft = "";
+                leaveEditing();
                 refresh();
                 return;
             }
 
             const question = questions[tab];
-            if (question?.options.length === 0) {
-                beginEditing(tab, answers[tab]?.[0] ?? "");
+            if (question.options.length === 0) {
+                if (isAnswered(answers, tab)) {
+                    // Already answered: show the saved text read-only.
+                    leaveEditing();
+                    refresh();
+                } else {
+                    // Unanswered free-form question: start typing immediately.
+                    beginEditing(tab, "");
+                }
                 return;
             }
-            editing = false;
-            editingQuestion = -1;
-            draft = "";
+            leaveEditing();
             refresh();
         }
 
@@ -177,7 +205,7 @@ export function runForm(
 
         // Multi-select: add/remove a chosen label.
         function toggleMulti(questionIndex: number, label: string) {
-            const current = answers[questionIndex] ?? [];
+            const current = answers[questionIndex];
             answers[questionIndex] = current.includes(label)
                 ? current.filter((value) => value !== label)
                 : [...current, label];
@@ -190,14 +218,7 @@ export function runForm(
             const questionIndex = editingQuestion;
             const question = questions[questionIndex];
             const trimmed = draft.trim();
-            editing = false;
-            editingQuestion = -1;
-            draft = "";
-
-            if (!question) {
-                refresh();
-                return;
-            }
+            leaveEditing();
 
             if (question.options.length === 0) {
                 // Free-form-only question: save and move on.
@@ -212,7 +233,7 @@ export function runForm(
                 return;
             }
             if (question.multiple) {
-                const current = answers[questionIndex] ?? [];
+                const current = answers[questionIndex];
                 if (!current.includes(trimmed)) current.push(trimmed);
                 saveAnswer(questionIndex, current);
                 refresh();
@@ -236,9 +257,7 @@ export function runForm(
             if (editing) {
                 // We're typing text.
                 if (isCancel(data)) {
-                    editing = false;
-                    editingQuestion = -1;
-                    draft = "";
+                    leaveEditing();
                     refresh();
                     return;
                 }
@@ -251,12 +270,12 @@ export function runForm(
                     refresh();
                     return;
                 }
-                const key = parseKey(data);
-                if (key === "space" || data === "space") {
+                if (matchesKey(data, Key.space)) {
                     draft += " ";
                     refresh();
                     return;
                 }
+                const key = parseKey(data);
                 if (key && key.length === 1) {
                     draft += key;
                     refresh();
@@ -275,7 +294,7 @@ export function runForm(
         // Review tab: just submit, or tab back to a question.
         function handleReviewInput(data: string) {
             if (isConfirm(data)) {
-                if (allAnswered()) {
+                if (allAnswered(questions, answers)) {
                     finish({
                         answers: buildAnswers(questions, answers),
                         cancelled: false,
@@ -299,7 +318,6 @@ export function runForm(
         // One question tab: navigate options, pick, or start typing.
         function handleQuestionInput(data: string) {
             const question = questions[tab];
-            if (!question) return;
 
             // Move between tabs.
             if (isNext(data)) {
@@ -314,7 +332,7 @@ export function runForm(
             if (question.options.length === 0) {
                 // Free-form question.
                 if (isConfirm(data)) {
-                    beginEditing(tab, answers[tab]?.[0] ?? "");
+                    beginEditing(tab, answers[tab][0] ?? "");
                     return;
                 }
                 if (isCancel(data)) {
@@ -324,7 +342,7 @@ export function runForm(
             }
 
             const options = currentOptions(question);
-            const focus = optionFocus[tab] ?? 0;
+            const focus = optionFocus[tab];
 
             // Move the highlight up/down.
             if (isUp(data)) {
@@ -342,18 +360,18 @@ export function runForm(
                 // Multi-select: Space toggles, Enter advances when done.
                 if (matchesKey(data, Key.space)) {
                     const option = options[focus];
-                    if (option && !option.isOther) {
+                    if (!option.isOther) {
                         toggleMulti(tab, option.label);
                     }
                     return;
                 }
                 if (isConfirm(data)) {
                     const option = options[focus];
-                    if (option?.isOther) {
+                    if (option.isOther) {
                         beginEditing(tab, "");
                         return;
                     }
-                    if ((answers[tab]?.length ?? 0) > 0) {
+                    if (isAnswered(answers, tab)) {
                         advance();
                     }
                     return;
@@ -362,14 +380,12 @@ export function runForm(
                 // Single select: Enter picks it and moves on.
                 if (isConfirm(data)) {
                     const option = options[focus];
-                    if (option?.isOther) {
+                    if (option.isOther) {
                         beginEditing(tab, "");
                         return;
                     }
-                    if (option) {
-                        saveAnswer(tab, [option.label]);
-                        advance();
-                    }
+                    saveAnswer(tab, [option.label]);
+                    advance();
                     return;
                 }
             }
@@ -377,18 +393,6 @@ export function runForm(
             if (isCancel(data)) {
                 finish(null);
             }
-        }
-
-        // Turn internal answers into the public Answer[] result.
-        function buildAnswers(
-            questions: UiQuestion[],
-            answers: string[][],
-        ): Answer[] {
-            return questions.map((question, index) => ({
-                header: question.header,
-                question: question.questionText,
-                values: answers[index] ?? [],
-            }));
         }
 
         // ─── Rendering ──────────────────────────────────────────────────
@@ -436,7 +440,7 @@ export function runForm(
             const tabs: string[] = [];
             for (let i = 0; i < questions.length; i++) {
                 const active = i === tab;
-                const answered = (answers[i]?.length ?? 0) > 0;
+                const answered = isAnswered(answers, i);
                 const label = `${answered ? "■" : "□"} ${questions[i]!.header}`;
                 tabs.push(
                     active
@@ -448,7 +452,9 @@ export function runForm(
                 );
             }
             const submitActive = tab === questions.length;
-            const submitLabel = allAnswered() ? "✓ Review" : "Review";
+            const submitLabel = allAnswered(questions, answers)
+                ? "✓ Review"
+                : "Review";
             tabs.push(
                 submitActive
                     ? theme.bg(
@@ -456,7 +462,9 @@ export function runForm(
                           theme.fg("text", ` ${submitLabel} `),
                       )
                     : theme.fg(
-                          allAnswered() ? "success" : "dim",
+                          allAnswered(questions, answers)
+                              ? "success"
+                              : "dim",
                           ` ${submitLabel} `,
                       ),
             );
@@ -465,14 +473,9 @@ export function runForm(
 
             // Show the active tab's body.
             if (tab === questions.length) {
-                renderReview(addWrapped, addWrappedWithPrefix, renderWidth);
+                renderReview(addWrapped, addWrappedWithPrefix);
             } else {
-                renderQuestion(
-                    tab,
-                    addWrapped,
-                    addWrappedWithPrefix,
-                    renderWidth,
-                );
+                renderQuestion(tab, addWrapped, addWrappedWithPrefix);
             }
 
             lines.push("");
@@ -487,9 +490,8 @@ export function runForm(
             questionIndex: number,
             add: (text: string) => void,
             addWithPrefix: (prefix: string, text: string) => void,
-            _width: number,
         ) {
-            const question = questions[questionIndex]!;
+            const question = questions[questionIndex];
             const isEditingQuestion =
                 editing && editingQuestion === questionIndex;
             addWithPrefix(" ", theme.fg("text", question.questionText));
@@ -506,19 +508,37 @@ export function runForm(
                         theme.fg("dim", "Enter to submit • Esc to cancel"),
                     );
                 } else {
-                    addWithPrefix(" ", theme.fg("muted", "Free text answer"));
-                    addWithPrefix(
-                        " ",
-                        theme.fg("dim", "Enter to type • Esc to cancel"),
-                    );
+                    const saved = answers[questionIndex][0];
+                    if (saved) {
+                        addWithPrefix(" ", theme.fg("text", saved));
+                        addWithPrefix(
+                            " ",
+                            theme.fg(
+                                "dim",
+                                "Enter to edit • Tab/←→ tabs • Esc cancel",
+                            ),
+                        );
+                    } else {
+                        addWithPrefix(
+                            " ",
+                            theme.fg("muted", "Free text answer"),
+                        );
+                        addWithPrefix(
+                            " ",
+                            theme.fg(
+                                "dim",
+                                "Enter to type • Tab/←→ tabs • Esc cancel",
+                            ),
+                        );
+                    }
                 }
                 return;
             }
 
             // Choice question: list options with markers.
             const options = currentOptions(question);
-            const focus = optionFocus[questionIndex] ?? 0;
-            const selected = new Set(answers[questionIndex] ?? []);
+            const focus = optionFocus[questionIndex];
+            const selected = new Set(answers[questionIndex]);
 
             options.forEach((option, index) => {
                 const focused = index === focus;
@@ -567,14 +587,13 @@ export function runForm(
         function renderReview(
             add: (text: string) => void,
             addWithPrefix: (prefix: string, text: string) => void,
-            _width: number,
         ) {
             addWithPrefix(" ", theme.fg("accent", theme.bold("Review")));
             add("");
 
             questions.forEach((question, index) => {
                 const values =
-                    (answers[index] ?? []).join(", ") ||
+                    answers[index].join(", ") ||
                     theme.fg("warning", "unanswered");
                 addWithPrefix(
                     " ",
@@ -584,12 +603,12 @@ export function runForm(
             });
 
             add("");
-            const submitText = allAnswered()
+            const submitText = allAnswered(questions, answers)
                 ? theme.fg("success", "> Submit")
                 : theme.fg(
                       "warning",
                       `Unanswered: ${questions
-                          .filter((_, i) => (answers[i]?.length ?? 0) === 0)
+                          .filter((_, i) => !isAnswered(answers, i))
                           .map((q) => q.header)
                           .join(", ")}`,
                   );
