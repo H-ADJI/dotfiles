@@ -27,6 +27,7 @@ export const OptionSchema = Type.Object({
             maxLength: 300,
         }),
     ),
+    // TODO: make optional
     recommended: Type.Boolean({
         description:
             "true if this is the option the model recommends the user choose",
