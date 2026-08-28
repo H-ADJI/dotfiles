@@ -18,6 +18,9 @@ let
       skipLibCheck = true;
       paths = {
         "@earendil-works/pi-coding-agent" = [ "${piPackage}/lib/node_modules/pi-monorepo/dist/index.d.ts" ];
+        "@earendil-works/pi-ai" = [
+          "${piPackage}/lib/node_modules/pi-monorepo/node_modules/@earendil-works/pi-ai/dist/index.d.ts"
+        ];
         "@earendil-works/pi-tui" = [
           "${piPackage}/lib/node_modules/pi-monorepo/node_modules/@earendil-works/pi-tui/dist/index.d.ts"
         ];

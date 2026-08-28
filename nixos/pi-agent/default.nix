@@ -13,8 +13,6 @@ in
 {
   home.file = tsconfigFiles // {
     "${config.programs.pi-coding-agent.configDir}/zentui.json".source = ./agent/zentui.json;
-    "${config.programs.pi-coding-agent.configDir}/offpeak-deepseek.json".source =
-      ./agent/offpeak-deepseek.json;
     "${config.programs.pi-coding-agent.configDir}/extensions".source = ./extensions;
   };
   xdg.configFile."ponytail/config.json".text = builtins.toJSON {
@@ -65,7 +63,6 @@ in
         # "npm:@narumitw/pi-plan-mode"
         # "npm:@zenspc/pi-workflow"
         "npm:@narumitw/pi-tool"
-        "npm:pi-zentui@0.20.2"
         "git:github.com/jonjonrankin/pi-caveman"
         "git:github.com/DietrichGebert/ponytail"
         {
