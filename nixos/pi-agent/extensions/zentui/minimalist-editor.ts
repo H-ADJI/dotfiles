@@ -16,16 +16,13 @@ export { formatElapsedDuration } from "./format";
 import {
 	EDITOR_ACCENT_FALLBACK,
 	EDITOR_BORDER_FALLBACK,
-	renderStyleForSource,
-	renderStyleForSourceOrFallback,
+	renderStyle,
+	renderStyleOrFallback,
 	safeThemeFg,
 } from "./style";
 
-const MINIMALIST_MODEL_FALLBACK = {
-	theme: "syntaxKeyword",
-	terminal: "bold purple",
-};
-const MINIMALIST_THINKING_FALLBACK = { theme: "warning", terminal: "bold yellow" };
+const MINIMALIST_MODEL_FALLBACK = "bold purple";
+const MINIMALIST_THINKING_FALLBACK = "bold yellow";
 const MINIMALIST_ADAPTIVE_TERMINAL_THINKING_FALLBACKS: Record<string, string> = {
 	minimal: "bright-black",
 	low: "blue",
@@ -34,7 +31,7 @@ const MINIMALIST_ADAPTIVE_TERMINAL_THINKING_FALLBACKS: Record<string, string> = 
 	xhigh: "red",
 	max: "bright-red",
 };
-const MINIMALIST_BRANCH_FALLBACK = { theme: "bold syntaxKeyword", terminal: "bold blue" };
+const MINIMALIST_BRANCH_FALLBACK = "bold blue";
 
 export type MinimalistEditorMetadata = {
 	cwd: string;
@@ -133,7 +130,6 @@ function renderTopLeft(
 	config: ZentuiConfig,
 	includeSessionName = true,
 ): string {
-	const source = config.components.editor.colorSource;
 	const trimmed = inputText.trimStart();
 	const bashMode = trimmed.startsWith("!!") ? "no-context" : trimmed.startsWith("!") ? "shell" : "";
 	const parts: string[] = [];
@@ -151,9 +147,8 @@ function renderTopLeft(
 		const duration = formatElapsedDuration(metadata.agentDurationMs);
 		parts.push(
 			metadata.agentActive
-				? renderStyleForSourceOrFallback(
+				? renderStyleOrFallback(
 						uiTheme,
-						source,
 						config.colors.sessionDuration,
 						EDITOR_ACCENT_FALLBACK,
 						duration,
@@ -165,7 +160,7 @@ function renderTopLeft(
 		? sanitizeEditorMetadataText(metadata.sessionName ?? "")
 		: "";
 	if (config.components.editor.styles.minimalist.showSessionName && sessionName) {
-		parts.push(renderStyleForSource(uiTheme, source, config.colors.sessionName, sessionName));
+		parts.push(renderStyle(uiTheme, config.colors.sessionName, sessionName));
 	}
 	return joinStyled(parts, safeThemeFg(uiTheme, "muted", " · "));
 }
@@ -178,7 +173,6 @@ function renderTopRight(
 	renderBorder: (text: string) => string,
 	renderThinking: (text: string) => string,
 ): string {
-	const source = config.components.editor.colorSource;
 	const parts: string[] = [];
 	const joinParts = (values: string[]) =>
 		values.map((part, index) => (index > 0 ? `${renderBorder(" – ")}${part}` : part)).join("");
@@ -186,14 +180,13 @@ function renderTopRight(
 		? sanitizeEditorMetadataText(metadata.costLabel ?? "")
 		: "";
 	if (cost) {
-		parts.push(renderStyleForSource(uiTheme, source, config.colors.cost, cost));
+		parts.push(renderStyle(uiTheme, config.colors.cost, cost));
 	}
 	const model = sanitizeEditorMetadataText(metadata.modelLabel ?? "");
 	if (model) {
 		parts.push(
-			renderStyleForSourceOrFallback(
+			renderStyleOrFallback(
 				uiTheme,
-				source,
 				config.colors.editorModel,
 				MINIMALIST_MODEL_FALLBACK,
 				model,
@@ -224,11 +217,11 @@ function renderTopRight(
 				? `/${formatCount(metadata.contextWindow)}`
 				: "";
 		const text = `${percent}%${total}`;
-		let context = renderStyleForSource(uiTheme, source, style, text);
+		let context = renderStyle(uiTheme, style, text);
 		if (config.components.editor.styles.minimalist.contextGauge) {
 			for (const gaugeWidth of [5, 3]) {
 				const gauge = `[${buildContextGauge(percent, gaugeWidth, config.icons.mode === "ascii")}] ${text}`;
-				const styledGauge = renderStyleForSource(uiTheme, source, style, gauge);
+				const styledGauge = renderStyle(uiTheme, style, gauge);
 				const candidate = joinParts([...parts, styledGauge]);
 				if (visibleWidth(candidate) <= availableWidth) {
 					context = styledGauge;
@@ -247,13 +240,11 @@ function renderBottomLeft(
 	config: ZentuiConfig,
 ): string {
 	if (!config.components.editor.styles.minimalist.showGit) return "";
-	const source = config.components.editor.colorSource;
 	const branch = sanitizeEditorMetadataText(metadata.branch ?? "");
 	const parts = branch
 		? [
-				renderStyleForSourceOrFallback(
+				renderStyleOrFallback(
 					uiTheme,
-					source,
 					config.colors.editorGitBranch,
 					MINIMALIST_BRANCH_FALLBACK,
 					branch,
@@ -261,7 +252,7 @@ function renderBottomLeft(
 			]
 		: [];
 	if (metadata.dirty) {
-		parts.push(renderStyleForSource(uiTheme, source, config.colors.gitStatus, "*"));
+		parts.push(renderStyle(uiTheme, config.colors.gitStatus, "*"));
 	}
 	if ((metadata.ahead ?? 0) > 0) {
 		parts.push(safeThemeFg(uiTheme, "success", `↑${metadata.ahead}`));
@@ -294,7 +285,7 @@ function renderBottomRight(
 ): string {
 	const cwd = sanitizeEditorMetadataText(minimalistCwdLabel(metadata, config));
 	return cwd
-		? renderStyleForSource(uiTheme, config.components.editor.colorSource, config.colors.cwd, cwd)
+		? renderStyle(uiTheme, config.colors.cwd, cwd)
 		: "";
 }
 
@@ -376,14 +367,12 @@ export function renderMinimalistFrame({
 }: MinimalistFrameOptions): string[] {
 	if (width <= 4) return clampLines(editorLines, width);
 	const contentWidth = Math.max(0, width - 4);
-	const source = config.components.editor.colorSource;
 	const adaptive = config.components.editor.borderColorMode === "adaptive";
 	const thinking = sanitizeEditorMetadataText(metadata.thinkingLevel ?? "");
 	const activeThinking = thinking && thinking.toLowerCase() !== "off" ? thinking : "";
 	const renderStaticBorder = (text: string) =>
-		renderStyleForSourceOrFallback(
+		renderStyleOrFallback(
 			uiTheme,
-			source,
 			config.colors.editorBorder,
 			EDITOR_BORDER_FALLBACK,
 			text,
@@ -391,27 +380,17 @@ export function renderMinimalistFrame({
 	const terminalAdaptiveThinkingStyle = activeThinking
 		? (thinkingStyle(config, activeThinking) ??
 			MINIMALIST_ADAPTIVE_TERMINAL_THINKING_FALLBACKS[activeThinking.toLowerCase()] ??
-			MINIMALIST_THINKING_FALLBACK.terminal)
+			MINIMALIST_THINKING_FALLBACK)
 		: undefined;
 	const renderBorder = (text: string) => {
 		if (!adaptive) return renderStaticBorder(text);
-		if (source === "terminal") {
-			return terminalAdaptiveThinkingStyle
-				? renderStyleForSource(uiTheme, source, terminalAdaptiveThinkingStyle, text)
-				: renderStaticBorder(text);
-		}
-		if (!borderColor) return renderStaticBorder(text);
-		try {
-			const rendered = borderColor(text);
-			return typeof rendered === "string" ? rendered : renderStaticBorder(text);
-		} catch {
-			return renderStaticBorder(text);
-		}
+		return terminalAdaptiveThinkingStyle
+			? renderStyle(uiTheme, terminalAdaptiveThinkingStyle, text)
+			: renderStaticBorder(text);
 	};
 	const renderStaticThinking = (text: string) =>
-		renderStyleForSourceOrFallback(
+		renderStyleOrFallback(
 			uiTheme,
-			source,
 			thinkingStyle(config, text),
 			MINIMALIST_THINKING_FALLBACK,
 			text,

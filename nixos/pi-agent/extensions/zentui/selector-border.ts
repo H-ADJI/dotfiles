@@ -5,7 +5,7 @@ import {
 } from "@earendil-works/pi-coding-agent";
 import type { ZentuiConfig } from "./config";
 import { installPrototypePatch, removePrototypePatch } from "./prototype-patch-registry";
-import { EDITOR_BORDER_STYLE, renderChromeBorder, renderEditorBorder } from "./style";
+import { EDITOR_BORDER_STYLE, renderEditorBorder, renderStyle } from "./style";
 
 type PatchableSelectorPrototype = {
 	render: (width: number) => string[];
@@ -28,12 +28,7 @@ function renderBorderLine(
 ): string {
 	const text = "─".repeat(Math.max(1, width));
 	if (theme && config) {
-		return renderChromeBorder(
-			theme,
-			config.components.selectorBorders.colorSource,
-			EDITOR_BORDER_STYLE,
-			text,
-		);
+		return renderStyle(theme, EDITOR_BORDER_STYLE, text);
 	}
 	return renderEditorBorder(text);
 }

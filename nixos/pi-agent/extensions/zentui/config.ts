@@ -4,7 +4,6 @@ import { getAgentDir } from "@earendil-works/pi-coding-agent";
 import { resolveConfiguredIcons, type IconMode, type ResolvedIcons } from "./icons";
 
 export type ColorSpec = string;
-export type ColorSource = "theme" | "terminal";
 export type { IconMode } from "./icons";
 
 export type ContextThresholds = { warning: number; error: number };
@@ -36,7 +35,6 @@ export type MinimalistEditorStyleConfig = {
 export type EditorComponentConfig = {
 	enabled: boolean;
 	style: "minimalist";
-	colorSource: ColorSource;
 	viewportIndicators: boolean;
 	borderColorMode: EditorBorderColorMode;
 	modelLabel: ModelLabelSource;
@@ -46,13 +44,11 @@ export type EditorComponentConfig = {
 export type UserMessagesComponentConfig = {
 	enabled: boolean;
 	style: "labeled";
-	colorSource: ColorSource;
 };
 
 export type SelectorBordersComponentConfig = {
 	enabled: boolean;
 	style: "zentui";
-	colorSource: ColorSource;
 };
 
 export type GitMetricsConfig = { onlyNonzero: boolean; ignoreSubmodules: boolean };
@@ -73,7 +69,6 @@ export type StarshipFooterStyleConfig = {
 export type FooterComponentConfig = {
 	enabled: boolean;
 	style: "starship";
-	colorSource: ColorSource;
 	modelLabel: ModelLabelSource;
 	styles: { starship: StarshipFooterStyleConfig };
 };
@@ -82,7 +77,6 @@ export type WorkingLineComponentConfig = {
 	enabled: boolean;
 	spinner: string;
 	textIntervalMs: number;
-	colorSource: ColorSource;
 	messages: { custom: boolean };
 };
 
@@ -158,7 +152,6 @@ const defaultConfig: ZentuiConfig = {
 		editor: {
 			enabled: true,
 			style: "minimalist",
-			colorSource: "terminal",
 			viewportIndicators: false,
 			borderColorMode: "adaptive",
 			modelLabel: "id",
@@ -175,12 +168,11 @@ const defaultConfig: ZentuiConfig = {
 				},
 			},
 		},
-		userMessages: { enabled: true, style: "labeled", colorSource: "terminal" },
-		selectorBorders: { enabled: true, style: "zentui", colorSource: "terminal" },
+		userMessages: { enabled: true, style: "labeled" },
+		selectorBorders: { enabled: true, style: "zentui" },
 		footer: {
 			enabled: true,
 			style: "starship",
-			colorSource: "terminal",
 			modelLabel: "id",
 			styles: {
 				starship: {
@@ -200,7 +192,6 @@ const defaultConfig: ZentuiConfig = {
 			enabled: true,
 			spinner: "pinwheel",
 			textIntervalMs: 40,
-			colorSource: "terminal",
 			messages: { custom: false },
 		},
 	},
@@ -208,7 +199,7 @@ const defaultConfig: ZentuiConfig = {
 	icons: resolveConfiguredIcons("auto"),
 	deepseekTier: {
 		peakWindowsUtc: [[1, 4], [6, 10]],
-		labels: { peak: "peak ⚠️", offPeak: "off-peak" },
+		labels: { peak: "peak pricing", offPeak: "off-peak pricing" },
 	},
 };
 
@@ -228,8 +219,6 @@ function mergeUserConfig(raw: unknown): ZentuiConfig {
 	const editorStyles = (editor.styles ?? {}) as Record<string, unknown>;
 	const minimalist = (editorStyles.minimalist ?? {}) as Record<string, unknown>;
 
-	const userMessages = (components.userMessages ?? {}) as Record<string, unknown>;
-	const selectorBorders = (components.selectorBorders ?? {}) as Record<string, unknown>;
 	const footer = (components.footer ?? {}) as Record<string, unknown>;
 	const footerStyles = (footer.styles ?? {}) as Record<string, unknown>;
 	const starship = (footerStyles.starship ?? {}) as Record<string, unknown>;
@@ -257,7 +246,6 @@ function mergeUserConfig(raw: unknown): ZentuiConfig {
 		components: {
 			editor: {
 				...base.components.editor,
-				colorSource: (readStr(editor.colorSource) as ColorSource) ?? base.components.editor.colorSource,
 				viewportIndicators: readBool(editor.viewportIndicators) ?? base.components.editor.viewportIndicators,
 				styles: {
 					minimalist: {
@@ -273,18 +261,12 @@ function mergeUserConfig(raw: unknown): ZentuiConfig {
 			},
 			userMessages: {
 				...base.components.userMessages,
-				colorSource:
-					(readStr(userMessages.colorSource) as ColorSource) ?? base.components.userMessages.colorSource,
 			},
 			selectorBorders: {
 				...base.components.selectorBorders,
-				colorSource:
-					(readStr(selectorBorders.colorSource) as ColorSource) ??
-					base.components.selectorBorders.colorSource,
 			},
 			footer: {
 				...base.components.footer,
-				colorSource: (readStr(footer.colorSource) as ColorSource) ?? base.components.footer.colorSource,
 				styles: {
 					starship: {
 						...base.components.footer.styles.starship,

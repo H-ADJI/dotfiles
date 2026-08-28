@@ -6,7 +6,7 @@ import {
 	type ExtensionStatusSegment,
 } from "./extension-status";
 import type { FooterState } from "./state";
-import { renderStyleForSource } from "./style";
+import { renderStyle } from "./style";
 
 const separatorText: Record<SeparatorStyle, string> = {
 	pipe: " | ",
@@ -54,10 +54,8 @@ export function installFooter(
 				if (width <= 0) return [""];
 				const config = getConfig();
 				const starship = config.components.footer.styles.starship;
-				const colorSource = config.components.footer.colorSource;
-				const sep = renderStyleForSource(
+				const sep = renderStyle(
 					theme,
-					colorSource,
 					config.colors.separator,
 					separatorText[starship.separator],
 				);
@@ -73,7 +71,7 @@ export function installFooter(
 				const renderExtensionStatus = (segment: ExtensionStatusSegment) =>
 					segment.colorMode === "original"
 						? segment.text
-						: renderStyleForSource(theme, colorSource, config.colors.extensionStatus, segment.text);
+						: renderStyle(theme, config.colors.extensionStatus, segment.text);
 				const deepseekTierLabel =
 					starship.segments.deepseekTier && ctx.model?.provider === "deepseek"
 						? (() => {
@@ -82,9 +80,8 @@ export function installFooter(
 									tier === "peak"
 										? `${DEEPSEEK_ICON}: ${config.deepseekTier.labels.peak}`
 										: `${DEEPSEEK_ICON}: ${config.deepseekTier.labels.offPeak}`;
-								return renderStyleForSource(
+								return renderStyle(
 									theme,
-									colorSource,
 									tier === "peak" ? "red" : "black",
 									label,
 								);

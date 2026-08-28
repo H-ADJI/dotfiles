@@ -9,7 +9,7 @@ import type { ZentuiConfig } from "./config";
 import {
 	EDITOR_ACCENT_FALLBACK,
 	EDITOR_BORDER_FALLBACK,
-	renderStyleForSourceOrFallbackStrict,
+	renderStyleOrFallback,
 } from "./style";
 import { sanitizeUserMessageSourceText } from "./user-message-osc";
 
@@ -58,25 +58,13 @@ function fillLine(content: string, width: number): string {
 
 function accent(theme: Theme | undefined, config: ZentuiConfig, text: string): string {
 	return theme
-		? renderStyleForSourceOrFallbackStrict(
-				theme,
-				config.components.userMessages.colorSource,
-				config.colors.editorAccent,
-				EDITOR_ACCENT_FALLBACK,
-				text,
-			)
+		? renderStyleOrFallback(theme, config.colors.editorAccent, EDITOR_ACCENT_FALLBACK, text)
 		: text;
 }
 
 function border(theme: Theme | undefined, config: ZentuiConfig, text: string): string {
 	return theme
-		? renderStyleForSourceOrFallbackStrict(
-				theme,
-				config.components.userMessages.colorSource,
-				config.colors.editorBorder,
-				EDITOR_BORDER_FALLBACK,
-				text,
-			)
+		? renderStyleOrFallback(theme, config.colors.editorBorder, EDITOR_BORDER_FALLBACK, text)
 		: text;
 }
 

@@ -21,39 +21,33 @@ Everything below is read at session start. Anything not listed is ignored.
 
 | Key                               | Values                                 | Default           |
 | --------------------------------- | -------------------------------------- | ----------------- |
-| `colorSource`                     | `"terminal"` \| `"theme"`              | `"terminal"`      |
 | `viewportIndicators`              | boolean                                | `false`           |
 | `styles.minimalist.pathDisplay`   | `"full"` \| `"compact"` \| `"project"` | `"full"`          |
 | `styles.minimalist.contextFormat` | `"percent"` \| `"percent-total"`       | `"percent-total"` |
 
-Locked (hardcoded defaults): `showTimer: true`, `showCost: true`, `showSessionName: true`,
-`showGit: true`, `contextGauge: false`, `contextThresholds: {warning:70,error:90}`,
-`borderColorMode: "adaptive"`, `modelLabel: "id"`.
+Locked (hardcoded defaults): `colorSource: "terminal"`, `showTimer: true`, `showCost: true`,
+`showSessionName: true`, `showGit: true`, `contextGauge: false`,
+`contextThresholds: {warning:70,error:90}`, `borderColorMode: "adaptive"`, `modelLabel: "id"`.
 
 ### `components.userMessages` (style: locked to `labeled`)
 
-| Key           | Values                    |
-| ------------- | ------------------------- |
-| `colorSource` | `"terminal"` \| `"theme"` |
+Nothing configurable — `colorSource: "terminal"` hardcoded.
 
 ### `components.selectorBorders` (style: locked to `zentui`)
 
-| Key           | Values                    |
-| ------------- | ------------------------- |
-| `colorSource` | `"terminal"` \| `"theme"` |
+Nothing configurable — `colorSource: "terminal"` hardcoded.
 
 ### `components.footer` (style: locked to `starship`)
 
 | Key                                                  | Values                     | Default      |
 | ---------------------------------------------------- | -------------------------- | ------------ |
-| `colorSource`                                        | `"terminal"` \| `"theme"`  | `"terminal"` |
 | `styles.starship.segments.deepseekTier`              | boolean                    | `true`       |
 | `styles.starship.extensionStatuses.colorModes.<key>` | `"zentui"` \| `"original"` | `"original"` |
 
 Removed segments (no effect now): `cwd`, `sessionName`, `gitBranch`, `gitStatus`,
 `gitMetrics`, `context`, `tokens`, `cost`, `sessionDuration`, `packageVersion`,
 `modelInfo`, `time`, `runtime`, `gitCommit`.
-Footer separator is locked to `pipe`.
+Footer `colorSource: "terminal"` and separator `pipe` are hardcoded.
 
 ### `components.workingLine` (spinner: locked to `pinwheel`)
 
@@ -74,8 +68,8 @@ Top-level config (previously `offpeak-deepseek.json`, now merged into zentui.jso
 | Key                           | Values                                            | Default             |
 | ----------------------------- | ------------------------------------------------- | ------------------- |
 | `deepseekTier.peakWindowsUtc` | `[startHour, endHour)` pairs in UTC, Mon–Fri only | `[[1, 4], [6, 10]]` |
-| `deepseekTier.labels.peak`    | string                                            | `"peak ⚠️"`         |
-| `deepseekTier.labels.offPeak` | string                                            | `"off-peak"`        |
+| `deepseekTier.labels.peak`    | string                                            | `"peak pricing"`      |
+| `deepseekTier.labels.offPeak` | string                                            | `"off-peak pricing"`  |
 
 Weekends and hours outside the windows are off-peak.
 
