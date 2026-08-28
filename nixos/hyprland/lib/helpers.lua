@@ -32,13 +32,13 @@ end
 
 function M.start_transcribing()
     hl.exec_cmd("voxtype record toggle")
-    hl.exec_cmd("wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2}' > /tmp/voxtype-vol; wpctl set-volume @DEFAULT_AUDIO_SINK@ 15%")
+    hl.exec_cmd("wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -c 9- > /tmp/voxtype-vol; wpctl set-volume @DEFAULT_AUDIO_SINK@ 15%")
     hl.dispatch(hl.dsp.submap(vars.submap.transcribing))
 end
 
 function M.stop_transcribing()
     hl.exec_cmd("voxtype record toggle")
-    hl.exec_cmd('[ -f /tmp/voxtype-vol ] && wpctl set-volume @DEFAULT_AUDIO_SINK@ "$(cat /tmp/voxtype-vol)" && rm /tmp/voxtype-vol')
+    hl.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ $(cat /tmp/voxtype-vol)")
     hl.dispatch(hl.dsp.submap("reset"))
 end
 
