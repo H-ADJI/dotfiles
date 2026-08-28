@@ -4,7 +4,7 @@
  * The schemas live in `./schemas.ts`; this file is the actual tool logic.
  *
  * WHAT THIS TOOL DOES
- *   The LLM calls `ask_user` with 1..10 questions. This extension opens an
+ *   The LLM calls `skeptic_agent` with 1..10 questions. This extension opens an
  *   interactive form (custom TUI), pauses the agent, and returns the user's
  *   answers back to the LLM.
  *
@@ -19,7 +19,6 @@
  *     https://github.com/anomalyco/opencode               (its `question` tool)
  */
 
-// TODO: add recommended field
 //  TODO: fix free-form text display
 import type {
     AgentToolUpdateCallback, // type of the `onUpdate` progress callback
@@ -37,19 +36,21 @@ import {
 
 // ─── Registering the tool ──────────────────────────────────────────────────
 // `export default function initExtension(pi)` is the entry point pi calls when
-// the extension loads. Here we tell pi "there is a tool called ask_user".
+// the extension loads. Here we tell pi "there is a tool called skeptic_agent".
 export default function initExtension(pi: ExtensionAPI) {
     pi.registerTool({
-        name: "ask_user",
-        label: "Ask User",
+        name: "skeptic_agent",
+        label: "Skeptic Agent",
         description:
             "Ask the user one or more questions and return their answers. Use to clarify ambiguous requirements, get preferences, or let the user decide trade-offs. Answers are arrays of selected labels.",
         promptSnippet:
-            "ask_user — ask the user questions to clarify decisions and trade-offs",
+            "skeptic_agent — ask the user questions to clarify decisions and trade-offs",
         promptGuidelines: [
-            "Use ask_user for ambiguous requirements, and to know preferences, or trade-offs; do not ask for facts you can inspect yourself.",
-            "In ask_user, set option descriptions to explain trade-offs or consequences concisely.",
-            "In ask_user, set `recommended: true` on at most one option per question, and only when you have a genuine best choice.",
+            "Use skeptic_agent for ambiguous requirements, and to know user preferences.",
+            "Use skeptic_agent to discuss trade-offs.",
+            "Use skeptic_agent to challenge user choices, suggest alternative choices.",
+            "In skeptic_agent, set option descriptions to explain trade-offs or consequences concisely.",
+            "In skeptic_agent, set `recommended: true` only when you have a genuine best choice.",
         ],
         parameters: AskUserParamsSchema,
         executionMode: "sequential",
@@ -67,18 +68,17 @@ export default function initExtension(pi: ExtensionAPI) {
             // This tool needs the interactive TUI (custom UI + keyboard).
             if (ctx.mode !== "tui") {
                 throw new Error(
-                    "ask_user requires an interactive TUI session.",
+                    "skeptic_agent requires an interactive TUI session.",
                 );
             }
             // Clean up the LLM input into our internal UiQuestion shape.
-            // The schema already matches UiQuestion, so this is just trimming
-            // and defaulting `custom`. `options: []` = free-text question.
+            // The schema already matches UiQuestion, so this is just trimming.
+            // `options: []` = free-text question.
             const questions: UiQuestion[] = params.questions.map((raw) => ({
                 header: raw.header.trim(),
                 questionText: raw.question.trim(),
                 options: raw.options,
-                multiple: raw.multiple,
-                custom: raw.custom,
+                isMultipleChoice: raw.isMultipleChoice,
             }));
 
             // Tell the TUI "tool is waiting for the user" so it doesn't look

@@ -4,8 +4,9 @@
  * Schemas describe what the LLM is allowed to pass to this tool. pi uses them
  * to (a) validate the call and (b) tell the model what arguments exist.
  *
- * The schema mirrors the UI data model on purpose: each question is just a
- * `multiple` boolean + `options` array. `options: []` = free-text answer.
+ * The schema mirrors the UI data model on purpose: each question is just an
+ * `isMultipleChoice` boolean + `options` array. `options: []` = free-text
+ * answer. Choice questions always get an extra free-form row in the UI.
  *
  * Learn Typebox: https://github.com/sinclairzx81/typebox
  * - `Type.Object({...})` = a JSON object
@@ -48,17 +49,12 @@ export const QuestionSchema = Type.Object({
     }),
     // true = multiple choice, false = single choice. Irrelevant when
     // `options` is empty (free-text question).
-    multiple: Type.Boolean({
+    isMultipleChoice: Type.Boolean({
         description: "true = multiple choice, false = single choice",
     }),
     // choices; an empty array means the user types a free-form answer.
     options: Type.Array(OptionSchema, {
         description: "Available choices; empty = free-text answer",
-    }),
-    // required so the LLM must explicitly allow/deny custom answers.
-    // TODO: replace so that every question has a free-form text input
-    custom: Type.Boolean({
-        description: "Allow a typed custom answer",
     }),
 });
 

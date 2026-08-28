@@ -33,8 +33,7 @@ export interface UiQuestion {
     header: string;
     questionText: string;
     options: Option[];
-    multiple: boolean;
-    custom: boolean;
+    isMultipleChoice: boolean;
 }
 
 export interface Answer {
@@ -185,16 +184,14 @@ export function runForm(
             refresh();
         }
 
-        // The list of options to show, plus the "Type your own answer" row.
+        // The list of options to show, plus the free-form row.
         function currentOptions(question: UiQuestion): RenderOption[] {
             const options: RenderOption[] = [...question.options];
-            if (question.custom) {
-                options.push({
-                    label: OTHER_LABEL,
-                    isOther: true,
-                    recommended: false,
-                });
-            }
+            options.push({
+                label: OTHER_LABEL,
+                isOther: true,
+                recommended: false,
+            });
             return options;
         }
 
@@ -232,7 +229,7 @@ export function runForm(
                 refresh();
                 return;
             }
-            if (question.multiple) {
+            if (question.isMultipleChoice) {
                 const current = answers[questionIndex];
                 if (!current.includes(trimmed)) current.push(trimmed);
                 saveAnswer(questionIndex, current);
@@ -356,7 +353,7 @@ export function runForm(
                 return;
             }
 
-            if (question.multiple) {
+            if (question.isMultipleChoice) {
                 // Multi-select: Space toggles, Enter advances when done.
                 if (matchesKey(data, Key.space)) {
                     const option = options[focus];
@@ -544,7 +541,7 @@ export function runForm(
                 const focused = index === focus;
                 const isOther = option.isOther === true;
                 const isSelected = !isOther && selected.has(option.label);
-                const marker = question.multiple
+                const marker = question.isMultipleChoice
                     ? isSelected
                         ? theme.fg("success", "[x]")
                         : "[ ]"
@@ -577,7 +574,7 @@ export function runForm(
             }
 
             add("");
-            const help = question.multiple
+            const help = question.isMultipleChoice
                 ? "Space toggle • Enter next • Tab/←→ tabs • Esc cancel"
                 : "↑↓ select • Enter choose • Tab/←→ tabs • Esc cancel";
             addWithPrefix(" ", theme.fg("dim", help));
