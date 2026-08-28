@@ -542,9 +542,11 @@ export function runForm(
                 const isOther = option.isOther === true;
                 const isSelected = !isOther && selected.has(option.label);
                 const marker = question.isMultipleChoice
-                    ? isSelected
-                        ? theme.fg("success", "[x]")
-                        : "[ ]"
+                    ? isOther
+                        ? " "
+                        : isSelected
+                          ? theme.fg("success", "[x]")
+                          : "[ ]"
                     : focused
                       ? theme.fg("accent", ">")
                       : " ";
@@ -565,6 +567,16 @@ export function runForm(
                     );
                 }
             });
+
+            // Show any saved free-form answers that don't match an option.
+            const optionLabels = new Set(options.map((o) => o.label));
+            const customValues = answers[questionIndex].filter(
+                (value) => !optionLabels.has(value),
+            );
+            for (const value of customValues) {
+                add("");
+                addWithPrefix(" ", theme.fg("text", `✎ ${value}`));
+            }
 
             // If typing a custom "other" answer, show the input line.
             if (isEditingQuestion) {
