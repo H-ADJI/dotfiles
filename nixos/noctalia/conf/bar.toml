@@ -6,6 +6,7 @@ start = ["launcher", "wallpaper", "workspaces", "special-workspaces", "privacy"]
 center = ["notifications", "clock", "caffeine"]
 end = [
   "hypr-submap",
+  "default-mic",
   "pomodoro-widget",
   "media",
   "tray",
@@ -37,6 +38,14 @@ capsule_fill = "tertiary"
 capsule_opacity = 0.4
 capsule_padding = 25
 hide_when_default = true
+
+[widget.default-mic]
+type = "khalil/default-mic:default-mic"
+capsule = true
+capsule_border = "secondary"
+capsule_fill = "tertiary"
+capsule_opacity = 0.4
+capsule_padding = 25
 
 [widget.special-workspaces]
 type = "jamesfeeder/special-workspaces:special-workspaces"

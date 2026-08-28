@@ -1,0 +1,14 @@
+id = "khalil/default-mic"
+name = "Default Mic"
+version = "1.0.0"
+plugin_api = 6
+author = "khalil"
+license = "MIT"
+icon = "microphone"
+description = "Shows the default microphone name while transcribing"
+tags = ["bar", "audio"]
+dependencies = ["pulsemixer", "hyprctl", "socat", "stdbuf"]
+
+[[widget]]
+id = "default-mic"
+entry = "widget.luau"
