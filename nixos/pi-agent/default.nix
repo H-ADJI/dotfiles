@@ -43,15 +43,20 @@ in
         # sandbox
         # modern CLIs
         # rtk
+        # cost timeline
+        # web search : donsetch
         # opencode go
         # ast-grep + ripgrep
-        # browser automation
+        # browser automation : bladebro
         # notifications
         # todos
         # price per turn
         # copy msg on turn end
         # subagents
         # visual-explainer
+        # archify
+        # lavish
+        # crew mates
         # prompts
         # skills : reviewer
         # skills : refactor - improve
@@ -138,8 +143,10 @@ in
       "app.model.cycleForward" = [ ];
       "app.model.cycleBackward" = [ ];
 
-      "app.thinking.cycle" = "tab";
+      "app.thinking.cycle" = "ctrl+t";
+      "app.thinking.toggle" = "ctrl+shift+t";
       "tui.input.tab" = [
+        "tab"
         "ctrl+y"
       ];
       "tui.input.newLine" = [ "shift+enter" ];

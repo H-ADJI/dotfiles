@@ -55,17 +55,11 @@ function isAnswered(answers: string[][], index: number): boolean {
     return answers[index].length > 0;
 }
 
-function allAnswered(
-    questions: UiQuestion[],
-    answers: string[][],
-): boolean {
+function allAnswered(questions: UiQuestion[], answers: string[][]): boolean {
     return questions.every((_, index) => isAnswered(answers, index));
 }
 
-function buildAnswers(
-    questions: UiQuestion[],
-    answers: string[][],
-): Answer[] {
+function buildAnswers(questions: UiQuestion[], answers: string[][]): Answer[] {
     return questions.map((question, index) => ({
         header: question.header,
         question: question.questionText,
@@ -459,9 +453,7 @@ export function runForm(
                           theme.fg("text", ` ${submitLabel} `),
                       )
                     : theme.fg(
-                          allAnswered(questions, answers)
-                              ? "success"
-                              : "dim",
+                          allAnswered(questions, answers) ? "success" : "dim",
                           ` ${submitLabel} `,
                       ),
             );
