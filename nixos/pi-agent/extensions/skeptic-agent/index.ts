@@ -19,7 +19,7 @@
  *     https://github.com/anomalyco/opencode               (its `question` tool)
  */
 
-//  TODO: fix free-form text display
+//  TODO: do not append text in free-text
 import type {
     AgentToolUpdateCallback, // type of the `onUpdate` progress callback
     ExtensionAPI, // the `pi` object pi gives every extension
