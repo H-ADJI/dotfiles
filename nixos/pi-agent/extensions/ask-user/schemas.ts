@@ -27,11 +27,12 @@ export const OptionSchema = Type.Object({
             maxLength: 300,
         }),
     ),
-    // TODO: make optional
-    recommended: Type.Boolean({
-        description:
-            "true if this is the option the model recommends the user choose",
-    }),
+    recommended: Type.Optional(
+        Type.Boolean({
+            description:
+                "true if this is the option the model recommends the user choose",
+        }),
+    ),
 });
 
 // A single question. It mirrors UiQuestion in index.ts.
