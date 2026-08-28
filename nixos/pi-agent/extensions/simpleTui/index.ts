@@ -1,5 +1,3 @@
-import { existsSync } from "node:fs";
-import { dirname, join, resolve } from "node:path";
 import type {
 	ExtensionAPI,
 	ExtensionContext,
@@ -7,45 +5,26 @@ import type {
 	Theme,
 } from "@earendil-works/pi-coding-agent";
 import type { EditorTheme, TUI } from "@earendil-works/pi-tui";
-import { loadConfig, type ZentuiConfig } from "./config";
+import { loadConfig, type SimpleTuiConfig } from "./config";
 import { installFooter } from "./footer";
-import { emptyGitStatus, readGitStatus } from "./git";
+import { buildCostLabel, getUsageTotals } from "./format";
 import { installSelectorBorderStyle, removeSelectorBorderStyle } from "./selector-border";
-import { SessionLifecycle } from "./session-lifecycle";
-import {
-	applyGitToState,
-	createInitialState,
-	modelLabelFor,
-	syncState,
-	type FooterState,
-} from "./state";
 import { PolishedEditor } from "./ui";
 import { installUserMessageStyle, removeUserMessageStyle } from "./user-message";
 import { WorkingLineController } from "./working-line";
 
-function findRepositoryRoot(cwd: string): string | undefined {
-	let current = resolve(cwd);
-	while (true) {
-		if (existsSync(join(current, ".git"))) return current;
-		const parent = dirname(current);
-		if (parent === current) return undefined;
-		current = parent;
-	}
-}
-
 export default function (pi: ExtensionAPI) {
-	let currentConfig: ZentuiConfig = loadConfig();
-	const state: FooterState = createInitialState(emptyGitStatus());
-	const sessionLifecycle = new SessionLifecycle();
+	let currentConfig: SimpleTuiConfig = loadConfig();
 	let activeTheme: Theme | undefined;
 	let requestEditorRender: (() => void) | undefined;
 	let requestFooterRender: (() => void) | undefined;
 	let runCost = 0;
-	let projectRoot: string | undefined;
-	let cleanupUserMessages: () => void = () => {};
-	let cleanupSelectorBorders: () => void = () => {};
 	let agentStartEpoch: number | undefined;
 	let agentTimer: ReturnType<typeof setInterval> | undefined;
+	let modelLabel = "none";
+	let costLabel = "$0.000";
+	let cleanupUserMessages: () => void = () => {};
+	let cleanupSelectorBorders: () => void = () => {};
 	const workingLine = new WorkingLineController(() => currentConfig);
 
 	const getConfig = () => currentConfig;
@@ -54,10 +33,15 @@ export default function (pi: ExtensionAPI) {
 		requestFooterRender?.();
 		requestEditorRender?.();
 	};
-	const getThinkingLevel = () =>
-		sessionLifecycle.isCurrent() ? pi.getThinkingLevel() : ("off" as const);
+	const getThinkingLevel = () => pi.getThinkingLevel();
+
+	const syncState = (ctx: ExtensionContext) => {
+		costLabel = buildCostLabel(getUsageTotals(ctx));
+		modelLabel = ctx.model?.id ?? "none";
+	};
+
 	const getEditorCostLabel = () =>
-		`${state.costLabel}${runCost > 0 ? ` +$${runCost.toFixed(3)}` : ""}`;
+		`${costLabel}${runCost > 0 ? ` +$${runCost.toFixed(3)}` : ""}`;
 
 	const startAgentTimer = () => {
 		if (agentTimer) return;
@@ -68,54 +52,28 @@ export default function (pi: ExtensionAPI) {
 		agentTimer = undefined;
 	};
 
-	const refreshGit = async (ctx: ExtensionContext) => {
-		const generation = sessionLifecycle.currentGeneration();
-		const cwd = ctx.cwd;
-		const git = await readGitStatus(cwd);
-		if (!sessionLifecycle.isCurrent(generation)) return;
-		if (git.kind === "ok") {
-			projectRoot = findRepositoryRoot(cwd);
-			applyGitToState(state, git.status);
-		}
-		refresh();
-	};
-
 	const makeEditorFactory = (ctx: ExtensionContext) => {
 		const sessionTheme = ctx.ui.theme;
-		const factory = ((tui: TUI, theme: EditorTheme, keybindings: KeybindingsManager) => {
+		return ((tui: TUI, theme: EditorTheme, keybindings: KeybindingsManager) => {
 			requestEditorRender = () => tui.requestRender();
-			return new PolishedEditor(
-				tui,
-				theme,
-				keybindings,
-				sessionTheme,
-				getConfig,
-				() => ({
-					cwd: ctx.cwd,
-					projectRoot,
-					branch: state.branch,
-					dirty: state.dirty,
-					ahead: state.ahead,
-					behind: state.behind,
-					costLabel: getEditorCostLabel(),
-					modelLabel: modelLabelFor(state, currentConfig.components.editor.modelLabel),
-					thinkingLevel: getThinkingLevel(),
-					contextPercent: ctx.getContextUsage()?.percent ?? undefined,
-					contextWindow:
-						ctx.model?.contextWindow ?? ctx.getContextUsage()?.contextWindow,
-					sessionName: ctx.sessionManager.getSessionName() ?? "",
-					agentDurationMs: agentStartEpoch ? Date.now() - agentStartEpoch : 0,
-					agentActive: agentStartEpoch !== undefined,
-				}),
-			);
+			return new PolishedEditor(tui, theme, keybindings, sessionTheme, getConfig, () => ({
+				cwd: ctx.cwd,
+				costLabel: getEditorCostLabel(),
+				modelLabel,
+				thinkingLevel: getThinkingLevel(),
+				contextPercent: ctx.getContextUsage()?.percent ?? undefined,
+				contextWindow: ctx.model?.contextWindow ?? ctx.getContextUsage()?.contextWindow,
+				sessionName: ctx.sessionManager.getSessionName() ?? "",
+				agentDurationMs: agentStartEpoch ? Date.now() - agentStartEpoch : 0,
+				agentActive: agentStartEpoch !== undefined,
+			}));
 		}) as NonNullable<Parameters<ExtensionContext["ui"]["setEditorComponent"]>[0]>;
-		return factory;
 	};
 
 	const installUi = (ctx: ExtensionContext) => {
 		if (!ctx.hasUI) return;
 		activeTheme = ctx.ui.theme;
-		syncState(state, ctx);
+		syncState(ctx);
 		try {
 			ctx.ui.setEditorComponent(makeEditorFactory(ctx));
 		} catch {
@@ -131,19 +89,15 @@ export default function (pi: ExtensionAPI) {
 		} catch {
 			cleanupSelectorBorders = () => {};
 		}
-		installFooter(ctx, state, getConfig, {
+		installFooter(ctx, getConfig, {
 			setRequestRender: (fn) => {
 				requestFooterRender = fn;
-			},
-			onBranchChange: () => {
-				refreshGit(ctx);
 			},
 			onDispose: () => {
 				requestFooterRender = undefined;
 			},
 		});
 		workingLine.startSession(ctx);
-		refreshGit(ctx);
 		refresh();
 	};
 
@@ -170,15 +124,12 @@ export default function (pi: ExtensionAPI) {
 	pi.on("session_start", async (_event, ctx) => {
 		currentConfig = loadConfig();
 		if (!currentConfig.enabled) return;
-		sessionLifecycle.start();
 		runCost = 0;
-		projectRoot = undefined;
 		agentStartEpoch = undefined;
 		installUi(ctx);
 	});
 
 	pi.on("session_shutdown", async (_event, ctx) => {
-		sessionLifecycle.shutdown();
 		cleanupUi(ctx);
 	});
 
@@ -187,6 +138,10 @@ export default function (pi: ExtensionAPI) {
 		agentStartEpoch = Date.now();
 		startAgentTimer();
 		refresh();
+	});
+
+	pi.on("turn_start", (_event, ctx) => {
+		workingLine.startTurn(ctx);
 	});
 
 	pi.on("turn_end", (event) => {
@@ -203,27 +158,22 @@ export default function (pi: ExtensionAPI) {
 	});
 
 	pi.on("agent_end", (_event, ctx) => {
-		syncState(state, ctx);
+		syncState(ctx);
 		refresh();
 	});
 
 	pi.on("model_select", (_event, ctx) => {
-		syncState(state, ctx);
+		syncState(ctx);
 		refresh();
 	});
 
 	pi.on("thinking_level_select", (_event, ctx) => {
-		syncState(state, ctx);
+		syncState(ctx);
 		refresh();
 	});
 
 	pi.on("session_info_changed", (_event, ctx) => {
-		syncState(state, ctx);
-		refresh();
-	});
-
-	pi.on("session_compact", (_event, ctx) => {
-		syncState(state, ctx);
+		syncState(ctx);
 		refresh();
 	});
 }

@@ -115,6 +115,7 @@ export type PolishedTuiColors = {
 };
 
 export type ZentuiConfig = {
+	enabled: boolean;
 	components: ComponentsConfig;
 	colors: PolishedTuiColors;
 	icons: ResolvedIcons;
@@ -148,6 +149,7 @@ const defaultColors: PolishedTuiColors = {
 };
 
 const defaultConfig: ZentuiConfig = {
+	enabled: true,
 	components: {
 		editor: {
 			enabled: true,
@@ -232,6 +234,7 @@ function mergeUserConfig(raw: unknown): ZentuiConfig {
 	const base = defaultConfig;
 	const next: ZentuiConfig = {
 		...base,
+		enabled: readBool(parsed.enabled) ?? defaultConfig.enabled,
 		deepseekTier: {
 			peakWindowsUtc: Array.isArray(deepseekTier.peakWindowsUtc)
 				? (deepseekTier.peakWindowsUtc as [number, number][])

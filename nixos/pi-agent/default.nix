@@ -13,6 +13,7 @@ in
 {
   home.file = tsconfigFiles // {
     "${config.programs.pi-coding-agent.configDir}/zentui.json".source = ./agent/zentui.json;
+    "${config.programs.pi-coding-agent.configDir}/simpleTui.json".source = ./agent/simpleTui.json;
     "${config.programs.pi-coding-agent.configDir}/extensions".source = ./extensions;
   };
   xdg.configFile."ponytail/config.json".text = builtins.toJSON {
@@ -46,6 +47,7 @@ in
         # price per turn
         # copy msg on turn end
         # subagents
+        # visual-explainer
         # prompts
         # skills : reviewer
         # skills : refactor - improve

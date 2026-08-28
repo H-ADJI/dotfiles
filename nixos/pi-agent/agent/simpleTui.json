@@ -1,0 +1,28 @@
+{
+    "enabled": false,
+    "editor": {
+        "viewportIndicators": false,
+        "pathDisplay": "full",
+        "contextFormat": "percent-total"
+    },
+    "workingLine": {
+        "enabled": true,
+        "messages": [
+            "Working"
+        ]
+    },
+    "footer": {
+        "deepseekTier": {
+            "enabled": true,
+            "peakWindowsUtc": [[1, 4], [6, 10]],
+            "labels": {
+                "peak": "peak pricing",
+                "offPeak": "off-peak pricing"
+            }
+        },
+        "extensionStatuses": {
+            "placements": {},
+            "colorModes": {}
+        }
+    }
+}
