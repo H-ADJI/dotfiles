@@ -10,7 +10,6 @@ import type { EditorTheme, TUI } from "@earendil-works/pi-tui";
 import { loadConfig, type ZentuiConfig } from "./config";
 import { installFooter } from "./footer";
 import { emptyGitStatus, readGitStatus } from "./git";
-import { readPackageVersionResult } from "./package-version";
 import { installSelectorBorderStyle, removeSelectorBorderStyle } from "./selector-border";
 import { SessionLifecycle } from "./session-lifecycle";
 import {
@@ -72,16 +71,12 @@ export default function (pi: ExtensionAPI) {
 	const refreshGit = async (ctx: ExtensionContext) => {
 		const generation = sessionLifecycle.currentGeneration();
 		const cwd = ctx.cwd;
-		const [git, pkg] = await Promise.all([
-			readGitStatus(cwd, { readMetrics: true }),
-			readPackageVersionResult(cwd),
-		]);
+		const git = await readGitStatus(cwd);
 		if (!sessionLifecycle.isCurrent(generation)) return;
 		if (git.kind === "ok") {
 			projectRoot = findRepositoryRoot(cwd);
 			applyGitToState(state, git.status);
 		}
-		if (pkg.kind === "ok") state.packageVersion = pkg.result;
 		refresh();
 	};
 
@@ -174,7 +169,6 @@ export default function (pi: ExtensionAPI) {
 
 	pi.on("session_start", async (_event, ctx) => {
 		sessionLifecycle.start();
-		state.sessionStartEpoch = Date.now();
 		runCost = 0;
 		projectRoot = undefined;
 		agentStartEpoch = undefined;

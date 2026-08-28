@@ -27,26 +27,7 @@
         "footer": {
             "colorSource": "terminal",
             "styles": {
-                "starship": {
-                    "segments": {
-                        "cwd": false,
-                        "sessionName": false,
-                        "gitBranch": false,
-                        "gitStatus": false,
-                        "gitMetrics": true,
-                        "context": false,
-                        "tokens": false,
-                        "cost": false,
-                        "sessionDuration": true,
-                        "packageVersion": true,
-                        "deepseekTier": true
-                    },
-                    "extensionStatuses": {
-                        "colorModes": {
-                            "caveman": "original"
-                        }
-                    }
-                }
+                "starship": {}
             }
         },
         "selectorBorders": {

@@ -47,14 +47,12 @@ Locked (hardcoded defaults): `showTimer: true`, `showCost: true`, `showSessionNa
 | Key                                                  | Values                     | Default      |
 | ---------------------------------------------------- | -------------------------- | ------------ |
 | `colorSource`                                        | `"terminal"` \| `"theme"`  | `"terminal"` |
-| `styles.starship.segments.gitMetrics`                | boolean                    | `true`       |
-| `styles.starship.segments.sessionDuration`           | boolean                    | `true`       |
-| `styles.starship.segments.packageVersion`            | boolean                    | `true`       |
-| `styles.starship.segments.deepseekTier`              | boolean                    | `false`      |
-| `styles.starship.extensionStatuses.colorModes.<key>` | `"zentui"` \| `"original"` | `"zentui"`   |
+| `styles.starship.segments.deepseekTier`              | boolean                    | `true`       |
+| `styles.starship.extensionStatuses.colorModes.<key>` | `"zentui"` \| `"original"` | `"original"` |
 
 Removed segments (no effect now): `cwd`, `sessionName`, `gitBranch`, `gitStatus`,
-`context`, `tokens`, `cost`, `modelInfo`, `time`, `runtime`, `gitCommit`.
+`gitMetrics`, `context`, `tokens`, `cost`, `sessionDuration`, `packageVersion`,
+`modelInfo`, `time`, `runtime`, `gitCommit`.
 Footer separator is locked to `pipe`.
 
 ### `components.workingLine` (spinner: locked to `pinwheel`)
@@ -69,7 +67,7 @@ Removed: `spinner` choice, custom messages, token/thought metrics, turn summary.
 ## DeepSeek peak/off-peak tier
 
 Shown as a footer segment (`deepseekTier`) only while a DeepSeek model is active.
-Off-peak renders green, peak renders red.
+Off-peak renders black, peak renders red, prefixed with the whale icon: `🐋: off-peak`.
 
 Top-level config (previously `offpeak-deepseek.json`, now merged into zentui.json):
 
@@ -93,8 +91,7 @@ agent run's accumulated cost: `$1.234 +$0.056`.
 ## Hardcoded (not in zentui.json)
 
 - Colors: terminal specs in `config.ts` `defaultColors`.
-- Icons: `package` glyph only (nerd `\uf487` / ascii `pkg`, mode `auto`).
-- `packageVersion` reads `package.json` only (no other ecosystems).
+- Icons: none configurable (mode only, `auto`/`nerd`/`ascii` for the context gauge).
 
 ## Extending
 

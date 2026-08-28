@@ -5,11 +5,6 @@ import {
 	collectExtensionStatusSegments,
 	type ExtensionStatusSegment,
 } from "./extension-status";
-import {
-	buildSessionDurationLabel,
-	formatGitMetricsSegment,
-	formatPackageVersionSegment,
-} from "./format";
 import type { FooterState } from "./state";
 import { renderStyleForSource } from "./style";
 
@@ -68,37 +63,8 @@ export function installFooter(
 				);
 				const innerWidth = Math.max(1, width - 2);
 
-				const left = [
-					starship.segments.gitMetrics
-						? formatGitMetricsSegment(
-								theme,
-								state.metrics,
-								starship.gitMetrics,
-								colorSource,
-								config.colors.gitMetricsAdded,
-								config.colors.gitMetricsDeleted,
-							)
-						: "",
-					starship.segments.packageVersion
-						? formatPackageVersionSegment(
-								theme,
-								state.packageVersion ?? undefined,
-								colorSource,
-								config.icons.package,
-								config.colors.packageVersion,
-							)
-						: "",
-					starship.segments.sessionDuration && state.sessionStartEpoch
-						? `${renderStyleForSource(theme, colorSource, "", "up for")} ${renderStyleForSource(
-								theme,
-								colorSource,
-								config.colors.sessionDuration,
-								buildSessionDurationLabel(state.sessionStartEpoch),
-							)}`
-						: "",
-				]
-					.filter(Boolean)
-					.join(" ");
+				// Left side intentionally empty for now; re-add segments here later.
+				const left = "";
 
 				const extensionStatuses = collectExtensionStatusSegments(
 					footerData.getExtensionStatuses(),
@@ -119,7 +85,7 @@ export function installFooter(
 								return renderStyleForSource(
 									theme,
 									colorSource,
-									tier === "peak" ? "red" : "green",
+									tier === "peak" ? "red" : "black",
 									label,
 								);
 							})()

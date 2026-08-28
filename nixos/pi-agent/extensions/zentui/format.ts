@@ -1,14 +1,5 @@
 import { homedir } from "node:os";
-import type { Theme } from "@earendil-works/pi-coding-agent";
-import type {
-	ColorSource,
-	ColorSpec,
-	ContextThresholds,
-	PathDisplayMode,
-} from "./config";
-import type { GitMetricsInfo } from "./git";
-import type { PackageVersionResult } from "./package-version";
-import { renderStyleForSource } from "./style";
+import type { ContextThresholds, PathDisplayMode } from "./config";
 
 export type UsageTotals = {
 	input: number;
@@ -180,16 +171,6 @@ export function buildCostLabel(totals: UsageTotals): string {
 	return `$${totals.cost.toFixed(3)}`;
 }
 
-export function buildSessionDurationLabel(startEpoch: number): string {
-	const totalSeconds = Math.max(0, Math.floor((Date.now() - startEpoch) / 1000));
-	const hours = Math.floor(totalSeconds / 3600);
-	const minutes = Math.floor((totalSeconds % 3600) / 60);
-	const seconds = totalSeconds % 60;
-	if (hours > 0) return `${hours}h ${minutes}m`;
-	if (minutes > 0) return `${minutes}m ${seconds}s`;
-	return `${seconds}s`;
-}
-
 export function contextColorTier(
 	percent: number | null | undefined,
 	thresholds: ContextThresholds = { warning: 70, error: 90 },
@@ -270,41 +251,4 @@ export function formatCwdLabel(cwd: string, cwdIcon: string, options?: FormatCwd
 		pathText = parts[parts.length - 1] ?? cwd;
 	}
 	return cwdIcon ? `${cwdIcon} ${pathText}` : pathText;
-}
-
-export function formatGitMetricsSegment(
-	theme: Pick<Theme, "fg">,
-	metrics: GitMetricsInfo | null | undefined,
-	config: { onlyNonzero: boolean },
-	colorSource: ColorSource,
-	addedStyle: ColorSpec,
-	deletedStyle: ColorSpec,
-): string {
-	if (!metrics) return "";
-	const showAdded = !config.onlyNonzero || metrics.added > 0;
-	const showDeleted = !config.onlyNonzero || metrics.deleted > 0;
-	if (!showAdded && !showDeleted) return "";
-	const parts: string[] = [];
-	if (showAdded) parts.push(renderStyleForSource(theme, colorSource, addedStyle, `+${metrics.added}`));
-	if (showDeleted)
-		parts.push(renderStyleForSource(theme, colorSource, deletedStyle, `−${metrics.deleted}`));
-	return parts.join(" ");
-}
-
-export function formatPackageVersionSegment(
-	theme: Pick<Theme, "fg">,
-	pkg: PackageVersionResult | undefined,
-	colorSource: ColorSource,
-	configuredIcon: string,
-	versionStyle: ColorSpec = "208",
-): string {
-	if (!pkg) return "";
-	const icon = configuredIcon;
-	const label = `${icon} ${pkg.version}`;
-	return `${renderStyleForSource(theme, colorSource, "", "is")} ${renderStyleForSource(
-		theme,
-		colorSource,
-		versionStyle,
-		label,
-	)}`;
 }

@@ -56,7 +56,6 @@ export type SelectorBordersComponentConfig = {
 };
 
 export type GitMetricsConfig = { onlyNonzero: boolean; ignoreSubmodules: boolean };
-
 export type ExtensionStatusesConfig = {
 	defaultPlacement: ExtensionStatusPlacement;
 	placements: Record<string, ExtensionStatusPlacement>;
@@ -66,12 +65,8 @@ export type ExtensionStatusesConfig = {
 export type StarshipFooterStyleConfig = {
 	separator: SeparatorStyle;
 	segments: {
-		gitMetrics: boolean;
-		sessionDuration: boolean;
-		packageVersion: boolean;
 		deepseekTier: boolean;
 	};
-	gitMetrics: GitMetricsConfig;
 	extensionStatuses: ExtensionStatusesConfig;
 };
 
@@ -119,11 +114,8 @@ export type PolishedTuiColors = {
 	contextError: ColorSpec;
 	editorGitBranch: ColorSpec;
 	gitStatus: ColorSpec;
-	gitMetricsAdded: ColorSpec;
-	gitMetricsDeleted: ColorSpec;
 	cwd: ColorSpec;
 	separator: ColorSpec;
-	packageVersion: ColorSpec;
 	extensionStatus: ColorSpec;
 	workingLineHigh: ColorSpec;
 };
@@ -155,11 +147,8 @@ const defaultColors: PolishedTuiColors = {
 	contextError: "red",
 	editorGitBranch: "bold blue",
 	gitStatus: "red",
-	gitMetricsAdded: "green",
-	gitMetricsDeleted: "red",
 	cwd: "bold cyan",
 	separator: "bright-black",
-	packageVersion: "208",
 	extensionStatus: "green",
 	workingLineHigh: "bold green",
 };
@@ -197,12 +186,8 @@ const defaultConfig: ZentuiConfig = {
 				starship: {
 					separator: "pipe",
 					segments: {
-						gitMetrics: true,
-						sessionDuration: true,
-						packageVersion: true,
-						deepseekTier: false,
+						deepseekTier: true,
 					},
-					gitMetrics: { onlyNonzero: true, ignoreSubmodules: false },
 					extensionStatuses: {
 						defaultPlacement: "right",
 						placements: {},
@@ -304,15 +289,6 @@ function mergeUserConfig(raw: unknown): ZentuiConfig {
 					starship: {
 						...base.components.footer.styles.starship,
 						segments: {
-							gitMetrics:
-								readBool(segments.gitMetrics) ??
-								base.components.footer.styles.starship.segments.gitMetrics,
-							sessionDuration:
-								readBool(segments.sessionDuration) ??
-								base.components.footer.styles.starship.segments.sessionDuration,
-							packageVersion:
-								readBool(segments.packageVersion) ??
-								base.components.footer.styles.starship.segments.packageVersion,
 							deepseekTier:
 								readBool(segments.deepseekTier) ??
 								base.components.footer.styles.starship.segments.deepseekTier,
@@ -365,5 +341,5 @@ export function getExtensionStatusPlacement(config: ZentuiConfig, key: string): 
 }
 
 export function getExtensionStatusColorMode(config: ZentuiConfig, key: string): ExtensionStatusColorMode {
-	return config.components.footer.styles.starship.extensionStatuses.colorModes[key] ?? "zentui";
+	return config.components.footer.styles.starship.extensionStatuses.colorModes[key] ?? "original";
 }

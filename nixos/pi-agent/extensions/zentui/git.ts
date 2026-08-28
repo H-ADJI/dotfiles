@@ -4,11 +4,6 @@ import { promisify } from "node:util";
 const execFileAsync = promisify(execFile);
 const GIT_COMMAND_TIMEOUT_MS = 2_000;
 
-export type GitMetricsInfo = {
-	added: number;
-	deleted: number;
-};
-
 export type GitStatusSummary = {
 	branch?: string;
 	dirty: boolean;
@@ -22,7 +17,6 @@ export type GitStatusSummary = {
 	renamed: number;
 	deleted: number;
 	typechanged: number;
-	metrics?: GitMetricsInfo | null;
 };
 
 export type GitReadResult =
@@ -44,7 +38,6 @@ export function emptyGitStatus(): GitStatusSummary {
 		renamed: 0,
 		deleted: 0,
 		typechanged: 0,
-		metrics: undefined,
 	};
 }
 
@@ -102,26 +95,6 @@ export function parseGitStatusPorcelain(stdoutText: string, stashCount: number):
 	return status;
 }
 
-export function parseGitNumstat(stdoutText: string): GitMetricsInfo {
-	let added = 0;
-	let deleted = 0;
-	for (const line of stdoutText.split(/\r?\n/)) {
-		if (!line) continue;
-		const parts = line.split("\t");
-		if (parts.length < 3) continue;
-		const a = parts[0];
-		const d = parts[1];
-		if (a === "-" || d === "-") continue;
-		const na = Number(a);
-		const nd = Number(d);
-		if (!Number.isFinite(na) || !Number.isFinite(nd)) continue;
-		if (na < 0 || nd < 0) continue;
-		added += na;
-		deleted += nd;
-	}
-	return { added, deleted };
-}
-
 function isNotARepoError(error: unknown): boolean {
 	const message =
 		error instanceof Error
@@ -130,20 +103,9 @@ function isNotARepoError(error: unknown): boolean {
 	return /not a git repository|outside repository|not a git repo/i.test(message);
 }
 
-export type ReadGitStatusOptions = {
-	readMetrics?: boolean;
-	ignoreSubmodules?: boolean;
-};
-
-export async function readGitStatus(
-	cwd: string,
-	options: ReadGitStatusOptions = {},
-): Promise<GitReadResult> {
-	const readMetrics = options.readMetrics === true;
+export async function readGitStatus(cwd: string): Promise<GitReadResult> {
 	try {
-		const numstatArgs = ["diff", "HEAD", "--numstat"];
-		if (options.ignoreSubmodules) numstatArgs.push("--ignore-submodules=all");
-		const [{ stdout: statusStdout }, stashResult, metricsResult] = await Promise.all([
+		const [{ stdout: statusStdout }, stashResult] = await Promise.all([
 			execFileAsync("git", ["status", "--porcelain=2", "--branch"], {
 				cwd,
 				timeout: GIT_COMMAND_TIMEOUT_MS,
@@ -152,33 +114,12 @@ export async function readGitStatus(
 				cwd,
 				timeout: GIT_COMMAND_TIMEOUT_MS,
 			}).catch(() => ({ stdout: "" })),
-			readMetrics
-				? execFileAsync("git", numstatArgs, {
-						cwd,
-						timeout: GIT_COMMAND_TIMEOUT_MS,
-					}).then(
-						(r) => ({ stdout: typeof r.stdout === "string" ? r.stdout : String(r.stdout) }),
-						() => ({ stdout: "", failed: true as const }),
-					)
-				: Promise.resolve({ stdout: "", failed: true as const }),
 		]);
 		const stdoutText = typeof statusStdout === "string" ? statusStdout : String(statusStdout);
 		const stashStdout =
 			typeof stashResult.stdout === "string" ? stashResult.stdout : String(stashResult.stdout);
 		const stashCount = stashStdout.split(/\r?\n/).filter((line) => line.trim().length > 0).length;
-		const status = parseGitStatusPorcelain(stdoutText, stashCount);
-		if (readMetrics) {
-			if ("failed" in metricsResult && metricsResult.failed) {
-				status.metrics = null;
-			} else {
-				const metricsStdout =
-					typeof metricsResult.stdout === "string"
-						? metricsResult.stdout
-						: String(metricsResult.stdout);
-				status.metrics = parseGitNumstat(metricsStdout);
-			}
-		}
-		return { kind: "ok", status };
+		return { kind: "ok", status: parseGitStatusPorcelain(stdoutText, stashCount) };
 	} catch (error) {
 		if (isNotARepoError(error)) return { kind: "not_a_repo" };
 		try {

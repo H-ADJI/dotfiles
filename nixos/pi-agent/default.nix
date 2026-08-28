@@ -120,16 +120,18 @@ in
     keybindings = {
       "tui.select.up" = [
         "up"
-        "ctrl+k"
+        "ctrl+p"
       ];
       "tui.select.down" = [
         "down"
-        "ctrl+j"
+        "ctrl+n"
       ];
+
       "app.editor.external" = [ "ctrl+e" ];
-      "app.model.select" = [ ];
+
       "app.model.cycleForward" = [ ];
       "app.model.cycleBackward" = [ ];
+
       "app.thinking.cycle" = "tab";
       "tui.input.tab" = [
         "ctrl+y"
