@@ -12,7 +12,9 @@ let
 in
 {
   home.file = tsconfigFiles // {
-    "${config.programs.pi-coding-agent.configDir}/zentui.json".source = ./zentui.json;
+    "${config.programs.pi-coding-agent.configDir}/zentui.json".source = ./agent/zentui.json;
+    "${config.programs.pi-coding-agent.configDir}/offpeak-deepseek.json".source =
+      ./agent/offpeak-deepseek.json;
     "${config.programs.pi-coding-agent.configDir}/extensions".source = ./extensions;
   };
   xdg.configFile."ponytail/config.json".text = builtins.toJSON {
@@ -49,6 +51,8 @@ in
         # browser automation
         # notifications
         # todos
+        # price per turn
+        # copy msg on turn end
         # subagents
         # prompts
         # skills : reviewer

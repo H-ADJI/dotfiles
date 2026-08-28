@@ -1,0 +1,8 @@
+{
+    "comment": "Edit these. Windows are [startHour, endHour) pairs in UTC, Monday-Friday only. Everything else (weekends, nights) is off-peak. French time (UTC+2 summer CEST): 01-04 UTC = 03-06, 06-10 UTC = 08-12; in winter (CET, UTC+1) subtract one hour.",
+    "peakWindowsUtc": [[1, 4], [6, 10]],
+    "labels": {
+        "peak": "peak ⚠️",
+        "offPeak": "off-peak"
+    }
+}

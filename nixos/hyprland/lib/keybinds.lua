@@ -28,7 +28,11 @@ hl.bind("SUPER + SHIFT + P", hl.dsp.exec_cmd(session_toggle), { description = "O
 hl.bind("mouse:275", hl.dsp.exec_cmd(session_toggle), { description = "Open session menu" })
 
 hl.bind("SUPER + C", hl.dsp.exec_cmd(vars.nctl .. "screenshot-region"), { description = "Screenshot region" })
-hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd(vars.nctl .. "screenshot-fullscreen"), { locked = true, description = "Screenshot fullscreen" })
+hl.bind(
+    "SUPER + SHIFT + C",
+    hl.dsp.exec_cmd(vars.nctl .. "screenshot-fullscreen"),
+    { locked = true, description = "Screenshot fullscreen" }
+)
 hl.bind("SUPER + V", hl.dsp.exec_cmd(vars.nctl .. "panel-toggle clipboard"), { description = "Open clipboard history" })
 
 -- 5. Audio
@@ -36,7 +40,11 @@ hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(vars.nctl .. "volume-up"), { rep
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(vars.nctl .. "volume-down"), { repeating = true, description = "Volume down" })
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd(vars.nctl .. "volume-mute"), { locked = true, description = "Mute audio" })
 hl.bind("SUPER + XF86AudioRaiseVolume", hl.dsp.exec_cmd(vars.nctl .. "mic-volume-up"), { repeating = true, description = "Mic volume up" })
-hl.bind("SUPER + XF86AudioLowerVolume", hl.dsp.exec_cmd(vars.nctl .. "mic-volume-down"), { repeating = true, description = "Mic volume down" })
+hl.bind(
+    "SUPER + XF86AudioLowerVolume",
+    hl.dsp.exec_cmd(vars.nctl .. "mic-volume-down"),
+    { repeating = true, description = "Mic volume down" }
+)
 hl.bind("SUPER + XF86AudioMute", hl.dsp.exec_cmd(vars.nctl .. "mic-mute"), { locked = true, description = "Mute mic" })
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd(vars.nctl .. "media toggle"), { locked = true, description = "Play/pause media" })
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd(vars.nctl .. "media toggle"), { locked = true, description = "Play/pause media" })
@@ -119,7 +127,7 @@ end, { description = "Zoom out" })
 -- 14. Layouts
 helpers.setup_layout_binds()
 
--- 15. Transcribing
+-- 15. Transcribing (voxtype)
 hl.bind("SUPER + O", helpers.start_transcribing, { description = "Start transcribing" })
 hl.define_submap(vars.submap.transcribing, function()
     hl.bind("SUPER + O", helpers.stop_transcribing, { description = "Stop transcribing" })
