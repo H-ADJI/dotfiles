@@ -3,7 +3,6 @@ enabled = [
   "jamesfeeder/special-workspaces",
   "k4n4t4/hypr-submap",
   "thepunkoff/pomodoro",
-  "khalil/default-mic",
 ]
 auto_update = false
 
