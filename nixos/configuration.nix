@@ -16,7 +16,6 @@
     localsend.enable = true;
     zsh.enable = true;
   };
-
   services = {
     displayManager.ly.enable = true;
     upower.enable = true;
@@ -27,6 +26,9 @@
       alsa.enable = true;
       wireplumber.enable = true;
     };
+    udev.packages = with pkgs; [
+      vial
+    ];
   };
   security.rtkit.enable = true;
 

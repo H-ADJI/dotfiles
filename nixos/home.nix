@@ -55,6 +55,7 @@
         fzf
         gnugrep
         google-chrome
+        htmlq
         hyperfine
         impala
         libnotify
@@ -64,8 +65,8 @@
         slurp
         socat
         tree
+        vial
         wl-clipboard
-        htmlq
       ];
     };
   };
