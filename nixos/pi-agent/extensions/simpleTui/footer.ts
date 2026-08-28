@@ -67,7 +67,10 @@ export function installFooter(
 					.join(SEPARATOR);
 
 				const rightWidth = visibleWidth(right);
-				const line = rightWidth >= innerWidth ? truncateToWidth(right, innerWidth, "") : right;
+				const line =
+					rightWidth >= innerWidth
+						? truncateToWidth(right, innerWidth, "")
+						: `${' '.repeat(innerWidth - rightWidth)}${right}`;
 				const framed = width > 2 ? ` ${truncateToWidth(line, width - 2, "")} ` : line;
 				return [truncateToWidth(framed, width, "")];
 			},

@@ -1,4 +1,3 @@
-import { basename, isAbsolute, relative, sep } from "node:path";
 import type { Theme } from "@earendil-works/pi-coding-agent";
 import { truncateToWidth, visibleWidth } from "@earendil-works/pi-tui";
 import type { SimpleTuiConfig } from "./config";
@@ -200,7 +199,6 @@ function renderTopRight(
 					? config.colors.contextWarning
 					: config.colors.contextNormal;
 		const total =
-			config.editor.contextFormat === "percent-total" &&
 			metadata.contextWindow !== undefined &&
 			Number.isFinite(metadata.contextWindow) &&
 			metadata.contextWindow > 0
@@ -212,19 +210,8 @@ function renderTopRight(
 	return joinParts(parts);
 }
 
-function minimalistCwdLabel(metadata: MinimalistEditorMetadata, config: SimpleTuiConfig): string {
-	const full = () => formatCwdLabel(metadata.cwd, "", { mode: "full", depth: 0 });
-	if (config.editor.pathDisplay === "full") return full();
-	if (config.editor.pathDisplay === "compact")
-		return basename(metadata.cwd) || metadata.cwd;
-	if (!metadata.projectRoot) return full();
-
-	const pathFromRoot = relative(metadata.projectRoot, metadata.cwd);
-	if (pathFromRoot === ".." || pathFromRoot.startsWith(`..${sep}`) || isAbsolute(pathFromRoot)) {
-		return full();
-	}
-	const project = basename(metadata.projectRoot) || metadata.projectRoot;
-	return pathFromRoot ? `${project}/${pathFromRoot}` : project;
+function minimalistCwdLabel(metadata: MinimalistEditorMetadata): string {
+	return formatCwdLabel(metadata.cwd, "", { mode: "full", depth: 0 });
 }
 
 function renderBottomRight(
@@ -232,7 +219,7 @@ function renderBottomRight(
 	uiTheme: Theme,
 	config: SimpleTuiConfig,
 ): string {
-	const cwd = sanitizeEditorMetadataText(minimalistCwdLabel(metadata, config));
+	const cwd = sanitizeEditorMetadataText(minimalistCwdLabel(metadata));
 	return cwd
 		? renderStyle(uiTheme, config.colors.cwd, cwd)
 		: "";

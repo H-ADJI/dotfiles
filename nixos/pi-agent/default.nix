@@ -12,9 +12,10 @@ let
 in
 {
   home.file = tsconfigFiles // {
-    "${config.programs.pi-coding-agent.configDir}/zentui.json".source = ./agent/zentui.json;
-    "${config.programs.pi-coding-agent.configDir}/simpleTui.json".source = ./agent/simpleTui.json;
-    "${config.programs.pi-coding-agent.configDir}/extensions".source = ./extensions;
+    "${config.programs.pi-coding-agent.configDir}/simpleTui.json".source =
+      config.lib.file.mkOutOfStoreSymlink "${piAgentModule}/agent/simpleTui.json";
+    "${config.programs.pi-coding-agent.configDir}/extensions".source =
+      config.lib.file.mkOutOfStoreSymlink "${piAgentModule}/extensions";
   };
   xdg.configFile."ponytail/config.json".text = builtins.toJSON {
     defaultMode = "full";
@@ -41,6 +42,9 @@ in
         # guardrails
         # sandbox
         # modern CLIs
+        # rtk
+        # opencode go
+        # ast-grep + ripgrep
         # browser automation
         # notifications
         # todos

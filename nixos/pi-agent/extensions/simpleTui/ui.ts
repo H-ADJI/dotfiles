@@ -211,7 +211,7 @@ export class PolishedEditor extends CustomEditor {
 				width,
 				editorLines: editorFrame.slice(1, -1),
 				autocompleteLines,
-				viewport: config.editor.viewportIndicators ? viewport : undefined,
+				viewport: undefined,
 				inputText: this.getText(),
 				metadata: this.getMinimalistMetadata(),
 				uiTheme: this.uiTheme,

@@ -97,7 +97,6 @@ export default function (pi: ExtensionAPI) {
 				requestFooterRender = undefined;
 			},
 		});
-		workingLine.startSession(ctx);
 		refresh();
 	};
 

@@ -13,20 +13,18 @@ after you confirm parity). Default is `false` so your current zentui keeps worki
 
 ## Config (`simpleTui.json`)
 
-| Key | Values | Default |
-|-----|--------|---------|
-| `enabled` | boolean | `true` |
-| `editor.viewportIndicators` | boolean | `false` |
-| `editor.pathDisplay` | `"full"` \| `"compact"` \| `"project"` | `"full"` |
-| `editor.contextFormat` | `"percent"` \| `"percent-total"` | `"percent-total"` |
-| `workingLine.enabled` | boolean | `true` |
-| `workingLine.messages` | string[] | `["Working"]` |
-| `footer.deepseekTier.enabled` | boolean | `true` |
-| `footer.deepseekTier.peakWindowsUtc` | `[startHour,endHour)` UTC Mon–Fri | `[[1,4],[6,10]]` |
-| `footer.deepseekTier.labels.peak` | string | `"peak pricing"` |
-| `footer.deepseekTier.labels.offPeak` | string | `"off-peak pricing"` |
-| `footer.extensionStatuses.placements.<key>` | `"off"` \| `"left"` \| `"middle"` \| `"right"` | `"right"` |
-| `footer.extensionStatuses.colorModes.<key>` | `"original"` \| `"zentui"` | `"original"` |
+| Key                                         | Values                                         | Default              |
+| ------------------------------------------- | ---------------------------------------------- | -------------------- |
+| `enabled`                                   | boolean                                        | `true`               |
+| `workingLine.enabled`                       | boolean                                        | `true`               |
+| `workingLine.messages`                      | string[]                                       | `["Working"]`        |
+| `footer.deepseekTier.enabled`               | boolean                                        | `true`               |
+| `footer.deepseekTier.peakWindowsUtc`        | `[startHour,endHour)` UTC Mon–Fri              | `[[1,4],[6,10]]`     |
+| `footer.deepseekTier.labels.peak`           | string                                         | `"peak pricing"`     |
+| `footer.deepseekTier.labels.offPeak`        | string                                         | `"off-peak pricing"` |
+
+Hardcoded: editor settings (viewport indicators off, full cwd path, percent-total context),
+footer right-aligned, extension statuses `"right"` placement + `"original"` color.
 
 ## Features
 
@@ -34,8 +32,8 @@ after you confirm parity). Default is `false` so your current zentui keeps worki
   top-right `$cost +$run` / model / thinking / context%; bottom-right cwd; adaptive border
   color by thinking level. No git branch.
 - **User messages (labeled)**: `╭─ User ─╮` box, markdown-rendered.
-- **Working line**: pinwheel spinner; working message picked randomly from
-  `workingLine.messages` each turn (default `"Working"`).
+- **Working message**: `setWorkingMessage` picked randomly from `workingLine.messages` each
+turn (default `"Working"`). Spinner styling removed (uses pi default).
 - **Footer (right side)**: 🐋 deepseek peak/off-peak (peak red, off-peak black) + extension
   statuses (original color by default).
 - **Selector borders**: model/settings selector top/bottom borders recolored.

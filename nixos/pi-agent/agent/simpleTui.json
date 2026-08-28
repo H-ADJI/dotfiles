@@ -1,15 +1,8 @@
 {
-    "enabled": false,
-    "editor": {
-        "viewportIndicators": false,
-        "pathDisplay": "full",
-        "contextFormat": "percent-total"
-    },
+    "enabled": true,
     "workingLine": {
         "enabled": true,
-        "messages": [
-            "Working"
-        ]
+        "messages": ["Working", "Cooking", "Boiling Water"]
     },
     "footer": {
         "deepseekTier": {
@@ -19,10 +12,6 @@
                 "peak": "peak pricing",
                 "offPeak": "off-peak pricing"
             }
-        },
-        "extensionStatuses": {
-            "placements": {},
-            "colorModes": {}
         }
     }
 }

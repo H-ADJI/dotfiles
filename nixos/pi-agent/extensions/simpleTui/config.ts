@@ -14,20 +14,8 @@ export type DeepseekTierConfig = {
 	labels: { peak: string; offPeak: string };
 };
 
-export type ExtensionStatusesConfig = {
-	placements: Record<string, ExtensionStatusPlacement>;
-	colorModes: Record<string, ExtensionStatusColorMode>;
-};
-
 export type FooterConfig = {
 	deepseekTier: DeepseekTierConfig;
-	extensionStatuses: ExtensionStatusesConfig;
-};
-
-export type EditorConfig = {
-	viewportIndicators: boolean;
-	pathDisplay: "compact" | "project" | "full";
-	contextFormat: "percent" | "percent-total";
 };
 
 export type WorkingLineConfig = {
@@ -59,7 +47,6 @@ export type PolishedTuiColors = {
 
 export type SimpleTuiConfig = {
 	enabled: boolean;
-	editor: EditorConfig;
 	workingLine: WorkingLineConfig;
 	footer: FooterConfig;
 	colors: PolishedTuiColors;
@@ -89,11 +76,6 @@ const defaultColors: PolishedTuiColors = {
 
 const defaultConfig: SimpleTuiConfig = {
 	enabled: true,
-	editor: {
-		viewportIndicators: false,
-		pathDisplay: "full",
-		contextFormat: "percent-total",
-	},
 	workingLine: {
 		enabled: true,
 		messages: ["Working"],
@@ -103,10 +85,6 @@ const defaultConfig: SimpleTuiConfig = {
 			enabled: true,
 			peakWindowsUtc: [[1, 4], [6, 10]],
 			labels: { peak: "peak pricing", offPeak: "off-peak pricing" },
-		},
-		extensionStatuses: {
-			placements: {},
-			colorModes: {},
 		},
 	},
 	colors: defaultColors,
@@ -125,24 +103,14 @@ function readStrArr(v: unknown): string[] | undefined {
 function mergeUserConfig(raw: unknown): SimpleTuiConfig {
 	if (!raw || typeof raw !== "object") return defaultConfig;
 	const parsed = raw as Record<string, unknown>;
-	const editor = (parsed.editor ?? {}) as Record<string, unknown>;
 	const workingLine = (parsed.workingLine ?? {}) as Record<string, unknown>;
 	const footer = (parsed.footer ?? {}) as Record<string, unknown>;
 	const deepseekTier = (footer.deepseekTier ?? {}) as Record<string, unknown>;
 	const deepseekLabels = (deepseekTier.labels ?? {}) as Record<string, unknown>;
-	const extStatuses = (footer.extensionStatuses ?? {}) as Record<string, unknown>;
 
 	return {
 		...defaultConfig,
 		enabled: readBool(parsed.enabled) ?? defaultConfig.enabled,
-		editor: {
-			viewportIndicators: readBool(editor.viewportIndicators) ?? defaultConfig.editor.viewportIndicators,
-			pathDisplay:
-				(readStr(editor.pathDisplay) as EditorConfig["pathDisplay"]) ?? defaultConfig.editor.pathDisplay,
-			contextFormat:
-				(readStr(editor.contextFormat) as EditorConfig["contextFormat"]) ??
-				defaultConfig.editor.contextFormat,
-		},
 		workingLine: {
 			enabled: readBool(workingLine.enabled) ?? defaultConfig.workingLine.enabled,
 			messages: readStrArr(workingLine.messages) ?? defaultConfig.workingLine.messages,
@@ -157,10 +125,6 @@ function mergeUserConfig(raw: unknown): SimpleTuiConfig {
 					peak: readStr(deepseekLabels.peak) ?? defaultConfig.footer.deepseekTier.labels.peak,
 					offPeak: readStr(deepseekLabels.offPeak) ?? defaultConfig.footer.deepseekTier.labels.offPeak,
 				},
-			},
-			extensionStatuses: {
-				placements: (extStatuses.placements ?? {}) as Record<string, ExtensionStatusPlacement>,
-				colorModes: (extStatuses.colorModes ?? {}) as Record<string, ExtensionStatusColorMode>,
 			},
 		},
 	};
@@ -181,10 +145,10 @@ export function isExtensionStatusPlacement(value: unknown): value is ExtensionSt
 	return value === "off" || value === "left" || value === "middle" || value === "right";
 }
 
-export function getExtensionStatusPlacement(config: SimpleTuiConfig, key: string): ExtensionStatusPlacement {
-	return config.footer.extensionStatuses.placements[key] ?? "right";
+export function getExtensionStatusPlacement(_config: SimpleTuiConfig, _key: string): ExtensionStatusPlacement {
+	return "right";
 }
 
-export function getExtensionStatusColorMode(config: SimpleTuiConfig, key: string): ExtensionStatusColorMode {
-	return config.footer.extensionStatuses.colorModes[key] ?? "original";
+export function getExtensionStatusColorMode(_config: SimpleTuiConfig, _key: string): ExtensionStatusColorMode {
+	return "original";
 }
