@@ -38,12 +38,6 @@ in
       tuiMode = "fullscreen";
 
       packages = [
-        # ask user tool
-        # https://github.com/edlsh/pi-ask-user
-        # https://github.com/IgorWarzocha/howaboua-pi-stuff/tree/main/packages/pi-ask
-        # https://github.com/mrclrchtr/supi
-        # https://github.com/anomalyco/opencode
-
         # advisor / plan mode
         # guardrails
         # sandbox
@@ -127,22 +121,6 @@ in
 
     };
     keybindings = {
-      "tui.editor.cursorLeft" = [
-        "left"
-        "alt+h"
-      ];
-      "tui.editor.cursorRight" = [
-        "right"
-        "alt+l"
-      ];
-      "tui.editor.cursorUp" = [
-        "up"
-        "alt+k"
-      ];
-      "tui.editor.cursorDown" = [
-        "down"
-        "alt+j"
-      ];
       "tui.select.up" = [
         "up"
         "ctrl+k"
@@ -152,8 +130,11 @@ in
         "ctrl+j"
       ];
       "app.editor.external" = [ "ctrl+e" ];
+      "app.model.select" = [ ];
+      "app.model.cycleForward" = [ ];
+      "app.model.cycleBackward" = [ ];
+      "app.thinking.cycle" = "tab";
       "tui.input.tab" = [
-        "tab"
         "ctrl+y"
       ];
       "tui.input.newLine" = [ "shift+enter" ];
