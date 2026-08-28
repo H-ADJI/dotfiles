@@ -2,6 +2,7 @@
   xdg.configFile."television/config.toml".force = true;
   xdg.configFile."television/cable".source = ./cable;
 
+  # TODO: pi tv cable
   programs.television = {
     enable = true;
     settings = {
