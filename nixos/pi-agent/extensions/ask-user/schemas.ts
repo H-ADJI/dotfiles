@@ -56,6 +56,7 @@ export const QuestionSchema = Type.Object({
         description: "Available choices; empty = free-text answer",
     }),
     // required so the LLM must explicitly allow/deny custom answers.
+    // TODO: replace so that every question has a free-form text input
     custom: Type.Boolean({
         description: "Allow a typed custom answer",
     }),
