@@ -2,7 +2,6 @@
     "components": {
         "editor": {
             "style": "minimalist",
-            "colorSource": "terminal",
             "viewportIndicators": false,
             "styles": {
                 "minimalist": {
@@ -12,27 +11,17 @@
             }
         },
         "userMessages": {
-            "style": "labeled",
-            "colorSource": "terminal"
+            "style": "labeled"
         },
         "workingLine": {
-            "enabled": true,
-            "spinner": "pinwheel",
-            "textIntervalMs": 40,
-            "colorSource": "terminal",
-            "messages": {
-                "custom": false
-            }
+            "enabled": true
         },
         "footer": {
-            "colorSource": "terminal",
             "styles": {
                 "starship": {}
             }
         },
-        "selectorBorders": {
-            "colorSource": "terminal"
-        }
+        "selectorBorders": {}
     },
     "deepseekTier": {
         "peakWindowsUtc": [[1, 4], [6, 10]],
