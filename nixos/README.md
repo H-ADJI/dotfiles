@@ -35,9 +35,3 @@ Apply configuration
 ```bash
 sudo nixos-rebuild switch --flake ~/PDE/nixos#nixos
 ```
-
-## DeepSeek pricing tier indicator
-
-Vendored locally (not npm) in `pi-agent/extensions/offpeak-deepseek/`, auto-discovered by pi like the `ask-user` extension. Shows the active DeepSeek peak/off-peak tier in the pi footer while a DeepSeek model is active.
-
-Configuration lives in `pi-agent/agent/offpeak-deepseek.json`, symlinked to `~/.pi/agent/offpeak-deepseek.json` (same pattern as `zentui.json`): `peakWindowsUtc` (array of `[startHour, endHour)` UTC pairs, Mon-Fri only) and `labels` (what shows for peak vs off-peak). Edit that file when DeepSeek changes the schedule or you want different labels.
