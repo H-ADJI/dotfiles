@@ -13,15 +13,15 @@ after you confirm parity). Default is `false` so your current zentui keeps worki
 
 ## Config (`simpleTui.json`)
 
-| Key                                         | Values                                         | Default              |
-| ------------------------------------------- | ---------------------------------------------- | -------------------- |
-| `enabled`                                   | boolean                                        | `true`               |
-| `workingLine.enabled`                       | boolean                                        | `true`               |
-| `workingLine.messages`                      | string[]                                       | `["Working"]`        |
-| `footer.deepseekTier.enabled`               | boolean                                        | `true`               |
-| `footer.deepseekTier.peakWindowsUtc`        | `[startHour,endHour)` UTC Mon–Fri              | `[[1,4],[6,10]]`     |
-| `footer.deepseekTier.labels.peak`           | string                                         | `"peak pricing"`     |
-| `footer.deepseekTier.labels.offPeak`        | string                                         | `"off-peak pricing"` |
+| Key                                  | Values                            | Default              |
+| ------------------------------------ | --------------------------------- | -------------------- |
+| `enabled`                            | boolean                           | `true`               |
+| `workingLine.enabled`                | boolean                           | `true`               |
+| `workingLine.messages`               | string[]                          | `["Working"]`        |
+| `footer.deepseekTier.enabled`        | boolean                           | `true`               |
+| `footer.deepseekTier.peakWindowsUtc` | `[startHour,endHour)` UTC Mon–Fri | `[[1,4],[6,10]]`     |
+| `footer.deepseekTier.labels.peak`    | string                            | `"peak pricing"`     |
+| `footer.deepseekTier.labels.offPeak` | string                            | `"off-peak pricing"` |
 
 Hardcoded: editor settings (viewport indicators off, full cwd path, percent-total context),
 footer right-aligned, extension statuses `"right"` placement + `"original"` color.
@@ -29,15 +29,14 @@ footer right-aligned, extension statuses `"right"` placement + `"original"` colo
 ## Features
 
 - **Editor (minimalist)**: terminal-bordered input frame; top-left timer + session name;
-  top-right `$cost +$run` / model / thinking / context%; bottom-right cwd; adaptive border
-  color by thinking level. No git branch.
+  top-right model / thinking / context%; bottom-right cwd; adaptive border color by
+  thinking level. No git branch, no cost.
 - **User messages (labeled)**: `╭─ User ─╮` box, markdown-rendered.
 - **Working message**: `setWorkingMessage` picked randomly from `workingLine.messages` each
-turn (default `"Working"`). Spinner styling removed (uses pi default).
+  turn (default `"Working"`). Spinner styling removed (uses pi default).
 - **Footer (right side)**: 🐋 deepseek peak/off-peak (peak red, off-peak black) + extension
   statuses (original color by default).
 - **Selector borders**: model/settings selector top/bottom borders recolored.
-- **Run cost**: sums `turn_end` cost; shown as `+$X.XXX` next to session cost.
 
 ## Hardcoded (not configurable)
 

@@ -7,7 +7,6 @@ import type {
 import type { EditorTheme, TUI } from "@earendil-works/pi-tui";
 import { loadConfig, type SimpleTuiConfig } from "./config";
 import { installFooter } from "./footer";
-import { buildCostLabel, getUsageTotals } from "./format";
 import { installSelectorBorderStyle } from "./selector-border";
 import { PolishedEditor } from "./ui";
 import { installUserMessageStyle } from "./user-message";
@@ -18,11 +17,9 @@ export default function (pi: ExtensionAPI) {
     let activeTheme: Theme | undefined;
     let requestEditorRender: (() => void) | undefined;
     let requestFooterRender: (() => void) | undefined;
-    let runCost = 0;
     let agentStartEpoch: number | undefined;
     let agentTimer: ReturnType<typeof setInterval> | undefined;
     let modelLabel = "none";
-    let costLabel = "$0.000";
     let cleanupUserMessages: () => void = () => {};
     let cleanupSelectorBorders: () => void = () => {};
     const workingLine = new WorkingLineController(() => currentConfig);
@@ -34,14 +31,6 @@ export default function (pi: ExtensionAPI) {
         requestEditorRender?.();
     };
     const getThinkingLevel = () => pi.getThinkingLevel();
-
-    const syncState = (ctx: ExtensionContext) => {
-        costLabel = buildCostLabel(getUsageTotals(ctx));
-        modelLabel = ctx.model?.id ?? "none";
-    };
-
-    const getEditorCostLabel = () =>
-        `${costLabel}${runCost > 0 ? ` +$${runCost.toFixed(3)}` : ""}`;
 
     const startAgentTimer = () => {
         if (agentTimer) return;
@@ -68,7 +57,6 @@ export default function (pi: ExtensionAPI) {
                 getConfig,
                 () => ({
                     cwd: ctx.cwd,
-                    costLabel: getEditorCostLabel(),
                     modelLabel,
                     thinkingLevel: getThinkingLevel(),
                     contextPercent: ctx.getContextUsage()?.percent ?? undefined,
@@ -90,7 +78,7 @@ export default function (pi: ExtensionAPI) {
     const installUi = (ctx: ExtensionContext) => {
         if (!ctx.hasUI) return;
         activeTheme = ctx.ui.theme;
-        syncState(ctx);
+        modelLabel = ctx.model?.id ?? "none";
         try {
             ctx.ui.setEditorComponent(makeEditorFactory(ctx));
         } catch {
@@ -146,7 +134,6 @@ export default function (pi: ExtensionAPI) {
     pi.on("session_start", async (_event, ctx) => {
         currentConfig = loadConfig();
         if (!currentConfig.enabled) return;
-        runCost = 0;
         agentStartEpoch = undefined;
         installUi(ctx);
     });
@@ -156,7 +143,6 @@ export default function (pi: ExtensionAPI) {
     });
 
     pi.on("agent_start", () => {
-        runCost = 0;
         agentStartEpoch = Date.now();
         startAgentTimer();
         refresh();
@@ -166,36 +152,22 @@ export default function (pi: ExtensionAPI) {
         workingLine.startTurn(ctx);
     });
 
-    pi.on("turn_end", (event) => {
-        const msg = event.message;
-        if (msg.role !== "assistant") return;
-        runCost += msg.usage.cost.total;
-        requestEditorRender?.();
-    });
-
     pi.on("agent_settled", () => {
         agentStartEpoch = undefined;
         stopAgentTimer();
         refresh();
     });
 
-    pi.on("agent_end", (_event, ctx) => {
-        syncState(ctx);
-        refresh();
-    });
-
     pi.on("model_select", (_event, ctx) => {
-        syncState(ctx);
+        modelLabel = ctx.model?.id ?? "none";
         refresh();
     });
 
     pi.on("thinking_level_select", (_event, ctx) => {
-        syncState(ctx);
         refresh();
     });
 
     pi.on("session_info_changed", (_event, ctx) => {
-        syncState(ctx);
         refresh();
     });
 }

@@ -34,7 +34,6 @@ export type PolishedTuiColors = {
 	editorThinkingHigh: ColorSpec;
 	editorThinkingXhigh: ColorSpec;
 	editorThinkingMax: ColorSpec;
-	cost: ColorSpec;
 	sessionName: ColorSpec;
 	sessionDuration: ColorSpec;
 	contextNormal: ColorSpec;
@@ -63,7 +62,6 @@ const defaultColors: PolishedTuiColors = {
 	editorThinkingHigh: "yellow",
 	editorThinkingXhigh: "red",
 	editorThinkingMax: "bright-red",
-	cost: "bold green",
 	sessionName: "bright-black",
 	sessionDuration: "bright-black",
 	contextNormal: "green",

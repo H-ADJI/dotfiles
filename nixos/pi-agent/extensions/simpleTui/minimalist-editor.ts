@@ -37,7 +37,6 @@ export type MinimalistEditorMetadata = {
 	dirty?: boolean;
 	ahead?: number;
 	behind?: number;
-	costLabel?: string;
 	modelLabel?: string;
 	thinkingLevel?: string;
 	contextPercent?: number;
@@ -170,10 +169,6 @@ function renderTopRight(
 	const parts: string[] = [];
 	const joinParts = (values: string[]) =>
 		values.map((part, index) => (index > 0 ? `${renderBorder(" – ")}${part}` : part)).join("");
-	const cost = sanitizeEditorMetadataText(metadata.costLabel ?? "");
-	if (cost) {
-		parts.push(renderStyle(uiTheme, config.colors.cost, cost));
-	}
 	const model = sanitizeEditorMetadataText(metadata.modelLabel ?? "");
 	if (model) {
 		parts.push(
