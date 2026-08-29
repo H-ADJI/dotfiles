@@ -70,6 +70,12 @@ in
     anthropic auth
     free models
 
+    skills :
+    https://github.com/addyosmani/agent-skills
+    https://github.com/Graphify-Labs/graphify
+    https://github.com/obra/superpowers/#commercial-services
+    https://github.com/mattpocock/skills
+    https://github.com/backnotprop/plannotator
     packages
     https://pi.dev/packages/opencode-pi
     https://pi.dev/packages/pi-opencode-native
