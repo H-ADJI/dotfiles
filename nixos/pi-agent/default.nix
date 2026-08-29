@@ -14,6 +14,10 @@ in
   home.file = tsconfigFiles // {
     "${config.programs.pi-coding-agent.configDir}/simpleTui.json".source =
       config.lib.file.mkOutOfStoreSymlink "${piAgentModule}/agent/simpleTui.json";
+    "${config.programs.pi-coding-agent.configDir}/settings.json".source =
+      config.lib.file.mkOutOfStoreSymlink "${piAgentModule}/agent/settings.json";
+    "${config.programs.pi-coding-agent.configDir}/keybindings.json".source =
+      config.lib.file.mkOutOfStoreSymlink "${piAgentModule}/agent/keybindings.json";
     "${config.programs.pi-coding-agent.configDir}/extensions".source =
       config.lib.file.mkOutOfStoreSymlink "${piAgentModule}/extensions";
     "${config.programs.pi-coding-agent.configDir}/clipboard.json".text = builtins.toJSON {
@@ -29,145 +33,100 @@ in
     showStatus = true;
   };
 
+  /*
+    packages catalog (mostly commented out; active ones are in settings.json)
+
+    inspect all context
+    cost timeline
+
+    modern CLIs
+    ast-grep + ripgrep
+    rtk
+
+    advisor
+    plan mode
+    todos
+    reviewer
+    refactor
+    simplify
+
+    visual-explainer
+    archify
+    lavish
+    crew mates
+    subagents
+
+    web search : donsetch
+    browser automation : bladebro
+
+    token efficiency
+    prompts
+
+    notifications
+    tmux integration
+
+    guardrails
+    sandbox
+    anthropic auth
+    free models
+
+    packages
+    https://pi.dev/packages/opencode-pi
+    https://pi.dev/packages/pi-opencode-native
+    https://pi.dev/packages/pi-zero
+    https://pi.dev/packages/pi-free
+    https://pi.dev/packages/pi-freerouter
+    https://pi.dev/packages/pi-bansos
+    "npm:@narumitw/pi-plan-mode"
+    "npm:@zenspc/pi-workflow"
+
+    plan / task / goals
+    https://pi.dev/packages/@agent-plan/pi-adapter
+    https://pi.dev/packages/@bacnh85/pi-plan
+    https://pi.dev/packages/@janvitos/pi-plan-build
+    https://pi.dev/packages/pi-codex-goal
+    https://pi.dev/packages/@mjasnikovs/pi-task
+    https://pi.dev/packages/@tintinweb/pi-tasks
+    https://pi.dev/packages/pi-crew
+    https://pi.dev/packages/@agimon-ai/doompi-task
+    https://pi.dev/packages/@agimon-ai/doompi-plan
+    https://pi.dev/packages/@noice-tech/pi-cutover
+
+    context / token efficiency
+    https://pi.dev/packages/@mrclrchtr/supi-context
+    https://pi.dev/packages/@hypabolic/pi-hypa
+    https://pi.dev/packages/pi-cache-optimizer
+    https://pi.dev/packages/@danypops/pi-lector
+    https://pi.dev/packages/pi-caveman
+    https://pi.dev/packages/pi-reasonix
+    https://pi.dev/packages/pi-observational-memory
+    https://pi.dev/packages/@mrclrchtr/supi-cache
+
+    todo list : https://pi.dev/packages/@juicesharp/rpiv-todo
+    https://pi.dev/packages/@juicesharp/rpiv-todo
+
+    side conversations (/btw)
+    https://pi.dev/packages/@narumitw/pi-btw
+    https://pi.dev/packages/pi-btw
+    https://pi.dev/packages/@juicesharp/rpiv-btw
+
+    review / guardrails
+    https://pi.dev/packages/@plannotator/pi-extension
+    https://pi.dev/packages/@juicesharp/rpiv-advisor
+    https://pi.dev/packages/@aliou/pi-guardrails
+
+    search
+    https://pi.dev/packages/pi-deepseek-search
+    https://pi.dev/packages/donsetch
+    https://pi.dev/packages/@houndmcp/hound-mcp-pi
+    https://pi.dev/packages/pi-smart-fetch
+    https://pi.dev/packages/@mrclrchtr/supi-web
+    https://pi.dev/packages/dripline
+  */
   programs.pi-coding-agent = {
     enable = true;
     extraPackages = [
       pkgs.nodejs
     ];
-    settings = {
-      defaultProvider = "deepseek";
-      defaultModel = "deepseek-v4-flash";
-      defaultThinkingLevel = "low";
-      tuiMode = "fullscreen";
-
-      packages = [
-        # advisor / plan mode
-        # guardrails
-        # sandbox
-        # modern CLIs
-        # rtk
-        # cost timeline
-        # web search : donsetch
-        # opencode go
-        # ast-grep + ripgrep
-        # browser automation : bladebro
-        # notifications
-        # todos
-        # price per turn
-        # inspect all context
-        # copy msg on turn end
-        # subagents
-        # visual-explainer
-        # archify
-        # lavish
-        # crew mates
-        # prompts
-        # skills : reviewer
-        # skills : refactor - improve
-        # skills : token efficiency
-        # anthropic auth
-        # free models
-        # https://pi.dev/packages/opencode-pi
-        # https://pi.dev/packages/pi-opencode-native
-        # https://pi.dev/packages/pi-zero
-        # https://pi.dev/packages/pi-free
-        # https://pi.dev/packages/pi-freerouter
-        # https://pi.dev/packages/pi-bansos
-
-        # TODO: auto-copy after response / open reponse in reader
-        # "npm:@narumitw/pi-plan-mode"
-        # "npm:@zenspc/pi-workflow"
-        "npm:@narumitw/pi-tool"
-        "git:github.com/jonjonrankin/pi-caveman"
-        "git:github.com/DietrichGebert/ponytail"
-        "npm:pi-opencode-bridge"
-        {
-          "source" = "npm:@zenspc/pi-devtools";
-          "extensions" = [ "extensions/context-command.ts" ];
-        }
-      ];
-      /*
-        plan / task / goals
-          plan-mode
-          https://pi.dev/packages/@agent-plan/pi-adapter
-          https://pi.dev/packages/@bacnh85/pi-plan
-          https://pi.dev/packages/@janvitos/pi-plan-build
-          https://pi.dev/packages/pi-codex-goal
-          https://pi.dev/packages/@mjasnikovs/pi-task
-          https://pi.dev/packages/@tintinweb/pi-tasks
-          https://pi.dev/packages/pi-crew
-          https://pi.dev/packages/@agimon-ai/doompi-task
-          https://pi.dev/packages/@agimon-ai/doompi-plan
-          https://pi.dev/packages/@noice-tech/pi-cutover
-
-        context / token efficiency
-          https://pi.dev/packages/@mrclrchtr/supi-context
-          https://pi.dev/packages/@hypabolic/pi-hypa
-          https://pi.dev/packages/pi-cache-optimizer
-          https://pi.dev/packages/@danypops/pi-lector
-          https://pi.dev/packages/pi-caveman
-          https://pi.dev/packages/pi-reasonix
-          https://pi.dev/packages/pi-observational-memory
-          https://pi.dev/packages/@mrclrchtr/supi-cache
-
-          todo list : https://pi.dev/packages/@juicesharp/rpiv-todo
-          https://pi.dev/packages/@juicesharp/rpiv-todo
-
-        side conversations (/btw)
-          https://pi.dev/packages/@narumitw/pi-btw
-          https://pi.dev/packages/pi-btw
-          https://pi.dev/packages/@juicesharp/rpiv-btw
-
-        review / guardrails
-          https://pi.dev/packages/@plannotator/pi-extension
-          https://pi.dev/packages/@juicesharp/rpiv-advisor
-          https://pi.dev/packages/@aliou/pi-guardrails
-
-        search
-          https://pi.dev/packages/pi-deepseek-search
-          https://pi.dev/packages/donsetch
-          https://pi.dev/packages/@houndmcp/hound-mcp-pi
-          https://pi.dev/packages/pi-smart-fetch
-          https://pi.dev/packages/@mrclrchtr/supi-web
-          https://pi.dev/packages/dripline
-      */
-
-    };
-    keybindings = {
-      "tui.select.up" = [
-        "up"
-        "ctrl+p"
-      ];
-      "tui.select.down" = [
-        "down"
-        "ctrl+n"
-      ];
-
-      "tui.editor.historyNext" = [
-        "down"
-        "ctrl+n"
-      ];
-      "tui.editor.historyPrevious" = [
-        "up"
-        "ctrl+p"
-      ];
-
-      "app.editor.external" = [ "ctrl+e" ];
-
-      "app.session.togglePath" = [ ];
-      "app.session.toggleNamedFilter" = [ ];
-      "app.session.resume" = "ctrl+r";
-
-      "app.model.cycleForward" = [ ];
-      "app.model.cycleBackward" = [ ];
-
-      "app.thinking.cycle" = "ctrl+t";
-      "app.thinking.toggle" = "ctrl+shift+t";
-      "tui.input.tab" = [
-        "tab"
-        "ctrl+y"
-      ];
-      "tui.input.newLine" = [ "shift+enter" ];
-    };
   };
 }
