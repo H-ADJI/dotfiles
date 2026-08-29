@@ -1,9 +1,8 @@
 import type { ExtensionContext } from "@earendil-works/pi-coding-agent";
 import {
-    CURSOR_MARKER,
+    Input,
     Key,
     matchesKey,
-    parseKey,
     visibleWidth,
     wrapTextWithAnsi,
 } from "@earendil-works/pi-tui";
@@ -28,7 +27,6 @@ export interface Answer {
 
 export interface UiResult {
     answers: Answer[];
-    cancelled: boolean;
 }
 
 type RenderOption = Option & { isOther?: boolean };
@@ -88,10 +86,17 @@ export function runForm(
         const totalTabs = questions.length + 1; // last tab is review
         const optionFocus = questions.map(() => 0); // selected option per question
         const answers: string[][] = questions.map(() => []); // values per question
-        let editing = false; // are we typing free text right now?
         let editingQuestion = -1; // which question is being typed
-        let draft = ""; // the in-progress free text
         let cachedLines: string[] | undefined; // last rendered screen, for speed
+
+        // Single-line editor for free-text answers.
+        // ponytail: undo history persists across editing sessions; reset it if stale undo ever confuses.
+        const input = new Input();
+        input.onSubmit = (value) => submitDraft(value);
+        input.onEscape = () => {
+            leaveEditing();
+            refresh();
+        };
 
         // ─── Keybindings ────────────────────────────────────────────────
         // Instead of hardcoding keys, ask pi what the user configured.
@@ -112,9 +117,7 @@ export function runForm(
 
         // If the very first question is free-form, start typing immediately.
         if (questions[0].options.length === 0) {
-            editing = true;
-            editingQuestion = 0;
-            draft = answers[0][0] ?? "";
+            beginEditing(0, answers[0][0] ?? "");
         }
 
         // ─── Small helpers ──────────────────────────────────────────────
@@ -125,11 +128,10 @@ export function runForm(
             tui.requestRender();
         }
 
-        // Stop editing and clear the draft.
+        // Stop editing.
         function leaveEditing() {
-            editing = false;
             editingQuestion = -1;
-            draft = "";
+            input.focused = false;
         }
 
         // After answering the current question, move on (or to review).
@@ -165,11 +167,7 @@ export function runForm(
         // The list of options to show, plus the free-form row.
         function currentOptions(question: UiQuestion): RenderOption[] {
             const options: RenderOption[] = [...question.options];
-            options.push({
-                label: OTHER_LABEL,
-                isOther: true,
-                recommended: false,
-            });
+            options.push({ label: OTHER_LABEL, isOther: true });
             return options;
         }
 
@@ -188,11 +186,11 @@ export function runForm(
         }
 
         // Enter was pressed while typing free text.
-        function submitDraft() {
+        function submitDraft(rawValue: string) {
             if (editingQuestion < 0) return;
             const questionIndex = editingQuestion;
             const question = questions[questionIndex];
-            const trimmed = draft.trim();
+            const trimmed = rawValue.trim();
             leaveEditing();
 
             if (question.options.length === 0) {
@@ -220,41 +218,18 @@ export function runForm(
 
         // Switch into typing mode for a question.
         function beginEditing(questionIndex: number, initial: string) {
-            editing = true;
             editingQuestion = questionIndex;
-            draft = initial;
+            input.setValue(initial);
+            input.focused = true;
             refresh();
         }
 
         // ─── Input handling ─────────────────────────────────────────────
         // pi sends raw key data here. We route it to the right handler.
         function handleInput(data: string) {
-            if (editing) {
-                // We're typing text.
-                if (isCancel(data)) {
-                    leaveEditing();
-                    refresh();
-                    return;
-                }
-                if (isConfirm(data)) {
-                    submitDraft();
-                    return;
-                }
-                if (matchesKey(data, Key.backspace)) {
-                    draft = draft.slice(0, -1);
-                    refresh();
-                    return;
-                }
-                if (matchesKey(data, Key.space)) {
-                    draft += " ";
-                    refresh();
-                    return;
-                }
-                const key = parseKey(data);
-                if (key && key.length === 1) {
-                    draft += key;
-                    refresh();
-                }
+            if (editingQuestion >= 0) {
+                input.handleInput(data);
+                refresh();
                 return;
             }
 
@@ -270,10 +245,7 @@ export function runForm(
         function handleReviewInput(data: string) {
             if (isConfirm(data)) {
                 if (allAnswered(questions, answers)) {
-                    finish({
-                        answers: buildAnswers(questions, answers),
-                        cancelled: false,
-                    });
+                    finish({ answers: buildAnswers(questions, answers) });
                 }
                 return;
             }
@@ -371,13 +343,6 @@ export function runForm(
         }
 
         // ─── Rendering ──────────────────────────────────────────────────
-        // Draw a one-line text input with a fake cursor. CURSOR_MARKER lets
-        // the terminal position the real cursor for IME support.
-        function renderDraft() {
-            const cursor = `${CURSOR_MARKER}\x1b[7m \x1b[0m`;
-            return theme.fg("text", `${draft}${cursor}`);
-        }
-
         // Builds the whole screen as an array of strings (one per terminal row).
         function render(width: number): string[] {
             if (cachedLines) return cachedLines;
@@ -448,7 +413,12 @@ export function runForm(
             if (tab === questions.length) {
                 renderReview(addWrapped, addWrappedWithPrefix);
             } else {
-                renderQuestion(tab, addWrapped, addWrappedWithPrefix);
+                renderQuestion(
+                    tab,
+                    renderWidth,
+                    addWrapped,
+                    addWrappedWithPrefix,
+                );
             }
 
             lines.push("");
@@ -461,12 +431,12 @@ export function runForm(
         // Render a single question tab.
         function renderQuestion(
             questionIndex: number,
+            width: number,
             add: (text: string) => void,
             addWithPrefix: (prefix: string, text: string) => void,
         ) {
             const question = questions[questionIndex];
-            const isEditingQuestion =
-                editing && editingQuestion === questionIndex;
+            const isEditingQuestion = editingQuestion === questionIndex;
             addWithPrefix(" ", theme.fg("text", question.questionText));
             add("");
 
@@ -474,7 +444,9 @@ export function runForm(
             if (question.options.length === 0) {
                 if (isEditingQuestion) {
                     addWithPrefix(" ", theme.fg("muted", "Your answer:"));
-                    addWithPrefix(" ", renderDraft());
+                    for (const line of input.render(Math.max(1, width - 2))) {
+                        addWithPrefix(" ", theme.fg("text", line));
+                    }
                     add("");
                     addWithPrefix(
                         " ",
@@ -558,7 +530,9 @@ export function runForm(
             if (isEditingQuestion) {
                 add("");
                 addWithPrefix(" ", theme.fg("muted", "Your answer:"));
-                addWithPrefix(" ", renderDraft());
+                for (const line of input.render(Math.max(1, width - 2))) {
+                    addWithPrefix(" ", theme.fg("text", line));
+                }
             }
 
             add("");

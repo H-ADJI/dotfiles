@@ -1,7 +1,7 @@
 {
     "defaultProvider": "opencode-go",
-    "defaultModel": "deepseek-v4-pro",
-    "defaultThinkingLevel": "high",
+    "defaultModel": "deepseek-v4-flash",
+    "defaultThinkingLevel": "off",
     "tuiMode": "fullscreen",
     "packages": [
         "npm:@narumitw/pi-tool",
