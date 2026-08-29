@@ -7,6 +7,15 @@ import {
 } from "./extension-status";
 import { renderStyle } from "./style";
 
+function isDeepseekModel(model: { provider?: string; id?: string; name?: string } | undefined): boolean {
+	if (!model) return false;
+	return (
+		model.provider === "deepseek" ||
+		/deepseek/i.test(model.id ?? "") ||
+		/deepseek/i.test(model.name ?? "")
+	);
+}
+
 function deepseekTierAt(date: Date, windows: [number, number][]): "peak" | "offPeak" {
 	if (date.getUTCDay() < 1 || date.getUTCDay() > 5) return "offPeak";
 	const hour = date.getUTCHours();
@@ -43,7 +52,7 @@ export function installFooter(
 				const innerWidth = Math.max(1, width - 2);
 
 				const deepseekTierLabel =
-					footer.deepseekTier.enabled && ctx.model?.provider === "deepseek"
+					footer.deepseekTier.enabled && isDeepseekModel(ctx.model)
 						? (() => {
 								const tier = deepseekTierAt(new Date(), footer.deepseekTier.peakWindowsUtc);
 								const label =

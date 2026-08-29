@@ -16,6 +16,9 @@ in
       config.lib.file.mkOutOfStoreSymlink "${piAgentModule}/agent/simpleTui.json";
     "${config.programs.pi-coding-agent.configDir}/extensions".source =
       config.lib.file.mkOutOfStoreSymlink "${piAgentModule}/extensions";
+    "${config.programs.pi-coding-agent.configDir}/clipboard.json".text = builtins.toJSON {
+      enabled = true;
+    };
   };
   xdg.configFile."ponytail/config.json".text = builtins.toJSON {
     defaultMode = "full";
@@ -51,6 +54,7 @@ in
         # notifications
         # todos
         # price per turn
+        # inspect all context
         # copy msg on turn end
         # subagents
         # visual-explainer
