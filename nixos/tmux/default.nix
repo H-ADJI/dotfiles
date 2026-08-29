@@ -1,8 +1,5 @@
-{ pkgs, ... }:
+{ ... }:
 {
-  home.packages = with pkgs; [
-    xre
-  ];
   programs.tmux = {
     enable = true;
     tmuxp.enable = true;

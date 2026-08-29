@@ -1,4 +1,6 @@
+{ pkgs, ... }:
 {
+  home.packages = with pkgs; [ xre ];
   xdg.configFile."television/config.toml".force = true;
   xdg.configFile."television/cable".source = ./cable;
 
