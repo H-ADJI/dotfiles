@@ -1,16 +1,16 @@
 {
-    "defaultProvider": "opencode-go",
-    "defaultModel": "deepseek-v4-flash",
-    "defaultThinkingLevel": "low",
-    "tuiMode": "fullscreen",
-    "packages": [
-        "npm:@narumitw/pi-tool",
-        "git:github.com/jonjonrankin/pi-caveman",
-        "git:github.com/DietrichGebert/ponytail",
-        "npm:pi-opencode-bridge",
-        {
-            "source": "npm:@zenspc/pi-devtools",
-            "extensions": ["extensions/context-command.ts"]
-        }
-    ]
+  "defaultProvider": "opencode-go",
+  "defaultModel": "deepseek-v4-pro",
+  "defaultThinkingLevel": "high",
+  "tuiMode": "fullscreen",
+  "packages": [
+    "npm:@narumitw/pi-tool",
+    "git:github.com/jonjonrankin/pi-caveman",
+    "git:github.com/DietrichGebert/ponytail",
+    "npm:pi-opencode-bridge",
+    "npm:pi-context-view",
+    "npm:pi-zentui"
+  ],
+  "lastChangelogVersion": "0.84.0",
+  "theme": "light"
 }

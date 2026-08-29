@@ -16,6 +16,8 @@ in
       config.lib.file.mkOutOfStoreSymlink "${piAgentModule}/agent/simpleTui.json";
     "${config.programs.pi-coding-agent.configDir}/settings.json".source =
       config.lib.file.mkOutOfStoreSymlink "${piAgentModule}/agent/settings.json";
+    "${config.programs.pi-coding-agent.configDir}/zentui.json".source =
+      config.lib.file.mkOutOfStoreSymlink "${piAgentModule}/agent/zentui.json";
     "${config.programs.pi-coding-agent.configDir}/keybindings.json".source =
       config.lib.file.mkOutOfStoreSymlink "${piAgentModule}/agent/keybindings.json";
     "${config.programs.pi-coding-agent.configDir}/extensions".source =

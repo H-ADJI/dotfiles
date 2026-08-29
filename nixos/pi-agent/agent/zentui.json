@@ -1,0 +1,113 @@
+{
+    "components": {
+        "editor": {
+            "enabled": true,
+            "style": "minimalist",
+            "colorSource": "terminal",
+            "borderColorMode": "adaptive",
+            "modelLabel": "id",
+            "viewportIndicators": false,
+            "styles": {
+                "minimalist": {
+                    "pathDisplay": "full",
+                    "contextFormat": "percent-total",
+                    "contextGauge": false,
+                    "showSessionName": true,
+                    "showTimer": true,
+                    "showCost": false,
+                    "showGit": false,
+                    "contextThresholds": {
+                        "warning": 70,
+                        "error": 90
+                    }
+                }
+            }
+        },
+        "userMessages": {
+            "enabled": true,
+            "style": "labeled",
+            "colorSource": "terminal"
+        },
+        "workingLine": {
+            "enabled": true,
+            "turnSummary": false,
+            "spinner": "braille",
+            "textAnimation": "disabled",
+            "colorSource": "terminal",
+            "messages": {
+                "custom": true,
+                "values": ["Working", "Cooking", "Boiling Water"]
+            },
+            "segments": {
+                "tool": false,
+                "elapsed": false,
+                "thought": false,
+                "tokens": false
+            }
+        },
+        "selectorBorders": {
+            "enabled": true,
+            "style": "zentui",
+            "colorSource": "terminal"
+        },
+        "footer": {
+            "style": "starship",
+            "colorSource": "terminal",
+            "styles": {
+                "starship": {
+                    "format": "",
+                    "responsive": false,
+                    "separator": "pipe",
+                    "segments": {
+                        "cwd": false,
+                        "sessionName": false,
+                        "gitBranch": false,
+                        "gitStatus": false,
+                        "gitCounts": false,
+                        "runtime": false,
+                        "modelInfo": false,
+                        "context": false,
+                        "tokens": false,
+                        "cost": false,
+                        "sessionDuration": false,
+                        "username": false,
+                        "time": false,
+                        "os": false,
+                        "packageVersion": false,
+                        "gitCommit": false,
+                        "gitMetrics": false
+                    },
+                    "extensionStatuses": {
+                        "defaultPlacement": "right",
+                        "placements": {},
+                        "colorModes": {
+                            "caveman": "original",
+                            "ponytail": "original",
+                            "deepseekTier": "original"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "colors": {
+        "editorAccent": "blue",
+        "editorBorder": "bright-black",
+        "editorModel": "bold purple",
+        "editorThinking": "bold yellow",
+        "editorThinkingMinimal": "bright-black",
+        "editorThinkingLow": "blue",
+        "editorThinkingMedium": "cyan",
+        "editorThinkingHigh": "yellow",
+        "editorThinkingXhigh": "red",
+        "editorThinkingMax": "bright-red",
+        "sessionName": "bright-black",
+        "sessionDuration": "bright-black",
+        "contextNormal": "green",
+        "contextWarning": "yellow",
+        "contextError": "red",
+        "cwd": "bold cyan",
+        "separator": "bright-black",
+        "extensionStatus": "green"
+    }
+}
