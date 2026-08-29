@@ -17,7 +17,6 @@
         autoLoad = false;
       };
       "lib.conf" = ./lib/conf.lua;
-      "lib.autostart" = ./lib/autostart.lua;
       "lib.keybinds" = ./lib/keybinds.lua;
       "lib.monitors" = ./lib/monitors.lua;
       "lib.rules" = ./lib/rules.lua;

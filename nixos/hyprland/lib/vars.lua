@@ -1,7 +1,6 @@
 local M = {}
 
 M.home_dir = os.getenv("HOME")
-M.script_dir = M.home_dir .. "/.config/hypr/scripts/"
 M.browser = "brave"
 M.terminal = "ghostty"
 M.file_picker = M.terminal .. " -e yazi"

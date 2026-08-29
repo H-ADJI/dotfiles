@@ -1,7 +1,9 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  ...
+}:
 {
   home.packages = with pkgs; [
-    fuzzel
     raffi
   ];
 
