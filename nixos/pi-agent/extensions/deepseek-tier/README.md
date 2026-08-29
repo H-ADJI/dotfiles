@@ -7,7 +7,7 @@ while `setFooter()` is global.
 
 ## Config
 
-`~/.pi/agent/deepseek-tier.json`:
+Optional `~/.pi/agent/deepseek-tier.json` (missing file → these defaults):
 
 ```json
 {

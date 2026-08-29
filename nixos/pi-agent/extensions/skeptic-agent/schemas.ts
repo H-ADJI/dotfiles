@@ -17,7 +17,7 @@
 import { Type, type Static } from "typebox";
 
 // One option in a choice question.
-export const OptionSchema = Type.Object({
+const OptionSchema = Type.Object({
     label: Type.String({
         description: "Short display label",
         maxLength: 100,
@@ -37,7 +37,7 @@ export const OptionSchema = Type.Object({
 });
 
 // A single question. It mirrors UiQuestion in index.ts.
-export const QuestionSchema = Type.Object({
+const QuestionSchema = Type.Object({
     question: Type.String({
         description: "Complete question to ask",
         maxLength: 1000,

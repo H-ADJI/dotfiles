@@ -1,25 +1,4 @@
-/**
- * ask_user tool — implementation.
- *
- * The schemas live in `./schemas.ts`; this file is the actual tool logic.
- *
- * WHAT THIS TOOL DOES
- *   The LLM calls `skeptic_agent` with 1..10 questions. This extension opens an
- *   interactive form (custom TUI), pauses the agent, and returns the user's
- *   answers back to the LLM.
- *
- * READ FIRST (docs / sources to learn from):
- * - Pi extensions (registerTool, ctx, execute): https://pi.dev/docs/latest/extensions
- * - Pi TUI components (custom(), render, handleInput): https://pi.dev/docs/latest/tui
- * - Pi keybindings (tui.select.up, tui.input.tab, ...): https://pi.dev/docs/latest/keybindings
- * - Similar real extensions to compare with:
- *     https://github.com/edlsh/pi-ask-user
- *     https://github.com/IgorWarzocha/howaboua-pi-stuff  (packages/pi-ask)
- *     https://github.com/mrclrchtr/supi                   (packages/supi-ask-user)
- *     https://github.com/anomalyco/opencode               (its `question` tool)
- */
-
-//  TODO: do not append text in free-text
+// ask_user tool: schemas in ./schemas.ts, TUI form in ./form-tui.ts.
 import type {
     AgentToolUpdateCallback, // type of the `onUpdate` progress callback
     ExtensionAPI, // the `pi` object pi gives every extension
@@ -42,13 +21,17 @@ export default function initExtension(pi: ExtensionAPI) {
         name: "skeptic_agent",
         label: "Skeptic Agent",
         description:
-            "Ask the user one or more questions and return their answers. Use to clarify ambiguous requirements, get preferences, or let the user decide trade-offs. Answers are arrays of selected labels.",
+            "Ask the user one or more questions and return their answers. " +
+            "Use to clarify ambiguous requirements, resolve trade-offs, or confirm decisions that materially change what gets built.",
         promptSnippet:
-            "skeptic_agent — ask the user questions to clarify decisions and trade-offs",
+            "Ask the user questions to clarify requirements, resolve ambiguity, and decide trade-offs",
         promptGuidelines: [
             "Use skeptic_agent for ambiguous requirements, and to know user preferences.",
             "Use skeptic_agent to discuss trade-offs.",
             "Use skeptic_agent to challenge user choices, suggest alternative choices.",
+            "Use skeptic_agent only when the answer materially changes what gets built; skip questions answerable from context or codebase conventions.",
+            "In skeptic_agent, present specific options with brief trade-offs; avoid open-ended or multi-part questions.",
+            "Batch independent questions into one skeptic_agent call; ask follow-up questions after answers arrive.",
             "In skeptic_agent, set option descriptions to explain trade-offs or consequences concisely.",
             "In skeptic_agent, set `recommended: true` only when you have a genuine best choice.",
         ],

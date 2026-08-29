@@ -12,8 +12,6 @@ let
 in
 {
   home.file = tsconfigFiles // {
-    "${config.programs.pi-coding-agent.configDir}/deepseek-tier.json".source =
-      config.lib.file.mkOutOfStoreSymlink "${piAgentModule}/agent/deepseek-tier.json";
     "${config.programs.pi-coding-agent.configDir}/settings.json".source =
       config.lib.file.mkOutOfStoreSymlink "${piAgentModule}/agent/settings.json";
     "${config.programs.pi-coding-agent.configDir}/zentui.json".source =

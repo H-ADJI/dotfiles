@@ -1,19 +1,3 @@
-/**
- * ask_user — interactive TUI form.
- *
- * This file only draws the form and handles keyboard input. It has no tool
- * registration and no schemas; those live in index.ts and schemas.ts.
- *
- * The form is a `ctx.ui.custom()` component:
- *   render()        -> return lines of text to draw
- *   handleInput()   -> receive key presses
- *   done(value)     -> close the form and resolve the promise
- *
- * Learn the API:
- * - https://pi.dev/docs/latest/tui
- * - https://pi.dev/docs/latest/extensions
- */
-
 import type { ExtensionContext } from "@earendil-works/pi-coding-agent";
 import {
     CURSOR_MARKER,

@@ -23,24 +23,16 @@ import {
     type ExtensionAPI,
 } from "@earendil-works/pi-coding-agent";
 
-interface ClipboardConfig {
-    enabled: boolean;
-}
-
-const DEFAULT_CONFIG: ClipboardConfig = { enabled: true };
-
-async function loadConfig(): Promise<ClipboardConfig> {
-    try {
-        const raw = await readFile(join(getAgentDir(), "clipboard.json"), "utf8");
-        return { ...DEFAULT_CONFIG, ...JSON.parse(raw) };
-    } catch {
-        return DEFAULT_CONFIG;
-    }
-}
-
 export default function initExtension(pi: ExtensionAPI) {
     pi.on("agent_settled", async (_event, ctx) => {
-        const { enabled } = await loadConfig();
+        let enabled = true;
+        try {
+            ({ enabled = true } = JSON.parse(
+                await readFile(join(getAgentDir(), "clipboard.json"), "utf8"),
+            ));
+        } catch {
+            // Missing/unreadable config → enabled (default).
+        }
         if (!enabled) return;
 
         // Last assistant message on the current branch, like
