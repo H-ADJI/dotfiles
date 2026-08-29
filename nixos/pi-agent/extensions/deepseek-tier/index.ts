@@ -2,24 +2,17 @@
  * deepseek-tier — publish the DeepSeek peak/off-peak pricing tier as a footer
  * status, so a footer owner (zentui, or pi's native footer) renders it.
  *
- * Extracted from simpleTui's custom footer so the rest of simpleTui can be
- * replaced by zentui. Reads the SAME config file and shape as simpleTui:
- *
- *   ~/.pi/agent/simpleTui.json
+ * Config: ~/.pi/agent/deepseek-tier.json
  *   {
- *     "footer": {
- *       "deepseekTier": {
- *         "enabled": true,
- *         "peakWindowsUtc": [[1, 4], [6, 10]],
- *         "labels": { "peak": "peak pricing", "offPeak": "off-peak pricing" }
- *       }
- *     }
+ *     "enabled": true,
+ *     "peakWindowsUtc": [[1, 4], [6, 10]],
+ *     "labels": { "peak": "peak pricing", "offPeak": "off-peak pricing" }
  *   }
  *
- * Only publishes the status when the active model is a DeepSeek model, same
- * rule as simpleTui. Peak/off-peak is evaluated in UTC, Mon–Fri; weekends are
- * always off-peak. Status is refreshed every minute so hour-boundary changes
- * land without a manual redraw.
+ * Only publishes the status when the active model is a DeepSeek model.
+ * Peak/off-peak is evaluated in UTC, Mon–Fri; weekends are always off-peak.
+ * Status is refreshed every minute so hour-boundary changes land without a
+ * manual redraw.
  *
  * The published text carries its own color (peak = red, off-peak = black).
  * Tell zentui to preserve it:
@@ -51,10 +44,6 @@ type DeepseekTierConfig = {
 	labels: { peak: string; offPeak: string };
 };
 
-type SimpleTuiConfigFile = {
-	footer?: { deepseekTier?: Partial<DeepseekTierConfig> };
-};
-
 const STATUS_KEY = "deepseekTier";
 const DEEPSEEK_ICON = "🐋";
 const REFRESH_INTERVAL_MS = 60_000;
@@ -67,15 +56,14 @@ const DEFAULT_CONFIG: DeepseekTierConfig = {
 
 function loadConfig(): DeepseekTierConfig {
 	try {
-		const path = join(getAgentDir(), "simpleTui.json");
+		const path = join(getAgentDir(), "deepseek-tier.json");
 		if (!existsSync(path)) return DEFAULT_CONFIG;
-		const raw = JSON.parse(readFileSync(path, "utf8")) as SimpleTuiConfigFile;
-		const tier = raw.footer?.deepseekTier ?? {};
-		const labels: Partial<DeepseekTierConfig["labels"]> = tier.labels ?? {};
+		const raw = JSON.parse(readFileSync(path, "utf8")) as Partial<DeepseekTierConfig>;
+		const labels: Partial<DeepseekTierConfig["labels"]> = raw.labels ?? {};
 		return {
-			enabled: typeof tier.enabled === "boolean" ? tier.enabled : DEFAULT_CONFIG.enabled,
-			peakWindowsUtc: Array.isArray(tier.peakWindowsUtc)
-				? (tier.peakWindowsUtc as [number, number][])
+			enabled: typeof raw.enabled === "boolean" ? raw.enabled : DEFAULT_CONFIG.enabled,
+			peakWindowsUtc: Array.isArray(raw.peakWindowsUtc)
+				? (raw.peakWindowsUtc as [number, number][])
 				: DEFAULT_CONFIG.peakWindowsUtc,
 			labels: {
 				peak: typeof labels.peak === "string" ? labels.peak : DEFAULT_CONFIG.labels.peak,

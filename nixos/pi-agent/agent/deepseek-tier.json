@@ -1,0 +1,8 @@
+{
+  "enabled": true,
+  "peakWindowsUtc": [[1, 4], [6, 10]],
+  "labels": {
+    "peak": "peak pricing",
+    "offPeak": "off-peak pricing"
+  }
+}
