@@ -138,7 +138,20 @@ in
         "ctrl+n"
       ];
 
+      "tui.editor.historyNext" = [
+        "down"
+        "ctrl+n"
+      ];
+      "tui.editor.historyPrevious" = [
+        "up"
+        "ctrl+p"
+      ];
+
       "app.editor.external" = [ "ctrl+e" ];
+
+      "app.session.togglePath" = [ ];
+      "app.session.toggleNamedFilter" = [ ];
+      "app.session.resume" = "ctrl+r";
 
       "app.model.cycleForward" = [ ];
       "app.model.cycleBackward" = [ ];

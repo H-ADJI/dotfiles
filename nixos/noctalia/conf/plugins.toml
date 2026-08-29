@@ -8,10 +8,10 @@ auto_update = false
 
 
 [plugin_settings."thepunkoff/pomodoro"]
-work-duration = 40
+work-duration = 30
 short-break-duration = 1
-long-break-duration = 20
-sessions-before-long-break = 2
+long-break-duration = 0
+sessions-before-long-break = 3
 auto-start-work = false
 auto-start-breaks = false
 panel_open_near_click = false
