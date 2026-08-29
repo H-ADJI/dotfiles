@@ -76,6 +76,7 @@ in
         "npm:@narumitw/pi-tool"
         "git:github.com/jonjonrankin/pi-caveman"
         "git:github.com/DietrichGebert/ponytail"
+        "npm:pi-opencode-bridge"
         {
           "source" = "npm:@zenspc/pi-devtools";
           "extensions" = [ "extensions/context-command.ts" ];
