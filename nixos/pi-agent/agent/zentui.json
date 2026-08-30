@@ -55,7 +55,7 @@
             "colorSource": "terminal",
             "styles": {
                 "starship": {
-                    "format": "",
+                    "format": "$fill($provider)",
                     "responsive": false,
                     "separator": "pipe",
                     "segments": {
