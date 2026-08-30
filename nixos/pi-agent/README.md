@@ -2,10 +2,6 @@
 
 ## Own extensions
 
-Live in <https://github.com/hh9dj/pi-agent-extensions> (branch `master`),
-loaded via `agent/settings.json` packages. Sync with
-`pi update --extensions` + `/reload`.
-
 rtk
 ast-grep + ripgrep
 modern CLIs
