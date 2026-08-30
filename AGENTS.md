@@ -6,9 +6,6 @@
 - Stability+reproducibility is king
 - Arch linux is configured using stow for dotfiles + a shell script
 - Macos: using Nix (Lix) + Nix-darwin
-- If PLAN.md not empty at the repo root, follow it step by step.
-- Implement PLAN.md one step at a time; never batch steps.
-- Only mark a PLAN.md step done after the user confirms it was applied and works.
 - Never run `nh os switch`, `nixos-rebuild`, or any config apply yourself; the user applies changes manually.
 - only do simple test no compilcated evaluations and tests
 - Never stage or commit or edit git history
