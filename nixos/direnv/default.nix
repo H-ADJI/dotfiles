@@ -6,7 +6,10 @@
     silent = true;
     config = {
       whitelist = {
-        prefix = [ "~/PDE/" ];
+        prefix = [
+          "~/PDE/"
+          "~/projects/"
+        ];
       };
     };
   };

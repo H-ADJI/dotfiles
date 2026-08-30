@@ -1,0 +1,10 @@
+session_name: Dotfiles
+suppress_history: true
+start_directory: ~/projects/pi-agent-extensions/
+windows:
+  - window_name: "editor"
+    shell_command_before: nvim
+    focus: true
+  - window_name: "shell-prompt"
+  - window_name: "coding-agent"
+    shell_command_before: pi
