@@ -1,12 +1,13 @@
 {
     "defaultProvider": "opencode-go",
-    "defaultModel": "deepseek-v4-flash",
-    "defaultThinkingLevel": "max",
+    "defaultModel": "deepseek-v4-pro",
+    "defaultThinkingLevel": "high",
     "tuiMode": "fullscreen",
     "packages": [
         "npm:@narumitw/pi-tool",
         "git:github.com/jonjonrankin/pi-caveman",
         "git:github.com/DietrichGebert/ponytail",
+        "git:github.com/hh9dj/pi-agent-extensions",
         "npm:pi-opencode-bridge",
         "npm:pi-context-view",
         "npm:pi-zentui"

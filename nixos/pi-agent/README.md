@@ -1,12 +1,14 @@
 # Pi packages catalog
 
+## Own extensions
 
-inspect all context
-cost timeline
+Live in <https://github.com/hh9dj/pi-agent-extensions> (branch `master`),
+loaded via `agent/settings.json` packages. Sync with
+`pi update --extensions` + `/reload`.
 
-modern CLIs
-ast-grep + ripgrep
 rtk
+ast-grep + ripgrep
+modern CLIs
 
 advisor
 plan mode
