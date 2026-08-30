@@ -46,6 +46,7 @@ return {
     formatters = {
       rustfmt = { command = "rustfmt", stdin = true },
       kdlfmt = { args = { "format", "--kdl-version", "v1", "-" }, stdin = true },
+      biome = { append_args = { "--html-formatter-enabled=true" } },
     },
     default_format_opts = {
       lsp_format = "fallback",
