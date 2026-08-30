@@ -5,6 +5,7 @@
   xdg.configFile."zinit/zinit.sh".text = ''
     source ${pkgs.zinit}/share/zinit/zinit.zsh
     zinit light "mroth/evalcache"
+    zinit snippet OMZP::sudo
   '';
 
   home.sessionVariables = {
