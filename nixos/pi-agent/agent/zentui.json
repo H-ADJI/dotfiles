@@ -36,7 +36,13 @@
             "colorSource": "terminal",
             "messages": {
                 "custom": true,
-                "values": ["Working", "Cooking", "Boiling Water"]
+                "values": [
+                    "Working :-)",
+                    "Cooking :)",
+                    "Boiling Water :(",
+                    "67ning...",
+                    "Six Sevening..."
+                ]
             },
             "segments": {
                 "tool": false,
