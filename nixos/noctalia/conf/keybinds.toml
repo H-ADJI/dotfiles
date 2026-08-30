@@ -1,6 +1,6 @@
 [keybinds]
-down = ["Down", "Ctrl+j"]
+down = ["Down", "Ctrl+j", "Ctrl+n"]
 left = ["Left", "Ctrl+h"]
 right = ["Right", "Ctrl+l"]
-up = ["Up", "Ctrl+k"]
+up = ["Up", "Ctrl+k", "Ctrl+p"]
 validate = ["Return", "KP_Enter", "space", "Ctrl+y"]
