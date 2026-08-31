@@ -1,4 +1,10 @@
 {
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
+{
   imports = [
     ./modules/aerospace/aerospace.nix
     ./modules/alacritty/alacritty.nix
@@ -28,4 +34,8 @@
   home.username = "khalil";
   home.homeDirectory = "/Users/khalil";
   home.stateVersion = "25.11";
+
+  home.packages = with pkgs; [
+    brave
+  ];
 }
