@@ -99,11 +99,6 @@
       "cd"
     ];
   };
-  programs.direnv = {
-    enable = true;
-    enableZshIntegration = false;
-    silent = true;
-  };
   programs.bat = {
     enable = true;
     extraPackages = [ pkgs.bat-extras.batman ];
