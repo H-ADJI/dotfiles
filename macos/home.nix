@@ -22,7 +22,6 @@
     ./nh
     ./nvim
     ./opencode
-    ./packages
     ./ssh
     ./starship
     ./tabiew

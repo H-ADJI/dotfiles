@@ -5,16 +5,25 @@
   outputs =
     { nixpkgs, ... }:
     let
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      forAllSystems = nixpkgs.lib.genAttrs [
+        "x86_64-linux"
+        "aarch64-darwin"
+      ];
     in
     {
-      devShells.x86_64-linux = {
-        default = pkgs.mkShell {
-          packages = with pkgs; [ ];
-          shellHook = "";
-        };
-        # alternative shell profile : nix develop .#special
-        special = pkgs.mkShell { };
-      };
+      devShells = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          default = pkgs.mkShell {
+            packages = with pkgs; [ ];
+            shellHook = "";
+          };
+          # alternative shell profile : nix develop .#special
+          special = pkgs.mkShell { };
+        }
+      );
     };
 }
