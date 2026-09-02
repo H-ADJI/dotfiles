@@ -32,6 +32,7 @@
     ./colima
     ./desktoppr
     ./ghostty
+    ./zsh
   ];
 
   home.username = "khalil";
