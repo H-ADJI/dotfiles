@@ -48,7 +48,6 @@
       findNoDups = true;
     };
 
-    # TODO: mise completion to be added
     completionInit = ''
       fpath+=(
         "${pkgs.zsh-completions}/share/zsh/site-functions"

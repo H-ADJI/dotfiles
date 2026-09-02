@@ -23,6 +23,7 @@
         ./hyprland
         ./jnv
         ./jqp
+        ./mise
         ./nh
         ./noctalia
         ./nvim

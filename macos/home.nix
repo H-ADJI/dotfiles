@@ -57,7 +57,6 @@
     google-chrome
     hunk
     hyperfine
-    mise
     nerd-fonts.jetbrains-mono
     nodejs
     podman
@@ -68,7 +67,6 @@
     stow
     transcrypt
     tree
-    usage
     uv
   ];
 }

@@ -8,7 +8,6 @@ _evalcache starship init zsh
 _evalcache tv init zsh
 _evalcache zoxide init zsh
 _evalcache batman --export-env
-_evalcache mise activate zsh
 
 bindkey '^y' autosuggest-accept
 bindkey '^ ' autosuggest-execute
