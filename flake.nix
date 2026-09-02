@@ -57,7 +57,15 @@
           pkgs = nixpkgs.legacyPackages.${system};
         in
         {
-          default = import ./shell.nix { inherit pkgs; };
+          default = pkgs.mkShell {
+            packages = with pkgs; [
+              typst
+              just
+            ];
+            shellHook = "";
+          };
+          # alternative shell profile : nix develop .#special
+          special = pkgs.mkShell { };
         }
       );
 
