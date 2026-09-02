@@ -90,8 +90,7 @@ alt-q = "close"
 # Launch apps (new window via -n flag)
 alt-space = '''exec-and-forget open -n -b org.alacritty'''
 alt-shift-s = '''exec-and-forget open -b com.apple.systempreferences'''
-alt-b = '''exec-and-forget open -n -b com.google.Chrome'''
-alt-d = '''exec-and-forget open -b com.raycast.macos'''
+alt-b = '''exec-and-forget open -n -b com.brave.Browser'''
 
 # Screenshots (save + open in Preview for annotation)
 alt-c = '''exec-and-forget screencapture /tmp/screenshot.png && open -a Preview /tmp/screenshot.png'''
