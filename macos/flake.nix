@@ -28,13 +28,16 @@
       darwinConfigurations."macbook" = nix-darwin.lib.darwinSystem {
         specialArgs = { inherit inputs; };
         modules = [
-          ./darwin.nix
+          ./configuration.nix
           nix-homebrew.darwinModules.nix-homebrew
           home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+              darwinModules = "/Users/khalil/PDE/macos";
+            };
             home-manager.users.khalil = import ./home.nix;
           }
         ];

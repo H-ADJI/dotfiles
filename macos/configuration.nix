@@ -6,13 +6,6 @@
 
   nix.package = pkgs.lix;
   nix.settings.warn-dirty = false;
-  nix.gc = {
-    automatic = true;
-    interval = {
-      Weekday = 0;
-    }; # weekly on Sunday
-    options = "--delete-older-than 5d";
-  };
 
   system.activationScripts.postActivation.text = ''
     nix-env --delete-generations +10 -p /nix/var/nix/profiles/system 2>/dev/null || true

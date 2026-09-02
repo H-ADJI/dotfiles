@@ -36,10 +36,22 @@ System Settings → Displays → Night Shift → set schedule (custom 22:00–07
   2. Alternatively: `sudo pmset -c sleep 0` (disables sleep on charger)
   3. Must be connected to a power adapter (clamshell only works while charging)
 
+## nh (Nix Helper)
+
+[nh](https://github.com/viperML/nh) wraps `darwin-rebuild` and knows the flake path automatically (`NH_DARWIN_FLAKE` is set to `~/PDE/macos` by the `nh` home-manager module).
+
+```bash
+nh darwin switch   # rebuild + activate, no args needed
+nh darwin boot     # build now, activate at next login
+nh darwin check    # verify the flake evaluates
+```
+
+- **Cleanup**: a daily launchd job runs `nh clean all --keep 3` (keeps the last 3 generations of user profiles and cleans the store). Manual equivalent: `nh clean all`
+
 ## Nix GC & Generations
 
-- **Nix store**: GC runs weekly, deletes unreferenced paths older than 5 days (`darwin.nix: nix.gc`)
-- **Boot entries**: automatic cleanup keeps last 10 system generations (`darwin.nix: system.activationScripts`)
+- **Nix store**: cleanup runs daily via `nh clean all --keep 3` (`nh` module, launchd)
+- **Boot entries**: automatic cleanup keeps last 10 system generations (`configuration.nix: system.activationScripts`)
 
 Manual pruning:
 
