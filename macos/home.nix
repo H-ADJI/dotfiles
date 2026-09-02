@@ -19,6 +19,7 @@
     ../common/nh
     ../common/nvim
     ../common/opencode
+    ../common/pi-agent
     ../common/ssh
     ../common/starship
     ../common/tabiew
@@ -40,7 +41,6 @@
   home.file.".hushlogin".text = "";
 
   home.packages = with pkgs; [
-    aerospace
     brave
     cargo
     clang

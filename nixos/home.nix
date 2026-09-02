@@ -21,6 +21,7 @@
         ../common/nh
         ../common/nvim
         ../common/opencode
+        ../common/pi-agent
         ../common/ssh
         ../common/starship
         ../common/tabiew
@@ -36,7 +37,6 @@
         ./gtk
         ./hyprland
         ./noctalia
-        ./pi-agent
         ./pulsemixer
         ./raffi
         ./satty
