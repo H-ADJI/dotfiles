@@ -9,6 +9,7 @@
     ./modules/aerospace/aerospace.nix
     ./modules/alacritty/alacritty.nix
     ./modules/colima.nix
+    ./modules/direnv
     ./modules/desktoppr/desktoppr.nix
     ./modules/fastfetch.nix
     ./modules/ghostty.nix
@@ -33,7 +34,7 @@
 
   home.username = "khalil";
   home.homeDirectory = "/Users/khalil";
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
 
   home.packages = with pkgs; [
     brave
