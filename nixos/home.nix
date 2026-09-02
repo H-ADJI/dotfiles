@@ -4,47 +4,47 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = {
-      nixosModules = "${config.home-manager.users.khalil.home.homeDirectory}/PDE/nixos";
       inherit inputs;
     };
     users.khalil = {
       imports = [
-        ./alacritty
+        ../common/alacritty
+        ../common/direnv
+        ../common/fastfetch
+        ../common/ghostty
+        ../common/git
+        ../common/glow
+        ../common/hunk
+        ../common/jnv
+        ../common/jqp
+        ../common/mise
+        ../common/nh
+        ../common/nvim
+        ../common/opencode
+        ../common/ssh
+        ../common/starship
+        ../common/tabiew
+        ../common/taskwarrior
+        ../common/television
+        ../common/tmux
+        ../common/yazi
+        ../common/zsh
+        ./ghostty
         ./voxtype
         ./assets
-        ./direnv
-        ./fastfetch
         ./fuzzel
-        ./ghostty
-        ./git
-        ./glow
         ./gtk
-        ./hunk
         ./hyprland
-        ./jnv
-        ./jqp
-        ./mise
-        ./nh
         ./noctalia
-        ./nvim
-        ./opencode
         ./pi-agent
         ./pulsemixer
         ./raffi
         ./satty
         ./share-picker
-        ./ssh
-        ./starship
         ./systemd
-        ./tabiew
-        ./taskwarrior
-        ./television
-        ./tmux
         ./wayscriber
         ./xdg
-        ./yazi
         ./zathura
-        ./zsh
       ];
       home.username = "khalil";
       home.homeDirectory = "/home/khalil";

@@ -2,13 +2,25 @@
 
 **Nix-darwin** + **Home Manager** workstation configuration.
 
+## Layout
+
+The flake lives at the **repository root** (`~/PDE/flake.nix`) and builds both hosts:
+
+- `common/` — home-manager modules shared by all hosts (zsh, tmux, nvim, git, ...)
+- `macos/` — macOS host config + macOS-only modules (aerospace, colima, ...)
+- `nixos/` — NixOS host config + NixOS-only modules (hyprland, noctalia, ...)
+
+macOS-specific overrides of shared modules live next to the host config
+(e.g. `macos/ghostty` overrides font size, window decoration and sets
+`package = null` since the app comes from the homebrew cask).
+
 ## Bootstrap
 
 No clone needed. Two commands:
 
 ```bash
 curl -sSf -L https://install.lix.systems/lix | sh -s -- install
-sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake "github:hh9dj/PDE?dir=macos#macbook"
+sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake "github:hh9dj/PDE#macbook"
 ```
 
 ## Manual Steps (post-bootstrap)

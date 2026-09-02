@@ -33,5 +33,17 @@ sudo cp /etc/nixos/hardware-configuration.nix ~/PDE/nixos/
 Apply configuration
 
 ```bash
-sudo nixos-rebuild switch --flake ~/PDE/nixos#nixos
+sudo nixos-rebuild switch --flake ~/PDE#nixos
 ```
+
+## Layout
+
+The flake lives at the **repository root** (`~/PDE/flake.nix`) and builds both hosts:
+
+- `common/` — home-manager modules shared by all hosts (zsh, tmux, nvim, git, ...)
+- `nixos/` — NixOS host config + NixOS-only modules (hyprland, noctalia, ...)
+- `macos/` — macOS host config + macOS-only modules (aerospace, ...)
+
+Host-specific overrides of shared modules live next to the host config (e.g.
+`nixos/ghostty` adds ligature disabling, `macos/ghostty` overrides font size,
+window decoration and sets `package = null` since the app comes from homebrew).

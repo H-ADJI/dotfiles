@@ -1,27 +1,13 @@
+{ ... }:
 {
+  # macos-specific ghostty overrides.
+  # package = null: nixpkgs ghostty is linux-only; the app comes from the
+  # homebrew cask, home-manager only manages the config.
   programs.ghostty = {
-    enable = true;
+    package = null;
     settings = {
-      theme = "Catppuccin Latte";
-      font-family = "JetBrainsMono Nerd Font";
       font-size = 20;
-      font-style = "Bold";
-      font-style-bold = true;
-      font-style-italic = false;
-      font-style-bold-italic = false;
-      resize-overlay = "never";
-      title = "Ghostty";
-      cursor-style = "block";
-      cursor-style-blink = false;
-      shell-integration-features = "no-cursor";
-      macos-option-as-alt = true;
-      scrollbar = "never";
-      scrollback-limit = 10000;
-      confirm-close-surface = false;
       window-decoration = true;
-      maximize = false;
-      window-padding-x = 180;
-      window-padding-y = 80;
     };
   };
 }

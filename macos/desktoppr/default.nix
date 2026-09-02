@@ -2,7 +2,7 @@
   programs.desktoppr = {
     enable = true;
     settings = {
-      picture = ./coa_macos.png;
+      picture = ./coa.png;
       scale = "fill";
       setOnlyOnce = true;
     };

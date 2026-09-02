@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+tmp_file=$(mktemp /tmp/md_preview.XXXXXX.md)
+trap 'rm -f "$tmp_file"' EXIT
+
+if command -v wl-paste >/dev/null 2>&1; then
+    wl-paste >"$tmp_file"
+else
+    pbpaste >"$tmp_file"
+fi
+glow -p "$tmp_file"
