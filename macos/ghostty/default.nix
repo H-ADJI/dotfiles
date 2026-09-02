@@ -1,7 +1,6 @@
 {
   programs.ghostty = {
     enable = true;
-    package = null;
     settings = {
       theme = "Catppuccin Latte";
       font-family = "JetBrainsMono Nerd Font";

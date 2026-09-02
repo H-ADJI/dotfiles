@@ -28,17 +28,11 @@ System Settings → Displays → Night Shift → set schedule (custom 22:00–07
 ### System
 
 - **Accessibility permission**: System Settings → Privacy & Security → Accessibility → grant to Aerospace, Ghostty
-- **Input sources**: Add **English - ABC** and **ABC Azerty** (System Settings → Keyboard → Input Sources)
-- **Raycast hotkey**: Set Cmd+Space in Raycast Preferences → General → Hotkey (also disable Spotlight Cmd+Space)
+- **Input sources**: Add **English - ABC**, **ABC Azerty** and **Unicode Hex Input** (System Settings → Keyboard → Input Sources)
+- **Raycast hotkey**: Set alt-alt in Raycast Preferences → General → Hotkey (also disable Spotlight Cmd+Space)
 - **Desktop widgets**: Right-click desktop → "Edit Widgets" → remove unwanted
-- **Clamshell (lid-closed) mode for desktop use**:
-  1. System Settings → Displays → Advanced → enable **"Prevent automatic sleeping on power adapter when the display is off"**
-  2. Alternatively: `sudo pmset -c sleep 0` (disables sleep on charger)
-  3. Must be connected to a power adapter (clamshell only works while charging)
 
 ## nh (Nix Helper)
-
-[nh](https://github.com/viperML/nh) wraps `darwin-rebuild` and knows the flake path automatically (`NH_DARWIN_FLAKE` is set to `~/PDE/macos` by the `nh` home-manager module).
 
 ```bash
 nh darwin switch   # rebuild + activate, no args needed
