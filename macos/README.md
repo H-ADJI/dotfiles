@@ -40,6 +40,7 @@ System Settings → Displays → Night Shift → set schedule (custom 22:00–07
 ### System
 
 - **Accessibility permission**: System Settings → Privacy & Security → Accessibility → grant to Aerospace, Ghostty
+- **Menu bar**: System Settings → Control Center → "Automatically hide and show menu bar" → **Always** (SketchyBar replaces it)
 - **Input sources**: Add **English - ABC**, **ABC Azerty** and **Unicode Hex Input** (System Settings → Keyboard → Input Sources)
 - **Raycast hotkey**: Set alt-alt in Raycast Preferences → General → Hotkey (also disable Spotlight Cmd+Space)
 - **OpenSuperWhisper** (Mac dictation): first launch → grant microphone permission + accessibility, download a model (Settings → Model), pick a global shortcut

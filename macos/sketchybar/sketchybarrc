@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+sketchybar --bar position=top height=32 blur_radius=30 color=0x40181926
+
+sketchybar --default padding_left=5 padding_right=5 \
+                    icon.font="JetBrainsMono Nerd Font:Bold:16.0" \
+                    label.font="JetBrainsMono Nerd Font:Bold:13.0" \
+                    icon.color=0xffcad3f5 \
+                    label.color=0xffcad3f5 \
+                    icon.padding_left=4 \
+                    icon.padding_right=4 \
+                    label.padding_left=4 \
+                    label.padding_right=4
+
+SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
+for i in "${!SPACE_ICONS[@]}"; do
+  sid="$(($i + 1))"
+  sketchybar --add space "space.$sid" left \
+             --set "space.$sid" space="$sid" \
+                                icon="${SPACE_ICONS[i]}" \
+                                icon.padding_left=7 \
+                                icon.padding_right=7 \
+                                label.drawing=off \
+                                click_script="aerospace focus-workspace $sid"
+done
+
+sketchybar --add item front_app left \
+           --set front_app icon.drawing=off \
+                           script='sketchybar --set $NAME label="$INFO"' \
+           --subscribe front_app front_app_switched
+
+sketchybar --add item clock right \
+           --set clock update_freq=10 \
+                 script='sketchybar --set $NAME label="$(date +%H:%M)"'
+
+sketchybar --update

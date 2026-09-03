@@ -29,6 +29,7 @@
     ./aerospace
     ./colima
     ./ghostty
+    ./sketchybar
     ./zsh
   ];
 

@@ -13,6 +13,8 @@ _evalcache tv init zsh
 _evalcache zoxide init zsh --cmd cd
 _evalcache batman --export-env
 
+alias glow='glow --config ~/.config/glow/glow.yml'
+
 bindkey '^y' autosuggest-accept
 bindkey '^ ' autosuggest-execute
 bindkey '^o' forward-word
