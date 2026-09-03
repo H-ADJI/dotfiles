@@ -1,6 +1,4 @@
 {
-  config,
-  inputs,
   pkgs,
   ...
 }:
@@ -34,19 +32,19 @@
     ./zsh
   ];
 
-  home.username = "khalil";
-  home.homeDirectory = "/Users/khalil";
-  home.stateVersion = "26.05";
-
-  home.file.".hushlogin".text = "";
-
-  home.packages = with pkgs; [
-    docker
-    docker-compose
-    podman
-    podman-compose
-    google-chrome
-    brave
-    nerd-fonts.jetbrains-mono
-  ];
+  home = {
+    username = "khalil";
+    homeDirectory = "/Users/khalil";
+    stateVersion = "26.05";
+    file.".hushlogin".text = "";
+    packages = with pkgs; [
+      docker
+      docker-compose
+      podman
+      podman-compose
+      google-chrome
+      brave
+      nerd-fonts.jetbrains-mono
+    ];
+  };
 }

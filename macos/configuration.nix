@@ -26,6 +26,7 @@
     enable = true;
     casks = [
       "ghostty"
+      "opensuperwhisper"
       "raycast"
       "homerow"
     ];
