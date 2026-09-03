@@ -30,7 +30,6 @@
     ../common/zsh
     ./aerospace
     ./colima
-    ./desktoppr
     ./ghostty
     ./zsh
   ];
