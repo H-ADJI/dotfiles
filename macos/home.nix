@@ -42,29 +42,12 @@
   home.file.".hushlogin".text = "";
 
   home.packages = with pkgs; [
-    brave
-    cargo
-    clang
-    coreutils
-    curl
     docker
     docker-compose
-    fd
-    gnugrep
-    gnutar
-    go
-    google-chrome
-    hyperfine
-    nerd-fonts.jetbrains-mono
-    nodejs
     podman
     podman-compose
-    python3
-    ripgrep
-    rustc
-    stow
-    transcrypt
-    tree
-    uv
+    google-chrome
+    brave
+    nerd-fonts.jetbrains-mono
   ];
 }

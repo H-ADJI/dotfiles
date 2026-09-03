@@ -1,4 +1,3 @@
-{ ... }:
 {
   # macos-specific ghostty overrides.
   # package = null: nixpkgs ghostty is linux-only; the app comes from the

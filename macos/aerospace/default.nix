@@ -1,4 +1,4 @@
-{ ... }: {
+{
   programs.aerospace = {
     enable = true;
     launchd = {

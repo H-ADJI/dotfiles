@@ -59,8 +59,6 @@
         {
           default = pkgs.mkShell {
             packages = with pkgs; [
-              typst
-              just
             ];
             shellHook = "";
           };

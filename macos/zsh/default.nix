@@ -1,4 +1,3 @@
-{ ... }:
 {
   # macos-specific overrides of common zsh nix aliases
   programs.zsh.shellAliases = {

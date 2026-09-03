@@ -4,7 +4,16 @@
   ...
 }:
 {
-  home.packages = with pkgs; [ zinit ];
+  home.packages = with pkgs; [
+    curl
+    fd
+    gnugrep
+    gnutar
+    hyperfine
+    ripgrep
+    tree
+    zinit
+  ];
 
   xdg.configFile."zinit/zinit.sh".text = ''
     source ${pkgs.zinit}/share/zinit/zinit.zsh

@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{
   programs.desktoppr = {
     enable = true;
     settings = {
