@@ -17,15 +17,17 @@ sketchybar --bar \
 
 sketchybar --default \
     background.corner_radius=5 \
+    background.border_width=1 \
+    background.border_color=0xff000000 \
     background.padding_right=9 \
     background.height=36 \
-    background.color=0x9924273a \
+    background.color=$BACKGROUND_1 \
     icon.font="$FONT_FACE:Bold:18.0" \
-    icon.color=$WHITE \
+    icon.color=$BLACK \
     icon.padding_left=9 \
     icon.padding_right=9 \
     label.font="$FONT_FACE:Bold:14.4" \
-    label.color=0xffffffff \
+    label.color=$BLACK \
     label.y_offset=0 \
     label.padding_left=9 \
     label.padding_right=9
@@ -38,8 +40,8 @@ for sid in 1 2 3 4 5; do
         --set "space.$sid" \
         icon.drawing=off \
         label="$sid" \
-        label.font="$FONT_FACE:Black:16.0" \
-        label.color=0xffffffff \
+        label.font="$FONT_FACE:Black:18.0" \
+        label.color=$BLACK \
         click_script="aerospace workspace $sid" \
         script="$CONFIG_DIR/plugins/aerospace.sh $sid"
 done
@@ -48,7 +50,7 @@ sketchybar --add item front_app left \
     --set front_app \
     icon.drawing=off \
     label.font="$FONT_FACE:ExtraBold:14.4" \
-    label.color=0xffffffff \
+    label.color=$BLACK \
     label.padding_left=9 \
     label.padding_right=9 \
     script="$PLUGIN_DIR/front_app.sh" \
