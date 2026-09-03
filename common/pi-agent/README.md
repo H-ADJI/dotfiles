@@ -37,6 +37,7 @@ skills :
 https://github.com/addyosmani/agent-skills
 https://github.com/Graphify-Labs/graphify
 https://github.com/obra/superpowers/#commercial-services
+https://github.com/davidondrej/skills
 https://github.com/mattpocock/skills
 https://github.com/backnotprop/plannotator
 packages
