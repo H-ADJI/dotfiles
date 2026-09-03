@@ -4,7 +4,7 @@
     settings = {
       picture = ./coa.png;
       scale = "fill";
-      setOnlyOnce = true;
+      setOnlyOnce = false;
     };
   };
 }
