@@ -63,8 +63,9 @@ Managed by home-manager (`macos/sketchybar/`): package + launchd agent (RunAtLoa
 
 - **Logs**: `~/Library/Logs/sketchybar/sketchybar.{out,err}.log`
 - **Restart**: `launchctl kickstart -k gui/$UID/org.nix-community.home.sketchybar`
-- Items (left to right): focused app name, centered date-time clock, then CPU, RAM, wifi (click to expand), bluetooth, battery
-- Service PATH extras (`extraPackages`): `blueutil`. SketchyBar has no bluetooth event — bluetooth polls via `blueutil`
+- Items (left to right): workspace numbers 1–5 (click focuses via `aerospace workspace`, focused one is green), focused app name, centered date-time clock, then CPU, RAM, wifi (click to expand), bluetooth, battery
+- Workspace indicators follow the [official AeroSpace recipe](https://nikitabobko.github.io/AeroSpace/goodness#show-aerospace-workspaces-in-sketchybar): aerospace's `exec-on-workspace-change` triggers the `aerospace_workspace_change` event; `plugins/aerospace.sh` colors the focused workspace green. Changes require a switch + aerospace reload (`alt-shift-r`)
+- Service PATH extras (`extraPackages`): `blueutil`, aerospace CLI. SketchyBar has no bluetooth event — bluetooth polls via `blueutil`
 - The `sketchybarrc` **must stay executable** (`chmod +x`) — SketchyBar spawns it directly; if the bit is lost the bar renders empty
 
 ## Nix GC & Generations

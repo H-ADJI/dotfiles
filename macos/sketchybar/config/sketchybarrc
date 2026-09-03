@@ -30,6 +30,20 @@ sketchybar --default \
     label.padding_left=9 \
     label.padding_right=9
 
+sketchybar --add event aerospace_workspace_change
+
+for sid in 1 2 3 4 5; do
+    sketchybar --add item "space.$sid" left \
+        --subscribe space.$sid aerospace_workspace_change \
+        --set "space.$sid" \
+        icon.drawing=off \
+        label="$sid" \
+        label.font="$FONT_FACE:Black:16.0" \
+        label.color=0xffffffff \
+        click_script="aerospace workspace $sid" \
+        script="$CONFIG_DIR/plugins/aerospace.sh $sid"
+done
+
 sketchybar --add item front_app left \
     --set front_app \
     icon.drawing=off \
@@ -82,6 +96,7 @@ sketchybar --add item cpu right \
 
 sketchybar --update
 INFO=$(osascript -e 'tell application "System Events" to get name of first application process whose frontmost is true') NAME=front_app $PLUGIN_DIR/front_app.sh
+sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE="$(aerospace list-workspaces --focused 2>/dev/null)"
 NAME=clock $PLUGIN_DIR/clock.sh
 NAME=cpu $PLUGIN_DIR/cpu.sh
 NAME=mem $PLUGIN_DIR/mem.sh

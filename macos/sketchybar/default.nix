@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   ...
 }:
@@ -7,6 +8,7 @@
     enable = true;
     extraPackages = with pkgs; [
       blueutil
+      config.programs.aerospace.package
     ];
     config = {
       source = ./config;
