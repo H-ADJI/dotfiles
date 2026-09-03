@@ -1,0 +1,90 @@
+#!/usr/bin/env zsh
+
+FONT_FACE="JetBrainsMono Nerd Font"
+
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+source "$CONFIG_DIR/colors.sh"
+
+sketchybar --bar \
+    height=48 \
+    color=0x00000000 \
+    margin=0 \
+    sticky=on \
+    padding_left=23 \
+    padding_right=23 \
+    notch_width=188 \
+    display=main
+
+sketchybar --default \
+    background.corner_radius=5 \
+    background.padding_right=9 \
+    background.height=36 \
+    background.color=0x9924273a \
+    icon.font="$FONT_FACE:Bold:18.0" \
+    icon.color=$WHITE \
+    icon.padding_left=9 \
+    icon.padding_right=9 \
+    label.font="$FONT_FACE:Bold:14.4" \
+    label.color=0xffffffff \
+    label.y_offset=0 \
+    label.padding_left=9 \
+    label.padding_right=9
+
+sketchybar --add item front_app left \
+    --set front_app \
+    icon.drawing=off \
+    label.font="$FONT_FACE:ExtraBold:14.4" \
+    label.color=0xffffffff \
+    label.padding_left=9 \
+    label.padding_right=9 \
+    script="$PLUGIN_DIR/front_app.sh" \
+    --subscribe front_app front_app_switched
+
+sketchybar --add item clock center \
+    --set clock \
+    icon=󰃰 \
+    icon.color=$RED \
+    label="$(date '+%a %d %b  %H:%M')" \
+    update_freq=30 \
+    script="$PLUGIN_DIR/clock.sh"
+
+sketchybar --add item bluetooth right \
+    --set bluetooth \
+    update_freq=10 \
+    script="$PLUGIN_DIR/bluetooth.sh"
+
+sketchybar --add item wifi right \
+    --set wifi \
+    padding_right=7 \
+    icon.color=$BLUE \
+    label.width=0 \
+    script="$PLUGIN_DIR/wifi.sh" \
+    --subscribe wifi wifi_change mouse.clicked
+
+sketchybar --add item battery right \
+    --set battery \
+    update_freq=20 \
+    script="$PLUGIN_DIR/battery.sh"
+
+sketchybar --add item mem right \
+    --set mem \
+    icon=󰍛 \
+    icon.color=$YELLOW \
+    update_freq=10 \
+    script="$PLUGIN_DIR/mem.sh"
+
+sketchybar --add item cpu right \
+    --set cpu \
+    icon=󰻠 \
+    icon.color=$RED \
+    update_freq=10 \
+    script="$PLUGIN_DIR/cpu.sh"
+
+sketchybar --update
+INFO=$(osascript -e 'tell application "System Events" to get name of first application process whose frontmost is true') NAME=front_app $PLUGIN_DIR/front_app.sh
+NAME=clock $PLUGIN_DIR/clock.sh
+NAME=cpu $PLUGIN_DIR/cpu.sh
+NAME=mem $PLUGIN_DIR/mem.sh
+NAME=battery $PLUGIN_DIR/battery.sh
+NAME=bluetooth $PLUGIN_DIR/bluetooth.sh
+INFO="" NAME=wifi $PLUGIN_DIR/wifi.sh

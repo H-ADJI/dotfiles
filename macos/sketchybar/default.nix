@@ -1,11 +1,16 @@
 {
-  config,
+  pkgs,
   ...
 }:
 {
   programs.sketchybar = {
     enable = true;
-    extraPackages = [ config.programs.aerospace.package ];
-    config.source = ./sketchybarrc;
+    extraPackages = with pkgs; [
+      blueutil
+    ];
+    config = {
+      source = ./config;
+      recursive = true;
+    };
   };
 }

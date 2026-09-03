@@ -55,6 +55,17 @@ nh darwin check    # verify the flake evaluates
 ```
 
 - **Cleanup**: a daily launchd job runs `nh clean all --keep 3` (keeps the last 3 generations of user profiles and cleans the store). Manual equivalent: `nh clean all`
+- **Note**: the flake is a git input — new/edited files must be committed before `nh darwin switch` picks them up
+
+## SketchyBar
+
+Managed by home-manager (`macos/sketchybar/`): package + launchd agent (RunAtLoad, KeepAlive) + config dir linked to `~/.config/sketchybar` (`config.source` + `recursive = true`).
+
+- **Logs**: `~/Library/Logs/sketchybar/sketchybar.{out,err}.log`
+- **Restart**: `launchctl kickstart -k gui/$UID/org.nix-community.home.sketchybar`
+- Items (left to right): focused app name, centered date-time clock, then CPU, RAM, wifi (click to expand), bluetooth, battery
+- Service PATH extras (`extraPackages`): `blueutil`. SketchyBar has no bluetooth event — bluetooth polls via `blueutil`
+- The `sketchybarrc` **must stay executable** (`chmod +x`) — SketchyBar spawns it directly; if the bit is lost the bar renders empty
 
 ## Nix GC & Generations
 
