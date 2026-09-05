@@ -30,7 +30,7 @@
     xwayland.enable = true;
     configType = "lua";
     enable = true;
-    plugins = [ pkgs.hyprlandPlugins.hypr-dynamic-cursors ];
+    # plugins = [ pkgs.hyprlandPlugins.hypr-dynamic-cursors ];
     systemd = {
       variables = [ "--all" ];
       enable = true;
