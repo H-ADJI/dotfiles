@@ -4,15 +4,18 @@
   # audio recording specialisation: nh_switch --specialisation=audio
   specialisation.audio.configuration.imports = [ ./audio-station.nix ];
 
-  nix.settings.experimental-features = [
-    "flakes"
-    "nix-command"
-  ];
-
-  nix.settings.extra-substituters = [ "https://noctalia.cachix.org" ];
-  nix.settings.extra-trusted-public-keys = [
-    "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
-  ];
+  nix = {
+    settings = {
+      experimental-features = [
+        "flakes"
+        "nix-command"
+      ];
+      extra-substituters = [ "https://noctalia.cachix.org" ];
+      extra-trusted-public-keys = [
+        "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+      ];
+    };
+  };
 
   nixpkgs.config.allowUnfree = true;
 
