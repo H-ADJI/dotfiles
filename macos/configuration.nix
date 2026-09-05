@@ -1,20 +1,23 @@
 { pkgs, ... }:
 
 {
-  nixpkgs.hostPlatform = "aarch64-darwin";
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+    };
+    hostPlatform = "aarch64-darwin";
+  };
 
-  nix.package = pkgs.lix;
-  nix.settings.warn-dirty = false;
-
-  system.activationScripts.postActivation.text = ''
-    nix-env --delete-generations +10 -p /nix/var/nix/profiles/system 2>/dev/null || true
-  '';
-
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix = {
+    package = pkgs.lix;
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      warn-dirty = false;
+    };
+  };
 
   nix-homebrew = {
     enable = true;
@@ -37,106 +40,101 @@
     shell = pkgs.zsh;
   };
 
-  system.primaryUser = "khalil";
-  networking.hostName = "macbook";
-
-  programs.zsh.enable = true;
-
-  system.defaults.NSGlobalDomain = {
-    ApplePressAndHoldEnabled = false;
-    InitialKeyRepeat = 15;
-    KeyRepeat = 2;
-    "com.apple.swipescrolldirection" = false;
-    "com.apple.mouse.tapBehavior" = 1;
-    AppleEnableSwipeNavigateWithScrolls = false;
-    AppleEnableMouseSwipeNavigateWithScrolls = false;
-    AppleKeyboardUIMode = 2;
-    NSAutomaticCapitalizationEnabled = false;
-    NSAutomaticInlinePredictionEnabled = false;
-    NSAutomaticDashSubstitutionEnabled = false;
-    NSAutomaticPeriodSubstitutionEnabled = false;
-    NSAutomaticQuoteSubstitutionEnabled = false;
-    NSAutomaticSpellingCorrectionEnabled = false;
-  };
-  system.defaults.trackpad = {
-    Clicking = true;
-    TrackpadRightClick = true;
-    TrackpadThreeFingerHorizSwipeGesture = 0;
-    TrackpadThreeFingerVertSwipeGesture = 0;
-    TrackpadFourFingerHorizSwipeGesture = 0;
-    TrackpadFourFingerVertSwipeGesture = 0;
-    TrackpadFourFingerPinchGesture = 0;
-    TrackpadTwoFingerFromRightEdgeSwipeGesture = 0;
-    TrackpadPinch = true;
-  };
-  system.defaults.loginwindow = {
-    GuestEnabled = false;
-    ShutDownDisabled = false;
-    autoLoginUser = "";
-  };
-  system.defaults.CustomUserPreferences = {
-    "com.apple.AppleMultitouchTrackpad" = {
-      TrackpadFiveFingerPinchGesture = 0;
-    };
-    "com.apple.symbolichotkeys" = {
-      AppleSymbolicHotKeys = {
-        "61" = {
-          enabled = false;
-        }; # Ctrl+Space / select previous input source
-        "60" = {
-          enabled = false;
-        }; # Ctrl+Option+Space / select next input source
-        "64" = {
-          enabled = false;
-        }; # Cmd+Space (Spotlight)
-        "63" = {
-          enabled = false;
-        }; # Alt+Cmd+Space (Finder Spotlight)
-        "28" = {
-          enabled = false;
-        }; # Cmd+Shift+3 (full screen)
-        "30" = {
-          enabled = false;
-        }; # Cmd+Shift+4 (region/window)
-        "34" = {
-          enabled = false;
-        }; # Cmd+Shift+5 (toolbar)
+  system = {
+    defaults = {
+      CustomUserPreferences = {
+        "com.apple.AppleMultitouchTrackpad" = {
+          TrackpadFiveFingerPinchGesture = 0;
+        };
+        "com.apple.screencapture" = {
+          disable-shadow = true;
+          location = "~/Desktop/Screenshots";
+          type = "png";
+        };
+        "com.apple.symbolichotkeys" = {
+          AppleSymbolicHotKeys = {
+            "28" = {
+              enabled = false;
+            };
+            "30" = {
+              enabled = false;
+            };
+            "34" = {
+              enabled = false;
+            };
+            "60" = {
+              enabled = false;
+            };
+            "61" = {
+              enabled = false;
+            };
+            "63" = {
+              enabled = false;
+            };
+            "64" = {
+              enabled = false;
+            };
+          };
+        };
+      };
+      NSGlobalDomain = {
+        AppleEnableMouseSwipeNavigateWithScrolls = false;
+        AppleEnableSwipeNavigateWithScrolls = false;
+        AppleKeyboardUIMode = 2;
+        ApplePressAndHoldEnabled = false;
+        InitialKeyRepeat = 15;
+        KeyRepeat = 2;
+        NSAutomaticCapitalizationEnabled = false;
+        NSAutomaticDashSubstitutionEnabled = false;
+        NSAutomaticInlinePredictionEnabled = false;
+        NSAutomaticPeriodSubstitutionEnabled = false;
+        NSAutomaticQuoteSubstitutionEnabled = false;
+        NSAutomaticSpellingCorrectionEnabled = false;
+        "com.apple.mouse.tapBehavior" = 1;
+        "com.apple.swipescrolldirection" = false;
+      };
+      dock = {
+        autohide = true;
+        launchanim = false;
+        minimize-to-application = true;
+        mru-spaces = false;
+        orientation = "bottom";
+        show-recents = false;
+        showAppExposeGestureEnabled = false;
+        showDesktopGestureEnabled = false;
+        showLaunchpadGestureEnabled = false;
+        showMissionControlGestureEnabled = false;
+        static-only = true;
+      };
+      finder = {
+        AppleShowAllExtensions = true;
+        AppleShowAllFiles = true;
+        CreateDesktop = false;
+        FXDefaultSearchScope = "SCcf";
+        FXPreferredViewStyle = "Nlsv";
+        ShowPathbar = true;
+        ShowStatusBar = true;
+        _FXSortFoldersFirst = true;
+      };
+      loginwindow = {
+        GuestEnabled = false;
+      };
+      trackpad = {
+        Clicking = true;
+        TrackpadFourFingerHorizSwipeGesture = 0;
+        TrackpadFourFingerPinchGesture = 0;
+        TrackpadFourFingerVertSwipeGesture = 0;
+        TrackpadPinch = true;
+        TrackpadRightClick = true;
+        TrackpadThreeFingerHorizSwipeGesture = 0;
+        TrackpadThreeFingerVertSwipeGesture = 0;
+        TrackpadTwoFingerFromRightEdgeSwipeGesture = 0;
       };
     };
-    "com.apple.screencapture" = {
-      type = "png";
-      location = "~/Desktop/Screenshots";
-      disable-shadow = true;
+    keyboard = {
+      enableKeyMapping = true;
     };
-    NSGlobalDomain = {
-      # TODO: AppleCursorHiddenWhileTyping not working properly — revisit later
-      AppleCursorHiddenWhileTyping = true;
-    };
+    primaryUser = "khalil";
+    stateVersion = 6;
   };
-  system.defaults.dock = {
-    autohide = true;
-    orientation = "bottom";
-    launchanim = false;
-    minimize-to-application = true;
-    mru-spaces = false;
-    show-recents = false;
-    static-only = true;
-    showAppExposeGestureEnabled = false;
-    showDesktopGestureEnabled = false;
-    showLaunchpadGestureEnabled = false;
-    showMissionControlGestureEnabled = false;
-  };
-  system.defaults.finder = {
-    AppleShowAllFiles = true;
-    AppleShowAllExtensions = true;
-    CreateDesktop = false;
-    FXDefaultSearchScope = "SCcf";
-    FXPreferredViewStyle = "Nlsv";
-    ShowPathbar = true;
-    ShowStatusBar = true;
-    _FXSortFoldersFirst = true;
-  };
-  system.keyboard.enableKeyMapping = true;
-
-  system.stateVersion = 6;
 }

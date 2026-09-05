@@ -41,8 +41,6 @@
     packages = with pkgs; [
       docker
       docker-compose
-      podman
-      podman-compose
       google-chrome
       brave
       nerd-fonts.jetbrains-mono
