@@ -1,7 +1,7 @@
 {
   programs.direnv = {
     nix-direnv.enable = true;
-    enableZshIntegration = false;
+    enableZshIntegration = true;
     enable = true;
     silent = true;
     config = {

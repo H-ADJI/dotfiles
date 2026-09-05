@@ -7,6 +7,7 @@
   # TODO: pi+tmux tv cable 
   programs.television = {
     enable = true;
+    enableZshIntegration = true;
     settings = {
       tick_rate = 50;
       default_channel = "files";

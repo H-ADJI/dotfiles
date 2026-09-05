@@ -12,14 +12,7 @@
     hyperfine
     ripgrep
     tree
-    zinit
   ];
-
-  xdg.configFile."zinit/zinit.sh".text = ''
-    source ${pkgs.zinit}/share/zinit/zinit.zsh
-    zinit light "mroth/evalcache"
-    zinit snippet OMZP::sudo
-  '';
 
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -61,6 +54,12 @@
         src = pkgs.zsh-fzf-tab;
         file = "share/fzf-tab/fzf-tab.plugin.zsh";
       }
+      # replaces `zinit snippet OMZP::sudo`
+      {
+        name = "sudo";
+        src = "${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/sudo/sudo.plugin.zsh";
+        file = "sudo.plugin.zsh";
+      }
     ];
 
     shellAliases = {
@@ -100,11 +99,11 @@
 
   programs.fzf = {
     enable = true;
-    enableZshIntegration = false;
+    enableZshIntegration = true;
   };
   programs.zoxide = {
     enable = true;
-    enableZshIntegration = false;
+    enableZshIntegration = true;
     options = [
       "--cmd"
       "cd"

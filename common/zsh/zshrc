@@ -1,17 +1,8 @@
 #!/usr/bin/env zsh
 
 # TODO: zsh lsp-config : shuck / zshcs
-# optimize startup time
-# nix rebuild keybind
-# systemd service to save zsh hist
-source "$HOME/.config/zinit/zinit.sh"
 
-_evalcache fzf --zsh
-_evalcache direnv hook zsh
-_evalcache starship init zsh
-_evalcache tv init zsh
-_evalcache zoxide init zsh --cmd cd
-_evalcache batman --export-env
+eval "$(batman --export-env)"
 
 bindkey '^y' autosuggest-accept
 bindkey '^ ' autosuggest-execute

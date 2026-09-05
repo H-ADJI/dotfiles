@@ -1,7 +1,7 @@
 {
   programs.starship = {
     enable = true;
-    enableZshIntegration = false;
+    enableZshIntegration = true;
     settings = {
       command_timeout = 1000;
       palette = "catppuccin_latte";
