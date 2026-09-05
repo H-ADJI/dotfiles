@@ -56,7 +56,7 @@ sketchybar --add item front_app left \
     script="$PLUGIN_DIR/front_app.sh" \
     --subscribe front_app front_app_switched
 
-sketchybar --add item clock center \
+sketchybar --add item clock right \
     --set clock \
     icon=󰃰 \
     icon.color=$RED \
@@ -68,6 +68,7 @@ sketchybar --add item bluetooth right \
     --set bluetooth \
     update_freq=10 \
     script="$PLUGIN_DIR/bluetooth.sh"
+
 
 sketchybar --add item wifi right \
     --set wifi \
@@ -105,3 +106,4 @@ NAME=mem $PLUGIN_DIR/mem.sh
 NAME=battery $PLUGIN_DIR/battery.sh
 NAME=bluetooth $PLUGIN_DIR/bluetooth.sh
 INFO="" NAME=wifi $PLUGIN_DIR/wifi.sh
+NAME=keyboard $PLUGIN_DIR/kbd.sh

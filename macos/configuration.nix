@@ -78,6 +78,7 @@
         };
       };
       NSGlobalDomain = {
+        _HIHideMenuBar = true;
         AppleEnableMouseSwipeNavigateWithScrolls = false;
         AppleEnableSwipeNavigateWithScrolls = false;
         AppleKeyboardUIMode = 2;
