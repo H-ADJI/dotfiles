@@ -32,7 +32,14 @@
       enable = true;
       pulse.enable = true;
       alsa.enable = true;
-      wireplumber.enable = true;
+      wireplumber = {
+        enable = true;
+        extraConfig."50-bluez-soft-volume" = {
+          "monitor.bluez.properties" = {
+            "bluez5.enable-hw-volume" = false;
+          };
+        };
+      };
     };
     udev.packages = with pkgs; [
       vial
