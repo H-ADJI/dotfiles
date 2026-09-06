@@ -1,8 +1,0 @@
-venv
-.env
-.direnv/
-ssh/dot-ssh/*
-!ssh/dot-ssh/*.pub
-!ssh/dot-ssh/config
-task/dot-task/taskchampion*
-hunk/dot-config/hunk/state.json

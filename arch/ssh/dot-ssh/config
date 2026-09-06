@@ -1,8 +1,0 @@
-Host github.com-niq
-  HostName github.com
-  IdentityFile ~/.ssh/work
-
-Host *
-  AddKeysToAgent yes
-  IdentityFile ~/.ssh/personal
-  StrictHostKeyChecking accept-new
