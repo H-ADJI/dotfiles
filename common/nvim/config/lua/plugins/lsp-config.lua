@@ -7,7 +7,7 @@ return {
       function()
         vim.cmd("lsp restart")
       end,
-      desc = "[L]anguage [S]ervers [I]nfo",
+      desc = "[R]estart [L]SP",
     },
     {
       "<leader>lsi",
@@ -24,7 +24,6 @@ return {
       "harper_ls",
       "tinymist",
       "ruff",
-      "nil_ls",
       "nixd",
       "yamlls",
       "tsgo",

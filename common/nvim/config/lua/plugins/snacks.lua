@@ -149,7 +149,7 @@ return {
     {
       "<leader>fd",
       function()
-        Snacks.picker.files({ cwd = "~/dotfiles/" })
+        Snacks.picker.files({ cwd = "~/PDE" })
       end,
       desc = "Find Config File",
     },
@@ -308,22 +308,6 @@ return {
       end,
       desc = "[G]it [O]pen File in Repo",
       mode = { "n", "v" },
-    },
-    {
-      "]]",
-      function()
-        Snacks.words.jump(vim.v.count1)
-      end,
-      desc = "Next Reference",
-      mode = { "n", "t" },
-    },
-    {
-      "[[",
-      function()
-        Snacks.words.jump(-vim.v.count1)
-      end,
-      desc = "Prev Reference",
-      mode = { "n", "t" },
     },
     {
       "<leader>tt",

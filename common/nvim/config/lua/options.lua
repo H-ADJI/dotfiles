@@ -22,10 +22,6 @@ vim.o.confirm = true
 vim.o.undofile = true
 vim.o.autoread = true
 vim.opt.fillchars:append({ eob = " " })
-vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.wo.foldmethod = "expr"
-vim.wo.foldlevel = 6
--- vim.diagnostic.config({
--- virtual_lines = true,
--- virtual_text = true,
--- })
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.o.foldmethod = "expr"
+vim.o.foldlevel = 6

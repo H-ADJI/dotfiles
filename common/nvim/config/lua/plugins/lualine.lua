@@ -2,7 +2,7 @@ return {
   "nvim-lualine/lualine.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   opts = {
-    options = { theme = "auto", disabled_filetypes = { statusline = { "snacks_dashboard", "snack_picker_preview" } } },
+    options = { theme = "auto", disabled_filetypes = { statusline = { "snacks_dashboard", "snacks_picker_preview" } } },
     sections = {
       lualine_a = { "mode" },
       lualine_b = { "branch", "diff", "diagnostics" },

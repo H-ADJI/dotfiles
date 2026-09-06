@@ -1,5 +1,4 @@
 require("options")
 require("auto-cmd")
 require("keybinds")
-require("packages")
 require("lazy-nvim")
