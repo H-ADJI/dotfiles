@@ -2,3 +2,4 @@ venv
 .env
 .direnv
 node_modules
+.opencode
