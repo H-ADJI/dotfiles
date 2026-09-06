@@ -141,4 +141,8 @@
     primaryUser = "khalil";
     stateVersion = 6;
   };
+
+  system.activationScripts.postActivation.text = ''
+    /usr/bin/defaults write com.apple.WindowManager StandardHideWidgets -bool true
+  '';
 }
