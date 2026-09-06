@@ -54,12 +54,6 @@
         src = pkgs.zsh-fzf-tab;
         file = "share/fzf-tab/fzf-tab.plugin.zsh";
       }
-      # replaces `zinit snippet OMZP::sudo`
-      {
-        name = "sudo";
-        src = "${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/sudo/sudo.plugin.zsh";
-        file = "sudo.plugin.zsh";
-      }
     ];
 
     shellAliases = {
