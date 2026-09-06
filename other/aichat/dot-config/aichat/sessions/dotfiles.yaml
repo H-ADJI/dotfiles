@@ -1,6 +1,0 @@
-model: deepseek:deepseek-chat
-temperature: 0.5
-top_p: 0.3
-save_session: true
-role_name: caveman
-messages: []
