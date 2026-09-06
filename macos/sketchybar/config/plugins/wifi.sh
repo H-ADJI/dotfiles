@@ -2,14 +2,14 @@
 
 source "$CONFIG_DIR/colors.sh"
 
-SSID=$(ipconfig getsummary en0 2>/dev/null | grep -o "SSID : .*" | sed 's/^SSID : //' | tail -n 1)
+IP=$(ipconfig getifaddr en0)
 
-if [ -n "$SSID" ]; then
+if [ -n "$IP" ]; then
     ICON=󰤨
     ICON_COLOR=$BLUE
 else
     ICON=󰤭
-    ICON_COLOR=$GREY
+    ICON_COLOR=$RED
 fi
 
-sketchybar --set $NAME icon=$ICON icon.color=$ICON_COLOR label="$SSID"
+sketchybar --set $NAME icon=$ICON icon.color=$ICON_COLOR

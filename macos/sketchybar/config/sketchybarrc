@@ -40,80 +40,195 @@ for sid in 1 2 3 4 5; do
         --set "space.$sid" \
         icon.drawing=off \
         label="$sid" \
-        label.font="$FONT_FACE:Black:18.0" \
+        label.font="$FONT_FACE:Bold:18.0" \
         label.color=$BLACK \
+        background.drawing=off \
         click_script="aerospace workspace $sid" \
         script="$CONFIG_DIR/plugins/aerospace.sh $sid"
 done
 
+sketchybar --add item space.sep left \
+    --set space.sep \
+    icon.drawing=off \
+    label="|" \
+    label.font="$FONT_FACE:Bold:14.4" \
+    label.color=$GREY \
+    label.padding_left=2 \
+    label.padding_right=2 \
+    background.drawing=off
+
 sketchybar --add item front_app left \
     --set front_app \
     icon.drawing=off \
+    background.drawing=off \
     label.font="$FONT_FACE:ExtraBold:14.4" \
     label.color=$BLACK \
     label.padding_left=9 \
     label.padding_right=9 \
+    update_freq=3 \
     script="$PLUGIN_DIR/front_app.sh" \
     --subscribe front_app front_app_switched
 
-sketchybar --add item clock left \
+# External monitor present? -> clock stays a standalone center module,
+# otherwise it moves into the left workspace/app bubble
+DISPLAY_COUNT=$(system_profiler SPDisplaysDataType 2>/dev/null | grep -c "Resolution")
+CLOCK_IN_BUBBLE=false
+if [ "$DISPLAY_COUNT" -le 1 ]; then
+    CLOCK_IN_BUBBLE=true
+fi
+
+CLOCK_POS=center
+CLOCK_BG=on
+if [ "$CLOCK_IN_BUBBLE" = "true" ]; then
+    CLOCK_POS=left
+    CLOCK_BG=off
+fi
+
+sketchybar --add item clock $CLOCK_POS \
     --set clock \
     icon=󰃰 \
     icon.color=$RED \
     label="$(date '+%a %d %b  %H:%M')" \
+    background.drawing=$CLOCK_BG \
     update_freq=30 \
     script="$PLUGIN_DIR/clock.sh"
 
-sketchybar --add item bluetooth right \
-    --set bluetooth \
+sketchybar --add bracket left.bubble space.1 space.2 space.3 space.4 space.5 space.sep front_app $( [ "$CLOCK_IN_BUBBLE" = "true" ] && echo clock ) \
+    --set left.bubble \
+    background.drawing=on \
+    background.color=$BACKGROUND_1 \
+    background.corner_radius=5 \
+    background.border_width=1 \
+    background.border_color=0xff000000 \
+    background.height=36 \
+    background.padding_left=9 \
+    background.padding_right=9
+
+sketchybar --add item settings right \
+    --set settings \
+    background.drawing=off \
+    icon=󰒓 \
+    icon.color=$BLACK \
+    label.drawing=off \
+    click_script="open -b com.apple.systempreferences"
+
+sketchybar --add item right.sep.4 right \
+    --set right.sep.4 \
+    icon.drawing=off \
+    label="|" \
+    label.font="$FONT_FACE:Bold:14.4" \
+    label.color=$GREY \
+    label.padding_left=2 \
+    label.padding_right=2 \
+    background.drawing=off
+
+sketchybar --add item cpu right \
+    --set cpu \
+    background.drawing=off \
+    icon=󰻠 \
+    icon.color=$RED \
     update_freq=10 \
-    script="$PLUGIN_DIR/bluetooth.sh" \
-    click_script="open 'x-apple.systempreferences:com.apple.preference.bluetooth'"
-
-
-sketchybar --add item volume right \
-    --set volume \
-    icon=󰕾 \
-    update_freq=10 \
-    script="$PLUGIN_DIR/volume.sh" \
-    click_script="open 'x-apple.systempreferences:com.apple.preference.sound?output'" \
-    --subscribe volume volume_change
-
-sketchybar --add item mic right \
-    --set mic \
-    icon=󰍬 \
-    icon.color=$MAGENTA \
-    label="100%" \
-    update_freq=5 \
-    script="$PLUGIN_DIR/mic.sh" \
-    click_script="open 'x-apple.systempreferences:com.apple.preference.sound?input'"
-
-sketchybar --add item wifi right \
-    --set wifi \
-    padding_right=7 \
-    icon.color=$BLUE \
-    script="$PLUGIN_DIR/wifi.sh" \
-    click_script="open 'x-apple.systempreferences:com.apple.preference.network?Wi-Fi'" \
-    --subscribe wifi wifi_change mouse.clicked
-
-sketchybar --add item battery right \
-    --set battery \
-    update_freq=20 \
-    script="$PLUGIN_DIR/battery.sh"
+    script="$PLUGIN_DIR/cpu.sh"
 
 sketchybar --add item mem right \
     --set mem \
+    background.drawing=off \
     icon=󰍛 \
     icon.color=$YELLOW \
     update_freq=10 \
     script="$PLUGIN_DIR/mem.sh"
 
-sketchybar --add item cpu right \
-    --set cpu \
-    icon=󰻠 \
-    icon.color=$RED \
+sketchybar --add item battery right \
+    --set battery \
+    background.drawing=off \
+    update_freq=20 \
+    script="$PLUGIN_DIR/battery.sh"
+
+sketchybar --add item right.sep.3 right \
+    --set right.sep.3 \
+    icon.drawing=off \
+    label="|" \
+    label.font="$FONT_FACE:Bold:14.4" \
+    label.color=$GREY \
+    label.padding_left=2 \
+    label.padding_right=2 \
+    background.drawing=off
+
+sketchybar --add item mic right \
+    --set mic \
+    background.drawing=off \
+    icon=󰍬 \
+    icon.color=$MAGENTA \
+    label="100%" \
+    update_freq=5 \
+    script="$PLUGIN_DIR/mic.sh" \
+    click_script="open 'x-apple.systempreferences:com.apple.Sound-Settings.extension?input'"
+
+sketchybar --add item volume right \
+    --set volume \
+    background.drawing=off \
+    icon=󰕾 \
     update_freq=10 \
-    script="$PLUGIN_DIR/cpu.sh"
+    script="$PLUGIN_DIR/volume.sh" \
+    click_script="open 'x-apple.systempreferences:com.apple.Sound-Settings.extension?output'" \
+    --subscribe volume volume_change
+
+sketchybar --add item right.sep.2 right \
+    --set right.sep.2 \
+    icon.drawing=off \
+    label="|" \
+    label.font="$FONT_FACE:Bold:14.4" \
+    label.color=$GREY \
+    label.padding_left=2 \
+    label.padding_right=2 \
+    background.drawing=off
+
+sketchybar --add item bluetooth right \
+    --set bluetooth \
+    background.drawing=off \
+    update_freq=10 \
+    label.drawing=off \
+    script="$PLUGIN_DIR/bluetooth.sh" \
+    click_script="open 'x-apple.systempreferences:com.apple.BluetoothSettings'"
+
+sketchybar --add item wifi right \
+    --set wifi \
+    background.drawing=off \
+    padding_right=7 \
+    icon.color=$BLUE \
+    label.drawing=off \
+    script="$PLUGIN_DIR/wifi.sh" \
+    click_script="open 'x-apple.systempreferences:com.apple.wifi-settings-extension'" \
+    --subscribe wifi wifi_change mouse.clicked
+
+sketchybar --add item right.sep.1 right \
+    --set right.sep.1 \
+    icon.drawing=off \
+    label="|" \
+    label.font="$FONT_FACE:Bold:14.4" \
+    label.color=$GREY \
+    label.padding_left=2 \
+    label.padding_right=2 \
+    background.drawing=off
+
+sketchybar --add item launcher right \
+    --set launcher \
+    background.drawing=off \
+    icon=󰍉 \
+    icon.color=$BLACK \
+    label.drawing=off \
+    click_script="open -b com.raycast.macos"
+
+sketchybar --add bracket right.bubble cpu right.sep.4 settings mem battery right.sep.3 mic volume right.sep.2 bluetooth wifi right.sep.1 launcher \
+    --set right.bubble \
+    background.drawing=on \
+    background.color=$BACKGROUND_1 \
+    background.corner_radius=5 \
+    background.border_width=1 \
+    background.border_color=0xff000000 \
+    background.height=36 \
+    background.padding_left=9 \
+    background.padding_right=9
 
 sketchybar --update
 INFO=$(osascript -e 'tell application "System Events" to get name of first application process whose frontmost is true') NAME=front_app $PLUGIN_DIR/front_app.sh
@@ -126,4 +241,3 @@ NAME=bluetooth $PLUGIN_DIR/bluetooth.sh
 INFO="" NAME=wifi $PLUGIN_DIR/wifi.sh
 NAME=volume $PLUGIN_DIR/volume.sh
 NAME=mic $PLUGIN_DIR/mic.sh
-NAME=keyboard $PLUGIN_DIR/kbd.sh

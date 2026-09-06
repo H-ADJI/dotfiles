@@ -30,6 +30,7 @@
     xwayland.enable = true;
     configType = "lua";
     enable = true;
+    # TODO: fix ABI problem
     # plugins = [ pkgs.hyprlandPlugins.hypr-dynamic-cursors ];
     systemd = {
       variables = [ "--all" ];
