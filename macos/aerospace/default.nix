@@ -118,7 +118,11 @@
 
           # Actions
           alt-f = "fullscreen";
-          alt-shift-r = "reload-config";
+          alt-shift-r = [
+            "reload-config"
+            "exec-and-forget ${lib.getExe config.programs.sketchybar.finalPackage} --reload"
+            "exec-and-forget osascript -e 'display notification \"Config reloaded\" with title \"AeroSpace\"'"
+          ];
           alt-shift-f = "layout floating tiling";
           alt-q = "close";
 

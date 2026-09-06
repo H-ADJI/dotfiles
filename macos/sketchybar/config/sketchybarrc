@@ -56,7 +56,15 @@ sketchybar --add item front_app left \
     script="$PLUGIN_DIR/front_app.sh" \
     --subscribe front_app front_app_switched
 
-sketchybar --add item clock right \
+DISPLAY_COUNT=$(system_profiler SPDisplaysDataType 2>/dev/null | grep -c "Resolution")
+
+if [ "$DISPLAY_COUNT" -gt 1 ]; then
+    CLOCK_POSITION=center
+else
+    CLOCK_POSITION=right
+fi
+
+sketchybar --add item clock $CLOCK_POSITION \
     --set clock \
     icon=󰃰 \
     icon.color=$RED \
