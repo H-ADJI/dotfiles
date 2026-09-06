@@ -94,6 +94,9 @@
         "com.apple.mouse.tapBehavior" = 1;
         "com.apple.swipescrolldirection" = false;
       };
+      spaces = {
+        spans-displays = true;
+      };
       dock = {
         autohide = true;
         launchanim = false;

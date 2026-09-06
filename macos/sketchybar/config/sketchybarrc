@@ -56,15 +56,7 @@ sketchybar --add item front_app left \
     script="$PLUGIN_DIR/front_app.sh" \
     --subscribe front_app front_app_switched
 
-DISPLAY_COUNT=$(system_profiler SPDisplaysDataType 2>/dev/null | grep -c "Resolution")
-
-if [ "$DISPLAY_COUNT" -gt 1 ]; then
-    CLOCK_POSITION=center
-else
-    CLOCK_POSITION=right
-fi
-
-sketchybar --add item clock $CLOCK_POSITION \
+sketchybar --add item clock left \
     --set clock \
     icon=󰃰 \
     icon.color=$RED \
@@ -75,15 +67,33 @@ sketchybar --add item clock $CLOCK_POSITION \
 sketchybar --add item bluetooth right \
     --set bluetooth \
     update_freq=10 \
-    script="$PLUGIN_DIR/bluetooth.sh"
+    script="$PLUGIN_DIR/bluetooth.sh" \
+    click_script="open 'x-apple.systempreferences:com.apple.preference.bluetooth'"
 
+
+sketchybar --add item volume right \
+    --set volume \
+    icon=󰕾 \
+    update_freq=10 \
+    script="$PLUGIN_DIR/volume.sh" \
+    click_script="open 'x-apple.systempreferences:com.apple.preference.sound?output'" \
+    --subscribe volume volume_change
+
+sketchybar --add item mic right \
+    --set mic \
+    icon=󰍬 \
+    icon.color=$MAGENTA \
+    label="100%" \
+    update_freq=5 \
+    script="$PLUGIN_DIR/mic.sh" \
+    click_script="open 'x-apple.systempreferences:com.apple.preference.sound?input'"
 
 sketchybar --add item wifi right \
     --set wifi \
     padding_right=7 \
     icon.color=$BLUE \
-    label.width=0 \
     script="$PLUGIN_DIR/wifi.sh" \
+    click_script="open 'x-apple.systempreferences:com.apple.preference.network?Wi-Fi'" \
     --subscribe wifi wifi_change mouse.clicked
 
 sketchybar --add item battery right \
@@ -114,4 +124,6 @@ NAME=mem $PLUGIN_DIR/mem.sh
 NAME=battery $PLUGIN_DIR/battery.sh
 NAME=bluetooth $PLUGIN_DIR/bluetooth.sh
 INFO="" NAME=wifi $PLUGIN_DIR/wifi.sh
+NAME=volume $PLUGIN_DIR/volume.sh
+NAME=mic $PLUGIN_DIR/mic.sh
 NAME=keyboard $PLUGIN_DIR/kbd.sh
