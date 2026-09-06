@@ -1,10 +1,13 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  lib,
+  ...
+}:
 {
   home.packages = with pkgs; [ xre ];
-  xdg.configFile."television/config.toml".force = true;
   xdg.configFile."television/cable".source = ./cable;
 
-  # TODO: pi+tmux tv cable 
+  # TODO: pi+tmux tv cable
   programs.television = {
     enable = true;
     enableZshIntegration = true;
@@ -161,4 +164,8 @@
       };
     };
   };
+
+  programs.zsh.initContent = lib.mkAfter ''
+    bindkey "^f" tv-smart-autocomplete
+  '';
 }
