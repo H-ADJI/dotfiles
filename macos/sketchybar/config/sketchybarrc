@@ -69,31 +69,16 @@ sketchybar --add item front_app left \
     script="$PLUGIN_DIR/front_app.sh" \
     --subscribe front_app front_app_switched
 
-# External monitor present? -> clock stays a standalone center module,
-# otherwise it moves into the left workspace/app bubble
-DISPLAY_COUNT=$(system_profiler SPDisplaysDataType 2>/dev/null | grep -c "Resolution")
-CLOCK_IN_BUBBLE=false
-if [ "$DISPLAY_COUNT" -le 1 ]; then
-    CLOCK_IN_BUBBLE=true
-fi
-
-CLOCK_POS=center
-CLOCK_BG=on
-if [ "$CLOCK_IN_BUBBLE" = "true" ]; then
-    CLOCK_POS=left
-    CLOCK_BG=off
-fi
-
-sketchybar --add item clock $CLOCK_POS \
+sketchybar --add item clock center \
     --set clock \
     icon=󰃰 \
     icon.color=$RED \
     label="$(date '+%a %d %b  %H:%M')" \
-    background.drawing=$CLOCK_BG \
+    background.drawing=on \
     update_freq=30 \
     script="$PLUGIN_DIR/clock.sh"
 
-sketchybar --add bracket left.bubble space.1 space.2 space.3 space.4 space.5 space.sep front_app $( [ "$CLOCK_IN_BUBBLE" = "true" ] && echo clock ) \
+sketchybar --add bracket left.bubble space.1 space.2 space.3 space.4 space.5 space.sep front_app \
     --set left.bubble \
     background.drawing=on \
     background.color=$BACKGROUND_1 \
