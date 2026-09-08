@@ -33,8 +33,28 @@
       musnix,
       ...
     }@inputs:
+    let
+      devShellsFor =
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          default = pkgs.mkShell {
+            packages = with pkgs; [
+              yq-go
+            ];
+            shellHook = ''
+              export PATH="$PWD/common/git:$PATH"
+            '';
+          };
+
+          # alternative shell profile : nix develop .#special
+          special = pkgs.mkShell { };
+        };
+    in
     {
-      devShells = import ./shell.nix { inherit nixpkgs; };
+      devShells = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-darwin" ] devShellsFor;
 
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
