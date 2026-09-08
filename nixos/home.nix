@@ -1,4 +1,8 @@
-{ config, inputs, pkgs, ... }:
+{
+  inputs,
+  pkgs,
+  ...
+}:
 {
   home-manager = {
     useGlobalPkgs = true;
@@ -46,29 +50,31 @@
         ./xdg
         ./zathura
       ];
-      home.username = "khalil";
-      home.homeDirectory = "/home/khalil";
-      home.stateVersion = "26.05";
-      home.packages = with pkgs; [
-        # TODO: package : shuck / zshcs
-        bluetui
-        fd
-        fzf
-        gnugrep
-        google-chrome
-        htmlq
-        hyperfine
-        impala
-        libnotify
-        nerd-fonts.jetbrains-mono
-        playerctl
-        ripgrep
-        slurp
-        socat
-        tree
-        vial
-        wl-clipboard
-      ];
+      home = {
+        homeDirectory = "/home/khalil";
+        packages = with pkgs; [
+          # TODO: package : shuck / zshcs
+          bluetui
+          fd
+          fzf
+          gnugrep
+          google-chrome
+          htmlq
+          hyperfine
+          impala
+          libnotify
+          nerd-fonts.jetbrains-mono
+          playerctl
+          ripgrep
+          slurp
+          socat
+          tree
+          vial
+          wl-clipboard
+        ];
+        stateVersion = "26.05";
+        username = "khalil";
+      };
     };
   };
 }

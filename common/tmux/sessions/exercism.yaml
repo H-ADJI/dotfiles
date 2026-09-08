@@ -1,6 +1,7 @@
 session_name: Exercism
 suppress_history: true
 start_directory: ~/projects/exercism/
+repo: hh9dj/exercism.git
 windows:
   - window_name: "src"
     shell_command_before: nvim

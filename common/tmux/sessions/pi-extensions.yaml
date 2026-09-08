@@ -1,6 +1,7 @@
 session_name: Pi Extensions
 suppress_history: true
 start_directory: ~/projects/pi-agent-extensions/
+repo: hh9dj:pi-agent-extensions
 windows:
   - window_name: "editor"
     shell_command_before: nvim

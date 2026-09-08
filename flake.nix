@@ -44,28 +44,8 @@
       musnix,
       ...
     }@inputs:
-    let
-      forAllSystems = nixpkgs.lib.genAttrs [
-        "x86_64-linux"
-        "aarch64-darwin"
-      ];
-    in
     {
-      devShells = forAllSystems (
-        system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-        in
-        {
-          default = pkgs.mkShell {
-            packages = with pkgs; [
-            ];
-            shellHook = "";
-          };
-          # alternative shell profile : nix develop .#special
-          special = pkgs.mkShell { };
-        }
-      );
+      devShells = import ./shell.nix { inherit nixpkgs; };
 
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
@@ -84,12 +64,16 @@
           nix-homebrew.darwinModules.nix-homebrew
           home-manager.darwinModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {
-              inherit inputs;
+            home-manager = {
+              extraSpecialArgs = {
+                inherit inputs;
+              };
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users = {
+                khalil = import ./macos/home.nix;
+              };
             };
-            home-manager.users.khalil = import ./macos/home.nix;
           }
         ];
       };

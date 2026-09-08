@@ -1,6 +1,7 @@
 session_name: zmk
 suppress_history: true
 start_directory: ~/projects/zmk-config/
+repo: hh9dj:zmk-config
 windows:
   - window_name: "src"
     shell_command_before: nvim
